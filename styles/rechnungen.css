@@ -1,0 +1,224 @@
+.status-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.status-badge.success { background-color: var(--success); color: white; }
+.status-badge.warning { background-color: var(--danger); color: white; }
+.status-badge.draft   { background-color: var(--warning); color: white; }
+
+/* Kennzeichen-Styling */
+.license-plate {
+    display: inline-flex;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    background: white;
+    border: 2px solid var(--gray-300);
+    border-radius: 4px;
+    overflow: hidden;
+    font-family: monospace;
+}
+.license-country {
+    padding-top: 26px;
+    width: 12px;
+    background-color: var(--primary);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 7px;
+    color: white;
+    padding-bottom: 1px;
+    height: 100%;
+}
+.license-code {
+    padding: 0 0.5rem;
+    color: var(--gray-800);
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Action-Buttons */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+.action-btn {
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+.create-btn {
+    background-color: var(--primary);
+    color: white;
+}
+.export-btn {
+    background-color: var(--gray-200);
+    color: var(--gray-800);
+}
+.create-btn:hover {
+    background-color: var(--primary-dark);
+}
+.export-btn:hover {
+    background-color: var(--gray-300);
+}
+
+/* Tabelle */
+html, body { overflow-x: hidden; background-color: #ffffff; }
+.parts-table { overflow-x: hidden; background: transparent; }
+.parts-table table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+}
+.parts-table th,
+.parts-table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.parts-table col:nth-child(1) { width: 10%; }
+.parts-table col:nth-child(2) { width: 12%; }
+.parts-table col:nth-child(3) { width: 12%; }
+.parts-table col:nth-child(4) { width: 20%; }
+.parts-table col:nth-child(5) { width: 18%; }
+.parts-table col:nth-child(6) { width: 15%; }
+.parts-table col:nth-child(7) { width: 13%; }
+
+
+@media (max-width: 1090px) {
+
+
+
+  .parts-table thead { display: none; }
+  .parts-table table,
+  .parts-table tbody {
+    display: block;
+    width: 100%;
+    background: transparent; /* Hintergrund der Tabelle transparent */
+    
+  }
+  .parts-table tbody tr {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    background: #ffffff; /* Hintergrund der Karte bleibt weiß */
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem; /* Abstand zwischen Karten wiederherstellen */
+    padding: 1rem;
+    border-left: 4px solid var(--primary);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .parts-table tbody tr:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  }
+  .parts-table tbody tr td { display: none; }
+  .parts-table tbody tr td:nth-child(1),
+  .parts-table tbody tr td:nth-child(2),
+  .parts-table tbody tr td:nth-child(3),
+  .parts-table tbody tr td:nth-child(4),
+  .parts-table tbody tr td:nth-child(5),
+  .parts-table tbody tr td:nth-child(6),
+  .parts-table tbody tr td:nth-child(7) {
+    display: block;
+  }
+  /* Erste Zeile: Rechnungsnummer (links) / Status (rechts) */
+  .parts-table tbody tr td:nth-child(1) {
+    order: 1;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--primary);
+    width: 50%;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+  .parts-table tbody tr td:nth-child(1)::before {
+    content: "#";
+    color: var(--gray-400);
+    margin-right: 0.25rem;
+  }
+  .parts-table tbody tr td:nth-child(6) {
+    order: 2;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8125rem;
+    display: inline-block;
+    width: 50%;
+    text-align: right;
+    margin-bottom: 0.75rem;
+  }
+  /* Zweite Zeile: Kunde (links) / Fahrzeug (rechts) */
+  .parts-table tbody tr td:nth-child(4) {
+    order: 3;
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--gray-800);
+    width: 50%;
+    display: inline-block;
+    margin-bottom: 0.75rem;
+  }
+  .parts-table tbody tr td:nth-child(5) {
+    order: 4;
+    font-size: 0.9375rem;
+    color: var(--gray-700);
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+    margin-bottom: 0.75rem;
+  }
+  /* Dritte Zeile: Datum (links) / Fälligkeit (rechts) */
+  .parts-table tbody tr td:nth-child(2) {
+    order: 5;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    width: 50%;
+    display: inline-block;
+  }
+  .parts-table tbody tr td:nth-child(2)::before {
+    content: "📅 ";
+    font-weight: 500;
+    color: var(--gray-700);
+  }
+  .parts-table tbody tr td:nth-child(3) {
+    order: 6;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+    width: 50%;
+    display: inline-block;
+    text-align: right;
+  }
+  .parts-table tbody tr td:nth-child(3)::before {
+    content: "⏳ ";
+    font-weight: 500;
+    color: var(--gray-700);
+  }
+  /* Preis (unten rechts) */
+  .parts-table tbody tr td:nth-child(7) {
+    order: 7;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--white);
+    background-color: var(--primary);
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-md);
+    align-self: flex-end;
+    margin-top: 0.5rem;
+  }
+
+  
+}

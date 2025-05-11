@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fahrzeuge | mt.cars</title>
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/kunden.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        
+        .vehicle-list {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .vehicle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .vehicle-search {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+
+        .vehicle-search input {
+            width: 100%;
+            padding: 0.75rem 2.5rem 0.75rem 1rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+
+        .vehicle-search i {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-500);
+        }
+
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .vehicle-card {
+            border: 2px solid var(--gray-100);
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            cursor: pointer;
+        }
+
+        .vehicle-image {
+            height: 180px;
+            background-color: var(--gray-50);
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .vehicle-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .vehicle-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            margin-bottom: 0.25rem;
+        }
+
+        .vehicle-details {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            margin-bottom: 0.5rem;
+        }
+
+        .vehicle-status {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .status-ready {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .status-in-progress {
+            background: #fef9c3;
+            color: #ca8a04;
+        }
+
+        .status-warning {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+
+        .vehicle-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            color: var(--gray-800);
+        }
+
+        @media (max-width: 768px) {
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .vehicle-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .vehicle-search {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <header class="header карткаheader">
+        <div class="header-left">
+            <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="logo-title">
+                <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+                <div class="title">mt.cars</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-actions">
+                <div class="icons">
+                    <button class="icon-btn"><i class="fas fa-smile"></i></button>
+                    <button class="icon-btn notification"><i class="fas fa-bell"></i><span class="badge">3</span></button>
+                    <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+                    <button class="icon-btn"><i class="fas fa-cog"></i></button>
+                </div>
+                <a href="#" class="detail-link">Detaillierte Kundenübersicht</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar">MA</div>
+                    <div class="user-info">
+                        <div class="user-name">Max Mustermann</div>
+                        <div class="user-role">Werkstatt</div>
+                    </div>
+                </div>
+                <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Übersicht</span></a></li>
+                    <li><a href="./kunden.html"><i class="fas fa-users"></i> <span>Kunden</span></a></li>
+                    <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> <span>Kalender</span></a></li>
+                    <li class="active"><a href="fahrzeuge.html"><i class="fas fa-car"></i> <span>Fahrzeuge</span></a></li>
+                    <li><a href="angebote.html"><i class="fas fa-file-alt"></i> <span>Angebote</span></a></li>
+                    <li><a href="auftraege.html"><i class="fas fa-wrench"></i> <span>Aufträge</span></a></li>
+                    <li><a href="rechnungen.html"><i class="fas fa-file-invoice"></i> <span>Rechnungen</span></a></li>
+                    <li><a href="kassenbuch.html"><i class="fas fa-wallet"></i> <span>Kassenbuch</span></a></li>
+                    <li><a href="./lagerbestand.html"><i class="fas fa-list"></i> <span>Lagerbestand</span></a></li>
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="report-toggle" class="submenu-toggle">
+                        <label for="report-toggle" class="submenu-label">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Berichte</span>
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="reports/emails.html"><i class="fas fa-envelope"></i> <span>gesendete E-Mails</span></a></li>
+                            <li><a href="reports/trash.html"><i class="fas fa-trash"></i> <span>Papierkorb</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="main-header"><h1>Fahrzeuge</h1></div>
+            
+            
+            <div class="section-title">Aktuelle Fahrzeuge in der Werkstatt</div>
+            <div class="vehicle-list">
+                <div class="vehicle-header">
+                    <div class="vehicle-search">
+                        <input type="text" placeholder="Fahrzeug suchen...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <button class="action-btn primary"><i class="fas fa-plus"></i> Neues Fahrzeug</button>
+                </div>
+
+                <div class="vehicle-grid">
+                    <div class="vehicle-card">
+                        <div class="vehicle-image">
+                            <img src="../img/placeholder-car1.jpeg" alt="Fahrzeug">
+                        </div>
+                        <div class="vehicle-meta">
+                            <div class="vehicle-status status-in-progress">In Reparatur</div>
+                            <div class="vehicle-details">KM: 123.456</div>
+                        </div>
+                        <h3 class="vehicle-title">VW Golf VIII</h3>
+                        <div class="vehicle-details">
+                            <div>Kennzeichen: M-MS-1234</div>
+                            <div>FIN: WVWZZZAUZNW123456</div>
+                            <div>Auftrag: Inspektion & Bremsen</div>
+                        </div>
+                        <div class="vehicle-actions">
+                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-card">
+                        <div class="vehicle-image">
+                            <img src="../img/placeholder-car2.jpeg" alt="Fahrzeug">
+                        </div>
+                        <div class="vehicle-meta">
+                            <div class="vehicle-status status-in-progress">In Inspektion</div>
+                            <div class="vehicle-details">KM: 89.245</div>
+                        </div>
+                        <h3 class="vehicle-title">BMW 3er G20</h3>
+                        <div class="vehicle-details">
+                            <div>Kennzeichen: M-BM-5678</div>
+                            <div>FIN: WBA7Y310XKGV12345</div>
+                            <div>Auftrag: Jahresinspektion</div>
+                        </div>
+                        <div class="vehicle-actions">
+                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="section-title">Bevorstehende Termine</div>
+            <div class="vehicle-list">
+                <div class="vehicle-header">
+                    <div class="vehicle-search">
+                        <input type="text" placeholder="Fahrzeug suchen...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+
+                <div class="vehicle-grid">
+                    <div class="vehicle-card">
+                        <div class="vehicle-image">
+                            <img src="../img/Placeholder-car-4.jpg" alt="Fahrzeug">
+                        </div>
+                        <div class="vehicle-meta">
+                            <div class="vehicle-status status-warning">Termin 28.04.2025</div>
+                            <div class="vehicle-details">KM: 45.789</div>
+                        </div>
+                        <h3 class="vehicle-title">Audi A4 B9</h3>
+                        <div class="vehicle-details">
+                            <div>Kennzeichen: M-AD-9012</div>
+                            <div>FIN: WAUZZZF49KA123456</div>
+                            <div>Geplanter Service: Ölwechsel</div>
+                        </div>
+                        <div class="vehicle-actions">
+                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="section-title">Alle Fahrzeuge</div>
+            <div class="vehicle-list">
+                <div class="vehicle-header">
+                    <div class="vehicle-search">
+                        <input type="text" placeholder="Fahrzeug suchen...">
+                        <i class="fas fa-search"></i>
+                    </div>
+                </div>
+
+                <div class="vehicle-grid">
+                    <div class="vehicle-card">
+                        <div class="vehicle-image">
+                            <img src="../img/Placeholder-car-3.jpg" alt="Fahrzeug">
+                        </div>
+                        <div class="vehicle-meta">
+                            
+                            <div class="vehicle-details">KM: 123.456</div>
+                        </div>
+                        <h3 class="vehicle-title">VW Golf VIII</h3>
+                        <div class="vehicle-details">
+                            <div>Kennzeichen: M-MS-1234</div>
+                            <div>FIN: WVWZZZAUZNW123456</div>
+                            <div>Nächste HU: 12/2025</div>
+                        </div>
+                        <div class="vehicle-actions">
+                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-card">
+                        <div class="vehicle-image">
+                            <img src="../img/placeholder-car2.jpeg" alt="Fahrzeug">
+                        </div>
+                        <div class="vehicle-meta">
+                            
+                            <div class="vehicle-details">KM: 89.245</div>
+                        </div>
+                        <h3 class="vehicle-title">BMW 3er G20</h3>
+                        <div class="vehicle-details">
+                            <div>Kennzeichen: M-BM-5678</div>
+                            <div>FIN: WBA7Y310XKGV12345</div>
+                            <div>Nächste HU: 06/2024</div>
+                        </div>
+                        <div class="vehicle-actions">
+                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                        </div>
+                    </div>
+
+                    <div class="vehicle-card">
+                        <div class="vehicle-image">
+                            <img src="../img/Placeholder-car-4.jpg" alt="Fahrzeug">
+                        </div>
+                        <div class="vehicle-meta">
+                            
+                            <div class="vehicle-details">KM: 45.789</div>
+                        </div>
+                        <h3 class="vehicle-title">Audi A4 B9</h3>
+                        <div class="vehicle-details">
+                            <div>Kennzeichen: M-AD-9012</div>
+                            <div>FIN: WAUZZZF49KA123456</div>
+                            <div>Nächste HU: 03/2025</div>
+                        </div>
+                        <div class="vehicle-actions">
+                            <button class="action-btn"><i class="fas fa-edit"></i></button>
+                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+    (() => {
+        const menuToggle = document.getElementById('menu-toggle');
+        document.querySelectorAll('.menu-icon, .close-btn').forEach(item => {
+            item.addEventListener('click', () => {
+                menuToggle.checked = !menuToggle.checked;
+            });
+        });
+    })();
+    </script>
+</body>
+</html>

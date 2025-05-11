@@ -1,0 +1,248 @@
+:root {
+    --primary-color: #3B82F6;
+    --secondary-color: #60A5FA;
+    --background-color: #F3F4F6;
+    --card-background: rgba(255, 255, 255, 0.95);
+    --text-color: #1F2937;
+    --border-color: #E5E7EB;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--background-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+    overflow: hidden;
+  }
+  
+  .main-container {
+    width: 100%;
+    max-width: 480px;
+    margin: 1rem;
+  }
+  
+  /* Card-Container */
+  .auth-container {
+    background: var(--card-background);
+    padding: 2.5rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    position: relative;
+    /* overflow: visible statt hidden, damit größere Formulare nicht abgeschnitten werden */
+    overflow: visible;
+    animation: fadeIn 0.6s ease-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0);     }
+  }
+  
+  .logo-container {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .logo {
+    width: 100px;
+    transition: transform 0.3s ease;
+  }
+  .logo:hover {
+    transform: scale(1.05);
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-top: 0.5rem;
+  }
+  
+  .form-toggle {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+    background: var(--border-color);
+    padding: 0.25rem;
+    border-radius: 8px;
+  }
+  
+  .toggle-btn {
+    flex: 1;
+    padding: 0.75rem;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  .toggle-btn.active {
+    background: var(--primary-color);
+    color: white;
+    box-shadow: 0 2px 8px var(--shadow-color);
+  }
+  
+  /* FORM-CONTAINER */
+  .forms-wrapper {
+    position: relative;
+    /* hoch genug, um das ganze Registrieren-Formular aufzunehmen */
+    min-height: 380px;
+  }
+  
+  .auth-form {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease-in-out;
+  }
+  .auth-form.active {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .auth-form:not(.active) {
+    pointer-events: none;
+  }
+  
+  .input-group {
+    position: relative;
+    margin: 1.25rem 0;
+  }
+  
+  /* Dekorative Icons links */
+  .input-group i:not(.toggle-password) {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+    pointer-events: none;
+    z-index: 2;
+  }
+  
+  /* Eingabefeld über den Icons, damit es vollständig klickbar bleibt */
+  .input-group input {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 0.9rem 0.9rem 0.9rem 2.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: white;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+  
+  .input-group input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    /* nur innerer Fokus-Ring */
+    box-shadow: inset 0 0 0 2px rgba(59, 130, 246, 0.3);
+  }
+  
+  /* Augen-Icon ganz oben */
+  .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+    z-index: 3;
+  }
+  .toggle-password:hover {
+    color: var(--primary-color);
+  }
+  
+  .options-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem 0;
+    font-size: 0.85rem;
+  }
+  
+  .remember-me {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+  
+  .checkmark {
+    width: 16px;
+    height: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    position: relative;
+  }
+  .remember-me input {
+    display: none;
+  }
+  .remember-me input:checked + .checkmark {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+  }
+  .remember-me input:checked + .checkmark::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    color: white;
+    font-size: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
+  .forgot-pw {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .forgot-pw:hover {
+    color: var(--primary-color);
+  }
+  
+  .auth-btn {
+    width: 100%;
+    padding: 0.9rem;
+    border: none;
+    border-radius: 8px;
+    background: var(--primary-color);
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .auth-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow-color);
+  }
+  
+  @media (max-width: 480px) {
+    .auth-container { padding: 1.5rem; }
+    .logo { width: 80px; }
+    h1 { font-size: 1.3rem; }
+    .toggle-btn { padding: 0.6rem; font-size: 0.9rem; }
+    .input-group input { padding: 0.8rem 0.8rem 0.8rem 2.2rem; }
+    .auth-btn { padding: 0.8rem; }
+  }
+  

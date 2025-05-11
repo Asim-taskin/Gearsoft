@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Fahrzeug-Details – mt.cars</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/ersatzteile.css">
+  <link rel="stylesheet" href="../styles/verkaufsfahrzeug-detail.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+      <div class="logo-title">
+        <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+        <div class="title">mt.cars</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-actions">
+        <div class="icons">
+          <button class="icon-btn"><i class="fas fa-smile"></i></button>
+          <button class="icon-btn notification">
+            <i class="fas fa-bell"></i><span class="badge">0</span>
+          </button>
+          <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+          <button class="icon-btn"><i class="fas fa-cog"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-profile">
+          <div class="avatar">MA</div>
+          <div class="user-info">
+            <div class="user-name">Max Mustermann</div>
+            <div class="user-role">Werkstatt</div>
+          </div>
+        </div>
+        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+          <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+          <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
+          <li><a href="./verkaufsfahrzeuge.html"><i class="fas fa-tag"></i> Verkauf</a></li>
+          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+            <label for="lagerbestand-toggle" class="submenu-label">
+              <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./reifen.html"><i class="fas fa-tire"></i> Reifen</a></li>
+              <li><a href="./oele.html"><i class="fas fa-oil-can"></i> Öle & Flüssigkeiten</a></li>
+              <li><a href="./ersatzteile.html"><i class="fas fa-cogs"></i> Ersatzteile</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+            <label for="berichte-toggle" class="submenu-label">
+              <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="main-header">
+        <button class="card-btn outline" onclick="history.back()">
+          <i class="fas fa-arrow-left"></i> Zurück
+        </button>
+        <h1>VW Golf VII</h1>
+        <div class="breadcrumb">
+          Verkauf / Fahrzeuge zum Verkauf / VW Golf VII
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <!-- Bilder-Karussell -->
+        <div class="carousel">
+          <img src="../img/golf.jpg" alt="VW Golf VII Front">
+          <img src="../img/interior.jpg" alt="VW Golf VII Armaturen">
+          <img src="../img/heck.jpg" alt="VW Golf VII Heck">
+        </div>
+
+        <!-- Technische Daten -->
+        <div class="detail-section">
+          <h2>Technische Daten</h2>
+          <ul>
+            <li>Baujahr: 2018</li>
+            <li>Kilometerstand: 75.000 km</li>
+            <li>Leistung: 85 kW / 115 PS</li>
+            <li>Kraftstoff: Benzin</li>
+            <li>Getriebe: Automatik</li>
+          </ul>
+        </div>
+
+        <!-- Finanzübersicht -->
+        <div class="detail-section">
+          <h2>Finanzen</h2>
+          <table>
+            <tr><th>Kaufpreis</th><td>€ 9.500,00</td></tr>
+            <tr><th>Investitionen</th><td>€ 1.200,00</td></tr>
+            <tr><th>Gesamtkosten</th><td>€ 10.700,00</td></tr>
+            <tr><th>Verkaufspreis</th><td>€ 12.900,00</td></tr>
+            <tr><th>Gewinn</th><td>€ 2.200,00</td></tr>
+          </table>
+        </div>
+
+        <!-- Dokumente -->
+        <div class="detail-section">
+          <h2>Dokumente</h2>
+          <ul class="doc-list">
+            <li>
+              <a href="../docs/kaufvertrag_golf.pdf" target="_blank">
+                <i class="fas fa-file-pdf"></i> Kaufvertrag.pdf
+              </a>
+            </li>
+            <li>
+              <a href="../docs/rechnung_inspektion.pdf" target="_blank">
+                <i class="fas fa-file-invoice"></i> Rechnung Inspektion.pdf
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Aktionen -->
+        <div class="detail-actions">
+          <button class="action-btn"><i class="fas fa-edit"></i> Bearbeiten</button>
+          <button class="action-btn"><i class="fas fa-dollar-sign"></i> Verkauf verbuchen</button>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

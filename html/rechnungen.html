@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Rechnungen – mt.cars</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/ersatzteile.css">
+  <link rel="stylesheet" href="../styles/auftraege.css">
+  <link rel="stylesheet" href="../styles/rechnungen.css">
+  <link rel="stylesheet" href="../styles/todos-kalender.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+  <header class="header">
+    <div class="header-left">
+      <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+      <div class="logo-title">
+        <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+        <div class="title">mt.cars</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="icons">
+        <button class="icon-btn"><i class="fas fa-smile"></i></button>
+        <button class="icon-btn notification"><i class="fas fa-bell"></i><span class="badge">0</span></button>
+        <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+        <button class="icon-btn"><i class="fas fa-cog"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-profile">
+          <div class="avatar">MA</div>
+          <div class="user-info">
+            <div class="user-name">Max Mustermann</div>
+            <div class="user-role">Werkstatt</div>
+          </div>
+        </div>
+        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+          <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+          <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
+          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+          <li class="active"><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+            <label for="lagerbestand-toggle" class="submenu-label">
+              <i class="fas fa-list"></i>
+              Lagerbestand
+              <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./reifen.html"><i class="fas fa-tire"></i> Reifen</a></li>
+              <li><a href="./oele.html"><i class="fas fa-oil-can"></i> Öle & Flüssigkeiten</a></li>
+              <li><a href="./ersatzteile.html"><i class="fas fa-cogs"></i> Ersatzteile</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+            <label for="berichte-toggle" class="submenu-label">
+              <i class="fas fa-chart-bar"></i>
+              Berichte
+              <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    
+
+    <main class="main-content">
+      <div class="main-header">
+        <div class="flex-header">
+          <div>
+            <h1>Rechnungen</h1>
+            <div class="breadcrumb">Rechnungen</div>
+          </div>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Suchen..." id="invoiceSearch">
+          </div>
+        </div>
+        <div class="status-tabs">
+          <button class="status-tab nav-button"><i class="fas fa-wrench"></i> Auftrag</button>
+          <button class="status-tab"><i class="fas fa-check"></i> Bezahlt</button>
+          <button class="status-tab"><i class="fas fa-undo-alt"></i> Storno/Gutschrift</button>
+          <button class="status-tab active"><i class="fas fa-hourglass-half"></i> Offen</button>
+          <button class="status-tab"><i class="fas fa-file-alt"></i> Entwurf</button>
+          <button class="status-tab"><i class="fas fa-folder-open"></i> Alle</button>
+        </div>
+        <div class="action-buttons">
+          <button class="action-btn create-btn"><i class="fas fa-plus"></i> Rechnung erstellen</button>
+          <button class="action-btn export-btn"><i class="fas fa-file-export"></i> Exportieren</button>
+        </div>
+      </div>
+
+
+
+      <div class="parts-table">
+        <table>
+          <colgroup>
+            <col style="width:10%;">
+            <col style="width:12%;">
+            <col style="width:12%;">
+            <col style="width:20%;">
+            <col style="width:18%;">
+            <col style="width:15%;">
+            <col style="width:13%;">
+          </colgroup>
+          <thead>
+            <tr>
+              <th>Rechnungsnr.</th>
+              <th>Datum</th>
+              <th>Fällig am</th>
+              <th>Kunde</th>
+              <th>Fahrzeug</th>
+              <th>Status</th>
+              <th>Gesamt</th>
+            </tr>
+          </thead>
+          <tbody id="invoicesBody">
+            <tr data-status="Bezahlt">
+              <td>#RE-2001</td>
+              <td>02.05.2025</td>
+              <td>09.05.2025</td>
+              <td>Müller GmbH</td>
+              <td>
+                <span class="license-plate">
+                  <span class="license-country">A</span>
+                  <span class="license-code">LL-852-SH</span>
+                </span>
+                / Audi
+              </td>
+              <td><span class="status-badge success">Bezahlt</span></td>
+              <td>€ 1.450,00</td>
+            </tr>
+            <tr data-status="Storno/Gutschrift">
+              <td>#RE-2002</td>
+              <td>03.05.2025</td>
+              <td>10.05.2025</td>
+              <td>Autohaus Schmidt</td>
+              <td>
+                <span class="license-plate">
+                  <span class="license-country">A</span>
+                  <span class="license-code">SD-884FM</span>
+                </span>
+                / Mercedes-Benz
+              </td>
+              <td><span class="status-badge warning">Storno/Gutschrift</span></td>
+              <td>€ 0,00</td>
+            </tr>
+            <tr data-status="Offen">
+              <td>#RE-2003</td>
+              <td>05.05.2025</td>
+              <td>12.05.2025</td>
+              <td>Becker KG</td>
+              <td>
+                <span class="license-plate">
+                  <span class="license-country">A</span>
+                  <span class="license-code">AB-123-CD</span>
+                </span>
+                / VW Golf
+              </td>
+              <td><span class="status-badge warning">Offen</span></td>
+              <td>€ 780,00</td>
+            </tr>
+            <tr data-status="Entwurf">
+              <td>#RE-2004</td>
+              <td>06.05.2025</td>
+              <td>13.05.2025</td>
+              <td>Werkstatt Müller</td>
+              <td>
+                <span class="license-plate">
+                  <span class="license-country">A</span>
+                  <span class="license-code">EF-456-YZ</span>
+                </span>
+                / BMW 3er
+              </td>
+              <td><span class="status-badge draft">Entwurf</span></td>
+              <td>€ 620,00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    document.querySelector('.status-tab.nav-button')
+      .addEventListener('click', () => location.href = './auftraege.html');
+    const tabs = document.querySelectorAll('.status-tab:not(.nav-button)');
+    const rows = document.querySelectorAll('#invoicesBody tr');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const filter = tab.textContent.trim();
+        rows.forEach(r => {
+          r.style.display = (filter === 'Alle' || r.dataset.status === filter) ? '' : 'none';
+        });
+      });
+    });
+
+    // Neues JavaScript für das Widget
+    const widgetHeader = document.querySelector('.widget-header');
+    const widgetContent = document.querySelector('.widget-content');
+    const chevron = widgetHeader.querySelector('i.fa-chevron-down');
+
+    widgetHeader.addEventListener('click', () => {
+      widgetContent.classList.toggle('active');
+      chevron.style.transform = widgetContent.classList.contains('active') 
+        ? 'rotate(180deg)' 
+        : 'rotate(0deg)';
+    });
+
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const tabContents = document.querySelectorAll('.tab-content');
+
+    tabButtons.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.tab;
+        
+        tabButtons.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        tabContents.forEach(content => {
+          content.classList.remove('active');
+          if(content.id === target) content.classList.add('active');
+        });
+      });
+    });
+
+    document.querySelectorAll('.todo-item input[type="checkbox"]').forEach(checkbox => {
+      checkbox.addEventListener('change', function() {
+        this.parentElement.classList.toggle('completed', this.checked);
+      });
+    });
+  </script>
+</body>
+</html>

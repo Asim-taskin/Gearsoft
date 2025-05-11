@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Angebote – mt.cars</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/ersatzteile.css">
+  <link rel="stylesheet" href="../styles/angebote.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+      <div class="logo-title">
+        <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+        <div class="title">mt.cars</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-actions">
+        <div class="icons">
+          <button class="icon-btn"><i class="fas fa-smile"></i></button>
+          <button class="icon-btn notification">
+            <i class="fas fa-bell"></i>
+            <span class="badge">3</span>
+          </button>
+          <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+          <button class="icon-btn"><i class="fas fa-cog"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-profile">
+          <div class="avatar">MA</div>
+          <div class="user-info">
+            <div class="user-name">Max Mustermann</div>
+            <div class="user-role">Werkstatt</div>
+          </div>
+        </div>
+        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+          <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+          <li><a href="./angebote.html" class="active"><i class="fas fa-file-alt"></i> Angebote</a></li>
+          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+            <label for="lagerbestand-toggle" class="submenu-label">
+              <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./reifen.html"><i class="fas fa-tire"></i> Reifen</a></li>
+              <li><a href="./oele.html"><i class="fas fa-oil-can"></i> Öle & Flüssigkeiten</a></li>
+              <li><a href="./ersatzteile.html"><i class="fas fa-cogs"></i> Ersatzteile</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+            <label for="berichte-toggle" class="submenu-label">
+              <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <div class="main-header">
+        <div class="flex-header">
+          <div>
+            <h1>Angebote</h1>
+            <div class="breadcrumb">Angebote</div>
+          </div>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Suchen..." id="searchOffers">
+          </div>
+        </div>
+        <div class="action-bar">
+          <button class="card-btn with-icon"><i class="fas fa-plus"></i> Angebot erstellen</button>
+          <button class="card-btn outline"><i class="fas fa-file-export"></i> Exportieren</button>
+          <span class="item-count">11 Angebote</span>
+        </div>
+      </div>
+
+      <div class="parts-table">
+        <table>
+          <thead>
+            <tr>
+              <th><input type="checkbox"></th>
+              <th>Nummer</th>
+              <th>Erstellt am <i class="fas fa-chevron-down"></i></th>
+              <th>Kunde</th>
+              <th>Fahrzeug</th>
+              <th>Ertrag</th>
+              <th>Gesamt</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>133</td>
+              <td>09.05.2025</td>
+              <td>–</td>
+              <td>–</td>
+              <td class="ertrag">
+                <span class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </span>
+              </td>
+              <td class="text-success">2 000,00 €</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>132</td>
+              <td>08.05.2025</td>
+              <td>–</td>
+              <td>–</td>
+              <td class="ertrag">
+                <span class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </span>
+              </td>
+              <td class="text-success">79,10 €</td>
+            </tr>
+            <tr>
+              <td><input type="checkbox"></td>
+              <td>131</td>
+              <td>08.05.2025</td>
+              <td>Bingöl Muhammed</td>
+              <td>LL-852-SH | Jaguar</td>
+              <td class="ertrag">
+                <span class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                  <i class="far fa-star"></i>
+                </span>
+              </td>
+              <td class="text-success">354,73 €</td>
+            </tr>
+            <!-- weitere Zeilen… -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

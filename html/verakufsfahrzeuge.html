@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Fahrzeuge zum Verkauf – mt.cars</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/ersatzteile.css">
+  <link rel="stylesheet" href="../styles/verkaufsfahrzeuge.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+  <!-- Header -->
+  <header class="header">
+    <div class="header-left">
+      <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+      <div class="logo-title">
+        <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+        <div class="title">mt.cars</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-actions">
+        <div class="icons">
+          <button class="icon-btn"><i class="fas fa-smile"></i></button>
+          <button class="icon-btn notification">
+            <i class="fas fa-bell"></i>
+            <span class="badge">3</span>
+          </button>
+          <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+          <button class="icon-btn"><i class="fas fa-cog"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-profile">
+          <div class="avatar">MA</div>
+          <div class="user-info">
+            <div class="user-name">Max Mustermann</div>
+            <div class="user-role">Werkstatt</div>
+          </div>
+        </div>
+        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+          <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+          <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
+          <li class="active"><a href="./verkaufsfahrzeuge.html"><i class="fas fa-tag"></i> Verkauf</a></li>
+          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="verkauf-toggle" class="submenu-toggle">
+            <label for="verkauf-toggle" class="submenu-label">
+              <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./reifen.html"><i class="fas fa-tire"></i> Reifen</a></li>
+              <li><a href="./oele.html"><i class="fas fa-oil-can"></i> Öle & Flüssigkeiten</a></li>
+              <li><a href="./ersatzteile.html"><i class="fas fa-cogs"></i> Ersatzteile</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+            <label for="berichte-toggle" class="submenu-label">
+              <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Kopfzeile -->
+      <div class="main-header">
+        <div class="flex-header">
+          <div>
+            <h1>Fahrzeuge zum Verkauf</h1>
+            <div class="breadcrumb">Verkauf / Fahrzeuge zum Verkauf</div>
+          </div>
+          <button class="card-btn with-icon"><i class="fas fa-plus"></i> Neues Fahrzeug</button>
+        </div>
+
+        <!-- Suche + Filter -->
+        <div class="search-filter">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Suche (Marke, Modell…)" id="searchVehicle">
+          </div>
+          <div class="filter-group">
+            <select class="filter-select">
+              <option value="">Alle Marken</option>
+              <option>VW</option>
+              <option>BMW</option>
+              <option>Audi</option>
+              <option>Mercedes</option>
+            </select>
+            <select class="filter-select">
+              <option value="">Status</option>
+              <option value="available">Verfügbar</option>
+              <option value="sold">Verkauft</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fahrzeug-Karten -->
+      <div class="card-grid">
+        <div class="card">
+          <img src="../img/golf.jpg" alt="VW Golf VII">
+          <div class="card-content">
+            <h3>VW Golf VII</h3>
+            <p>Bj. 2018 • 75.000 km</p>
+            <p><strong>€ 12.900</strong></p>
+          </div>
+          <div class="card-actions">
+            <a href="verkaufsfahrzeug-detail.html?id=1" class="card-btn">Details</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="../img/bmw.jpg" alt="BMW 3er">
+          <div class="card-content">
+            <h3>BMW 3er F30</h3>
+            <p>Bj. 2017 • 82.000 km</p>
+            <p><strong>€ 14.500</strong></p>
+          </div>
+          <div class="card-actions">
+            <a href="verkaufsfahrzeug-detail.html?id=2" class="card-btn">Details</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="../img/audi.jpg" alt="Audi A4">
+          <div class="card-content">
+            <h3>Audi A4 B9</h3>
+            <p>Bj. 2019 • 60.000 km</p>
+            <p><strong>€ 18.200</strong></p>
+          </div>
+          <div class="card-actions">
+            <a href="verkaufsfahrzeug-detail.html?id=3" class="card-btn">Details</a>
+          </div>
+        </div>
+
+        <div class="card">
+          <img src="../img/mercedes.jpg" alt="Mercedes C-Klasse">
+          <div class="card-content">
+            <h3>Mercedes C Klasse</h3>
+            <p>Bj. 2016 • 95.000 km</p>
+            <p><strong>€ 16.800</strong></p>
+          </div>
+          <div class="card-actions">
+            <a href="verkaufsfahrzeug-detail.html?id=4" class="card-btn">Details</a>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ersatzteile - mt.cars</title>
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/ersatzteile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    
+    <header class="header">
+        <div class="header-left">
+            <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="logo-title">
+                <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+                <div class="title">mt.cars</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-actions">
+                <div class="icons">
+                    <button class="icon-btn"><i class="fas fa-smile"></i></button>
+                    <button class="icon-btn notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+                    <button class="icon-btn"><i class="fas fa-cog"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar">MA</div>
+                    <div class="user-info">
+                        <div class="user-name">Max Mustermann</div>
+                        <div class="user-role">Werkstatt</div>
+                    </div>
+                </div>
+                <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+                    <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+                    <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+                    <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Angebote</a></li>
+                    <li><a href="#"><i class="fas fa-wrench"></i> Aufträge</a></li>
+                    <li><a href="#"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+                    <li><a href="#"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+                    
+                    <li class="menu-item has-submenu active">
+                        <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle" checked>
+                        <label for="lagerbestand-toggle" class="submenu-label">
+                            <i class="fas fa-list"></i>
+                            Lagerbestand
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="./reifen.html"><i class="fas fa-tire"></i> Reifen</a></li>
+                            <li><a href="#"><i class="fas fa-oil-can"></i> Öle & Flüssigkeiten</a></li>
+                            <li class="active"><a href="./ersatzteile.html"><i class="fas fa-cogs"></i> Ersatzteile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+                        <label for="berichte-toggle" class="submenu-label">
+                            <i class="fas fa-chart-bar"></i>
+                            Berichte
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="#"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+                            <li><a href="#"><i class="fas fa-trash"></i> Papierkorb</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="main-header">
+                <div class="flex-header">
+                    <div>
+                        <h1>Ersatzteillager</h1>
+                        <div class="breadcrumb">Lagerbestand / Ersatzteile</div>
+                    </div>
+                    <button class="action-btn">
+                        <i class="fas fa-plus"></i> Neues Ersatzteil
+                    </button>
+                </div>
+                
+                <div class="filter-bar">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Suche..." id="searchInput">
+                    </div>
+                    <div class="filter-options">
+                        <select class="filter-select" id="categoryFilter">
+                            <option value="">Kategorie</option>
+                            <option value="Motor">Motor</option>
+                            <option value="Bremse">Bremse</option>
+                            <option value="Elektrik">Elektrik</option>
+                        </select>
+                        <select class="filter-select" id="herstellerFilter">
+                            <option value="">Hersteller</option>
+                            <option value="Bosch">Bosch</option>
+                            <option value="Brembo">Brembo</option>
+                            <option value="Mahle">Mahle</option>
+                        </select>
+                        <button class="filter-btn active" data-filter="all">Alle</button>
+                        <button class="filter-btn" data-filter="warning">Kritisch</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="parts-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Art.-Nr.</th>
+                            <th>Bezeichnung</th>
+                            <th>Kategorie</th>
+                            <th>Hersteller</th>
+                            <th>Lagerort</th>
+                            <th>Bestand</th>
+                            <th>Min.</th>
+                            <th>Status</th>
+                            <th>Aktion</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-category="Motor" data-hersteller="Bosch" data-stock="15">
+                            <td data-label="Art.-Nr.">#MT-230045</td>
+                            <td data-label="Bezeichnung">Zündkerze NGK Platinum</td>
+                            <td data-label="Kategorie">Motor</td>
+                            <td data-label="Hersteller">Bosch</td>
+                            <td data-label="Lagerort">Regal C-12</td>
+                            <td data-label="Bestand" class="stock-positive">15</td>
+                            <td data-label="Min.">5</td>
+                            <td data-label="Status"><span class="status-badge success">OK</span></td>
+                            <td data-label="Aktion">
+                                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr class="warning" data-category="Bremse" data-hersteller="Brembo" data-stock="2">
+                            <td data-label="Art.-Nr.">#MT-450023</td>
+                            <td data-label="Bezeichnung">Bremsbelag Premium</td>
+                            <td data-label="Kategorie">Bremse</td>
+                            <td data-label="Hersteller">Brembo</td>
+                            <td data-label="Lagerort">Regal A-5</td>
+                            <td data-label="Bestand" class="stock-warning">2</td>
+                            <td data-label="Min.">5</td>
+                            <td data-label="Status"><span class="status-badge warning">Kritisch</span></td>
+                            <td data-label="Aktion">
+                                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        <tr data-category="Elektrik" data-hersteller="Mahle" data-stock="8">
+                            <td data-label="Art.-Nr.">#MT-670012</td>
+                            <td data-label="Bezeichnung">Zündspule Premium</td>
+                            <td data-label="Kategorie">Elektrik</td>
+                            <td data-label="Hersteller">Mahle</td>
+                            <td data-label="Lagerort">Regal B-7</td>
+                            <td data-label="Bestand" class="stock-positive">8</td>
+                            <td data-label="Min.">4</td>
+                            <td data-label="Status"><span class="status-badge success">OK</span></td>
+                            <td data-label="Aktion">
+                                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <script src="../scripts/ersatzteile.js"></script>
+</body>
+</html>

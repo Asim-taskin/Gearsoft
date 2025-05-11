@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reifenlager - mt.cars</title>
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/tires.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    
+    <header class="header">
+        <div class="header-left">
+            <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="logo-title">
+                <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+                <div class="title">mt.cars</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="date-filter">
+                <button class="nav-arrow"><i class="fas fa-chevron-left"></i></button>
+                <span class="current-month">April 2025</span>
+                <button class="nav-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="header-actions">
+                <div class="icons">
+                    <button class="icon-btn"><i class="fas fa-smile"></i></button>
+                    <button class="icon-btn notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </button>
+                    <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+                    <button class="icon-btn"><i class="fas fa-cog"></i></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar">MA</div>
+                    <div class="user-info">
+                        <div class="user-name">Max Mustermann</div>
+                        <div class="user-role">Werkstatt</div>
+                    </div>
+                </div>
+                <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+                    <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+                    <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+                    <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Angebote</a></li>
+                    <li><a href="#"><i class="fas fa-wrench"></i> Aufträge</a></li>
+                    <li><a href="#"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+                    <li><a href="#"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+                    
+                    <li class="menu-item has-submenu active">
+                        <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle" checked>
+                        <label for="lagerbestand-toggle" class="submenu-label">
+                            <i class="fas fa-list"></i>
+                            Lagerbestand
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li class="active"><a href="./reifen.html"><i class="fas fa-tire"></i> Reifen</a></li>
+                            <li><a href="#"><i class="fas fa-oil-can"></i> Öle & Flüssigkeiten</a></li>
+                            <li><a href="#"><i class="fas fa-cogs"></i> Ersatzteile</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+                        <label for="berichte-toggle" class="submenu-label">
+                            <i class="fas fa-chart-bar"></i>
+                            Berichte
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="#"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+                            <li><a href="#"><i class="fas fa-trash"></i> Papierkorb</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="main-header">
+                <div class="flex-header">
+                    <div>
+                        <h1>Reifenlager</h1>
+                        <div class="breadcrumb">Lagerbestand / Reifen</div>
+                    </div>
+                    <button class="card-btn with-icon">
+                        <i class="fas fa-plus"></i> Neu anlegen
+                    </button>
+                </div>
+                
+                <div class="search-filter">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Reifen suchen..." id="searchInput">
+                    </div>
+                    <div class="filter-group">
+                        <div class="filter-column">
+                            <select class="filter-select" id="brandFilter">
+                                <option value="">Alle Marken</option>
+                                <option value="Michelin">Michelin</option>
+                                <option value="Continental">Continental</option>
+                                <option value="Pirelli">Pirelli</option>
+                            </select>
+                            
+                            <select class="filter-select" id="sizeFilter">
+                                <option value="">Alle Größen</option>
+                                <option value="225/45 R17">225/45 R17</option>
+                                <option value="195/65 R15">195/65 R15</option>
+                                <option value="205/55 R16">205/55 R16</option>
+                            </select>
+                        </div>
+                        <div class="filter-column">
+                            <button class="filter-btn active" data-filter="all">Alle</button>
+                            <button class="filter-btn" data-filter="warning">Unter Mindestbestand</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inventory-grid">
+                <div class="tire-card" data-brand="Michelin" data-size="225/45 R17">
+                    <div class="tire-header">
+                        <div class="tire-brand">
+                            <i class="fas fa-tire icon-brand"></i>
+                            <h3>Michelin Pilot Sport 4</h3>
+                        </div>
+                        <div class="tire-actions">
+                            <button class="icon-btn text-primary"><i class="fas fa-edit"></i></button>
+                            <button class="icon-btn text-danger"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="tire-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Größe</span>
+                            <span class="detail-value">225/45 R17</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Lagerort</span>
+                            <span class="detail-value">Regal A-12</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Herstellungsdatum</span>
+                            <span class="detail-value">03/2024</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Preis</span>
+                            <span class="detail-value">89,99 €</span>
+                        </div>
+                    </div>
+
+                    <div class="stock-info">
+                        <div class="stock-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 80%"></div>
+                            </div>
+                            <div class="stock-numbers">
+                                <span class="current-stock">8 Stk</span>
+                                <span class="min-stock">Mindestbestand: 4</span>
+                            </div>
+                        </div>
+                        <div class="stock-status success">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Verfügbar</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tire-card warning" data-brand="Continental" data-size="195/65 R15">
+                    <div class="tire-header">
+                        <div class="tire-brand">
+                            <i class="fas fa-tire icon-brand"></i>
+                            <h3>Continental PremiumContact 6</h3>
+                        </div>
+                        <div class="tire-actions">
+                            <button class="icon-btn text-primary"><i class="fas fa-edit"></i></button>
+                            <button class="icon-btn text-danger"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="tire-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Größe</span>
+                            <span class="detail-value">195/65 R15</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Lagerort</span>
+                            <span class="detail-value">Regal B-3</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Herstellungsdatum</span>
+                            <span class="detail-value">11/2023</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Preis</span>
+                            <span class="detail-value">74,50 €</span>
+                        </div>
+                    </div>
+
+                    <div class="stock-info">
+                        <div class="stock-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill warning" style="width: 40%"></div>
+                            </div>
+                            <div class="stock-numbers">
+                                <span class="current-stock">2 Stk</span>
+                                <span class="min-stock">Mindestbestand: 5</span>
+                            </div>
+                        </div>
+                        <div class="stock-status warning">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            <span>Unter Mindestbestand</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tire-card" data-brand="Pirelli" data-size="205/55 R16">
+                    <div class="tire-header">
+                        <div class="tire-brand">
+                            <i class="fas fa-tire icon-brand"></i>
+                            <h3>Pirelli Cinturato P7</h3>
+                        </div>
+                        <div class="tire-actions">
+                            <button class="icon-btn text-primary"><i class="fas fa-edit"></i></button>
+                            <button class="icon-btn text-danger"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="tire-details">
+                        <div class="detail-item">
+                            <span class="detail-label">Größe</span>
+                            <span class="detail-value">205/55 R16</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Lagerort</span>
+                            <span class="detail-value">Regal C-7</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Herstellungsdatum</span>
+                            <span class="detail-value">01/2024</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label">Preis</span>
+                            <span class="detail-value">82,99 €</span>
+                        </div>
+                    </div>
+
+                    <div class="stock-info">
+                        <div class="stock-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <div class="stock-numbers">
+                                <span class="current-stock">6 Stk</span>
+                                <span class="min-stock">Mindestbestand: 4</span>
+                            </div>
+                        </div>
+                        <div class="stock-status success">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Verfügbar</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../scripts/tires.js"></script>
+</body>
+</html>

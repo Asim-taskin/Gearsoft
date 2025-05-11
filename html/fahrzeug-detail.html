@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fahrzeugdetails | mt.cars</title>
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/kunden.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .main-content {
+            padding: 2rem;
+            background-color: #f8f9fa;
+        }
+
+        .vehicle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .vehicle-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: #2d3748;
+            margin: 0;
+        }
+
+        .action-btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .primary {
+            background: #4a5568;
+            color: white;
+            border: none;
+        }
+
+        .primary:hover {
+            background: #2d3748;
+        }
+
+        .vehicle-gallery {
+            margin-bottom: 2rem;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .main-image {
+            width: 100%;
+            height: 400px;
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .thumbnail-gallery {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .thumbnail {
+            flex: 0 0 120px;
+            height: 80px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .thumbnail.active {
+            border-color: #4a5568;
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .upload-image {
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 2rem 0 1.5rem 0;
+            color: #2d3748;
+            padding-left: 0.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-2px);
+        }
+
+        .info-card h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: #4a5568;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .info-card p {
+            font-size: 0.95rem;
+            color: #718096;
+            margin: 0.5rem 0;
+            line-height: 1.5;
+        }
+
+        .history-list, .invoices-list {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .history-item, .invoice-item, .document-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s ease;
+        }
+
+        .history-item:hover, .invoice-item:hover, .document-item:hover {
+            background: #f8f9fa;
+        }
+
+        .invoice-item a, .document-item a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            transition: all 0.2s ease;
+        }
+
+        .invoice-item a:hover, .document-item a:hover {
+            background: #4a5568;
+            color: white;
+            border-color: #4a5568;
+        }
+
+        .notes {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+
+        .notes textarea {
+            width: 100%;
+            min-height: 100px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            font-size: 0.95rem;
+            resize: vertical;
+            margin-bottom: 1rem;
+        }
+
+        .notes .save-btn {
+            padding: 0.75rem 1.5rem;
+            background: #4a5568;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .notes .save-btn:hover {
+            background: #2d3748;
+        }
+
+        .note-item {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 1rem 0;
+        }
+
+        .note-item:last-child {
+            border-bottom: none;
+        }
+
+        .note-item .date {
+            font-size: 0.85rem;
+            color: #718096;
+            margin-bottom: 0.5rem;
+        }
+
+        .note-item .content {
+            font-size: 0.95rem;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+
+        .upload-section {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 768px) {
+            .vehicle-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .main-image {
+                height: 250px;
+            }
+
+            .thumbnail {
+                flex: 0 0 100px;
+                height: 60px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <header class="header">
+        <div class="header-left">
+            <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+            <div class="logo-title">
+                <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+                <div class="title">mt.cars</div>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="header-actions">
+                <div class="icons">
+                    <button class="icon-btn"><i class="fas fa-smile"></i></button>
+                    <button class="icon-btn notification"><i class="fas fa-bell"></i><span class="badge">3</span></button>
+                    <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+                    <button class="icon-btn"><i class="fas fa-cog"></i></button>
+                </div>
+                <a href="#" class="detail-link">Detaillierte Kundenübersicht</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar">MA</div>
+                    <div class="user-info">
+                        <div class="user-name">Max Mustermann</div>
+                        <div class="user-role">Werkstatt</div>
+                    </div>
+                </div>
+                <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Übersicht</span></a></li>
+                    <li><a href="./kunden.html"><i class="fas fa-users"></i> <span>Kunden</span></a></li>
+                    <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> <span>Kalender</span></a></li>
+                    <li class="active"><a href="fahrzeuge.html"><i class="fas fa-car"></i> <span>Fahrzeuge</span></a></li>
+                    <li><a href="angebote.html"><i class="fas fa-file-alt"></i> <span>Angebote</span></a></li>
+                    <li><a href="auftraege.html"><i class="fas fa-wrench"></i> <span>Aufträge</span></a></li>
+                    <li><a href="rechnungen.html"><i class="fas fa-file-invoice"></i> <span>Rechnungen</span></a></li>
+                    <li><a href="kassenbuch.html"><i class="fas fa-wallet"></i> <span>Kassenbuch</span></a></li>
+                    <li><a href="./lagerbestand.html"><i class="fas fa-list"></i> <span>Lagerbestand</span></a></li>
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="report-toggle" class="submenu-toggle">
+                        <label for="report-toggle" class="submenu-label">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Berichte</span>
+                            <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="reports/emails.html"><i class="fas fa-envelope"></i> <span>gesendete E-Mails</span></a></li>
+                            <li><a href="reports/trash.html"><i class="fas fa-trash"></i> <span>Papierkorb</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="vehicle-header">
+                <h1 class="vehicle-title">VW Golf VIII</h1>
+                <button class="action-btn primary">Bearbeiten</button>
+            </div>
+
+            <div class="section-title">Fahrzeugbilder</div>
+            <div class="vehicle-gallery">
+                <div class="main-image">
+                    <img src="../img/placeholder-car1.jpeg" alt="Hauptbild" id="mainImage">
+                </div>
+                <div class="thumbnail-gallery">
+                    <div class="thumbnail" onclick="changeImage('../img/placeholder-car1.jpeg', this)">
+                        <img src="../img/placeholder-car1.jpeg" alt="Thumbnail 1">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage('../img/placeholder-car2.jpeg', this)">
+                        <img src="../img/placeholder-car2.jpeg" alt="Thumbnail 2">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage('../img/Placeholder-car-3.jpg', this)">
+                        <img src="../img/Placeholder-car-3.jpg" alt="Thumbnail 3">
+                    </div>
+                    <div class="thumbnail" onclick="changeImage('../img/Placeholder-car-4.jpg', this)">
+                        <img src="../img/Placeholder-car-4.jpg" alt="Thumbnail 4">
+                    </div>
+                </div>
+                <div class="upload-image">
+                    <label>Neues Bild hochladen:</label>
+                    <input type="file" accept="image/*" style="margin-top: 0.5rem;">
+                </div>
+            </div>
+
+            <div class="section-title">Fahrzeugdetails</div>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4>Allgemeine Informationen</h4>
+                    <p>Kennzeichen: M-MS-1234</p>
+                    <p>FIN: WVWZZZAUZNW123456</p>
+                    <p>Kilometerstand: 123.456 km</p>
+                    <p>Nächste HU: 12/2025</p>
+                </div>
+                <div class="info-card">
+                    <h4>Zustand & Wartung</h4>
+                    <p>Ölservice: Letzter Wechsel 05/2024</p>
+                    <p>Reifen: Sommerreifen, 80% Profil</p>
+                    <p>Zahnriemen: Gewechselt 03/2023</p>
+                    <p>Keilriemen: Gewechselt 03/2023</p>
+                </div>
+            </div>
+
+            <div class="section-title">Historie</div>
+            <div class="history-list">
+                <div class="history-item">
+                    <span>05/2024 - Inspektion & Bremsen</span>
+                    <span>Kosten: 450,00 €</span>
+                </div>
+                <div class="history-item">
+                    <span>03/2023 - Zahnriemenwechsel</span>
+                    <span>Kosten: 320,00 €</span>
+                </div>
+                <div class="history-item">
+                    <span>11/2022 - Ölwechsel</span>
+                    <span>Kosten: 120,00 €</span>
+                </div>
+            </div>
+
+            <div class="section-title">Notizen</div>
+            <div class="notes">
+                <textarea placeholder="Neue Notiz hinzufügen..."></textarea>
+                <button class="save-btn">Speichern</button>
+                <div class="note-item">
+                    <div class="date">25.04.2025</div>
+                    <div class="content">Kunde hat leichte Vibrationen bei hohen Geschwindigkeiten gemeldet. Bremsen überprüfen.</div>
+                </div>
+                <div class="note-item">
+                    <div class="date">15.03.2025</div>
+                    <div class="content">Ölwechsel durchgeführt, Kunde über Reifenwechsel informiert.</div>
+                </div>
+            </div>
+
+            <div class="section-title">Rechnungen</div>
+            <div class="invoices-list">
+                <div class="invoice-item">
+                    <span>Rechnung #001 - 05/2024</span>
+                    <a href="../invoices/rechnung-001.pdf" download>Herunterladen</a>
+                </div>
+                <div class="invoice-item">
+                    <span>Rechnung #002 - 03/2023</span>
+                    <a href="../invoices/rechnung-002.pdf" download>Herunterladen</a>
+                </div>
+                <div class="invoice-item">
+                    <span>Rechnung #003 - 11/2022</span>
+                    <a href="../invoices/rechnung-003.pdf" download>Herunterladen</a>
+                </div>
+            </div>
+
+            <div class="section-title">Dokumente</div>
+            <div class="invoices-list">
+                <div class="document-item">
+                    <span>Fahrzeugschein - 01/2022</span>
+                    <a href="../documents/fahrzeugschein-001.pdf" download>Herunterladen</a>
+                </div>
+                <div class="document-item">
+                    <span>HU-Bericht - 12/2023</span>
+                    <a href="../documents/hu-bericht-001.pdf" download>Herunterladen</a>
+                </div>
+                <div class="document-item">
+                    <span>Versicherungsnachweis - 06/2024</span>
+                    <a href="../documents/versicherung-001.pdf" download>Herunterladen</a>
+                </div>
+                <div class="upload-section">
+                    <label>Neue Rechnung/Dokument hochladen:</label>
+                    <input type="file" accept=".pdf" style="margin-top: 0.5rem;">
+                </div>
+                <button class="action-btn primary" style="margin-top: 1rem;" onclick="window.location.href='rechnung-erstellen.html'">Neue Rechnung erstellen</button>
+            </div>
+        </main>
+    </div>
+    <script>
+        function changeImage(src, element) {
+            document.getElementById('mainImage').src = src;
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            element.classList.add('active');
+        }
+
+        (() => {
+            const menuToggle = document.getElementById('menu-toggle');
+            document.querySelectorAll('.menu-icon, .close-btn').forEach(item => {
+                item.addEventListener('click', () => {
+                    menuToggle.checked = !menuToggle.checked;
+                });
+            });
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const fin = urlParams.get('fin');
+        })();
+    </script>
+</body>
+</html>

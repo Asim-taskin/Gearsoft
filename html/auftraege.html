@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Aufträge – mt.cars</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/ersatzteile.css">
+  <link rel="stylesheet" href="../styles/auftraege.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+  <header class="header">
+    <div class="header-left">
+      <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+      <div class="logo-title">
+        <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+        <div class="title">mt.cars</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-actions">
+        <div class="icons">
+          <button class="icon-btn"><i class="fas fa-smile"></i></button>
+          <button class="icon-btn notification">
+            <i class="fas fa-bell"></i>
+            <span class="badge">0</span>
+          </button>
+          <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+          <button class="icon-btn"><i class="fas fa-cog"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-profile">
+          <div class="avatar">MA</div>
+          <div class="user-info">
+            <div class="user-name">Max Mustermann</div>
+            <div class="user-role">Werkstatt</div>
+          </div>
+        </div>
+        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+      </div>
+
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+          <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+          <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
+          <li class="active"><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+            <label for="lagerbestand-toggle" class="submenu-label">
+              <i class="fas fa-list"></i>
+              Lagerbestand
+              <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./reifen.html"><i class="fas fa-tire"></i> Reifen</a></li>
+              <li><a href="./oele.html"><i class="fas fa-oil-can"></i> Öle & Flüssigkeiten</a></li>
+              <li><a href="./ersatzteile.html"><i class="fas fa-cogs"></i> Ersatzteile</a></li>
+            </ul>
+          </li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+            <label for="berichte-toggle" class="submenu-label">
+              <i class="fas fa-chart-bar"></i>
+              Berichte
+              <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="main-header">
+        <div class="flex-header">
+          <div>
+            <h1>Aufträge</h1>
+            <div class="breadcrumb">Aufträge</div>
+          </div>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Suchen..." id="orderSearch">
+          </div>
+        </div>
+        <div class="status-tabs">
+          <button class="status-tab active"><i class="fas fa-wrench"></i> Auftrag</button>
+          <button class="status-tab"><i class="fas fa-file-alt"></i> Entwurf</button>
+          <button class="status-tab"><i class="fas fa-hourglass-half"></i> Offen</button>
+          <button class="status-tab"><i class="fas fa-check"></i> Bezahlt</button>
+          <button class="status-tab"><i class="fas fa-undo-alt"></i> Storno/Gutschrift</button>
+          <button class="status-tab"><i class="fas fa-folder-open"></i> Alle</button>
+        </div>
+      </div>
+
+      <!-- Empty-State -->
+      <div class="empty-state">
+        <img src="../img/aufträge.jpg" alt="Keine Aufträge vorhanden">
+        <h2>Keine Aufträge vorhanden</h2>
+        <p>Erstelle jetzt einen Auftrag!</p>
+        <button class="action-btn"><i class="fas fa-plus"></i> Neuen Auftrag erstellen</button>
+      </div>
+
+      <!-- Auftrags-Tabelle -->
+      <div class="parts-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Auftragsnr.</th>
+              <th>Kunde</th>
+              <th>Datum</th>
+              <th>Status</th>
+              <th>Gesamt</th>
+              <th>Aktion</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody">
+            <tr>
+              <td>#AU-1001</td>
+              <td>Meier GmbH</td>
+              <td>01.05.2025</td>
+              <td><span class="status-badge success">Bezahlt</span></td>
+              <td>€ 1.250,00</td>
+              <td>
+                <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                <button class="icon-btn"><i class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>#AU-1002</td>
+              <td>Autohaus Schmidt</td>
+              <td>03.05.2025</td>
+              <td><span class="status-badge warning">Offen</span></td>
+              <td>€ 980,00</td>
+              <td>
+                <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                <button class="icon-btn"><i class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>#AU-1003</td>
+              <td>Becker KG</td>
+              <td>05.05.2025</td>
+              <td><span class="status-badge">Entwurf</span></td>
+              <td>€ 720,00</td>
+              <td>
+                <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                <button class="icon-btn"><i class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+            <tr>
+              <td>#AU-1004</td>
+              <td>Werkstatt Müller</td>
+              <td>06.05.2025</td>
+              <td><span class="status-badge warning">Storno/Gutschrift</span></td>
+              <td>€ 0,00</td>
+              <td>
+                <button class="icon-btn"><i class="fas fa-eye"></i></button>
+                <button class="icon-btn"><i class="fas fa-edit"></i></button>
+              </td>
+            </tr>
+          </tbody>
+          
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="../scripts/auftraege.js"></script>
+</body>
+</html>

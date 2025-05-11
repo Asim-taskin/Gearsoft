@@ -1,0 +1,101 @@
+/* Grid für Fahrzeug-Karten */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px,1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* Card-Grundgerüst */
+  .card {
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* Bild im Card */
+  .card img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+  }
+  
+  /* Textbereich */
+  .card-content {
+    padding: 1rem;
+    flex: 1;
+  }
+  .card-content h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.125rem;
+    color: var(--gray-800);
+  }
+  .card-content p {
+    margin: 0.25rem 0;
+    font-size: 0.875rem;
+    color: var(--gray-600);
+  }
+  
+  /* Action-Button */
+  .card-actions {
+    padding: 0.75rem;
+    text-align: center;
+  }
+  .card-actions .card-btn {
+    background-color: var(--primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    border-radius: var(--radius-md);
+    transition: background-color 0.2s;
+  }
+  .card-actions .card-btn:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  /* Feinjustierung Such- & Filter-Leiste */
+  .search-filter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  
+  /* Mobil & Tablet */
+  @media (max-width: 1024px) {
+    .main-header .flex-header,
+    .search-filter {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .filter-group {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .card-btn.with-icon {
+      width: 100%;
+      justify-content: center;
+    }
+    .search-box {
+      width: 100%;
+      max-width: none;
+    }
+  }
+  

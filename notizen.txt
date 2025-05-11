@@ -1,0 +1,24 @@
+
+
+
+integration von aufgaben erteilung, an mitarbeiter - to do´s
+
+admin und MA - aufteilen MA (beschränkter zugriff)
+
+Kalender optimieren - design etc. 
+
+MA - soll auftrag erhalten (von admin) und konfigurieren können (Erledigt. Notizen. etc.) 
+
+Dashboard. Header Admin - Tagesumsatz / Umsatzziel / augen symbol zum ausblenden von Zahlen. 
+
+MA & Admin - Direkter Chat funktion, 
+
+Admin mit anderen Admin Chat funktion, 
+
+Integration von WI's
+
+Integration von Eratzteil shops über API's
+
+Eigene Fahrzeug Garage integrieren / Verkauf / Ankauf etc. 
+
+
