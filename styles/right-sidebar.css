@@ -1,7 +1,7 @@
 .right-sidebar {
     width: 320px;
     background-color: white;
-    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1),0 1px 2px 0 rgba(0,0,0,0.06);
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
     border-left: 1px solid #E5E7EB;
     z-index: 90;
     position: fixed;
@@ -19,6 +19,7 @@
     flex-direction: column;
     padding: 1.5rem;
     flex: 1;
+    position: relative;
 }
 .section-header {
     display: flex;
@@ -35,8 +36,15 @@
     font-size: 0.875rem;
     color: #6B7280;
 }
+
 .calendar-section {
     margin-bottom: 1.5rem;
+}
+.calendar-section > input.calendar-toggle {
+    display: none;
+}
+.calendar-section > input.calendar-toggle:checked ~ .section-header .toggle-btn {
+    transform: rotate(180deg);
 }
 .calendar-controls {
     display: flex;
@@ -62,9 +70,6 @@
     min-width: 80px;
     text-align: center;
 }
-.calendar-toggle {
-    display: none;
-}
 .toggle-btn {
     cursor: pointer;
     color: #4B5563;
@@ -72,16 +77,13 @@
     padding: 0.25rem;
     transition: transform 0.2s;
 }
-.calendar-toggle:checked ~ .calendar-controls .toggle-btn {
-    transform: rotate(180deg);
+.calendar-section > input.calendar-toggle:not(:checked) ~ .calendar-content {
+    max-height: 0;
 }
 .calendar-content {
     max-height: 300px;
     overflow: hidden;
     transition: max-height 0.3s ease;
-}
-.calendar-toggle:not(:checked) ~ .calendar-content {
-    max-height: 0;
 }
 .calendar-grid {
     display: grid;
@@ -127,6 +129,7 @@
     background-color: transparent;
     cursor: default;
 }
+
 .appointments-section {
     margin-bottom: 1.5rem;
 }
@@ -135,9 +138,6 @@
     overflow-y: auto;
     margin-bottom: 0.5rem;
     transition: max-height 0.3s ease;
-}
-.calendar-toggle:not(:checked) ~ .calendar-content ~ .appointments-section .appointments-scroll {
-    max-height: 400px;
 }
 .appointments-scroll::-webkit-scrollbar {
     width: 6px;
@@ -191,8 +191,12 @@
     font-size: 0.75rem;
     color: #6B7280;
 }
+
 .notes-section {
     margin-bottom: 1.5rem;
+}
+section.collapsed .notes-display {
+    display: none;
 }
 .notes-display {
     padding: 0.75rem;
@@ -217,6 +221,7 @@
     outline: none;
     border-color: #3B82F6;
 }
+
 .toggle-checkbox {
     display: none;
 }
@@ -231,6 +236,26 @@ section:not(.collapsed) .toggle-btn .fas {
 section.collapsed .section-content {
     max-height: 0;
 }
+
+.notes-modal {
+    position: absolute;
+    top: 1rem;
+    left: 50%;
+    transform: translateX(-50%) scale(0.8);
+    background-color: #3B82F6;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 100;
+}
+.notes-modal.show {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+}
+
 .modal {
     display: none;
     position: fixed;
@@ -256,80 +281,16 @@ section.collapsed .section-content {
     transform: scale(0.95);
     animation: scaleUp 0.3s ease forwards;
 }
-.modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
-.modal-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: #111827;
+@keyframes scaleUp {
+    from { transform: scale(0.95); }
+    to { transform: scale(1); }
 }
-.modal-close {
-    background: none;
-    border: none;
-    font-size: 1.25rem;
-    color: #6B7280;
-    cursor: pointer;
-    transition: color 0.2s;
-}
-.modal-close:hover {
-    color: #2563EB;
-}
-.modal-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-.form-grid .full-width {
-    grid-column: 1 / -1;
-}
-.form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-}
-.form-group label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #374151;
-}
-.form-group input,
-.form-group select,
-.form-group textarea {
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid #D1D5DB;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    color: #111827;
-    background: #FFFFFF;
-    transition: border-color 0.2s, box-shadow 0.2s;
-}
-.form-group input:focus,
-.form-group select:focus,
-.form-group textarea:focus {
-    outline: none;
-    border-color: #2563EB;
-    box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
-}
-.form-group textarea {
-    resize: vertical;
-    min-height: 100px;
-}
-.modal-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.75rem;
-    margin-top: 1rem;
-}
+
 .modal-btn {
     padding: 0.75rem 1.5rem;
     border-radius: 8px;
@@ -342,12 +303,12 @@ section.collapsed .section-content {
     transform: translateY(-1px);
 }
 .modal-btn-primary {
-    background: linear-gradient(90deg,#2563EB,#3B82F6);
+    background: linear-gradient(90deg, #2563EB, #3B82F6);
     color: white;
     border: none;
 }
 .modal-btn-primary:hover {
-    background: linear-gradient(90deg,#1D4ED8,#2563EB);
+    background: linear-gradient(90deg, #1D4ED8, #2563EB);
 }
 .modal-btn-secondary {
     background: transparent;
@@ -358,14 +319,7 @@ section.collapsed .section-content {
     background: #F3F4F6;
     color: #374151;
 }
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-@keyframes scaleUp {
-    from {transform: scale(0.95);}
-    to {transform: scale(1);}
-}
+
 .card-btn {
     background-color: #3B82F6;
     color: white;
@@ -390,54 +344,27 @@ section.collapsed .section-content {
 .card-btn.outline:hover {
     background-color: #EFF6FF;
 }
+
 @media (max-width: 1200px) {
-    .right-sidebar {
-        width: 280px;
-    }
-    .container {
-        margin-right: 280px;
-    }
+    .right-sidebar { width: 280px; }
+    .container { margin-right: 280px; }
 }
 @media (max-width: 992px) {
-    .right-sidebar {
-        display: none;
-    }
-    .container {
-        margin-right: 0;
-    }
+    .right-sidebar { display: none; }
+    .container { margin-right: 0; }
 }
 @media (max-width: 768px) {
-    .modal-content {
-        width: 95%;
-        padding: 1rem;
-    }
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
+    .modal-content { width: 95%; padding: 1rem; }
+    .form-grid { grid-template-columns: 1fr; }
 }
 @media (max-width: 576px) {
-    .right-sidebar-content {
-        padding: 1rem;
-    }
-    .calendar-grid {
-        font-size: 0.7rem;
-    }
-    .appointment-time {
-        min-width: 70px;
-    }
-    .modal-title {
-        font-size: 1.1rem;
-    }
-    .form-group label {
-        font-size: 0.8rem;
-    }
+    .right-sidebar-content { padding: 1rem; }
+    .calendar-grid { font-size: 0.7rem; }
+    .appointment-time { min-width: 70px; }
+    .modal-title { font-size: 1.1rem; }
+    .form-group label { font-size: 0.8rem; }
     .form-group input,
     .form-group select,
-    .form-group textarea {
-        font-size: 0.8rem;
-    }
-    .modal-btn {
-        font-size: 0.85rem;
-        padding: 0.6rem 1rem;
-    }
+    .form-group textarea { font-size: 0.8rem; }
+    .modal-btn { font-size: 0.85rem; padding: 0.6rem 1rem; }
 }
