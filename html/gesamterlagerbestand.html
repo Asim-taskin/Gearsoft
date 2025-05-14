@@ -1,0 +1,228 @@
+<!-- Datei: lagerbestand.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gesamter Lagerbestand – mt.cars</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/gesamterlagerbestand.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
+  <header class="header">
+    <div class="header-left">
+      <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+      <div class="logo-title">
+        <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+        <div class="title">mt.cars</div>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="header-actions">
+        <div class="icons">
+          <button class="icon-btn"><i class="fas fa-smile"></i></button>
+          <button class="icon-btn notification">
+            <i class="fas fa-bell"></i>
+            <span class="badge">0</span>
+          </button>
+          <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+          <button class="icon-btn"><i class="fas fa-cog"></i></button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-profile">
+          <div class="avatar">MA</div>
+          <div class="user-info">
+            <div class="user-name">Max Mustermann</div>
+            <div class="user-role">Werkstatt</div>
+          </div>
+        </div>
+        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+          <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+          <li><a href="./verakufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
+          <li><a href="./angebote.html" class="active"><i class="fas fa-file-alt"></i> Angebote</a></li>
+          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+            <label for="lagerbestand-toggle" class="submenu-label">
+              <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
+              <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
+              <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
+              <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
+              <li class="active" ><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
+
+            </ul>
+          </li>
+
+
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+            <label for="berichte-toggle" class="submenu-label">
+              <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <div class="main-header">
+        <div class="flex-header">
+          <div>
+            <h1>Gesamter Lagerbestand</h1>
+          </div>
+          <button class="action-btn">
+            <i class="fas fa-plus"></i> Neues Produkt
+          </button>
+        </div>
+
+        <div class="filter-bar">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Suche..." id="searchInput">
+          </div>
+          <div class="filter-options">
+            <select class="filter-select" id="categoryFilter">
+              <option value="">Kategorie</option>
+              <option value="Reifen">Reifen</option>
+              <option value="Öle & Flüssigkeiten">Öle & Flüssigkeiten</option>
+              <option value="Ersatzteile">Ersatzteile</option>
+              <option value="Sonstige">Sonstige</option>
+            </select>
+            <select class="filter-select" id="herstellerFilter">
+              <option value="">Hersteller</option>
+              <option value="Castrol">Castrol</option>
+              <option value="Mobil">Mobil</option>
+              <option value="Liqui Moly">Liqui Moly</option>
+              <option value="Hazet">Hazet</option>
+              <option value="Fischer">Fischer</option>
+              <option value="Elring">Elring</option>
+              <option value="Tesa">Tesa</option>
+            </select>
+            <button class="filter-btn active" data-filter="all">Alle</button>
+            <button class="filter-btn" data-filter="warning">Kritisch</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="parts-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Art.-Nr.</th>
+              <th>Bezeichnung</th>
+              <th>Kategorie</th>
+              <th>Typ</th>
+              <th>Hersteller</th>
+              <th>Inhalt/Anzahl</th>
+              <th>Bestand</th>
+              <th>Min.</th>
+              <th>Status</th>
+              <th>Aktion</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tbody>
+                  <!-- Reifen -->
+                  <tr data-category="Reifen" data-type="Sommerreifen" data-hersteller="Continental" data-stock="30">
+                    <td data-label="Art.-Nr.">#MT-100201</td>
+                    <td data-label="Bezeichnung">ContiPremiumContact 2</td>
+                    <td data-label="Kategorie">Reifen</td>
+                    <td data-label="Typ">Sommerreifen</td>
+                    <td data-label="Hersteller">Continental</td>
+                    <td data-label="Inhalt/Anzahl">1 Stk</td>
+                    <td data-label="Bestand" class="stock-positive">30</td>
+                    <td data-label="Min.">10</td>
+                    <td data-label="Status"><span class="status-badge success">OK</span></td>
+                    <td data-label="Aktion">
+                      <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                      <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+                    </td>
+                  </tr>
+              
+                  <!-- Öle & Flüssigkeiten -->
+                  <tr data-category="Öle & Flüssigkeiten" data-type="Getriebeöl" data-hersteller="Mobil" data-stock="8">
+                    <td data-label="Art.-Nr.">#MT-200305</td>
+                    <td data-label="Bezeichnung">Mobil ATF 320</td>
+                    <td data-label="Kategorie">Öle & Flüssigkeiten</td>
+                    <td data-label="Typ">Getriebeöl</td>
+                    <td data-label="Hersteller">Mobil</td>
+                    <td data-label="Inhalt/Anzahl">1 L</td>
+                    <td data-label="Bestand" class="stock-warning">8</td>
+                    <td data-label="Min.">15</td>
+                    <td data-label="Status"><span class="status-badge warning">Kritisch</span></td>
+                    <td data-label="Aktion">
+                      <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                      <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+                    </td>
+                  </tr>
+              
+                  <!-- Ersatzteile -->
+                  <tr data-category="Ersatzteile" data-type="Bremsbeläge" data-hersteller="Brembo" data-stock="12">
+                    <td data-label="Art.-Nr.">#MT-300410</td>
+                    <td data-label="Bezeichnung">Brembo Sport Beläge</td>
+                    <td data-label="Kategorie">Ersatzteile</td>
+                    <td data-label="Typ">Bremsbeläge</td>
+                    <td data-label="Hersteller">Brembo</td>
+                    <td data-label="Inhalt/Anzahl">1 Satz</td>
+                    <td data-label="Bestand" class="stock-positive">12</td>
+                    <td data-label="Min.">5</td>
+                    <td data-label="Status"><span class="status-badge success">OK</span></td>
+                    <td data-label="Aktion">
+                      <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                      <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+                    </td>
+                  </tr>
+              
+                  <!-- Sonstige -->
+                  <tr data-category="Sonstige" data-type="Zubehör" data-hersteller="CAR-MATE" data-stock="4">
+                    <td data-label="Art.-Nr.">#MT-400506</td>
+                    <td data-label="Bezeichnung">Scheibenwischer-Set</td>
+                    <td data-label="Kategorie">Sonstige</td>
+                    <td data-label="Typ">Zubehör</td>
+                    <td data-label="Hersteller">CAR-MATE</td>
+                    <td data-label="Inhalt/Anzahl">2 Stk</td>
+                    <td data-label="Bestand" class="stock-warning">4</td>
+                    <td data-label="Min.">10</td>
+                    <td data-label="Status"><span class="status-badge warning">Kritisch</span></td>
+                    <td data-label="Aktion">
+                      <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                      <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+                    </td>
+                  </tr>
+                </tbody>
+
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <script src="../scripts/lagerbestand.js"></script>
+</body>
+</html>

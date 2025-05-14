@@ -323,10 +323,12 @@ body {
 }
 
 .sidebar-nav li.active a {
-    background-color: var(--primary-light);
+    /* Helleres Primary leicht abgedunkelt */
+    background-color: #cce5ff; /* alternatives Blau, dunkler als var(--primary-light) */
     color: var(--primary-dark);
     border-left: 3px solid var(--primary);
 }
+
 
 .menu-item.has-submenu {
     position: relative;
