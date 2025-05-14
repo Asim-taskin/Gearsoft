@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/right-sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -15,7 +16,7 @@
             <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
             <div class="logo-title">
                 <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
-                <div class="title">mt.cars</div>
+                <div class="title">Dashboard</div>
             </div>
         </div>
         <div class="header-right">
@@ -31,70 +32,56 @@
                     <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
                     <button class="icon-btn"><i class="fas fa-cog"></i></button>
                 </div>
-                <a href="#" class="detail-link">Detailierte Umsatzübersicht</a>
             </div>
         </div>
     </header>
-    
     <div class="container">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="user-profile">
-          <div class="avatar">MA</div>
-          <div class="user-info">
-            <div class="user-name">Max Mustermann</div>
-            <div class="user-role">Werkstatt</div>
-          </div>
-        </div>
-        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li class="active"><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
-          <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
-          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
-          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
-          <li><a href="./verakufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
-          <li><a href="./angebote.html" class="active"><i class="fas fa-file-alt"></i> Angebote</a></li>
-          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
-          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
-          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
-
-          <li class="menu-item has-submenu">
-            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
-            <label for="lagerbestand-toggle" class="submenu-label">
-              <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
-            </label>
-            <ul class="submenu">
-              <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
-              <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
-              <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
-              <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
-              <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
-
-            </ul>
-          </li>
-
-
-          <li class="menu-item has-submenu">
-            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
-            <label for="berichte-toggle" class="submenu-label">
-              <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
-            </label>
-            <ul class="submenu">
-              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
-              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </aside>
-        
-        <main class="main-content">
-            <div class="main-header">
-                <h1>Übersicht</h1>
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar">MA</div>
+                    <div class="user-info">
+                        <div class="user-name">Max Mustermann</div>
+                        <div class="user-role">Werkstatt</div>
+                    </div>
+                </div>
+                <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
             </div>
-            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+                    <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+                    <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+                    <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+                    <li><a href="./verakufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
+                    <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
+                    <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+                    <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+                    <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+                        <label for="lagerbestand-toggle" class="submenu-label"><i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i></label>
+                        <ul class="submenu">
+                            <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
+                            <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
+                            <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
+                            <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
+                            <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+                        <label for="berichte-toggle" class="submenu-label"><i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i></label>
+                        <ul class="submenu">
+                            <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+                            <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <div class="main-header"></div>
             <div class="card-grid">
                 <div class="card highlight">
                     <div class="card-header">
@@ -102,19 +89,13 @@
                         <h2>Umsatz exkl. Steuer April</h2>
                     </div>
                     <div class="card-content">
-                        <div class="graph-placeholder">
-                            <div class="line-graph"></div>
-                        </div>
+                        <div class="graph-placeholder"><div class="line-graph"></div></div>
                         <div class="card-stats">
                             <div class="key-number">3 591 €</div>
-                            <div class="comparison positive">
-                                <i class="fas fa-caret-up"></i> 40% vs. März
-                            </div>
+                            <div class="comparison positive"><i class="fas fa-caret-up"></i> 40% vs. März</div>
                         </div>
                     </div>
                 </div>
-                
-
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon green"><i class="fas fa-money-bill-wave"></i></div>
@@ -126,8 +107,6 @@
                         <button class="card-btn">Details anzeigen</button>
                     </div>
                 </div>
-                
-            
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon orange"><i class="fas fa-file-invoice-dollar"></i></div>
@@ -138,8 +117,6 @@
                         <button class="card-btn outline">+ Entwurf</button>
                     </div>
                 </div>
-                
-            
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon purple"><i class="fas fa-edit"></i></div>
@@ -150,8 +127,6 @@
                         <button class="card-btn outline">+ Auftrag</button>
                     </div>
                 </div>
-                
-                
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon teal"><i class="fas fa-tools"></i></div>
@@ -159,14 +134,10 @@
                     </div>
                     <div class="card-content">
                         <div class="key-number">1 550 €</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 65%"></div>
-                        </div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 65%"></div></div>
                         <div class="progress-label">65% des Monatsziels</div>
                     </div>
                 </div>
-                
-                
                 <div class="card warning">
                     <div class="card-header">
                         <div class="card-icon red"><i class="fas fa-box"></i></div>
@@ -175,14 +146,10 @@
                     </div>
                     <div class="card-content">
                         <div class="key-number">2 266 €</div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 85%"></div>
-                        </div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
                         <div class="progress-label warning-text">85% - Budget fast erreicht</div>
                     </div>
                 </div>
-                
-                
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon pink"><i class="fas fa-pen"></i></div>
@@ -193,8 +160,6 @@
                         <button class="card-btn">Preise anpassen</button>
                     </div>
                 </div>
-                
-                
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon indigo"><i class="fas fa-shopping-cart"></i></div>
@@ -205,23 +170,17 @@
                         <div class="card-detail">Letzte Bestellung: 15.04.</div>
                     </div>
                 </div>
-                
-                
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon cyan"><i class="fas fa-chart-pie"></i></div>
                         <h2>Produktivität</h2>
                     </div>
                     <div class="card-content">
-                        <div class="gauge-placeholder">
-                            <div class="gauge" data-value="16"></div>
-                        </div>
+                        <div class="gauge-placeholder"><div class="gauge" data-value="16"></div></div>
                         <div class="key-number">16%</div>
                         <div class="card-detail">0 Std / 29 Std / 176 Std</div>
                     </div>
                 </div>
-                
-            
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon amber"><i class="fas fa-clock"></i></div>
@@ -232,8 +191,6 @@
                         <div class="card-detail">Durchschnittlich</div>
                     </div>
                 </div>
-                
-                
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon lime"><i class="fas fa-star"></i></div>
@@ -241,20 +198,12 @@
                     </div>
                     <div class="card-content">
                         <ul class="customer-list">
-                            <li>
-                                <span class="customer-name">Simon Angermeier</span>
-                                <span class="customer-amount">1 547 €</span>
-                            </li>
-                            <li>
-                                <span class="customer-name">Another Customer</span>
-                                <span class="customer-amount">1 092 €</span>
-                            </li>
+                            <li><span class="customer-name">Simon Angermeier</span><span class="customer-amount">1 547 €</span></li>
+                            <li><span class="customer-name">Another Customer</span><span class="customer-amount">1 092 €</span></li>
                         </ul>
                         <a href="#" class="card-link">Mehr anzeigen <i class="fas fa-chevron-right"></i></a>
                     </div>
                 </div>
-                
-                
                 <div class="card">
                     <div class="card-header">
                         <div class="card-icon blue"><i class="fas fa-chart-bar"></i></div>
@@ -277,6 +226,196 @@
                 </div>
             </div>
         </main>
+        <aside class="right-sidebar">
+            <div class="right-sidebar-content">
+                <section class="calendar-section">
+                    <div class="section-header">
+                        <h2>Kalender</h2>
+                        <div class="calendar-controls">
+                            <button class="nav-arrow" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+                            <span class="calendar-month" id="calendar-month">Mai 2025</span>
+                            <button class="nav-arrow" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
+                            <input type="checkbox" id="calendar-toggle" class="calendar-toggle" checked>
+                            <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                        </div>
+                    </div>
+                    <div class="calendar-content">
+                        <div class="calendar-grid" id="calendar-grid">
+                            <div class="calendar-day-header">Mo</div>
+                            <div class="calendar-day-header">Di</div>
+                            <div class="calendar-day-header">Mi</div>
+                            <div class="calendar-day-header">Do</div>
+                            <div class="calendar-day-header">Fr</div>
+                            <div class="calendar-day-header weekend">Sa</div>
+                            <div class="calendar-day-header weekend">So</div>
+                        </div>
+                    </div>
+                </section>
+                <section class="appointments-section collapsed">
+                    <div class="section-header">
+                        <h2>Termine <span id="selected-date"></span></h2>
+                        <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                        <input type="checkbox" id="appointments-toggle" class="toggle-checkbox">
+                    </div>
+                    <div class="section-content appointments-content">
+                        <div class="appointments-scroll">
+                            <ul class="appointments-list" id="appointments-list"></ul>
+                        </div>
+                        <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
+                    </div>
+                </section>
+                <section class="notes-section collapsed">
+                    <div class="section-header">
+                        <h2>Notizen</h2>
+                        <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                        <input type="checkbox" id="notes-toggle" class="toggle-checkbox">
+                    </div>
+                    <div class="notes-display" id="notes-display">Keine Notizen gespeichert.</div>
+                    <div class="section-content notes-content">
+                        <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
+                        <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
+                    </div>
+                </section>
+                <div id="appointment-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h2 class="modal-title">Neuer Termin</h2>
+                            <button class="modal-close" aria-label="Modal schließen"><i class="fas fa-times"></i></button>
+                        </div>
+                        <form id="appointment-form" class="modal-form">
+                            <div class="form-grid">
+                                <div class="form-group"><label for="appointment-time">Uhrzeit</label><select id="appointment-time" required></select></div>
+                                <div class="form-group"><label for="appointment-duration">Dauer</label><select id="appointment-duration" required></select></div>
+                                <div class="form-group"><label for="appointment-customer">Kunde</label><input type="text" id="appointment-customer" required></div>
+                                <div class="form-group"><label for="appointment-vehicle">Fahrzeug</label><input type="text" id="appointment-vehicle" required></div>
+                                <div class="form-group full-width"><label for="appointment-service">Dienstleistung</label><input type="text" id="appointment-service" required></div>
+                                <div class="form-group full-width"><label for="appointment-note">Notiz</label><textarea id="appointment-note"></textarea></div>
+                                <div class="form-group"><label for="appointment-price">Preis (€)</label><input type="number" id="appointment-price" step="0.01" min="0"></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </div>
+    <script>
+        let today=new Date(2025,4,14);
+        let currentDate=new Date(2025,4,14);
+        let selectedDate=new Date(2025,4,14);
+        let appointments=JSON.parse(localStorage.getItem('appointments'))||[
+            {date:"2025-05-14",time:"09:00",title:"Ölwechsel - Simon Angermeier",location:"Werkstatt 1",customer:"Simon Angermeier",service:"Ölwechsel",vehicle:"",duration:"1h",note:"",price:0},
+            {date:"2025-05-14",time:"14:30",title:"Reifenwechsel - Anna Müller",location:"Werkstatt 2",customer:"Anna Müller",service:"Reifenwechsel",vehicle:"",duration:"1h",note:"",price:0},
+            {date:"2025-05-15",time:"11:00",title:"TÜV - Max Mustermann",location:"Prüfstelle",customer:"Max Mustermann",service:"TÜV",vehicle:"",duration:"1h",note:"",price:0},
+            {date:"2025-05-16",time:"10:00",title:"Bremsenprüfung - Lisa Schmidt",location:"Werkstatt 1",customer:"Lisa Schmidt",service:"Bremsenprüfung",vehicle:"",duration:"1h",note:"",price:0},
+            {date:"2025-05-17",time:"15:00",title:"Inspektion - Peter Meier",location:"Werkstatt 2",customer:"Peter Meier",service:"Inspektion",vehicle:"",duration:"2h",note:"",price:0}
+        ];
+        function renderCalendar(date){
+            const monthNames=["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"];
+            const calendarGrid=document.getElementById("calendar-grid");
+            document.getElementById("calendar-month").textContent=`${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+            const firstDay=new Date(date.getFullYear(),date.getMonth(),1).getDay();
+            const daysInMonth=new Date(date.getFullYear(),date.getMonth()+1,0).getDate();
+            calendarGrid.innerHTML="<div class='calendar-day-header'>Mo</div><div class='calendar-day-header'>Di</div><div class='calendar-day-header'>Mi</div><div class='calendar-day-header'>Do</div><div class='calendar-day-header'>Fr</div><div class='calendar-day-header weekend'>Sa</div><div class='calendar-day-header weekend'>So</div>";
+            const startDay=firstDay===0?6:firstDay-1;
+            for(let i=0;i<startDay;i++)calendarGrid.innerHTML+="<div class='calendar-day empty'></div>";
+            for(let day=1;day<=daysInMonth;day++){
+                const wd=new Date(date.getFullYear(),date.getMonth(),day).getDay();
+                const isToday=date.getFullYear()===today.getFullYear()&&date.getMonth()===today.getMonth()&&day===today.getDate();
+                const isSelected=date.getFullYear()===selectedDate.getFullYear()&&date.getMonth()===selectedDate.getMonth()&&day===selectedDate.getDate();
+                let className="calendar-day";
+                if(isSelected)className="calendar-day selected";
+                else if(isToday)className="calendar-day today";
+                else if(wd===0||wd===6)className="calendar-day weekend";
+                calendarGrid.innerHTML+=`<div class="${className}" data-date="${date.getFullYear()}-${date.getMonth()+1}-${day}">${day}</div>`;
+            }
+            document.querySelectorAll(".calendar-day:not(.empty)").forEach(el=>{
+                el.addEventListener("click",()=>{
+                    const [y,m,d]=el.getAttribute("data-date").split("-").map(Number);
+                    selectDay(new Date(y,m-1,d));
+                });
+            });
+        }
+        function selectDay(date){
+            selectedDate=date;
+            document.getElementById("selected-date").textContent=`für ${date.toLocaleDateString("de-DE")}`;
+            renderCalendar(currentDate);
+            renderAppointments(date);
+        }
+        function renderAppointments(date){
+            const appointmentsList=document.getElementById("appointments-list");
+            const dateStr=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}-${String(date.getDate()).padStart(2,"0")}`;
+            const dayAppointments=appointments.filter(a=>a.date===dateStr);
+            appointmentsList.innerHTML="";
+            if(dayAppointments.length===0)appointmentsList.innerHTML="<li class='appointment-item no-appointments'>Keine Termine für diesen Tag</li>";
+            else dayAppointments.forEach(a=>appointmentsList.innerHTML+=`<li class='appointment-item'><div class='appointment-time'>${a.time}</div><div class='appointment-details'><div class='appointment-title'>${a.title}</div><div class='appointment-location'>${a.location}</div></div></li>`);
+        }
+        function prevMonth(){currentDate.setMonth(currentDate.getMonth()-1);renderCalendar(currentDate);}
+        function nextMonth(){currentDate.setMonth(currentDate.getMonth()+1);renderCalendar(currentDate);}
+        function initializeModal(){
+            const modal=document.getElementById("appointment-modal");
+            const addAppointmentBtn=document.getElementById("add-appointment");
+            const appointmentForm=document.getElementById("appointment-form");
+            const timeSelect=document.getElementById("appointment-time");
+            const durationSelect=document.getElementById("appointment-duration");
+            for(let h=7;h<=19;h++)for(let m=0;m<60;m+=30){
+                const time=String(h).padStart(2,"0")+":"+String(m).padStart(2,"0");
+                const option=document.createElement("option");
+                option.value=time;option.textContent=time;timeSelect.appendChild(option);
+            }
+            const durations=["10min","20min","30min","40min","50min","1h","1h30m","2h","2h30m","3h","3h30m","4h","4h30m","5h","5h30m","6h","6h30m","7h","7h30m","8h","9h","10h","11h","12h","13h","14h","15h","16h","17h","18h","19h","20h","21h","22h","23h","24h"];
+            durations.forEach(d=>{
+                const option=document.createElement("option");
+                option.value=d;option.textContent=d;durationSelect.appendChild(option);
+            });
+            function isPastDate(date){const t=new Date();t.setHours(0,0,0,0);return date<t;}
+            addAppointmentBtn.addEventListener("click",()=>{
+                if(isPastDate(selectedDate)){alert("Neue Termine können für vergangene Daten nicht erstellt werden.");return;}
+                modal.style.display="flex";appointmentForm.reset();document.querySelector(".modal-title").textContent=`Neuer Termin am ${selectedDate.getDate()}. ${selectedDate.toLocaleDateString("de-DE",{month:"long"})} ${selectedDate.getFullYear()}`;
+            });
+            document.querySelector(".modal-close").addEventListener("click",()=>modal.style.display="none");
+            document.querySelector(".modal-btn-secondary").addEventListener("click",()=>modal.style.display="none");
+            modal.addEventListener("click",e=>{if(e.target===modal)modal.style.display="none";});
+            appointmentForm.addEventListener("submit",e=>{
+                e.preventDefault();
+                const time=document.getElementById("appointment-time").value;
+                const duration=document.getElementById("appointment-duration").value;
+                const customer=document.getElementById("appointment-customer").value;
+                const vehicle=document.getElementById("appointment-vehicle").value;
+                const service=document.getElementById("appointment-service").value;
+                const note=document.getElementById("appointment-note").value;
+                const price=document.getElementById("appointment-price").value;
+                const dateStr=`${selectedDate.getFullYear()}-${String(selectedDate.getMonth()+1).padStart(2,"0")}-${String(selectedDate.getDate()).padStart(2,"0")}`;
+                const title=`${service} - ${customer}${vehicle?` (${vehicle})`:``}`;
+                const location="Werkstatt";
+                const newAppointment={date:dateStr,time,title,location,customer,service,vehicle,duration,note,price:parseFloat(price)||0};
+                appointments.push(newAppointment);
+                localStorage.setItem("appointments",JSON.stringify(appointments));
+                modal.style.display="none";
+                renderAppointments(selectedDate);
+            });
+        }
+        document.addEventListener("DOMContentLoaded",()=>{
+            const stored=localStorage.getItem("dashboardNotes")||"";
+            const notesDisplay=document.getElementById("notes-display");
+            const notesTextarea=document.getElementById("notes-textarea");
+            if(stored){notesDisplay.textContent=stored;notesTextarea.value=stored;}
+            document.getElementById("save-notes-btn").addEventListener("click",()=>{
+                const val=notesTextarea.value;
+                localStorage.setItem("dashboardNotes",val);
+                notesDisplay.textContent=val||"Keine Notizen gespeichert.";
+                alert("Notizen gespeichert!");
+            });
+            initializeModal();
+            document.querySelectorAll(".section-header .toggle-btn").forEach(btn=>{
+                btn.addEventListener("click",()=>btn.closest("section").classList.toggle("collapsed"));
+            });
+            renderCalendar(currentDate);
+            selectDay(currentDate);
+        });
+    </script>
 </body>
 </html>
