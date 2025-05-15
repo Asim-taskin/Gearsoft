@@ -68,6 +68,7 @@ function prevMonth() {
     currentDate.setMonth(currentDate.getMonth() - 1);
     renderCalendar(currentDate);
 }
+
 function nextMonth() {
     currentDate.setMonth(currentDate.getMonth() + 1);
     renderCalendar(currentDate);
@@ -195,14 +196,15 @@ try {
   appointments = defaultAppointments;
 }
 
-
-
 let notes = JSON.parse(localStorage.getItem("dashboardNotes")) || [];
 
 document.addEventListener("DOMContentLoaded", () => {
     const notesTextarea = document.getElementById("notes-textarea");
     const notesModal = document.getElementById("notes-modal");
     const notesList = document.getElementById("notes-list");
+    const noteEditModal = document.getElementById("note-edit-modal");
+    const noteEditForm = document.getElementById("note-edit-form");
+    const noteContent = document.getElementById("note-content");
 
     function renderNotes() {
         notesList.innerHTML = "";
@@ -214,10 +216,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     <li class="note-item" data-index="${index}">
                         <div class="note-content">${note.content}</div>
                         <div class="note-meta">${new Date(note.timestamp).toLocaleString()}</div>
-                        <div class="note-actions">
-                            <button class="note-btn edit-note">Bearbeiten</button>
-                            <button class="note-btn delete-note">Löschen</button>
-                        </div>
                     </li>
                 `;
             });
@@ -239,19 +237,40 @@ document.addEventListener("DOMContentLoaded", () => {
     notesList.addEventListener("click", (e) => {
         const item = e.target.closest(".note-item");
         const index = item ? parseInt(item.getAttribute("data-index")) : -1;
-        if (e.target.classList.contains("delete-note") && index >= 0) {
-            notes.splice(index, 1);
-            localStorage.setItem("dashboardNotes", JSON.stringify(notes));
-            renderNotes();
-        }
-        if (e.target.classList.contains("edit-note") && index >= 0) {
-            const newContent = prompt("Notiz bearbeiten:", notes[index].content);
-            if (newContent !== null) {
-                notes[index].content = newContent.trim();
-                notes[index].timestamp = Date.now();
+        if (item && index >= 0) {
+            noteContent.value = notes[index].content;
+            noteEditModal.style.display = "flex";
+            
+            noteEditForm.onsubmit = (e) => {
+                e.preventDefault();
+                const newContent = noteContent.value.trim();
+                if (newContent) {
+                    notes[index].content = newContent;
+                    notes[index].timestamp = Date.now();
+                    localStorage.setItem("dashboardNotes", JSON.stringify(notes));
+                    renderNotes();
+                    noteEditModal.style.display = "none";
+                }
+            };
+
+            noteEditModal.querySelector(".modal-btn-delete").onclick = () => {
+                notes.splice(index, 1);
                 localStorage.setItem("dashboardNotes", JSON.stringify(notes));
                 renderNotes();
-            }
+                noteEditModal.style.display = "none";
+            };
+
+            noteEditModal.querySelector(".modal-btn-secondary").onclick = () => {
+                noteEditModal.style.display = "none";
+            };
+
+            noteEditModal.querySelector(".modal-close").onclick = () => {
+                noteEditModal.style.display = "none";
+            };
+
+            noteEditModal.addEventListener("click", e => {
+                if (e.target === noteEditModal) noteEditModal.style.display = "none";
+            }, { once: true });
         }
     });
 
