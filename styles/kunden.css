@@ -1,4 +1,3 @@
-
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -9,19 +8,21 @@ html, body {
     overflow-x: hidden;
 }
 
-
 .container {
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
+    margin-right: 320px; /* Platz für Right-Sidebar */
 }
+
 .main-content {
     flex: 1;
     padding: 1rem;
     overflow-x: hidden;
     background-color: var(--bg);
+    margin-left: 280px; /* Platz für Left-Sidebar */
+    max-width: calc(100% - 280px - 320px); /* Left-Sidebar (280px) + Right-Sidebar (320px) */
 }
-
 
 .customer-actions {
     display: flex;
@@ -121,7 +122,6 @@ html, body {
 .stat-item i {
     color: var(--gray-400);
 }
-
 
 .customer-table-container {
     width: 100%;
@@ -249,7 +249,24 @@ html, body {
     font-size: 0.875rem;
 }
 
+@media (max-width: 1200px) {
+    .container {
+        margin-right: 280px;
+    }
+    .main-content {
+        margin-left: 240px;
+        max-width: calc(100% - 240px - 280px);
+    }
+}
+
 @media (max-width: 992px) {
+    .container {
+        margin-right: 0;
+    }
+    .main-content {
+        margin-left: 280px;
+        max-width: calc(100% - 280px);
+    }
     .customer-actions,
     .customer-stats {
         flex-direction: column;
@@ -258,6 +275,10 @@ html, body {
 }
 
 @media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        max-width: 100%;
+    }
     .search-box {
         max-width: 100%;
     }
