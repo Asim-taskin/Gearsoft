@@ -25,11 +25,11 @@
   position: relative;
   overflow-y: auto;
   max-height: calc(100vh - 64px);
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none; 
 }
 
 .right-sidebar-content::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none; 
 }
 
 .section-header {
@@ -170,14 +170,15 @@
   max-height: 250px;
   overflow-y: auto;
   margin-bottom: 0.5rem;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none; 
 }
 
 .appointments-list-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none; 
 }
 
 .appointments-list {
+    margin-top:12px;
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -240,22 +241,24 @@
 }
 
 .notes-list-container {
+    margin-top:12px;
   max-height: 200px;
   overflow-y: auto;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none; 
 }
 
 .notes-list-container::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none; 
 }
 
 .notes-list {
+    margin-top:12px;
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 0;
-  margin: 0;
+  /* margin: 0; */
 }
 
 .note-item {
