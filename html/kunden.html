@@ -9,39 +9,34 @@
     <link rel="stylesheet" href="../styles/right-sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        .customer-tag {
-            display: inline-block;
-            font-size: 0.75rem;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 6px;
-            font-weight: 500;
-            background-color: #f0f0f0;
-            color: #333;
-        }
-        .tag-vip { background-color: #e0f7e9; color: #27ae60; }
-        .tag-warnung { background-color: #ffe9e9; color: #e74c3c; }
-        .tag-neu { background-color: #eef5ff; color: #2980b9; }
-    </style>
+
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const input = document.querySelector(".search-input");
             const rows = document.querySelectorAll(".customer-table tbody tr");
             const statsSpan = document.querySelector(".stat-item[data-type='kunden']");
             const pageInfo = document.querySelector(".pagination-info");
+            const deleteButton = document.querySelector(".action-btn.delete");
+            const checkboxes = document.querySelectorAll(".customer-checkbox");
 
             function updateCountAndPage() {
                 const visibleRows = Array.from(rows).filter(r => r.style.display !== "none");
                 const total = rows.length;
                 const visible = visibleRows.length;
                 if (statsSpan) {
-                    statsSpan.innerHTML = `<i class='fas fa-users'></i>  ${total} Kunden gesamt`;
+                    statsSpan.innerHTML = `<i class='fas fa-users'></i> ${total} Kunden gesamt`;
                 }
                 const from = visible > 0 ? 1 : 0;
                 const to = visible;
                 if (pageInfo) {
                     pageInfo.textContent = `${from}-${to} von ${total}`;
+                }
+            }
+
+            function updateDeleteButton() {
+                const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+                if (deleteButton) {
+                    deleteButton.style.display = anyChecked ? "flex" : "none";
                 }
             }
 
@@ -54,7 +49,12 @@
                 updateCountAndPage();
             });
 
+            checkboxes.forEach(cb => {
+                cb.addEventListener("change", updateDeleteButton);
+            });
+
             updateCountAndPage();
+            updateDeleteButton();
         });
     </script>
 </head>
@@ -65,13 +65,12 @@
             <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
             <div class="logo-title">
                 <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
-                <div class="title">Name</div>
+                <div class="title">Kunden</div>
             </div>
         </div>
         <div class="header-right">
             <div class="date-filter">
                 <button class="nav-arrow"><i class="fas fa-chevron-left"></i></button>
-                
                 <button class="nav-arrow"><i class="fas fa-chevron-right"></i></button>
             </div>
             <div class="header-actions">
@@ -87,64 +86,60 @@
     </header>
 
     <div class="container">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="user-profile">
-          <div class="avatar">MA</div>
-          <div class="user-info">
-            <div class="user-name">Max Mustermann</div>
-            <div class="user-role">Werkstatt</div>
-          </div>
-        </div>
-        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
-          <li class="active" ><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
-          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
-          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
-          <li><a href="./verakufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
-          <li><a href="./angebote.html" class="active"><i class="fas fa-file-alt"></i> Angebote</a></li>
-          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
-          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
-          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
-
-          <li class="menu-item has-submenu">
-            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
-            <label for="lagerbestand-toggle" class="submenu-label">
-              <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
-            </label>
-            <ul class="submenu">
-              <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
-              <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
-              <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
-              <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
-              <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
-
-            </ul>
-          </li>
-
-
-          <li class="menu-item has-submenu">
-            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
-            <label for="berichte-toggle" class="submenu-label">
-              <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
-            </label>
-            <ul class="submenu">
-              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
-              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar">MA</div>
+                    <div class="user-info">
+                        <div class="user-name">Max Mustermann</div>
+                        <div class="user-role">Werkstatt</div>
+                    </div>
+                </div>
+                <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+                    <li class="active"><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+                    <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+                    <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+                    <li><a href="./verakufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
+                    <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
+                    <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+                    <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+                    <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+                        <label for="lagerbestand-toggle" class="submenu-label">
+                            <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
+                            <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
+                            <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
+                            <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
+                            <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+                        <label for="berichte-toggle" class="submenu-label">
+                            <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+                            <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
 
         <main class="main-content">
-            <div class="main-header">
+            <!-- <div class="main-header">
                 <h1>Kunden</h1>
                 <div class="breadcrumb">Kundenverwaltung</div>
-            </div>
+            </div> -->
 
             <div class="customer-actions">
                 <div class="search-box">
@@ -161,77 +156,70 @@
                     <button class="action-btn">
                         <i class="fas fa-file-export"></i> Exportieren
                     </button>
+                    <button class="action-btn delete" style="display: none;">
+                        <i class="fas fa-trash"></i> Kunden Löschen
+                    </button>
                 </div>
             </div>
 
             <div class="customer-stats">
                 <span class="stat-item" data-type="kunden"><i class="fas fa-users"></i> 0 Kunden gesamt</span>
-                <span class="stat-item"><i class="fas fa-filter"></i> 25 aktive Filter</span>            </div>
+                <span class="stat-item"><i class="fas fa-filter"></i> 25 aktive Filter</span>
+            </div>
 
             <div class="customer-table-container">
                 <table class="customer-table">
                     <thead>
                         <tr>
                             <th width="40px"><input type="checkbox" class="select-all"></th>
-                            
                             <th>Name</th>
                             <th>Ort</th>
                             <th>Straße</th>
                             <th>Telefon</th>
                             <th>Email</th>
                             <th>Kennzeichen</th>
-                            <th>Geburtsdatum</th>
-                            <th width="80px">Aktionen</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input type="checkbox" class="customer-checkbox"></td>
-                            
-                            <td>Simon Angermeier</td>
-                            <td>München</td>
-                            <td>Hauptstr. 12</td>
-                            <td>089 1234567</td>
-                            <td>simon@example.com</td>
-                            <td>M-AB1234</td>
-                            <td>15.03.1985</td>
-                            <td><button class="table-action"><i class="fas fa-ellipsis-v"></i></button></td>
+                            <td data-label=""><input type="checkbox" class="customer-checkbox"></td>
+                            <td data-label="Name">Simon Angermeier</td>
+                            <td data-label="Ort">München</td>
+                            <td data-label="Straße">Hauptstr. 12</td>
+                            <td data-label="Telefon">089 1234567</td>
+                            <td data-label="Email">simon@example.com</td>
+                            <td data-label="Kennzeichen">M-AB1234</td>
+                            <td class="delete-action"><button class="table-action delete"><i class="fas fa-trash"></i></button></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" class="customer-checkbox"></td>
-                            
-                            <td>Maria Schmidt</td>
-                            <td>Berlin</td>
-                            <td>Berliner Str. 45</td>
-                            <td>030 7654321</td>
-                            <td>maria@example.com</td>
-                            <td>B-MX9876</td>
-                            <td>22.07.1990</td>
-                            <td><button class="table-action"><i class="fas fa-ellipsis-v"></i></button></td>
+                            <td data-label=""><input type="checkbox" class="customer-checkbox"></td>
+                            <td data-label="Name">Maria Schmidt</td>
+                            <td data-label="Ort">Berlin</td>
+                            <td data-label="Straße">Berliner Str. 45</td>
+                            <td data-label="Telefon">030 7654321</td>
+                            <td data-label="Email">maria@example.com</td>
+                            <td data-label="Kennzeichen">B-MX9876</td>
+                            <td class="delete-action"><button class="table-action delete"><i class="fas fa-trash"></i></button></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" class="customer-checkbox"></td>
-                            
-                            <td>Thomas Müller</td>
-                            <td>Hamburg</td>
-                            <td>Hafenweg 8</td>
-                            <td>040 9876543</td>
-                            <td>thomas@example.com</td>
-                            <td>HH-TM2025</td>
-                            <td>10.11.1978</td>
-                            <td><button class="table-action"><i class="fas fa-ellipsis-v"></i></button></td>
+                            <td data-label=""><input type="checkbox" class="customer-checkbox"></td>
+                            <td data-label="Name">Thomas Müller</td>
+                            <td data-label="Ort">Hamburg</td>
+                            <td data-label="Straße">Hafenweg 8</td>
+                            <td data-label="Telefon">040 9876543</td>
+                            <td data-label="Email">thomas@example.com</td>
+                            <td data-label="Kennzeichen">HH-TM2025</td>
+                            <td class="delete-action"><button class="table-action delete"><i class="fas fa-trash"></i></button></td>
                         </tr>
                         <tr>
-                            <td><input type="checkbox" class="customer-checkbox"></td>
-                            
-                            <td>Max Mustermann</td>
-                            <td>Köln</td>
-                            <td>Domplatz 1</td>
-                            <td>0221 123456</td>
-                            <td>max@example.com</td>
-                            <td>K-MA4040</td>
-                            <td>05.05.1982</td>
-                            <td><button class="table-action"><i class="fas fa-ellipsis-v"></i></button></td>
+                            <td data-label=""><input type="checkbox" class="customer-checkbox"></td>
+                            <td data-label="Name">Max Mustermann</td>
+                            <td data-label="Ort">Köln</td>
+                            <td data-label="Straße">Domplatz 1</td>
+                            <td data-label="Telefon">0221 123456</td>
+                            <td data-label="Email">max@example.com</td>
+                            <td data-label="Kennzeichen">K-MA4040</td>
+                            <td class="delete-action"><button class="table-action delete"><i class="fas fa-trash"></i></button></td>
                         </tr>
                     </tbody>
                 </table>
@@ -256,128 +244,122 @@
         </main>
 
         <aside class="right-sidebar">
-  <div class="right-sidebar-content">
-    <!-- Kalender -->
-    <section class="calendar-section">
-      <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
-      <div class="section-header">
-        <h2>Kalender</h2>
-        <div class="calendar-controls">
-          <button class="nav-arrow" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
-          <span class="calendar-month" id="calendar-month">Mai 2025</span>
-          <button class="nav-arrow" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
-          <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
-        </div>
-      </div>
-      <div class="section-content calendar-content">
-        <div class="calendar-grid" id="calendar-grid"></div>
-      </div>
-    </section>
+            <div class="right-sidebar-content">
+                <section class="calendar-section">
+                    <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
+                    <div class="section-header">
+                        <h2>Kalender</h2>
+                        <div class="calendar-controls">
+                            <button class="nav-arrow" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+                            <span class="calendar-month" id="calendar-month">Mai 2025</span>
+                            <button class="nav-arrow" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
+                            <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                        </div>
+                    </div>
+                    <div class="section-content calendar-content">
+                        <div class="calendar-grid" id="calendar-grid"></div>
+                    </div>
+                </section>
 
-    <!-- Termine -->
-    <section class="appointments-section">
-      <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
-      <div class="section-header">
-        <h2>Termine <span id="selected-date"></span></h2>
-        <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
-      </div>
-      <div class="section-content appointments-content">
-        <div class="appointments-list-container">
-          <ul class="appointments-list" id="appointments-list"></ul>
-        </div>
-        <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
-      </div>
-    </section>
+                <section class="appointments-section">
+                    <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
+                    <div class="section-header">
+                        <h2>Termine <span id="selected-date"></span></h2>
+                        <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                    </div>
+                    <div class="section-content appointments-content">
+                        <div class="appointments-list-container">
+                            <ul class="appointments-list" id="appointments-list"></ul>
+                        </div>
+                        <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
+                    </div>
+                </section>
 
-    <!-- Notizen -->
-    <section class="notes-section">
-      <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
-      <div class="section-header">
-        <h2>Notizen</h2>
-        <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
-      </div>
-      <div class="section-content notes-content">
-        <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
-        <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
-        <div class="notes-list-container">
-          <ul id="notes-list" class="notes-list"></ul>
-        </div>
-      </div>
-    </section>
+                <section class="notes-section">
+                    <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
+                    <div class="section-header">
+                        <h2>Notizen</h2>
+                        <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                    </div>
+                    <div class="section-content notes-content">
+                        <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
+                        <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
+                        <div class="notes-list-container">
+                            <ul id="notes-list" class="notes-list"></ul>
+                        </div>
+                    </div>
+                </section>
 
-    <div id="notes-modal" class="notes-modal">Gespeichert!</div>
+                <div id="notes-modal" class="notes-modal">Gespeichert!</div>
 
-    <!-- Notizen-Modal -->
-    <div id="note-edit-modal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-          <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Notiz bearbeiten</h2>
-          <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
-        </div>
-        <form id="note-edit-form" class="modal-form">
-          <div class="form-group">
-            <label for="note-content">Notiz</label>
-            <textarea id="note-content" class="notes-textarea" style="width: 100%; height: 150px; padding: 0.5rem;"></textarea>
-          </div>
-          <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
-            <button type="button" class="modal-btn modal-btn-delete">Löschen</button>
-            <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
-            <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
-          </div>
-        </form>
-      </div>
+                <div id="note-edit-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Notiz bearbeiten</h2>
+                            <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+                        </div>
+                        <form id="note-edit-form" class="modal-form">
+                            <div class="form-group">
+                                <label for="note-content">Notiz</label>
+                                <textarea id="note-content" class="notes-textarea" style="width: 100%; height: 150px; padding: 0.5rem;"></textarea>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                                <button type="button" class="modal-btn modal-btn-delete">Löschen</button>
+                                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div id="appointment-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Neuer Termin</h2>
+                            <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+                        </div>
+                        <form id="appointment-form" class="modal-form">
+                            <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label for="appointment-time">Uhrzeit</label>
+                                    <select id="appointment-time" required style="width: 100%; padding: 0.5rem;"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-duration">Dauer</label>
+                                    <select id="appointment-duration" required style="width: 100%; padding: 0.5rem;"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-customer">Kunde</label>
+                                    <input type="text" id="appointment-customer" required style="width: 100%; padding: 0.5rem;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-vehicle">Fahrzeug</label>
+                                    <input type="text" id="appointment-vehicle" required style="width: 100%; padding: 0.5rem;">
+                                </div>
+                                <div class="form-group full-width" style="grid-column: span 2;">
+                                    <label for="appointment-service">Dienstleistung</label>
+                                    <input type="text" id="appointment-service" required style="width: 100%; padding: 0.5rem;">
+                                </div>
+                                <div class="form-group full-width" style="grid-column: span 2;">
+                                    <label for="appointment-note">Notiz</label>
+                                    <textarea id="appointment-note" style="width: 100%; padding: 0.5rem;"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-price">Preis (€)</label>
+                                    <input type="number" id="appointment-price" step="0.01" min="0" style="width: 100%; padding: 0.5rem;">
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </aside>
     </div>
 
-    <!-- Termin-Modal -->
-    <div id="appointment-modal" class="modal">
-      <div class="modal-content">
-        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-          <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Neuer Termin</h2>
-          <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
-        </div>
-        <form id="appointment-form" class="modal-form">
-          <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-            <div class="form-group">
-              <label for="appointment-time">Uhrzeit</label>
-              <select id="appointment-time" required style="width: 100%; padding: 0.5rem;"></select>
-            </div>
-            <div class="form-group">
-              <label for="appointment-duration">Dauer</label>
-              <select id="appointment-duration" required style="width: 100%; padding: 0.5rem;"></select>
-            </div>
-            <div class="form-group">
-              <label for="appointment-customer">Kunde</label>
-              <input type="text" id="appointment-customer" required style="width: 100%; padding: 0.5rem;">
-            </div>
-            <div class="form-group">
-              <label for="appointment-vehicle">Fahrzeug</label>
-              <input type="text" id="appointment-vehicle" required style="width: 100%; padding: 0.5rem;">
-            </div>
-            <div class="form-group full-width" style="grid-column: span 2;">
-              <label for="appointment-service">Dienstleistung</label>
-              <input type="text" id="appointment-service" required style="width: 100%; padding: 0.5rem;">
-            </div>
-            <div class="form-group full-width" style="grid-column: span 2;">
-              <label for="appointment-note">Notiz</label>
-              <textarea id="appointment-note" style="width: 100%; padding: 0.5rem;"></textarea>
-            </div>
-            <div class="form-group">
-              <label for="appointment-price">Preis (€)</label>
-              <input type="number" id="appointment-price" step="0.01" min="0" style="width: 100%; padding: 0.5rem;">
-            </div>
-          </div>
-          <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
-            <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
-            <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</aside>
-    </div>
-
-    
     <script src="../scripts/right-sidebar.js"></script>
 </body>
 </html>
