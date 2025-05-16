@@ -179,12 +179,12 @@
   padding: 12px;
   border: 1px solid rgba(0, 85, 255, 0.58); 
   border-radius: 12px;
-  box-shadow:   0 1px 3px rgba(0, 85, 255, 0.58); 
+  box-shadow: 0 1px 3px rgba(0, 85, 255, 0.58); 
   margin-bottom: 1.5rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease; 
 }
 
-.appointments-section:hover{
+.appointments-section:hover {
   transform: translateY(-3px); 
   box-shadow: 0 3px 6px rgba(0, 85, 255, 0.7); 
   border-color: rgba(0, 85, 255, 0.8); 
@@ -196,8 +196,6 @@
   overflow-y: auto;
   margin-bottom: 0.5rem;
   scrollbar-width: none; 
-
- 
 }
 
 .appointments-list-container::-webkit-scrollbar {
@@ -205,7 +203,7 @@
 }
 
 .appointments-list {
-    margin-top:12px;
+  margin-top: 12px;
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -228,6 +226,7 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   border-color: #3B82F6;
 }
+
 
 .appointment-item.no-appointments {
   font-size: 0.875rem;
@@ -267,12 +266,12 @@
   padding: 12px;
   border: 1px solid rgba(0, 85, 255, 0.58); 
   border-radius: 12px;
-  box-shadow:   0 1px 3px rgba(0, 85, 255, 0.58); 
+  box-shadow: 0 1px 3px rgba(0, 85, 255, 0.58); 
   margin-bottom: 1.5rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease; 
 }
 
-.notes-section:hover{
+.notes-section:hover {
   transform: translateY(-3px); 
   box-shadow: 0 3px 6px rgba(0, 85, 255, 0.7); 
   border-color: rgba(0, 85, 255, 0.8); 
@@ -280,7 +279,7 @@
 }
 
 .notes-list-container {
-    margin-top:12px;
+  margin-top: 12px;
   max-height: 200px;
   overflow-y: auto;
   scrollbar-width: none; 
@@ -291,13 +290,12 @@
 }
 
 .notes-list {
-    margin-top:12px;
+  margin-top: 12px;
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
   padding: 0;
-  /* margin: 0; */
 }
 
 .note-item {
@@ -535,4 +533,35 @@ section.collapsed .section-content {
   .form-group select,
   .form-group textarea { font-size: 0.8rem; }
   .modal-btn { font-size: 0.85rem; padding: 0.6rem 1rem; }
+}
+
+
+.calendar-section:not(.collapsed),
+.appointments-section:not(.collapsed),
+.notes-section:not(.collapsed) {
+  cursor: default; 
+}
+
+.calendar-section.collapsed,
+.appointments-section.collapsed,
+.notes-section.collapsed {
+  cursor: pointer; 
+}
+
+
+.calendar-section.collapsed:hover,
+.appointments-section.collapsed:hover,
+.notes-section.collapsed:hover {
+  background: #f8fafc; 
+  box-shadow: 0 2px 6px rgba(0, 85, 255, 0.5); 
+}
+
+
+section:not(.collapsed) .section-header {
+  cursor: pointer; 
+}
+
+section:not(.collapsed) .section-header:hover {
+  background: #f8fafc; 
+  border-radius: 8px; 
 }

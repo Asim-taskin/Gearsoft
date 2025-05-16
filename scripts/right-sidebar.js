@@ -274,13 +274,37 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    initializeModal();
+
     document.querySelectorAll(".section-header .toggle-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             btn.closest("section").classList.toggle("collapsed");
         });
     });
 
+
+    document.querySelectorAll(".calendar-section, .appointments-section, .notes-section").forEach(section => {
+        section.addEventListener("click", (e) => {
+            const toggleCheckbox = section.querySelector(".toggle-checkbox");
+            const sectionHeader = e.target.closest(".section-header");
+            const interactiveElements = ["BUTTON", "INPUT", "SELECT", "TEXTAREA", "LABEL"];
+            const excludedClasses = ".toggle-btn, .nav-arrow, .calendar-day, .appointment-item, .note-item";
+
+            if (!toggleCheckbox.checked) {
+
+                if (!interactiveElements.includes(e.target.tagName) && !e.target.closest(excludedClasses)) {
+                    toggleCheckbox.checked = true;
+                    section.classList.remove("collapsed");
+                }
+            } else if (sectionHeader && !e.target.closest(excludedClasses)) {
+                
+                toggleCheckbox.checked = false;
+                section.classList.add("collapsed");
+            }
+
+        });
+    });
+
+    initializeModal();
     renderCalendar(currentDate);
     selectDay(currentDate);
     renderNotes();
