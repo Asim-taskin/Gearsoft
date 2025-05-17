@@ -2,13 +2,13 @@
 <html lang="de">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rechnungen – mt.cars</title>
   <link rel="stylesheet" href="../styles/dashboard.css">
   <link rel="stylesheet" href="../styles/ersatzteile.css">
   <link rel="stylesheet" href="../styles/auftraege.css">
   <link rel="stylesheet" href="../styles/rechnungen.css">
-  <link rel="stylesheet" href="../styles/todos-kalender.css">
+  <link rel="stylesheet" href="../styles/right-sidebar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -24,11 +24,16 @@
       </div>
     </div>
     <div class="header-right">
-      <div class="icons">
-        <button class="icon-btn"><i class="fas fa-smile"></i></button>
-        <button class="icon-btn notification"><i class="fas fa-bell"></i><span class="badge">0</span></button>
-        <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
-        <button class="icon-btn"><i class="fas fa-cog"></i></button>
+      <div class="header-actions">
+        <div class="icons">
+          <button class="icon-btn"><i class="fas fa-smile"></i></button>
+          <button class="icon-btn notification">
+            <i class="fas fa-bell"></i>
+            <span class="badge">0</span>
+          </button>
+          <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+          <button class="icon-btn"><i class="fas fa-cog"></i></button>
+        </div>
       </div>
     </div>
   </header>
@@ -51,12 +56,11 @@
           <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
           <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
           <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
-          <li><a href="./verakufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
-          <li><a href="./angebote.html" class="active"><i class="fas fa-file-alt"></i> Angebote</a></li>
+          <li><a href="./verkaufsfahrzeuge.html"><i class="fas fa-warehouse"></i> Verkaufsfahrzeuge</a></li>
+          <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
           <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
-          <li class="active" ><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+          <li class="active"><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
           <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
-
           <li class="menu-item has-submenu">
             <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
             <label for="lagerbestand-toggle" class="submenu-label">
@@ -68,11 +72,8 @@
               <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
               <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
               <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
-
             </ul>
           </li>
-
-
           <li class="menu-item has-submenu">
             <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
             <label for="berichte-toggle" class="submenu-label">
@@ -86,8 +87,6 @@
         </ul>
       </nav>
     </aside>
-
-    
 
     <main class="main-content">
       <div class="main-header">
@@ -113,8 +112,6 @@
           <button class="action-btn export-btn"><i class="fas fa-file-export"></i> Exportieren</button>
         </div>
       </div>
-
-
 
       <div class="parts-table">
         <table>
@@ -203,9 +200,133 @@
         </table>
       </div>
     </main>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+      <div class="right-sidebar-content">
+        <section class="calendar-section">
+          <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
+          <div class="section-header">
+            <h2>Kalender</h2>
+            <div class="calendar-controls">
+              <button class="nav-arrow" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+              <span class="calendar-month" id="calendar-month">Mai 2025</span>
+              <button class="nav-arrow" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
+              <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+            </div>
+          </div>
+          <div class="section-content calendar-content">
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </div>
+        </section>
+        <section class="appointments-section">
+          <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
+          <div class="section-header">
+            <h2>Termine <span id="selected-date"></span></h2>
+            <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+          </div>
+          <div class="section-content appointments-content">
+            <div class="appointments-list-container">
+              <ul class="appointments-list" id="appointments-list"></ul>
+            </div>
+            <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
+          </div>
+        </section>
+        <section class="notes-section">
+          <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
+          <div class="section-header">
+            <h2>Notizen</h2>
+            <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+          </div>
+          <div class="section-content notes-content">
+            <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
+            <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
+            <div class="notes-list-container">
+              <ul id="notes-list" class="notes-list"></ul>
+            </div>
+          </div>
+        </section>
+        <div id="notes-modal" class="notes-modal">Gespeichert!</div>
+        <div id="note-edit-modal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Notiz bearbeiten</h2>
+              <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="note-edit-form" class="modal-form">
+              <div class="form-group">
+                <label for="note-content">Notiz</label>
+                <textarea id="note-content" class="notes-textarea" style="width: 100%; height: 150px; padding: 0.5rem;"></textarea>
+              </div>
+              <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                <button type="button" class="modal-btn modal-btn-delete">Löschen</button>
+                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id="appointment-modal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Neuer Termin</h2>
+              <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="appointment-form" class="modal-form">
+              <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label for="appointment-time">Uhrzeit</label>
+                  <select id="appointment-time" required style="width: 100%; padding: 0.5rem;"></select>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-duration">Dauer</label>
+                  <select id="appointment-duration" required style="width: 100%; padding: 0.5rem;"></select>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-customer">Kunde</label>
+                  <input type="text" id="appointment-customer" required style="width: 100%; padding: 0.5rem;">
+                </div>
+                <div class="form-group">
+                  <label for="appointment-vehicle">Fahrzeug</label>
+                  <input type="text" id="appointment-vehicle" required style="width: 100%; padding: 0.5rem;">
+                </div>
+                <div class="form-group full-width" style="grid-column: span 2;">
+                  <label for="appointment-service">Dienstleistung</label>
+                  <input type="text" id="appointment-service" required style="width: 100%; padding: 0.5rem;">
+                </div>
+                <div class="form-group full-width" style="grid-column: span 2;">
+                  <label for="appointment-note">Notiz</label>
+                  <textarea id="appointment-note" style="width: 100%; padding: 0.5rem;"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-price">Preis (€)</label>
+                  <input type="number" id="appointment-price" step="0.01" min="0" style="width: 100%; padding: 0.5rem;">
+                </div>
+              </div>
+              <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </aside>
   </div>
 
+  <script src="../scripts/right-sidebar.js"></script>
   <script>
+    // Menu-Toggle für Left-Sidebar
+    (() => {
+      const menuToggle = document.getElementById('menu-toggle');
+      document.querySelectorAll('.menu-icon, .close-btn').forEach(item => {
+        item.addEventListener('click', () => {
+          menuToggle.checked = !menuToggle.checked;
+        });
+      });
+    })();
+
+    // Status-Tabs und Navigation
     document.querySelector('.status-tab.nav-button')
       .addEventListener('click', () => location.href = './auftraege.html');
     const tabs = document.querySelectorAll('.status-tab:not(.nav-button)');
@@ -221,38 +342,12 @@
       });
     });
 
-    // Neues JavaScript für das Widget
-    const widgetHeader = document.querySelector('.widget-header');
-    const widgetContent = document.querySelector('.widget-content');
-    const chevron = widgetHeader.querySelector('i.fa-chevron-down');
-
-    widgetHeader.addEventListener('click', () => {
-      widgetContent.classList.toggle('active');
-      chevron.style.transform = widgetContent.classList.contains('active') 
-        ? 'rotate(180deg)' 
-        : 'rotate(0deg)';
-    });
-
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-content');
-
-    tabButtons.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.tab;
-        
-        tabButtons.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
-        
-        tabContents.forEach(content => {
-          content.classList.remove('active');
-          if(content.id === target) content.classList.add('active');
-        });
-      });
-    });
-
-    document.querySelectorAll('.todo-item input[type="checkbox"]').forEach(checkbox => {
-      checkbox.addEventListener('change', function() {
-        this.parentElement.classList.toggle('completed', this.checked);
+    // Suche
+    document.getElementById('invoiceSearch').addEventListener('input', (e) => {
+      const search = e.target.value.toLowerCase();
+      rows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(search) ? '' : 'none';
       });
     });
   </script>
