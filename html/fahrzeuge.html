@@ -5,157 +5,567 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fahrzeuge | mt.cars</title>
     <link rel="stylesheet" href="../styles/dashboard.css">
-    <link rel="stylesheet" href="../styles/kunden.css">
+    <link rel="stylesheet" href="../styles/right-sidebar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        
-        .vehicle-list {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            padding: 1.5rem;
-            margin: 1.5rem 0;
-        }
-
-        .vehicle-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .vehicle-search {
-            flex: 1;
-            max-width: 400px;
-            position: relative;
-        }
-
-        .vehicle-search input {
-            width: 100%;
-            padding: 0.75rem 2.5rem 0.75rem 1rem;
-            border: 1px solid var(--gray-200);
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
-
-        .vehicle-search i {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray-500);
-        }
-
-        .vehicle-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .vehicle-card {
-            border: 2px solid var(--gray-100);
-            border-radius: 12px;
-            padding: 1.25rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .vehicle-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            cursor: pointer;
-        }
-
-        .vehicle-image {
-            height: 180px;
-            background-color: var(--gray-50);
-            border-radius: 8px;
-            margin-bottom: 1rem;
-            overflow: hidden;
-        }
-
-        .vehicle-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .vehicle-meta {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.5rem;
-        }
-
-        .vehicle-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--gray-800);
-            margin-bottom: 0.25rem;
-        }
-
-        .vehicle-details {
-            font-size: 0.9rem;
-            color: var(--gray-600);
-            margin-bottom: 0.5rem;
-        }
-
-        .vehicle-status {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
-        }
-
-        .status-ready {
-            background: var(--primary-light);
-            color: var(--primary);
-        }
-
-        .status-in-progress {
-            background: #fef9c3;
-            color: #ca8a04;
-        }
-
-        .status-warning {
-            background: #fee2e2;
-            color: #dc2626;
-        }
-
-        .vehicle-actions {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1rem;
-        }
-
-        .section-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin: 2rem 0 1rem 0;
-            color: var(--gray-800);
-        }
-
-        @media (max-width: 768px) {
-            .vehicle-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .vehicle-header {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .vehicle-search {
-                max-width: 100%;
-                width: 100%;
-            }
-        }
+/* Layout für Container und Main-Content */
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    margin-right: 320px; /* Platz für Right-Sidebar */
+}
+.main-content {
+    flex: 1;
+    padding: 1.5rem;
+    background-color: var(--gray-50);
+    margin-left: 280px; /* Platz für Left-Sidebar */
+    max-width: calc(100% - 280px - 320px);
+    min-height: 100vh;
+}
+/* Section-Titel */
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    padding: 0.5rem 1rem;
+    border-radius: 8px 8px 0 0; /* Nur oben abgerundet für Tab-Optik */
+    margin: 0 0 0; /* Kein Margin unten */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+}
+.section-title.in-workshop {
+    background: #fef9c3;
+    color: #ca8a04;
+}
+.section-title.upcoming {
+    background: #fee2e2;
+    color: #dc2626;
+}
+.section-title.all-vehicles {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+/* Vehicle List (für Workshop und Upcoming) */
+.vehicle-list {
+    background: white;
+    border-radius: 0 8px 8px 8px; /* Oben links keine Rundung */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    transition: transform 0.2s ease;
+    position: relative;
+    top: -1px; /* Leicht nach oben verschieben für Tab-Effekt */
+}
+.vehicle-list:hover {
+    transform: translateY(-2px);
+}
+/* Vehicle Header */
+.vehicle-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    flex-wrap: wrap;
+}
+.vehicle-search {
+    flex: 1;
+    max-width: 400px;
+    position: relative;
+}
+.vehicle-search input {
+    width: 100%;
+    padding: 0.6rem 2rem 0.6rem 0.8rem;
+    border: 1px solid var(--gray-200);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background: var(--gray-50);
+}
+.vehicle-search input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+}
+.vehicle-search i {
+    position: absolute;
+    right: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray-500);
+    font-size: 0.9rem;
+}
+/* Buttons */
+.action-btn {
+    padding: 0.5rem 0.8rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    border: none;
+}
+.action-btn.primary {
+    background: var(--primary);
+    color: white;
+}
+.action-btn.primary:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+}
+.action-btn.secondary {
+    background: var(--gray-100);
+    color: var(--gray-700);
+}
+.action-btn.secondary:hover {
+    background: var(--gray-200);
+}
+.action-btn.danger {
+    background: #fee2e2;
+    color: #dc2626;
+}
+.action-btn.danger:hover {
+    background: #fecaca;
+}
+/* Vehicle Grid (für Workshop und Upcoming) */
+.vehicle-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+}
+/* Vehicle Card */
+.vehicle-card {
+    background: white;
+    border: 1px solid var(--gray-100);
+    border-radius: 6px;
+    padding: 0.75rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    overflow: hidden;
+}
+.vehicle-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+.vehicle-image {
+    height: 120px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    background: var(--gray-50);
+}
+.vehicle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.vehicle-card:hover .vehicle-image img {
+    transform: scale(1.05);
+}
+.vehicle-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.4rem;
+}
+.vehicle-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--gray-900);
+    margin-bottom: 0.3rem;
+}
+.vehicle-details {
+    font-size: 0.8rem;
+    color: var(--gray-600);
+    line-height: 1.3;
+    margin-bottom: 0.5rem;
+}
+.vehicle-details div {
+    margin-bottom: 0.15rem;
+}
+.vehicle-status {
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+}
+.status-ready {
+    background: var(--primary-light);
+    color: var(--primary);
+}
+.status-in-progress {
+    background: #fef9c3;
+    color: #ca8a04;
+}
+.status-warning {
+    background: #fee2e2;
+    color: #dc2626;
+}
+.vehicle-actions {
+    display: flex;
+    gap: 0.4rem;
+    justify-content: flex-end;
+}
+/* Kennzeichen-Design */
+.license-plate {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: nowrap;
+    background-color: white !important;
+    border: 1px solid #000 !important;
+    border-radius: 4px;
+    font-family: 'DIN Next Pro', 'Arial', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #000;
+    overflow: visible;
+    line-height: 1.2;
+    height: 1.4rem;
+    min-width: 5.2rem;
+    width: auto;
+    visibility: visible;
+    position: relative; /* Für Pseudo-Elemente */
+}
+.license-plate::before,
+.license-plate::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: red;
+}
+.license-plate::before {
+    top: 0; /* Rote Linie oben */
+}
+.license-plate::after {
+    bottom: 0; /* Rote Linie unten */
+}
+.license-plate .blue-field {
+    background: #003087;
+    color: white;
+    width: 1.2rem;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 0.15rem;
+    flex-shrink: 0;
+    margin: 0;
+}
+.license-plate .blue-field span {
+    font-size: 0.6rem;
+    font-weight: 400; /* Dünneres A */
+    line-height: 1;
+}
+.license-plate .plate-text {
+    display: inline-block;
+    flex-grow: 1;
+    flex-shrink: 1;
+    padding: 0.2rem 0.3rem;
+    margin: 0;
+    white-space: nowrap;
+    visibility: visible;
+    opacity: 1;
+    color: #000;
+    min-width: 4rem;
+    background-color: white !important;
+}
+.vehicle-details .license-plate,
+.vehicle-table-list .license-plate {
+    margin-top: 0.2rem;
+    display: inline-flex;
+    border: 1px solid #000 !important;
+    background-color: white !important;
+    position: relative; /* Für Pseudo-Elemente */
+}
+.vehicle-details .license-plate::before,
+.vehicle-details .license-plate::after,
+.vehicle-table-list .license-plate::before,
+.vehicle-table-list .license-plate::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: red;
+}
+.vehicle-details .license-plate::before,
+.vehicle-table-list .license-plate::before {
+    top: 0; /* Rote Linie oben */
+}
+.vehicle-details .license-plate::after,
+.vehicle-table-list .license-plate::after {
+    bottom: 0; /* Rote Linie unten */
+}
+/* Höhere Spezifität für plate-text und license-plate */
+.vehicle-details .license-plate .plate-text,
+.vehicle-table-list .license-plate .plate-text {
+    display: inline-block !important;
+    margin: 0 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    color: #000 !important;
+    background-color: white !important;
+}
+/* Vehicle Table (für Alle Fahrzeuge) */
+.vehicle-table {
+    background: white;
+    border-radius: 0 8px 8px 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto;
+    position: relative;
+    top: -1px;
+}
+.vehicle-table-list {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+.vehicle-table-list th,
+.vehicle-table-list td {
+    padding: 0.6rem;
+    text-align: left;
+    font-size: 0.8rem;
+    color: var(--gray-700);
+}
+.vehicle-table-list th {
+    font-weight: 600;
+    color: var(--gray-900);
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+}
+.vehicle-table-list td {
+    border-bottom: 1px solid var(--gray-100);
+}
+.vehicle-table-list tr:last-child td {
+    border-bottom: none;
+}
+.vehicle-table-list tr:nth-child(even) {
+    background: var(--gray-50);
+}
+.vehicle-table-list tr:hover {
+    background: var(--gray-100);
+    cursor: pointer;
+}
+.vehicle-table-list .vehicle-image {
+    width: 70px;
+    height: 50px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 0;
+}
+.vehicle-table-list .vehicle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.vehicle-table-list .vehicle-actions {
+    display: flex;
+    gap: 0.3rem;
+    justify-content: flex-end;
+}
+.vehicle-table-list .vehicle-actions .action-btn {
+    padding: 0.3rem;
+    font-size: 0.75rem;
+}
+/* Responsive Anpassungen */
+@media (max-width: 1200px) {
+    .container {
+        margin-right: 280px;
+    }
+    .main-content {
+        margin-left: 240px;
+        max-width: calc(100% - 240px - 280px);
+    }
+    .vehicle-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    }
+}
+@media (max-width: 992px) {
+    .container {
+        margin-right: 0;
+    }
+    .main-content {
+        margin-left: 280px;
+        max-width: calc(100% - 280px);
+    }
+    .vehicle-grid {
+        grid-template-columns: 1fr;
+    }
+    .vehicle-table-list {
+        display: block;
+    }
+    .vehicle-table-list thead {
+        display: none;
+    }
+    .vehicle-table-list tr {
+        display: block;
+        margin-bottom: 0.75rem;
+        border: 1px solid var(--gray-100);
+        border-radius: 6px;
+        padding: 0.6rem;
+    }
+    .vehicle-table-list td {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.3rem 0;
+        border-bottom: none;
+    }
+    .vehicle-table-list td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--gray-900);
+        flex: 0 0 40%;
+    }
+    .vehicle-table-list .vehicle-image {
+        width: 100%;
+        height: 80px;
+        margin-bottom: 0.3rem;
+    }
+    .vehicle-table-list .license-plate {
+        font-size: 0.75rem;
+        height: 1.2rem;
+        min-width: 4.8rem;
+        border: 1px solid #000 !important;
+        background-color: white !important;
+    }
+    .vehicle-table-list .license-plate .blue-field {
+        width: 1rem;
+    }
+    .vehicle-table-list .license-plate .blue-field span {
+        font-size: 0.55rem;
+        font-weight: 400;
+    }
+    .vehicle-table-list .license-plate .plate-text {
+        font-size: 0.75rem;
+        min-width: 3.8rem;
+    }
+    .vehicle-table-list .vehicle-actions {
+        justify-content: flex-start;
+    }
+}
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        max-width: 100%;
+        padding: 1rem;
+    }
+    .section-title {
+        font-size: 1.3rem;
+        padding: 0.4rem 0.8rem;
+    }
+    .vehicle-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .vehicle-search {
+        max-width: 100%;
+        width: 100%;
+    }
+    .vehicle-list,
+    .vehicle-table {
+        padding: 0.75rem;
+    }
+    .vehicle-card {
+        padding: 0.6rem;
+    }
+    .vehicle-image {
+        height: 100px;
+    }
+    .vehicle-grid {
+        gap: 0.75rem;
+    }
+    .license-plate {
+        font-size: 0.75rem;
+        height: 1.2rem;
+        min-width: 4.8rem;
+        border: 1px solid #000 !important;
+        background-color: white !important;
+    }
+    .license-plate .blue-field {
+        width: 1rem;
+    }
+    .license-plate .blue-field span {
+        font-size: 0.55rem;
+        font-weight: 400;
+    }
+    .license-plate .plate-text {
+        font-size: 0.75rem;
+        min-width: 3.8rem;
+    }
+}
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 1.1rem;
+        padding: 0.3rem 0.6rem;
+    }
+    .vehicle-search input {
+        padding: 0.5rem 1.8rem 0.5rem 0.6rem;
+        font-size: 0.75rem;
+    }
+    .action-btn {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.75rem;
+    }
+    .vehicle-card {
+        padding: 0.5rem;
+    }
+    .vehicle-title {
+        font-size: 0.9rem;
+    }
+    .vehicle-details {
+        font-size: 0.75rem;
+    }
+    .vehicle-status {
+        font-size: 0.7rem;
+        padding: 0.2rem 0.5rem;
+    }
+    .vehicle-table-list td {
+        font-size: 0.75rem;
+    }
+    .vehicle-image {
+        height: 80px;
+    }
+    .license-plate {
+        font-size: 0.7rem;
+        height: 1rem;
+        min-width: 4.5rem;
+        border: 1px solid #000 !important;
+        background-color: white !important;
+    }
+    .license-plate .blue-field {
+        width: 0.9rem;
+    }
+    .license-plate .blue-field span {
+        font-size: 0.5rem;
+        font-weight: 400;
+    }
+    .license-plate .plate-text {
+        font-size: 0.7rem;
+        min-width: 3.6rem;
+    }
+}
     </style>
 </head>
 <body>
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
-    <header class="header карткаheader">
+    <header class="header">
         <div class="header-left">
             <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
             <div class="logo-title">
@@ -176,72 +586,63 @@
         </div>
     </header>
     <div class="container">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="user-profile">
-          <div class="avatar">MA</div>
-          <div class="user-info">
-            <div class="user-name">Max Mustermann</div>
-            <div class="user-role">Werkstatt</div>
-          </div>
-        </div>
-        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
-          <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
-          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
-          <li class="active"><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
-          <li><a href="./verakufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
-          <li><a href="./angebote.html" class="active"><i class="fas fa-file-alt"></i> Angebote</a></li>
-          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
-          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
-          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
-
-          <li class="menu-item has-submenu">
-            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
-            <label for="lagerbestand-toggle" class="submenu-label">
-              <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
-            </label>
-            <ul class="submenu">
-              <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
-              <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
-              <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
-              <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
-              <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
-
-            </ul>
-          </li>
-
-
-          <li class="menu-item has-submenu">
-            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
-            <label for="berichte-toggle" class="submenu-label">
-              <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
-            </label>
-            <ul class="submenu">
-              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
-              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </aside>
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="user-profile">
+                    <div class="avatar">MA</div>
+                    <div class="user-info">
+                        <div class="user-name">Max Mustermann</div>
+                        <div class="user-role">Werkstatt</div>
+                    </div>
+                </div>
+                <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+                    <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+                    <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+                    <li class="active"><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+                    <li><a href="./verakufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
+                    <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
+                    <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+                    <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+                    <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+                        <label for="lagerbestand-toggle" class="submenu-label">
+                            <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
+                            <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
+                            <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
+                            <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
+                            <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-submenu">
+                        <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+                        <label for="berichte-toggle" class="submenu-label">
+                            <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
+                        </label>
+                        <ul class="submenu">
+                            <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+                            <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
         <main class="main-content">
-            <div class="main-header"><h1>Fahrzeuge</h1></div>
-            
-            
-            <div class="section-title">Aktuelle Fahrzeuge in der Werkstatt</div>
+            <div class="section-title in-workshop">Aktuelle Fahrzeuge in der Werkstatt</div>
             <div class="vehicle-list">
                 <div class="vehicle-header">
                     <div class="vehicle-search">
                         <input type="text" placeholder="Fahrzeug suchen...">
                         <i class="fas fa-search"></i>
                     </div>
-                    <button class="action-btn primary"><i class="fas fa-plus"></i> Neues Fahrzeug</button>
                 </div>
-
                 <div class="vehicle-grid">
                     <div class="vehicle-card">
                         <div class="vehicle-image">
@@ -253,7 +654,10 @@
                         </div>
                         <h3 class="vehicle-title">VW Golf VIII</h3>
                         <div class="vehicle-details">
-                            <div>Kennzeichen: M-MS-1234</div>
+                            <div class="license-plate">
+                                <div class="blue-field"><span>A</span></div>
+                                <div class="plate-text">M-MS-1234</div>
+                            </div>
                             <div>FIN: WVWZZZAUZNW123456</div>
                             <div>Auftrag: Inspektion & Bremsen</div>
                         </div>
@@ -263,7 +667,6 @@
                             <button class="action-btn secondary"><i class="fas fa-history"></i></button>
                         </div>
                     </div>
-
                     <div class="vehicle-card">
                         <div class="vehicle-image">
                             <img src="../img/placeholder-car2.jpeg" alt="Fahrzeug">
@@ -274,7 +677,10 @@
                         </div>
                         <h3 class="vehicle-title">BMW 3er G20</h3>
                         <div class="vehicle-details">
-                            <div>Kennzeichen: M-BM-5678</div>
+                            <div class="license-plate">
+                                <div class="blue-field"><span>A</span></div>
+                                <div class="plate-text">M-BM-5678</div>
+                            </div>
                             <div>FIN: WBA7Y310XKGV12345</div>
                             <div>Auftrag: Jahresinspektion</div>
                         </div>
@@ -286,9 +692,7 @@
                     </div>
                 </div>
             </div>
-
-
-            <div class="section-title">Bevorstehende Termine</div>
+            <div class="section-title upcoming">Bevorstehende Termine</div>
             <div class="vehicle-list">
                 <div class="vehicle-header">
                     <div class="vehicle-search">
@@ -296,7 +700,6 @@
                         <i class="fas fa-search"></i>
                     </div>
                 </div>
-
                 <div class="vehicle-grid">
                     <div class="vehicle-card">
                         <div class="vehicle-image">
@@ -308,7 +711,10 @@
                         </div>
                         <h3 class="vehicle-title">Audi A4 B9</h3>
                         <div class="vehicle-details">
-                            <div>Kennzeichen: M-AD-9012</div>
+                            <div class="license-plate">
+                                <div class="blue-field"><span>A</span></div>
+                                <div class="plate-text">M-AD-9012</div>
+                            </div>
                             <div>FIN: WAUZZZF49KA123456</div>
                             <div>Geplanter Service: Ölwechsel</div>
                         </div>
@@ -320,84 +726,216 @@
                     </div>
                 </div>
             </div>
-
-            
-            <div class="section-title">Alle Fahrzeuge</div>
-            <div class="vehicle-list">
+            <div class="section-title all-vehicles">Alle Fahrzeuge</div>
+            <div class="vehicle-table">
                 <div class="vehicle-header">
                     <div class="vehicle-search">
                         <input type="text" placeholder="Fahrzeug suchen...">
                         <i class="fas fa-search"></i>
                     </div>
+                    <button class="action-btn primary"><i class="fas fa-plus"></i> Neues Fahrzeug</button>
                 </div>
-
-                <div class="vehicle-grid">
-                    <div class="vehicle-card">
-                        <div class="vehicle-image">
-                            <img src="../img/Placeholder-car-3.jpg" alt="Fahrzeug">
-                        </div>
-                        <div class="vehicle-meta">
-                            
-                            <div class="vehicle-details">KM: 123.456</div>
-                        </div>
-                        <h3 class="vehicle-title">VW Golf VIII</h3>
-                        <div class="vehicle-details">
-                            <div>Kennzeichen: M-MS-1234</div>
-                            <div>FIN: WVWZZZAUZNW123456</div>
-                            <div>Nächste HU: 12/2025</div>
-                        </div>
-                        <div class="vehicle-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
-                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                <table class="vehicle-table-list">
+                    <thead>
+                        <tr>
+                            <th>Bild</th>
+                            <th>Fahrzeug</th>
+                            <th>Kennzeichen</th>
+                            <th>FIN</th>
+                            <th>Kilometer</th>
+                            <th>Nächste HU</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Bild">
+                                <div class="vehicle-image">
+                                    <img src="../img/Placeholder-car-3.jpg" alt="Fahrzeug">
+                                </div>
+                            </td>
+                            <td data-label="Fahrzeug">VW Golf VIII</td>
+                            <td data-label="Kennzeichen">
+                                <div class="license-plate">
+                                    <div class="blue-field"><span>A</span></div>
+                                    <div class="plate-text">M-MS-1234</div>
+                                </div>
+                            </td>
+                            <td data-label="FIN">WVWZZZAUZNW123456</td>
+                            <td data-label="Kilometer">123.456</td>
+                            <td data-label="Nächste HU">12/2025</td>
+                            <td data-label="Aktionen">
+                                <div class="vehicle-actions">
+                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+                                    <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Bild">
+                                <div class="vehicle-image">
+                                    <img src="../img/placeholder-car2.jpeg" alt="Fahrzeug">
+                                </div>
+                            </td>
+                            <td data-label="Fahrzeug">BMW 3er G20</td>
+                            <td data-label="Kennzeichen">
+                                <div class="license-plate">
+                                    <div class="blue-field"><span>A</span></div>
+                                    <div class="plate-text">M-BM-5678</div>
+                                </div>
+                            </td>
+                            <td data-label="FIN">WBA7Y310XKGV12345</td>
+                            <td data-label="Kilometer">89.245</td>
+                            <td data-label="Nächste HU">06/2024</td>
+                            <td data-label="Aktionen">
+                                <div class="vehicle-actions">
+                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+                                    <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td data-label="Bild">
+                                <div class="vehicle-image">
+                                    <img src="../img/Placeholder-car-4.jpg" alt="Fahrzeug">
+                                </div>
+                            </td>
+                            <td data-label="Fahrzeug">Audi A4 B9</td>
+                            <td data-label="Kennzeichen">
+                                <div class="license-plate">
+                                    <div class="blue-field"><span>A</span></div>
+                                    <div class="plate-text">M-AD-9012</div>
+                                </div>
+                            </td>
+                            <td data-label="FIN">WAUZZZF49KA123456</td>
+                            <td data-label="Kilometer">45.789</td>
+                            <td data-label="Nächste HU">03/2025</td>
+                            <td data-label="Aktionen">
+                                <div class="vehicle-actions">
+                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
+                                    <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+                                    <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+        <aside class="right-sidebar">
+            <div class="right-sidebar-content">
+                <section class="calendar-section">
+                    <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
+                    <div class="section-header">
+                        <h2>Kalender</h2>
+                        <div class="calendar-controls">
+                            <button class="nav-arrow" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+                            <span class="calendar-month" id="calendar-month">Mai 2025</span>
+                            <button class="nav-arrow" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
+                            <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
                         </div>
                     </div>
-
-                    <div class="vehicle-card">
-                        <div class="vehicle-image">
-                            <img src="../img/placeholder-car2.jpeg" alt="Fahrzeug">
+                    <div class="section-content calendar-content">
+                        <div class="calendar-grid" id="calendar-grid"></div>
+                    </div>
+                </section>
+                <section class="appointments-section">
+                    <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
+                    <div class="section-header">
+                        <h2>Termine <span id="selected-date"></span></h2>
+                        <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                    </div>
+                    <div class="section-content appointments-content">
+                        <div class="appointments-list-container">
+                            <ul class="appointments-list" id="appointments-list"></ul>
                         </div>
-                        <div class="vehicle-meta">
-                            
-                            <div class="vehicle-details">KM: 89.245</div>
-                        </div>
-                        <h3 class="vehicle-title">BMW 3er G20</h3>
-                        <div class="vehicle-details">
-                            <div>Kennzeichen: M-BM-5678</div>
-                            <div>FIN: WBA7Y310XKGV12345</div>
-                            <div>Nächste HU: 06/2024</div>
-                        </div>
-                        <div class="vehicle-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
-                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+                        <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
+                    </div>
+                </section>
+                <section class="notes-section">
+                    <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
+                    <div class="section-header">
+                        <h2>Notizen</h2>
+                        <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                    </div>
+                    <div class="section-content notes-content">
+                        <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
+                        <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
+                        <div class="notes-list-container">
+                            <ul id="notes-list" class="notes-list"></ul>
                         </div>
                     </div>
-
-                    <div class="vehicle-card">
-                        <div class="vehicle-image">
-                            <img src="../img/Placeholder-car-4.jpg" alt="Fahrzeug">
+                </section>
+                <div id="notes-modal" class="notes-modal">Gespeichert!</div>
+                <div id="note-edit-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Notiz bearbeiten</h2>
+                            <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
                         </div>
-                        <div class="vehicle-meta">
-                            
-                            <div class="vehicle-details">KM: 45.789</div>
+                        <form id="note-edit-form" class="modal-form">
+                            <div class="form-group">
+                                <label for="note-content">Notiz</label>
+                                <textarea id="note-content" class="notes-textarea" style="width: 100%; height: 150px; padding: 0.5rem;"></textarea>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                                <button type="button" class="modal-btn modal-btn-delete">Löschen</button>
+                                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div id="appointment-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Neuer Termin</h2>
+                            <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
                         </div>
-                        <h3 class="vehicle-title">Audi A4 B9</h3>
-                        <div class="vehicle-details">
-                            <div>Kennzeichen: M-AD-9012</div>
-                            <div>FIN: WAUZZZF49KA123456</div>
-                            <div>Nächste HU: 03/2025</div>
-                        </div>
-                        <div class="vehicle-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
-                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
-                        </div>
+                        <form id="appointment-form" class="modal-form">
+                            <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label for="appointment-time">Uhrzeit</label>
+                                    <select id="appointment-time" required style="width: 100%; padding: 0.5rem;"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-duration">Dauer</label>
+                                    <select id="appointment-duration" required style="width: 100%; padding: 0.5rem;"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-customer">Kunde</label>
+                                    <input type="text" id="appointment-customer" required style="width: 100%; padding: 0.5rem;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-vehicle">Fahrzeug</label>
+                                    <input type="text" id="appointment-vehicle" required style="width: 100%; padding: 0.5rem;">
+                                </div>
+                                <div class="form-group full-width" style="grid-column: span 2;">
+                                    <label for="appointment-service">Dienstleistung</label>
+                                    <input type="text" id="appointment-service" required style="width: 100%; padding: 0.5rem;">
+                                </div>
+                                <div class="form-group full-width" style="grid-column: span 2;">
+                                    <label for="appointment-note">Notiz</label>
+                                    <textarea id="appointment-note" style="width: 100%; padding: 0.5rem;"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-price">Preis (€)</label>
+                                    <input type="number" id="appointment-price" step="0.01" min="0" style="width: 100%; padding: 0.5rem;">
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </main>
+        </aside>
     </div>
+    <script src="../scripts/right-sidebar.js"></script>
     <script>
     (() => {
         const menuToggle = document.getElementById('menu-toggle');
