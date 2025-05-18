@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const pageInfo = document.querySelector(".pagination-info");
     const deleteButton = document.querySelector(".action-btn.delete");
     const checkboxes = document.querySelectorAll(".customer-checkbox");
+
     const addCustomerBtn = document.querySelector(".action-btn.primary");
     const customerModal = document.getElementById("add-customer-modal");
     const customerClose = customerModal?.querySelector(".modal-close");
@@ -27,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const fahrzeugAdd = document.querySelector(".fahrzeug-add");
     const fahrzeugModal = document.getElementById("add-vehicle-modal");
     const fahrzeugClose = fahrzeugModal?.querySelector(".modal-close");
+
+    const fahrzeugeListe = document.getElementById("fahrzeuge-liste");
+    const fahrzeugForm = fahrzeugModal?.querySelector("form");
 
     // Kunde hinzufügen Modal öffnen
     addCustomerBtn.addEventListener("click", function () {
@@ -38,10 +42,13 @@ document.addEventListener("DOMContentLoaded", function () {
         customerModal.style.display = "none";
     });
 
-    // Klick außerhalb Kunde-Modal
+    // Klick außerhalb eines Modals
     window.addEventListener("click", function (event) {
         if (event.target === customerModal) {
             customerModal.style.display = "none";
+        }
+        if (event.target === fahrzeugModal) {
+            fahrzeugModal.style.display = "none";
         }
     });
 
@@ -50,16 +57,38 @@ document.addEventListener("DOMContentLoaded", function () {
         fahrzeugModal.style.display = "block";
     });
 
-    // Fahrzeug hinzufügen Modal schließen
+    // Fahrzeug Modal schließen
     fahrzeugClose?.addEventListener("click", function () {
         fahrzeugModal.style.display = "none";
     });
 
-    // Klick außerhalb Fahrzeug-Modal
-    window.addEventListener("click", function (event) {
-        if (event.target === fahrzeugModal) {
-            fahrzeugModal.style.display = "none";
-        }
+    // Fahrzeug speichern
+    fahrzeugForm?.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const kennzeichenInput = document.getElementById("fahrzeug-kennzeichen");
+        const laufleistungInput = document.getElementById("fahrzeug-laufleistung");
+        const modellInput = document.getElementById("fahrzeug-modell");
+
+        const kennzeichen = kennzeichenInput?.value || "-";
+        const laufleistung = laufleistungInput?.value || "0 km";
+        const modell = modellInput?.value || "Modell";
+
+        const fahrzeugDiv = document.createElement("div");
+        fahrzeugDiv.className = "fahrzeug-eintrag";
+        fahrzeugDiv.style.padding = "0.5rem";
+        fahrzeugDiv.style.marginTop = "0.5rem";
+        fahrzeugDiv.style.border = "1px solid #D1D5DB";
+        fahrzeugDiv.style.borderRadius = "6px";
+        fahrzeugDiv.innerHTML = `
+            <strong>Kennzeichen:</strong> ${kennzeichen}<br>
+            <strong>Modell:</strong> ${modell}<br>
+            <strong>Laufleistung:</strong> ${laufleistung}
+        `;
+
+        fahrzeugeListe?.appendChild(fahrzeugDiv);
+        fahrzeugModal.style.display = "none";
+        fahrzeugForm.reset();
     });
 
     // Tabelle & Filterfunktionen
@@ -103,6 +132,8 @@ document.addEventListener("DOMContentLoaded", function () {
     updateDeleteButton();
 });
 </script>
+
+
 
 </head>
 <body>
