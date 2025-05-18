@@ -7,58 +7,103 @@
     <link rel="stylesheet" href="../styles/dashboard.css">
     <link rel="stylesheet" href="../styles/kunden.css">
     <link rel="stylesheet" href="../styles/right-sidebar.css">
+    <link rel="stylesheet" href="../styles/kunde-hinzufügen-modal.css">
+    <link rel="stylesheet" href="../styles/fahrzeug-hinzufuegen-modal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const input = document.querySelector(".search-input");
-            const rows = document.querySelectorAll(".customer-table tbody tr");
-            const statsSpan = document.querySelector(".stat-item[data-type='kunden']");
-            const pageInfo = document.querySelector(".pagination-info");
-            const deleteButton = document.querySelector(".action-btn.delete");
-            const checkboxes = document.querySelectorAll(".customer-checkbox");
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const input = document.querySelector(".search-input");
+    const rows = document.querySelectorAll(".customer-table tbody tr");
+    const statsSpan = document.querySelector(".stat-item[data-type='kunden']");
+    const pageInfo = document.querySelector(".pagination-info");
+    const deleteButton = document.querySelector(".action-btn.delete");
+    const checkboxes = document.querySelectorAll(".customer-checkbox");
+    const addCustomerBtn = document.querySelector(".action-btn.primary");
+    const customerModal = document.getElementById("add-customer-modal");
+    const customerClose = customerModal?.querySelector(".modal-close");
 
-            function updateCountAndPage() {
-                const visibleRows = Array.from(rows).filter(r => r.style.display !== "none");
-                const total = rows.length;
-                const visible = visibleRows.length;
-                if (statsSpan) {
-                    statsSpan.innerHTML = `<i class='fas fa-users'></i> ${total} Kunden gesamt`;
-                }
-                const from = visible > 0 ? 1 : 0;
-                const to = visible;
-                if (pageInfo) {
-                    pageInfo.textContent = `${from}-${to} von ${total}`;
-                }
-            }
+    const fahrzeugAdd = document.querySelector(".fahrzeug-add");
+    const fahrzeugModal = document.getElementById("add-vehicle-modal");
+    const fahrzeugClose = fahrzeugModal?.querySelector(".modal-close");
 
-            function updateDeleteButton() {
-                const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
-                if (deleteButton) {
-                    deleteButton.style.display = anyChecked ? "flex" : "none";
-                }
-            }
+    // Kunde hinzufügen Modal öffnen
+    addCustomerBtn.addEventListener("click", function () {
+        customerModal.style.display = "block";
+    });
 
-            input.addEventListener("input", function () {
-                const filter = input.value.toLowerCase().replace(/[^a-z0-9]/gi, "");
-                rows.forEach(row => {
-                    const text = Array.from(row.querySelectorAll('td:not(.delete-action) .plate-number, td:not(.delete-action):not([data-label="Kennzeichen"])'))
-                        .map(td => td.textContent.toLowerCase().replace(/[^a-z0-9]/gi, ""))
-                        .join('');
-                    row.style.display = text.includes(filter) ? "" : "none";
-                });
-                updateCountAndPage();
-            });
+    // Kunde hinzufügen Modal schließen
+    customerClose?.addEventListener("click", function () {
+        customerModal.style.display = "none";
+    });
 
-            checkboxes.forEach(cb => {
-                cb.addEventListener("change", updateDeleteButton);
-            });
+    // Klick außerhalb Kunde-Modal
+    window.addEventListener("click", function (event) {
+        if (event.target === customerModal) {
+            customerModal.style.display = "none";
+        }
+    });
 
-            updateCountAndPage();
-            updateDeleteButton();
+    // Fahrzeug hinzufügen Modal öffnen
+    fahrzeugAdd?.addEventListener("click", function () {
+        fahrzeugModal.style.display = "block";
+    });
+
+    // Fahrzeug hinzufügen Modal schließen
+    fahrzeugClose?.addEventListener("click", function () {
+        fahrzeugModal.style.display = "none";
+    });
+
+    // Klick außerhalb Fahrzeug-Modal
+    window.addEventListener("click", function (event) {
+        if (event.target === fahrzeugModal) {
+            fahrzeugModal.style.display = "none";
+        }
+    });
+
+    // Tabelle & Filterfunktionen
+    function updateCountAndPage() {
+        const visibleRows = Array.from(rows).filter(r => r.style.display !== "none");
+        const total = rows.length;
+        const visible = visibleRows.length;
+        if (statsSpan) {
+            statsSpan.innerHTML = `<i class='fas fa-users'></i> ${total} Kunden gesamt`;
+        }
+        const from = visible > 0 ? 1 : 0;
+        const to = visible;
+        if (pageInfo) {
+            pageInfo.textContent = `${from}-${to} von ${total}`;
+        }
+    }
+
+    function updateDeleteButton() {
+        const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
+        if (deleteButton) {
+            deleteButton.style.display = anyChecked ? "flex" : "none";
+        }
+    }
+
+    input.addEventListener("input", function () {
+        const filter = input.value.toLowerCase().replace(/[^a-z0-9]/gi, "");
+        rows.forEach(row => {
+            const text = Array.from(row.querySelectorAll('td:not(.delete-action) .plate-number, td:not(.delete-action):not([data-label="Kennzeichen"])'))
+                .map(td => td.textContent.toLowerCase().replace(/[^a-z0-9]/gi, ""))
+                .join('');
+            row.style.display = text.includes(filter) ? "" : "none";
         });
-    </script>
+        updateCountAndPage();
+    });
+
+    checkboxes.forEach(cb => {
+        cb.addEventListener("change", updateDeleteButton);
+    });
+
+    updateCountAndPage();
+    updateDeleteButton();
+});
+</script>
+
 </head>
 <body>
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
@@ -356,6 +401,220 @@
                 </div>
             </div>
         </aside>
+
+
+<!-- ####################################################################################################################################### -->
+<!--                                                              Kunde hinzufügen                                                           -->
+<!-- ####################################################################################################################################### -->
+
+
+            <div id="add-customer-modal" class="modal">
+              <div class="modal-content add-customer-modal">
+                <div class="modal-header">
+                  <h2>Neuen Kunden hinzufügen</h2>
+                  <button class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
+                </div>
+                <form>
+                  <div class="modal-body add-customer-grid">
+                    <div class="form-group">
+                      <label>Anrede</label>
+                      <select><option>--</option><option>Herr</option><option>Frau</option></select>
+                    </div>
+                    <div class="form-group">
+                      <label>Titel</label>
+                      <input type="text" />
+                    </div>
+                    <div class="form-group">
+                      <label>Vorname</label>
+                      <input type="text" />
+                    </div>
+                    <div class="form-group required">
+                      <label>Nachname *</label>
+                      <input type="text" required />
+                    </div>
+                    <div class="form-group">
+                      <label>Extra Adresszeile (wird unter Namen gedruckt)</label>
+                      <input type="text" />
+                    </div>
+                    <div class="form-group">
+                      <label>Straße und Hausnummer</label>
+                      <input type="text" />
+                    </div>
+                    <div class="form-group">
+                      <label>PLZ</label>
+                      <input type="text" />
+                    </div>
+                    <div class="form-group">
+                      <label>Ort</label>
+                      <input type="text" />
+                    </div>
+                    <div class="form-group required">
+                      <label>Land *</label>
+                      <select><option>Österreich</option><option>Deutschland</option><option>Schweiz</option></select>
+                    </div>
+                    <div class="form-group">
+                      <label>Handy</label>
+                      <input type="tel" />
+                    </div>
+                    <div class="form-group">
+                      <label>Telefon</label>
+                      <input type="tel" />
+                    </div>
+                    <div class="form-group">
+                      <label>E-Mail Adresse</label>
+                      <input type="email" />
+                    </div>
+                    <div class="form-group">
+                      <label>Geburtstag</label>
+                      <input type="date" />
+                    </div>
+                    <div class="form-group">
+                      <label>UID</label>
+                      <input type="text" value="ATU000000000" />
+                    </div>
+                    <div class="form-group full-width">
+                      <label>Zusatzinfo</label>
+                      <textarea></textarea>
+                    </div>
+                    <div class="form-group checkbox-group full-width">
+                      <label><input type="checkbox" /> Zusatzinfo auf Angebote und Rechnungen drucken</label>
+                    </div>
+                    <div class="form-group full-width">
+                      <div id="fahrzeug-section" class="fahrzeug-section">
+                        <div class="fahrzeug-section-header">
+                          <span class="fahrzeug-add">+ Fahrzeug hinzufügen</span>
+                          <span class="fahrzeug-text">Fahrzeug zum Kunden hinzufügen</span>
+                        </div>
+                        <div id="fahrzeuge-liste" class="fahrzeuge-liste"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn secondary">Verwerfen</button>
+                    <button type="submit" class="btn primary">+ Kunde hinzufügen</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+<!-- ####################################################################################################################################### -->
+<!--                                                           Fahrzeug hinzufügen                                                           -->
+<!-- ####################################################################################################################################### -->
+
+
+<div id="add-vehicle-modal" class="modal">
+  <div class="modal-content fahrzeug-modal">
+    <div class="modal-header">
+      <h2>Fahrzeug erstellen</h2>
+      <button class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
+    </div>
+    <form>
+      <div class="fahrzeug-grid">
+        <div class="form-group full-width">
+          <label><i class="fas fa-user"></i> Kunde wählen *</label>
+          <input type="text" placeholder="Kunde auswählen" disabled />
+        </div>
+        <div class="form-group">
+          <label>Kennzeichen A</label>
+          <input type="text" value="SD 123AB" />
+        </div>
+        <div class="form-group">
+          <label>Laufleistung</label>
+          <input type="text" placeholder="Hinzufügen" />
+        </div>
+        <div class="form-group">
+          <label>Nationaler Code A7</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Fahrzeugidentifikationsnummer E</label>
+          <input type="text" value="0" />
+        </div>
+        <div class="form-group">
+          <label>Hersteller D.1 *</label>
+          <select><option>Hersteller wählen</option></select>
+        </div>
+        <div class="form-group">
+          <label>Modell / Handelsbezeichnung D.3 *</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Type/Variante/Version D.2</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Fahrzeugklasse J</label>
+          <select><option>M1 | PKW/Kombi</option></select>
+        </div>
+        <div class="form-group">
+          <label>Getriebeart</label>
+          <select><option>wählen</option></select>
+        </div>
+        <div class="form-group">
+          <label>Eigengewicht G</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>höchstzul. Gesamtgewicht F.2</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Leistung P.2</label>
+          <input type="text" placeholder="0 PS" />
+        </div>
+        <div class="form-group">
+          <label>Hubraum P.1</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Letzte Zulassung</label>
+          <input type="date" />
+        </div>
+        <div class="form-group">
+          <label>Erstzulassung B</label>
+          <input type="date" />
+        </div>
+        <div class="form-group">
+          <label>Genehmigungsdatum 6</label>
+          <input type="date" />
+        </div>
+        <div class="form-group">
+          <label>Motor-Kategorie</label>
+          <select><option>wählen</option></select>
+        </div>
+        <div class="form-group">
+          <label>Motortype 10</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Farbe R</label>
+          <input type="text" />
+        </div>
+        <div class="form-group full-width">
+          <label>Polizzennummer</label>
+          <input type="text" />
+        </div>
+        <div class="form-group full-width">
+          <label>Zusatzinfo</label>
+          <textarea></textarea>
+        </div>
+      </div>
+      <div class="fahrzeug-footer">
+        <button type="button" class="btn secondary">Abbrechen</button>
+        <button type="submit" class="btn primary">Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
     </div>
 
     <script src="../scripts/right-sidebar.js"></script>

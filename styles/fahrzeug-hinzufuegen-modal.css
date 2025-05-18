@@ -1,0 +1,89 @@
+/* Fahrzeug hinzufügen Modal */
+
+.fahrzeug-modal {
+  width: 100%;
+  max-width: 1024px;
+  max-height: 90vh;
+  margin: 5vh auto;
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.fahrzeug-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+  box-sizing: border-box;
+}
+
+.fahrzeug-grid .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.fahrzeug-grid .form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.fahrzeug-grid .form-group input,
+.fahrzeug-grid .form-group select,
+.fahrzeug-grid .form-group textarea {
+  padding: 8px;
+  border: 1px solid #D1D5DB;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  background-color: white;
+}
+
+.fahrzeug-grid .form-group textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.fahrzeug-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.fahrzeug-footer .btn {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.fahrzeug-footer .btn.primary {
+  background-color: #3B82F6;
+  color: white;
+}
+
+.fahrzeug-footer .btn.primary:hover {
+  background-color: #1D4ED8;
+}
+
+.fahrzeug-footer .btn.secondary {
+  background-color: #E5E7EB;
+  color: #374151;
+}
+
+.fahrzeug-footer .btn.secondary:hover {
+  background-color: #D1D5DB;
+}
+
+@media (max-width: 768px) {
+  .fahrzeug-grid {
+    grid-template-columns: 1fr;
+  }
+}
