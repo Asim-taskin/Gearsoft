@@ -28,95 +28,114 @@ document.addEventListener("DOMContentLoaded", function () {
     const fahrzeugAdd = document.querySelector(".fahrzeug-add");
     const fahrzeugModal = document.getElementById("add-vehicle-modal");
     const fahrzeugClose = fahrzeugModal?.querySelector(".modal-close");
-
     const fahrzeugeListe = document.getElementById("fahrzeuge-liste");
     const fahrzeugForm = fahrzeugModal?.querySelector("form");
 
-    // Kunde hinzufügen Modal öffnen
-    addCustomerBtn.addEventListener("click", function () {
-        customerModal.style.display = "block";
-    });
+    let editTarget = null;
 
-    // Kunde hinzufügen Modal schließen
-    customerClose?.addEventListener("click", function () {
-        customerModal.style.display = "none";
-    });
+    // Kunde Modal
+    addCustomerBtn.addEventListener("click", () => customerModal.style.display = "block");
+    customerClose?.addEventListener("click", () => customerModal.style.display = "none");
 
-    // Klick außerhalb eines Modals
-    window.addEventListener("click", function (event) {
-        if (event.target === customerModal) {
-            customerModal.style.display = "none";
-        }
-        if (event.target === fahrzeugModal) {
-            fahrzeugModal.style.display = "none";
-        }
-    });
-
-    // Fahrzeug hinzufügen Modal öffnen
-    fahrzeugAdd?.addEventListener("click", function () {
+    // Fahrzeug Modal öffnen
+    fahrzeugAdd?.addEventListener("click", () => {
         fahrzeugModal.style.display = "block";
+        fahrzeugForm.reset();
+        editTarget = null;
+        populateVehicleForm(null);
     });
 
-    // Fahrzeug Modal schließen
-    fahrzeugClose?.addEventListener("click", function () {
-        fahrzeugModal.style.display = "none";
+    fahrzeugClose?.addEventListener("click", () => fahrzeugModal.style.display = "none");
+
+    window.addEventListener("click", (e) => {
+        if (e.target === customerModal) customerModal.style.display = "none";
+        if (e.target === fahrzeugModal) fahrzeugModal.style.display = "none";
     });
 
-    // Fahrzeug speichern
     fahrzeugForm?.addEventListener("submit", function (e) {
         e.preventDefault();
 
-        const kennzeichenInput = document.getElementById("fahrzeug-kennzeichen");
-        const laufleistungInput = document.getElementById("fahrzeug-laufleistung");
-        const modellInput = document.getElementById("fahrzeug-modell");
+        const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
+        const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
+        const modellInput = fahrzeugForm.querySelectorAll("input")[6];
 
-        const kennzeichen = kennzeichenInput?.value || "-";
-        const laufleistung = laufleistungInput?.value || "0 km";
-        const modell = modellInput?.value || "Modell";
+        const kennzeichen = kennzeichenInput?.value.trim() || "-";
+        const laufleistung = laufleistungInput?.value.trim() || "-";
+        const modell = modellInput?.value.trim() || "-";
 
-        const fahrzeugDiv = document.createElement("div");
-        fahrzeugDiv.className = "fahrzeug-eintrag";
-        fahrzeugDiv.style.padding = "0.5rem";
-        fahrzeugDiv.style.marginTop = "0.5rem";
-        fahrzeugDiv.style.border = "1px solid #D1D5DB";
-        fahrzeugDiv.style.borderRadius = "6px";
-        fahrzeugDiv.innerHTML = `
-            <strong>Kennzeichen:</strong> ${kennzeichen}<br>
-            <strong>Modell:</strong> ${modell}<br>
-            <strong>Laufleistung:</strong> ${laufleistung}
+        const fahrzeugHTML = `
+            <div class="fahrzeug-eintrag" data-kennzeichen="${kennzeichen}" data-laufleistung="${laufleistung}" data-modell="${modell}" style="border:1px solid #ccc; padding:8px; margin-top:8px; border-radius:5px;">
+                <strong>Kennzeichen:</strong> ${kennzeichen}<br>
+                <strong>Modell:</strong> ${modell}<br>
+                <strong>Laufleistung:</strong> ${laufleistung} km
+                <div class="fahrzeug-actions" style="margin-top:5px;">
+                    <button class="edit-fahrzeug" title="Bearbeiten" style="margin-right:10px;"><i class="fas fa-edit"></i></button>
+                    <button class="delete-fahrzeug" title="Löschen"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
         `;
 
-        fahrzeugeListe?.appendChild(fahrzeugDiv);
+        if (editTarget) {
+            editTarget.outerHTML = fahrzeugHTML;
+            editTarget = null;
+        } else {
+            fahrzeugeListe.insertAdjacentHTML("beforeend", fahrzeugHTML);
+        }
+
         fahrzeugModal.style.display = "none";
-        fahrzeugForm.reset();
+        attachFahrzeugEvents();
     });
 
-    // Tabelle & Filterfunktionen
-    function updateCountAndPage() {
-        const visibleRows = Array.from(rows).filter(r => r.style.display !== "none");
-        const total = rows.length;
-        const visible = visibleRows.length;
-        if (statsSpan) {
-            statsSpan.innerHTML = `<i class='fas fa-users'></i> ${total} Kunden gesamt`;
-        }
-        const from = visible > 0 ? 1 : 0;
-        const to = visible;
-        if (pageInfo) {
-            pageInfo.textContent = `${from}-${to} von ${total}`;
+    function attachFahrzeugEvents() {
+        fahrzeugeListe.querySelectorAll(".delete-fahrzeug").forEach(btn => {
+            btn.onclick = function () {
+                const eintrag = this.closest(".fahrzeug-eintrag");
+                if (eintrag) eintrag.remove();
+            };
+        });
+
+        fahrzeugeListe.querySelectorAll(".edit-fahrzeug").forEach(btn => {
+            btn.onclick = function () {
+                const eintrag = this.closest(".fahrzeug-eintrag");
+                if (!eintrag) return;
+
+                editTarget = eintrag;
+                populateVehicleForm(eintrag);
+                fahrzeugModal.style.display = "block";
+            };
+        });
+    }
+
+    function populateVehicleForm(eintrag) {
+        const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
+        const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
+        const modellInput = fahrzeugForm.querySelectorAll("input")[6];
+
+        if (eintrag) {
+            kennzeichenInput.value = eintrag.dataset.kennzeichen;
+            laufleistungInput.value = eintrag.dataset.laufleistung;
+            modellInput.value = eintrag.dataset.modell;
+        } else {
+            kennzeichenInput.value = "";
+            laufleistungInput.value = "";
+            modellInput.value = "";
         }
     }
 
+    function updateCountAndPage() {
+        const visibleRows = Array.from(rows).filter(r => r.style.display !== "none");
+        statsSpan.innerHTML = `<i class='fas fa-users'></i> ${rows.length} Kunden gesamt`;
+        pageInfo.textContent = `${visibleRows.length ? 1 : 0}-${visibleRows.length} von ${rows.length}`;
+    }
+
     function updateDeleteButton() {
-        const anyChecked = Array.from(checkboxes).some(cb => cb.checked);
-        if (deleteButton) {
-            deleteButton.style.display = anyChecked ? "flex" : "none";
-        }
+        deleteButton.style.display = Array.from(checkboxes).some(cb => cb.checked) ? "flex" : "none";
     }
 
     input.addEventListener("input", function () {
         const filter = input.value.toLowerCase().replace(/[^a-z0-9]/gi, "");
         rows.forEach(row => {
-            const text = Array.from(row.querySelectorAll('td:not(.delete-action) .plate-number, td:not(.delete-action):not([data-label="Kennzeichen"])'))
+            const text = Array.from(row.querySelectorAll('td'))
                 .map(td => td.textContent.toLowerCase().replace(/[^a-z0-9]/gi, ""))
                 .join('');
             row.style.display = text.includes(filter) ? "" : "none";
@@ -124,14 +143,15 @@ document.addEventListener("DOMContentLoaded", function () {
         updateCountAndPage();
     });
 
-    checkboxes.forEach(cb => {
-        cb.addEventListener("change", updateDeleteButton);
-    });
+    checkboxes.forEach(cb => cb.addEventListener("change", updateDeleteButton));
 
     updateCountAndPage();
     updateDeleteButton();
+    attachFahrzeugEvents();
 });
 </script>
+
+
 
 
 
@@ -438,7 +458,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <!--                                                              Kunde hinzufügen                                                           -->
 <!-- ####################################################################################################################################### -->
 
-
             <div id="add-customer-modal" class="modal">
               <div class="modal-content add-customer-modal">
                 <div class="modal-header">
@@ -532,7 +551,6 @@ document.addEventListener("DOMContentLoaded", function () {
 <!--                                                           Fahrzeug hinzufügen                                                           -->
 <!-- ####################################################################################################################################### -->
 
-
 <div id="add-vehicle-modal" class="modal">
   <div class="modal-content fahrzeug-modal">
     <div class="modal-header">
@@ -547,7 +565,7 @@ document.addEventListener("DOMContentLoaded", function () {
         </div>
         <div class="form-group">
           <label>Kennzeichen A</label>
-          <input type="text" value="SD 123AB" />
+          <input type="text" value="" />
         </div>
         <div class="form-group">
           <label>Laufleistung</label>
