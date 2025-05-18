@@ -1,4 +1,3 @@
-<!-- Datei: lagerbestand.html -->
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -7,6 +6,7 @@
   <title>Gesamter Lagerbestand – mt.cars</title>
   <link rel="stylesheet" href="../styles/dashboard.css">
   <link rel="stylesheet" href="../styles/gesamterlagerbestand.css">
+  <link rel="stylesheet" href="../styles/right-sidebar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -55,11 +55,10 @@
           <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
           <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
           <li><a href="./verakufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
-          <li><a href="./angebote.html" class="active"><i class="fas fa-file-alt"></i> Angebote</a></li>
+          <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
           <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
           <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
           <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
-
           <li class="menu-item has-submenu">
             <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
             <label for="lagerbestand-toggle" class="submenu-label">
@@ -70,12 +69,9 @@
               <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
               <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
               <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
-              <li class="active" ><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
-
+              <li class="active"><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
             </ul>
           </li>
-
-
           <li class="menu-item has-submenu">
             <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
             <label for="berichte-toggle" class="submenu-label">
@@ -147,82 +143,193 @@
             </tr>
           </thead>
           <tbody>
-            <tbody>
-                  <!-- Reifen -->
-                  <tr data-category="Reifen" data-type="Sommerreifen" data-hersteller="Continental" data-stock="30">
-                    <td data-label="Art.-Nr.">#MT-100201</td>
-                    <td data-label="Bezeichnung">ContiPremiumContact 2</td>
-                    <td data-label="Kategorie">Reifen</td>
-                    <td data-label="Typ">Sommerreifen</td>
-                    <td data-label="Hersteller">Continental</td>
-                    <td data-label="Inhalt/Anzahl">1 Stk</td>
-                    <td data-label="Bestand" class="stock-positive">30</td>
-                    <td data-label="Min.">10</td>
-                    <td data-label="Status"><span class="status-badge success">OK</span></td>
-                    <td data-label="Aktion">
-                      <button class="action-icon edit"><i class="fas fa-edit"></i></button>
-                      <button class="action-icon delete"><i class="fas fa-trash"></i></button>
-                    </td>
-                  </tr>
-              
-                  <!-- Öle & Flüssigkeiten -->
-                  <tr data-category="Öle & Flüssigkeiten" data-type="Getriebeöl" data-hersteller="Mobil" data-stock="8">
-                    <td data-label="Art.-Nr.">#MT-200305</td>
-                    <td data-label="Bezeichnung">Mobil ATF 320</td>
-                    <td data-label="Kategorie">Öle & Flüssigkeiten</td>
-                    <td data-label="Typ">Getriebeöl</td>
-                    <td data-label="Hersteller">Mobil</td>
-                    <td data-label="Inhalt/Anzahl">1 L</td>
-                    <td data-label="Bestand" class="stock-warning">8</td>
-                    <td data-label="Min.">15</td>
-                    <td data-label="Status"><span class="status-badge warning">Kritisch</span></td>
-                    <td data-label="Aktion">
-                      <button class="action-icon edit"><i class="fas fa-edit"></i></button>
-                      <button class="action-icon delete"><i class="fas fa-trash"></i></button>
-                    </td>
-                  </tr>
-              
-                  <!-- Ersatzteile -->
-                  <tr data-category="Ersatzteile" data-type="Bremsbeläge" data-hersteller="Brembo" data-stock="12">
-                    <td data-label="Art.-Nr.">#MT-300410</td>
-                    <td data-label="Bezeichnung">Brembo Sport Beläge</td>
-                    <td data-label="Kategorie">Ersatzteile</td>
-                    <td data-label="Typ">Bremsbeläge</td>
-                    <td data-label="Hersteller">Brembo</td>
-                    <td data-label="Inhalt/Anzahl">1 Satz</td>
-                    <td data-label="Bestand" class="stock-positive">12</td>
-                    <td data-label="Min.">5</td>
-                    <td data-label="Status"><span class="status-badge success">OK</span></td>
-                    <td data-label="Aktion">
-                      <button class="action-icon edit"><i class="fas fa-edit"></i></button>
-                      <button class="action-icon delete"><i class="fas fa-trash"></i></button>
-                    </td>
-                  </tr>
-              
-                  <!-- Sonstige -->
-                  <tr data-category="Sonstige" data-type="Zubehör" data-hersteller="CAR-MATE" data-stock="4">
-                    <td data-label="Art.-Nr.">#MT-400506</td>
-                    <td data-label="Bezeichnung">Scheibenwischer-Set</td>
-                    <td data-label="Kategorie">Sonstige</td>
-                    <td data-label="Typ">Zubehör</td>
-                    <td data-label="Hersteller">CAR-MATE</td>
-                    <td data-label="Inhalt/Anzahl">2 Stk</td>
-                    <td data-label="Bestand" class="stock-warning">4</td>
-                    <td data-label="Min.">10</td>
-                    <td data-label="Status"><span class="status-badge warning">Kritisch</span></td>
-                    <td data-label="Aktion">
-                      <button class="action-icon edit"><i class="fas fa-edit"></i></button>
-                      <button class="action-icon delete"><i class="fas fa-trash"></i></button>
-                    </td>
-                  </tr>
-                </tbody>
-
+            <!-- Reifen -->
+            <tr data-category="Reifen" data-type="Sommerreifen" data-hersteller="Continental" data-stock="30">
+              <td data-label="Art.-Nr.">#MT-100201</td>
+              <td data-label="Bezeichnung">ContiPremiumContact 2</td>
+              <td data-label="Kategorie">Reifen</td>
+              <td data-label="Typ">Sommerreifen</td>
+              <td data-label="Hersteller">Continental</td>
+              <td data-label="Inhalt/Anzahl">1 Stk</td>
+              <td data-label="Bestand" class="stock-positive">30</td>
+              <td data-label="Min.">10</td>
+              <td data-label="Status"><span class="status-badge success">OK</span></td>
+              <td data-label="Aktion">
+                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+            <!-- Öle & Flüssigkeiten -->
+            <tr data-category="Öle & Flüssigkeiten" data-type="Getriebeöl" data-hersteller="Mobil" data-stock="8">
+              <td data-label="Art.-Nr.">#MT-200305</td>
+              <td data-label="Bezeichnung">Mobil ATF 320</td>
+              <td data-label="Kategorie">Öle & Flüssigkeiten</td>
+              <td data-label="Typ">Getriebeöl</td>
+              <td data-label="Hersteller">Mobil</td>
+              <td data-label="Inhalt/Anzahl">1 L</td>
+              <td data-label="Bestand" class="stock-warning">8</td>
+              <td data-label="Min.">15</td>
+              <td data-label="Status"><span class="status-badge warning">Kritisch</span></td>
+              <td data-label="Aktion">
+                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+            <!-- Ersatzteile -->
+            <tr data-category="Ersatzteile" data-type="Bremsbeläge" data-hersteller="Brembo" data-stock="12">
+              <td data-label="Art.-Nr.">#MT-300410</td>
+              <td data-label="Bezeichnung">Brembo Sport Beläge</td>
+              <td data-label="Kategorie">Ersatzteile</td>
+              <td data-label="Typ">Bremsbeläge</td>
+              <td data-label="Hersteller">Brembo</td>
+              <td data-label="Inhalt/Anzahl">1 Satz</td>
+              <td data-label="Bestand" class="stock-positive">12</td>
+              <td data-label="Min.">5</td>
+              <td data-label="Status"><span class="status-badge success">OK</span></td>
+              <td data-label="Aktion">
+                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>
+            <!-- Sonstige -->
+            <tr data-category="Sonstige" data-type="Zubehör" data-hersteller="CAR-MATE" data-stock="4">
+              <td data-label="Art.-Nr.">#MT-400506</td>
+              <td data-label="Bezeichnung">Scheibenwischer-Set</td>
+              <td data-label="Kategorie">Sonstige</td>
+              <td data-label="Typ">Zubehör</td>
+              <td data-label="Hersteller">CAR-MATE</td>
+              <td data-label="Inhalt/Anzahl">2 Stk</td>
+              <td data-label="Bestand" class="stock-warning">4</td>
+              <td data-label="Min.">10</td>
+              <td data-label="Status"><span class="status-badge warning">Kritisch</span></td>
+              <td data-label="Aktion">
+                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
+                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
     </main>
+
+    <aside class="right-sidebar">
+      <div class="right-sidebar-content">
+        <!-- Kalender -->
+        <section class="calendar-section">
+          <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
+          <div class="section-header">
+            <h2>Kalender</h2>
+            <div class="calendar-controls">
+              <button class="nav-arrow" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+              <span class="calendar-month" id="calendar-month">Mai 2025</span>
+              <button class="nav-arrow" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
+              <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+            </div>
+          </div>
+          <div class="section-content calendar-content">
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </div>
+        </section>
+        <!-- Termine -->
+        <section class="appointments-section">
+          <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
+          <div class="section-header">
+            <h2>Termine <span id="selected-date"></span></h2>
+            <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+          </div>
+          <div class="section-content appointments-content">
+            <div class="appointments-list-container">
+              <ul class="appointments-list" id="appointments-list"></ul>
+            </div>
+            <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
+          </div>
+        </section>
+        <!-- Notizen -->
+        <section class="notes-section">
+          <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
+          <div class="section-header">
+            <h2>Notizen</h2>
+            <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+          </div>
+          <div class="section-content notes-content">
+            <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
+            <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
+            <div class="notes-list-container">
+              <ul id="notes-list" class="notes-list"></ul>
+            </div>
+          </div>
+        </section>
+        <div id="notes-modal" class="notes-modal">Gespeichert!</div>
+        <!-- Notizen-Modal -->
+        <div id="note-edit-modal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Notiz bearbeiten</h2>
+              <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="note-edit-form" class="modal-form">
+              <div class="form-group">
+                <label for="note-content">Notiz</label>
+                <textarea id="note-content" class="notes-textarea" style="width: 100%; height: 150px; padding: 0.5rem;"></textarea>
+              </div>
+              <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                <button type="button" class="modal-btn modal-btn-delete">Löschen</button>
+                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- Termin-Modal -->
+        <div id="appointment-modal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Neuer Termin</h2>
+              <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="appointment-form" class="modal-form">
+              <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div class="form-group">
+                  <label for="appointment-time">Uhrzeit</label>
+                  <select id="appointment-time" required style="width: 100%; padding: 0.5rem;"></select>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-duration">Dauer</label>
+                  <select id="appointment-duration" required style="width: 100%; padding: 0.5rem;"></select>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-customer">Kunde</label>
+                  <input type="text" id="appointment-customer" required style="width: 100%; padding: 0.5rem;">
+                </div>
+                <div class="form-group">
+                  <label for="appointment-vehicle">Fahrzeug</label>
+                  <input type="text" id="appointment-vehicle" required style="width: 100%; padding: 0.5rem;">
+                </div>
+                <div class="form-group full-width" style="grid-column: span 2;">
+                  <label for="appointment-service">Dienstleistung</label>
+                  <input type="text" id="appointment-service" required style="width: 100%; padding: 0.5rem;">
+                </div>
+                <div class="form-group full-width" style="grid-column: span 2;">
+                  <label for="appointment-note">Notiz</label>
+                  <textarea id="appointment-note" style="width: 100%; padding: 0.5rem;"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-price">Preis (€)</label>
+                  <input type="number" id="appointment-price" step="0.01" min="0" style="width: 100%; padding: 0.5rem;">
+                </div>
+              </div>
+              <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </aside>
   </div>
 
   <script src="../scripts/lagerbestand.js"></script>
+  <script src="../scripts/right-sidebar.js"></script>
 </body>
 </html>
