@@ -24,32 +24,59 @@ document.addEventListener("DOMContentLoaded", function () {
     const addCustomerBtn = document.querySelector(".action-btn.primary");
     const customerModal = document.getElementById("add-customer-modal");
     const customerClose = customerModal?.querySelector(".modal-close");
+    const customerDiscardBtn = customerModal?.querySelector(".btn.secondary");
 
     const fahrzeugAdd = document.querySelector(".fahrzeug-add");
     const fahrzeugModal = document.getElementById("add-vehicle-modal");
     const fahrzeugClose = fahrzeugModal?.querySelector(".modal-close");
+    const fahrzeugCancelBtn = fahrzeugModal?.querySelector(".btn.secondary");
     const fahrzeugeListe = document.getElementById("fahrzeuge-liste");
     const fahrzeugForm = fahrzeugModal?.querySelector("form");
+    const imageInput = document.getElementById("vehicle-images");
+    const imagePreview = document.getElementById("image-preview");
 
     let editTarget = null;
+    let images = [];
 
     // Kunde Modal
     addCustomerBtn.addEventListener("click", () => customerModal.style.display = "block");
     customerClose?.addEventListener("click", () => customerModal.style.display = "none");
+    customerDiscardBtn?.addEventListener("click", () => customerModal.style.display = "none");
 
     // Fahrzeug Modal öffnen
     fahrzeugAdd?.addEventListener("click", () => {
         fahrzeugModal.style.display = "block";
         fahrzeugForm.reset();
         editTarget = null;
+        images = [];
+        imagePreview.innerHTML = "";
         populateVehicleForm(null);
     });
 
     fahrzeugClose?.addEventListener("click", () => fahrzeugModal.style.display = "none");
+    fahrzeugCancelBtn?.addEventListener("click", () => fahrzeugModal.style.display = "none");
 
     window.addEventListener("click", (e) => {
         if (e.target === customerModal) customerModal.style.display = "none";
         if (e.target === fahrzeugModal) fahrzeugModal.style.display = "none";
+    });
+
+    // Handle vehicle image upload
+    imageInput?.addEventListener("change", function (e) {
+        const files = Array.from(e.target.files);
+        files.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+                images.push(event.target.result);
+                const imgElement = document.createElement("img");
+                imgElement.src = event.target.result;
+                imgElement.style.maxWidth = "100px";
+                imgElement.style.maxHeight = "100px";
+                imgElement.style.margin = "5px";
+                imagePreview.appendChild(imgElement);
+            };
+            reader.readAsDataURL(file);
+        });
     });
 
     fahrzeugForm?.addEventListener("submit", function (e) {
@@ -150,11 +177,6 @@ document.addEventListener("DOMContentLoaded", function () {
     attachFahrzeugEvents();
 });
 </script>
-
-
-
-
-
 </head>
 <body>
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
@@ -453,7 +475,6 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         </aside>
 
-
 <!-- ####################################################################################################################################### -->
 <!--                                                              Kunde hinzufügen                                                           -->
 <!-- ####################################################################################################################################### -->
@@ -559,10 +580,10 @@ document.addEventListener("DOMContentLoaded", function () {
     </div>
     <form>
       <div class="fahrzeug-grid">
-        <div class="form-group full-width">
+        <!-- <div class="form-group full-width">
           <label><i class="fas fa-user"></i> Kunde wählen *</label>
           <input type="text" placeholder="Kunde auswählen" disabled />
-        </div>
+        </div> -->
         <div class="form-group">
           <label>Kennzeichen A</label>
           <input type="text" value="" />
@@ -647,6 +668,15 @@ document.addEventListener("DOMContentLoaded", function () {
           <label>Zusatzinfo</label>
           <textarea></textarea>
         </div>
+        <div class="form-group full-width">
+          <label>Bilder hochladen</label>
+          <input type="file" id="vehicle-images" multiple accept="image/*" />
+          <div id="image-preview" style="display: flex; flex-wrap: wrap; margin-top: 10px;"></div>
+        </div>
+        <div class="form-group full-width">
+          <button type="button" id="zulassung-lesen" class="btn primary">Zulassung lesen</button>
+          <input type="file" id="zulassung-image" accept="image/*" style="display: none;" />
+        </div>
       </div>
       <div class="fahrzeug-footer">
         <button type="button" class="btn secondary">Abbrechen</button>
@@ -655,14 +685,6 @@ document.addEventListener("DOMContentLoaded", function () {
     </form>
   </div>
 </div>
-
-
-
-
-
-
-
-
 
     </div>
 
