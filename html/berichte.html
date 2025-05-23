@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Berichte</title>
+  <link rel="stylesheet" href="../styles/dashboard.css">
+  <link rel="stylesheet" href="../styles/right-sidebar.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    .tab-navigation {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    .tab-btn {
+      background-color: var(--gray-200);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius);
+      font-weight: 500;
+      color: var(--gray-800);
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .tab-btn:hover {
+      background-color: var(--gray-300);
+    }
+    .tab-btn.active {
+      background-color: var(--primary);
+      color: white;
+    }
+    .report-content {
+      background-color: white;
+      padding: 1rem;
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-md);
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 800px;
+    }
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.875rem;
+    }
+    th {
+      background-color: var(--gray-100);
+      color: var(--gray-700);
+      font-weight: 600;
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: var(--radius);
+    }
+    .badge.danger { background-color: var(--danger); color: white; }
+    .badge.success { background-color: var(--success); color: white; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+  </style>
+</head>
+<body>
+<input type="checkbox" id="menu-toggle" class="menu-toggle">
+<header class="header">
+    <div class="header-left">
+        <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+        <div class="logo-title">
+            <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+            <div class="title">Berichte</div>
+        </div>
+    </div>
+    <div class="header-right">
+        <div class="date-filter">
+            <button class="nav-arrow"><i class="fas fa-chevron-left"></i></button>
+            <span class="current-month">Mai 2025</span>
+            <button class="nav-arrow"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="header-actions">
+            <div class="icons">
+                <button class="icon-btn"><i class="fas fa-smile"></i></button>
+                <button class="icon-btn notification"><i class="fas fa-bell"></i><span class="badge">3</span></button>
+                <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
+                <button class="icon-btn"><i class="fas fa-cog"></i></button>
+            </div>
+        </div>
+    </div>
+</header>
+<div class="container">
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="user-profile">
+                <div class="avatar">MA</div>
+                <div class="user-info">
+                    <div class="user-name">Max Mustermann</div>
+                    <div class="user-role">Werkstatt</div>
+                </div>
+            </div>
+            <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+                <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+                <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+                <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+                <li><a href="./verkaufsfahrzeuge.html"><i class="fas fa-warehouse"></i> Verkaufsfahrzeuge</a></li>
+                <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
+                <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+                <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+                <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+                <li class="menu-item has-submenu">
+                    <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+                    <label for="lagerbestand-toggle" class="submenu-label"><i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i></label>
+                    <ul class="submenu">
+                        <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
+                        <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
+                        <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
+                        <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
+                        <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <input type="checkbox" id="berichte-toggle" class="submenu-toggle" checked>
+                    <label for="berichte-toggle" class="submenu-label"><i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i></label>
+                    <ul class="submenu">
+                        <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+                        <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+  <div class="main-content">
+    <div class="main-header">
+      <h1>Berichte</h1>
+    </div>
+    <div class="tab-navigation">
+      <button class="tab-btn active" data-tab="rechnungen">Rechnungen</button>
+      <button class="tab-btn" data-tab="einnahmen">Einnahmen</button>
+      <button class="tab-btn" data-tab="umsatz">Umsatz</button>
+      <button class="tab-btn" data-tab="kassenbuch">Kassenbuch</button>
+      <button class="tab-btn" data-tab="kartenzahlungen">Kartenzahlungen</button>
+      <button class="tab-btn" data-tab="registrierkasse">Registrierkasse</button>
+      <button class="tab-btn" data-tab="positionen">Positionen</button>
+    </div>
+    <div class="report-content">
+      <div class="tab-panel active" id="rechnungen">
+        <table><thead><tr><th>Nummer</th><th>Kunde</th><th>Datum</th><th>Status</th><th>Betrag</th></tr></thead>
+        <tbody><tr><td>1001</td><td>Enes Coban</td><td>01.05.2025</td><td><span class="badge danger">Offen</span></td><td>264,72 €</td></tr></tbody>
+        </table>
+      </div>
+      <div class="tab-panel" id="einnahmen">
+        <table><thead><tr><th>Datum</th><th>Kunde</th><th>Methode</th><th>Betrag</th></tr></thead>
+        <tbody><tr><td>02.05.2025</td><td>M. Test</td><td>Bar</td><td>100 €</td></tr></tbody>
+        </table>
+      </div>
+      <div class="tab-panel" id="umsatz">
+        <table><thead><tr><th>Monat</th><th>Umsatz</th></tr></thead>
+        <tbody><tr><td>April</td><td>3.591 €</td></tr><tr><td>Mai</td><td>4.212 €</td></tr></tbody>
+        </table>
+      </div>
+      <div class="tab-panel" id="kassenbuch">
+        <table><thead><tr><th>Datum</th><th>Beleg</th><th>Beschreibung</th><th>Betrag</th></tr></thead>
+        <tbody><tr><td>03.05.2025</td><td>K001</td><td>Werkzeugkauf</td><td>-80 €</td></tr></tbody>
+        </table>
+      </div>
+      <div class="tab-panel" id="kartenzahlungen">
+        <table><thead><tr><th>Datum</th><th>Kunde</th><th>Kartentyp</th><th>Betrag</th></tr></thead>
+        <tbody><tr><td>04.05.2025</td><td>S. Muster</td><td>Visa</td><td>145,00 €</td></tr></tbody>
+        </table>
+      </div>
+      <div class="tab-panel" id="registrierkasse">
+        <table><thead><tr><th>Datum</th><th>Beleg-Nr.</th><th>Betrag</th></tr></thead>
+        <tbody><tr><td>05.05.2025</td><td>RK001</td><td>85,20 €</td></tr></tbody>
+        </table>
+      </div>
+      <div class="tab-panel" id="positionen">
+        <table><thead><tr><th>Artikel</th><th>Menge</th><th>Preis</th></tr></thead>
+        <tbody><tr><td>Bremsbelag</td><td>2</td><td>45,00 €</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+        <aside class="right-sidebar">
+            <div class="right-sidebar-content">
+                <!-- Kalender -->
+                <section class="calendar-section">
+                    <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
+                    <div class="section-header">
+                        <h2>Kalender</h2>
+                        <div class="calendar-controls">
+                            <button class="nav-arrow" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+                            <span class="calendar-month" id="calendar-month">Mai 2025</span>
+                            <button class="nav-arrow" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
+                            <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                        </div>
+                    </div>
+                    <div class="section-content calendar-content">
+                        <div class="calendar-grid" id="calendar-grid"></div>
+                    </div>
+                </section>
+                <!-- Termine -->
+                <section class="appointments-section">
+                    <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
+                    <div class="section-header">
+                        <h2>Termine <span id="selected-date"></span></h2>
+                        <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                    </div>
+                    <div class="section-content appointments-content">
+                        <div class="appointments-list-container">
+                            <ul class="appointments-list" id="appointments-list"></ul>
+                        </div>
+                        <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
+                    </div>
+                </section>
+                <!-- Notizen -->
+                <section class="notes-section">
+                    <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
+                    <div class="section-header">
+                        <h2>Notizen</h2>
+                        <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                    </div>
+                    <div class="section-content notes-content">
+                        <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
+                        <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
+                        <div class="notes-list-container">
+                            <ul id="notes-list" class="notes-list"></ul>
+                        </div>
+                    </div>
+                </section>
+                <div id="notes-modal" class="notes-modal">Gespeichert!</div>
+                <!-- Notizen-Modal -->
+                <div id="note-edit-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Notiz bearbeiten</h2>
+                            <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+                        </div>
+                        <form id="note-edit-form" class="modal-form">
+                            <div class="form-group">
+                                <label for="note-content">Notiz</label>
+                                <textarea id="note-content" class="notes-textarea" style="width: 100%; height: 150px; padding: 0.5rem;"></textarea>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                                <button type="button" class="modal-btn modal-btn-delete">Löschen</button>
+                                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Termin-Modal -->
+                <div id="appointment-modal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                            <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Neuer Termin</h2>
+                            <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+                        </div>
+                        <form id="appointment-form" class="modal-form">
+                            <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div class="form-group">
+                                    <label for="appointment-time">Uhrzeit</label>
+                                    <select id="appointment-time" required style="width: 100%; padding: 0.5rem;"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-duration">Dauer</label>
+                                    <select id="appointment-duration" required style="width: 100%; padding: 0.5rem;"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-customer">Kunde</label>
+                                    <input type="text" id="appointment-customer" required style="width: 100%; padding: 0.5rem;">
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-vehicle">Fahrzeug</label>
+                                    <input type="text" id="appointment-vehicle" required style="width: 100%; padding: 0.5rem;">
+                                </div>
+                                <div class="form-group full-width" style="grid-column: span 2;">
+                                    <label for="appointment-service">Dienstleistung</label>
+                                    <input type="text" id="appointment-service" required style="width: 100%; padding: 0.5rem;">
+                                </div>
+                                <div class="form-group full-width" style="grid-column: span 2;">
+                                    <label for="appointment-note">Notiz</label>
+                                    <textarea id="appointment-note" style="width: 100%; padding: 0.5rem;"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label for="appointment-price">Preis (€)</label>
+                                    <input type="number" id="appointment-price" step="0.01" min="0" style="width: 100%; padding: 0.5rem;">
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </aside>
+</div>
+
+  <script>
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(btn.dataset.tab).classList.add('active');
+      });
+    });
+  </script>
+
+  <script src="../scripts/right-sidebar.js"></script>
+</body>
+</html>
