@@ -1,3 +1,4 @@
+/* Right Sidebar Container */
 .right-sidebar {
   width: 320px;
   background-color: white;
@@ -25,11 +26,11 @@
   position: relative;
   overflow-y: auto;
   max-height: calc(100vh - 64px);
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 
 .right-sidebar-content::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .section-header {
@@ -55,15 +56,15 @@
   border: 1px solid rgba(0, 85, 255, 0.58);
   border-radius: 12px;
   box-shadow: 0 1px 3px rgba(0, 85, 255, 0.58);
-  background: #ffffff; 
+  background: #ffffff;
   margin-bottom: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .calendar-section:hover {
-  transform: translateY(-3px); 
-  box-shadow: 0 3px 6px rgba(0, 85, 255, 0.7); 
-  border-color: rgba(0, 85, 255, 0.8); 
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0, 85, 255, 0.7);
+  border-color: rgba(0, 85, 255, 0.8);
   background: linear-gradient(145deg, #ffffff, #eff6ff);
 }
 
@@ -177,17 +178,17 @@
 
 .appointments-section {
   padding: 12px;
-  border: 1px solid rgba(0, 85, 255, 0.58); 
+  border: 1px solid rgba(0, 85, 255, 0.58);
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 85, 255, 0.58); 
+  box-shadow: 0 1px 3px rgba(0, 85, 255, 0.58);
   margin-bottom: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .appointments-section:hover {
-  transform: translateY(-3px); 
-  box-shadow: 0 3px 6px rgba(0, 85, 255, 0.7); 
-  border-color: rgba(0, 85, 255, 0.8); 
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0, 85, 255, 0.7);
+  border-color: rgba(0, 85, 255, 0.8);
   background: linear-gradient(145deg, #ffffff, #eff6ff);
 }
 
@@ -195,11 +196,11 @@
   max-height: 250px;
   overflow-y: auto;
   margin-bottom: 0.5rem;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 
 .appointments-list-container::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .appointments-list {
@@ -226,7 +227,6 @@
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
   border-color: #3B82F6;
 }
-
 
 .appointment-item.no-appointments {
   font-size: 0.875rem;
@@ -264,17 +264,17 @@
 
 .notes-section {
   padding: 12px;
-  border: 1px solid rgba(0, 85, 255, 0.58); 
+  border: 1px solid rgba(0, 85, 255, 0.58);
   border-radius: 12px;
-  box-shadow: 0 1px 3px rgba(0, 85, 255, 0.58); 
+  box-shadow: 0 1px 3px rgba(0, 85, 255, 0.58);
   margin-bottom: 1.5rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
 .notes-section:hover {
-  transform: translateY(-3px); 
-  box-shadow: 0 3px 6px rgba(0, 85, 255, 0.7); 
-  border-color: rgba(0, 85, 255, 0.8); 
+  transform: translateY(-3px);
+  box-shadow: 0 3px 6px rgba(0, 85, 255, 0.7);
+  border-color: rgba(0, 85, 255, 0.8);
   background: linear-gradient(145deg, #ffffff, #eff6ff);
 }
 
@@ -282,11 +282,11 @@
   margin-top: 12px;
   max-height: 200px;
   overflow-y: auto;
-  scrollbar-width: none; 
+  scrollbar-width: none;
 }
 
 .notes-list-container::-webkit-scrollbar {
-  display: none; 
+  display: none;
 }
 
 .notes-list {
@@ -406,24 +406,15 @@ section.collapsed .section-content {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
   align-items: center;
   justify-content: center;
   animation: fadeIn 0.3s ease;
 }
 
-.modal-content {
-  background: #F9FAFB;
-  border-radius: 12px;
-  padding: 1.5rem;
-  width: 90%;
-  max-width: 600px;
-  max-height: 85vh;
-  overflow-y: auto;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-  transform: scale(0.95);
-  animation: scaleUp 0.3s ease forwards;
+.modal.show {
+  display: flex;
 }
 
 @keyframes fadeIn {
@@ -431,18 +422,120 @@ section.collapsed .section-content {
   to { opacity: 1; }
 }
 
+.modal-content {
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: 1.75rem;
+  width: 90%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
+  transform: scale(0.95);
+  animation: scaleUp 0.3s ease forwards;
+}
+
 @keyframes scaleUp {
   from { transform: scale(0.95); }
   to { transform: scale(1); }
 }
 
-.modal-btn {
-  padding: 0.75rem 1.5rem;
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.modal-title {
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #111827;
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: #6B7280;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: color 0.2s ease;
+  pointer-events: auto;
+}
+
+.modal-close:hover {
+  color: #3B82F6;
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.form-grid .full-width {
+  grid-column: span 2;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #D1D5DB;
   border-radius: 8px;
-  font-size: 0.9rem;
+  font-size: 0.875rem;
+  background: #F9FAFB;
+  color: #1F2937;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3B82F6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.form-group textarea {
+  resize: none;
+  height: 80px;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.modal-btn {
+  padding: 0.75rem 1.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  transition: background 0.2s ease, transform 0.1s ease;
+  pointer-events: auto;
 }
 
 .modal-btn:hover {
@@ -450,13 +543,13 @@ section.collapsed .section-content {
 }
 
 .modal-btn-primary {
-  background: linear-gradient(90deg, #2563EB, #3B82F6);
-  color: white;
+  background: #3B82F6;
+  color: #FFFFFF;
   border: none;
 }
 
 .modal-btn-primary:hover {
-  background: linear-gradient(90deg, #1D4ED8, #2563EB);
+  background: #2563EB;
 }
 
 .modal-btn-secondary {
@@ -467,12 +560,12 @@ section.collapsed .section-content {
 
 .modal-btn-secondary:hover {
   background: #F3F4F6;
-  color: #374151;
+  color: #1F2937;
 }
 
 .modal-btn-delete {
   background: #EF4444;
-  color: white;
+  color: #FFFFFF;
   border: none;
 }
 
@@ -519,7 +612,7 @@ section.collapsed .section-content {
 }
 
 @media (max-width: 768px) {
-  .modal-content { width: 95%; padding: 1rem; }
+  .modal-content { width: 95%; padding: 1.25rem; }
   .form-grid { grid-template-columns: 1fr; }
 }
 
@@ -527,41 +620,38 @@ section.collapsed .section-content {
   .right-sidebar-content { padding: 1rem; }
   .calendar-grid { font-size: 0.7rem; }
   .appointment-time { min-width: 70px; }
-  .modal-title { font-size: 1.1rem; }
-  .form-group label { font-size: 0.8rem; }
+  .modal-title { font-size: 1.125rem; }
+  .form-group label { font-size: 0.85rem; }
   .form-group input,
   .form-group select,
-  .form-group textarea { font-size: 0.8rem; }
-  .modal-btn { font-size: 0.85rem; padding: 0.6rem 1rem; }
+  .form-group textarea { font-size: 0.85rem; }
+  .modal-btn { font-size: 0.85rem; padding: 0.6rem 1.25rem; }
 }
-
 
 .calendar-section:not(.collapsed),
 .appointments-section:not(.collapsed),
 .notes-section:not(.collapsed) {
-  cursor: default; 
+  cursor: default;
 }
 
 .calendar-section.collapsed,
 .appointments-section.collapsed,
 .notes-section.collapsed {
-  cursor: pointer; 
+  cursor: pointer;
 }
-
 
 .calendar-section.collapsed:hover,
 .appointments-section.collapsed:hover,
 .notes-section.collapsed:hover {
-  background: #f8fafc; 
-  box-shadow: 0 2px 6px rgba(0, 85, 255, 0.5); 
+  background: #f8fafc;
+  box-shadow: 0 2px 6px rgba(0, 85, 255, 0.5);
 }
 
-
 section:not(.collapsed) .section-header {
-  cursor: pointer; 
+  cursor: pointer;
 }
 
 section:not(.collapsed) .section-header:hover {
-  background: #f8fafc; 
-  border-radius: 8px; 
+  background: #f8fafc;
+  border-radius: 8px;
 }

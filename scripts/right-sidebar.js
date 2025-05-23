@@ -1,9 +1,15 @@
 function renderCalendar(date) {
-    const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
     const calendarGrid = document.getElementById("calendar-grid");
-    document.getElementById("calendar-month").textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+    const calendarMonth = document.getElementById("calendar-month");
+
+    // Wenn die Elemente im DOM nicht vorhanden sind, beende die Funktion
+    if (!calendarGrid || !calendarMonth) return;
+
+    const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+    calendarMonth.textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
     const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+
     calendarGrid.innerHTML = `
         <div class="calendar-day-header">Mo</div>
         <div class="calendar-day-header">Di</div>
@@ -13,10 +19,12 @@ function renderCalendar(date) {
         <div class="calendar-day-header weekend">Sa</div>
         <div class="calendar-day-header weekend">So</div>
     `;
+
     const startDay = firstDay === 0 ? 6 : firstDay - 1;
     for (let i = 0; i < startDay; i++) {
         calendarGrid.innerHTML += `<div class="calendar-day empty"></div>`;
     }
+
     for (let day = 1; day <= daysInMonth; day++) {
         const wd = new Date(date.getFullYear(), date.getMonth(), day).getDay();
         const isToday = date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() && day === today.getDate();
@@ -27,6 +35,7 @@ function renderCalendar(date) {
         else if (wd === 0 || wd === 6) className = "calendar-day weekend";
         calendarGrid.innerHTML += `<div class="${className}" data-date="${date.getFullYear()}-${date.getMonth() + 1}-${day}">${day}</div>`;
     }
+
     document.querySelectorAll(".calendar-day:not(.empty)").forEach(el => {
         el.addEventListener("click", () => {
             const [y, m, d] = el.getAttribute("data-date").split("-").map(Number);
@@ -37,16 +46,27 @@ function renderCalendar(date) {
 
 function selectDay(date) {
     selectedDate = date;
-    document.getElementById("selected-date").textContent = `für ${date.toLocaleDateString("de-DE")}`;
+
+    const selectedDateElement = document.getElementById("selected-date");
+    if (selectedDateElement) {
+        selectedDateElement.textContent = `für ${date.toLocaleDateString("de-DE")}`;
+    }
+
     renderCalendar(currentDate);
     renderAppointments(date);
 }
 
+
 function renderAppointments(date) {
     const appointmentsList = document.getElementById("appointments-list");
+
+    // Sicherheitsprüfung: nur rendern, wenn das Element existiert
+    if (!appointmentsList) return;
+
     const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
     const dayAppointments = appointments.filter(a => a.date === dateStr);
     appointmentsList.innerHTML = "";
+
     if (dayAppointments.length === 0) {
         appointmentsList.innerHTML = `<li class="appointment-item no-appointments">Keine Termine für diesen Tag</li>`;
     } else {
@@ -63,6 +83,7 @@ function renderAppointments(date) {
         });
     }
 }
+
 
 function prevMonth() {
     currentDate.setMonth(currentDate.getMonth() - 1);

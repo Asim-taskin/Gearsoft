@@ -125,15 +125,17 @@
             });
         }
 
-        function openModal(day) {
-            if (isPastDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))) {
-                alert('Neue Termine können für vergangene Daten nicht erstellt werden.');
-                return;
-            }
-            modal.style.display = 'flex';
-            appointmentForm.reset();
-            document.querySelector('.modal-title').textContent = `Neuer Termin am ${day}. ${currentDate.toLocaleString('de-DE', { month: 'long' })} ${currentDate.getFullYear()}`;
-        }
+function openModal(day) {
+    if (isPastDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))) {
+        alert('Neue Termine können für vergangene Daten nicht erstellt werden.');
+        return; // <--- WICHTIG
+    }
+
+    modal.style.display = 'flex';
+    appointmentForm.reset();
+    document.querySelector('.modal-title').textContent = `Neuer Termin am ${day}. ${currentDate.toLocaleString('de-DE', { month: 'long' })} ${currentDate.getFullYear()}`;
+}
+
 
         function editAppointment(key, index, day) {
             const event = dataStore[key][index];
@@ -161,26 +163,33 @@
             };
         }
 
-        addAppointmentBtn.onclick = () => {
-            const day = parseInt(panelTitle.textContent.split('.')[0]);
-            const key = `${currentDate.getFullYear()}-${String(currentDate.getMonth() + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-            openModal(day);
-            appointmentForm.onsubmit = (e) => {
-                e.preventDefault();
-                const time = document.getElementById('appointment-time').value;
-                const duration = document.getElementById('appointment-duration').value;
-                const customer = document.getElementById('appointment-customer').value;
-                const vehicle = document.getElementById('appointment-vehicle').value;
-                const service = document.getElementById('appointment-service').value;
-                const note = document.getElementById('appointment-note').value;
-                const price = document.getElementById('appointment-price').value;
-                dataStore[key] = dataStore[key] || [];
-                dataStore[key].push({ time, duration, customer, vehicle, service, note, price });
-                modal.style.display = 'none';
-                renderCalendar(currentDate);
-                showAppointments(key, day);
-            };
-        };
+addAppointmentBtn.onclick = () => {
+    const day = selectedDate.getDate();
+    const key = getDateKey(selectedDate);
+
+    if (isPastDate(selectedDate)) {
+        alert('Neue Termine können für vergangene Daten nicht erstellt werden.');
+        return;
+    }
+
+    openModal(day);
+    appointmentForm.onsubmit = (e) => {
+        e.preventDefault();
+        const time = document.getElementById('appointment-time').value;
+        const duration = document.getElementById('appointment-duration').value;
+        const customer = document.getElementById('appointment-customer').value;
+        const vehicle = document.getElementById('appointment-vehicle').value;
+        const service = document.getElementById('appointment-service').value;
+        const note = document.getElementById('appointment-note').value;
+        const price = document.getElementById('appointment-price').value;
+        dataStore[key] = dataStore[key] || [];
+        dataStore[key].push({ time, duration, customer, vehicle, service, note, price });
+        modal.style.display = 'none';
+        renderCalendar(currentDate);
+        showAppointments(key, day);
+    };
+};
+
 
         toggleCalendarBtn.onclick = () => {
             isCalendarCollapsed = !isCalendarCollapsed;
@@ -235,3 +244,20 @@
         renderCalendar(currentDate);
     })();
     
+
+// Notizenbereich einklappen/ausklappen über Titel ODER Pfeil
+document.querySelectorAll(".notes-section").forEach(section => {
+    const header = section.querySelector(".section-header");
+    const toggleCheckbox = section.querySelector(".toggle-checkbox");
+
+    if (header && toggleCheckbox) {
+        header.addEventListener("click", (e) => {
+            const ignoredTags = ["BUTTON", "INPUT", "SELECT", "TEXTAREA", "LABEL", "I"];
+            if (ignoredTags.includes(e.target.tagName)) return;
+
+            toggleCheckbox.checked = !toggleCheckbox.checked;
+            section.classList.toggle("collapsed", !toggleCheckbox.checked);
+        });
+    }
+});
+
