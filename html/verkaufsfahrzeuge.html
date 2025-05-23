@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gesamter Lagerbestand – mt.cars</title>
+  <title>Fahrzeuge zum Verkauf – mt.cars</title>
   <link rel="stylesheet" href="../styles/dashboard.css">
-  <link rel="stylesheet" href="../styles/gesamterlagerbestand.css">
+  <link rel="stylesheet" href="../styles/ersatzteile.css">
+  <link rel="stylesheet" href="../styles/verkaufsfahrzeuge.css">
   <link rel="stylesheet" href="../styles/right-sidebar.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -13,6 +14,7 @@
 <body>
   <input type="checkbox" id="menu-toggle" class="menu-toggle">
 
+  <!-- Header -->
   <header class="header">
     <div class="header-left">
       <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
@@ -27,7 +29,7 @@
           <button class="icon-btn"><i class="fas fa-smile"></i></button>
           <button class="icon-btn notification">
             <i class="fas fa-bell"></i>
-            <span class="badge">0</span>
+            <span class="badge">3</span>
           </button>
           <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
           <button class="icon-btn"><i class="fas fa-cog"></i></button>
@@ -37,6 +39,7 @@
   </header>
 
   <div class="container">
+    <!-- Sidebar -->
     <aside class="sidebar">
       <div class="sidebar-header">
         <div class="user-profile">
@@ -54,7 +57,7 @@
           <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
           <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
           <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
-          <li><a href="./verkaufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
+          <li class="active"><a href="./verkaufsfahrzeuge.html"><i class="fas fa-warehouse"></i> Verkaufsfahrzeuge</a></li>
           <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
           <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
           <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
@@ -69,7 +72,7 @@
               <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
               <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
               <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
-              <li class="active"><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
+              <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
             </ul>
           </li>
           <li class="menu-item has-submenu">
@@ -86,135 +89,92 @@
       </nav>
     </aside>
 
+    <!-- Main Content -->
     <main class="main-content">
+      <!-- Kopfzeile -->
       <div class="main-header">
         <div class="flex-header">
           <div>
-            <h1>Gesamter Lagerbestand</h1>
+            <h1>Fahrzeuge zum Verkauf</h1>
           </div>
-          <button class="action-btn">
-            <i class="fas fa-plus"></i> Neues Produkt
-          </button>
+          <button class="card-btn with-icon"><i class="fas fa-plus"></i> Neues Fahrzeug</button>
         </div>
 
-        <div class="filter-bar">
+        <!-- Suche + Filter -->
+        <div class="search-filter">
           <div class="search-box">
             <i class="fas fa-search"></i>
-            <input type="text" placeholder="Suche..." id="searchInput">
+            <input type="text" placeholder="Suche (Marke, Modell…)" id="searchVehicle">
           </div>
-          <div class="filter-options">
-            <select class="filter-select" id="categoryFilter">
-              <option value="">Kategorie</option>
-              <option value="Reifen">Reifen</option>
-              <option value="Öle & Flüssigkeiten">Öle & Flüssigkeiten</option>
-              <option value="Ersatzteile">Ersatzteile</option>
-              <option value="Sonstige">Sonstige</option>
+          <div class="filter-group">
+            <select class="filter-select">
+              <option value="">Alle Marken</option>
+              <option>VW</option>
+              <option>BMW</option>
+              <option>Audi</option>
+              <option>Mercedes</option>
             </select>
-            <select class="filter-select" id="herstellerFilter">
-              <option value="">Hersteller</option>
-              <option value="Castrol">Castrol</option>
-              <option value="Mobil">Mobil</option>
-              <option value="Liqui Moly">Liqui Moly</option>
-              <option value="Hazet">Hazet</option>
-              <option value="Fischer">Fischer</option>
-              <option value="Elring">Elring</option>
-              <option value="Tesa">Tesa</option>
+            <select class="filter-select">
+              <option value="">Status</option>
+              <option value="available">Verfügbar</option>
+              <option value="sold">Verkauft</option>
             </select>
-            <button class="filter-btn active" data-filter="all">Alle</button>
-            <button class="filter-btn" data-filter="warning">Kritisch</button>
           </div>
         </div>
       </div>
 
-      <div class="parts-table">
-        <table>
-          <thead>
-            <tr>
-              <th>Art.-Nr.</th>
-              <th>Bezeichnung</th>
-              <th>Kategorie</th>
-              <th>Typ</th>
-              <th>Hersteller</th>
-              <th>Inhalt/Anzahl</th>
-              <th>Bestand</th>
-              <th>Min.</th>
-              <th>Status</th>
-              <th>Aktion</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Reifen -->
-            <tr data-category="Reifen" data-type="Sommerreifen" data-hersteller="Continental" data-stock="30">
-              <td data-label="Art.-Nr.">#MT-100201</td>
-              <td data-label="Bezeichnung">ContiPremiumContact 2</td>
-              <td data-label="Kategorie">Reifen</td>
-              <td data-label="Typ">Sommerreifen</td>
-              <td data-label="Hersteller">Continental</td>
-              <td data-label="Inhalt/Anzahl">1 Stk</td>
-              <td data-label="Bestand" class="stock-positive">30</td>
-              <td data-label="Min.">10</td>
-              <td data-label="Status"><span class="status-badge success">OK</span></td>
-              <td data-label="Aktion">
-                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
-                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
-              </td>
-            </tr>
-            <!-- Öle & Flüssigkeiten -->
-            <tr data-category="Öle & Flüssigkeiten" data-type="Getriebeöl" data-hersteller="Mobil" data-stock="8">
-              <td data-label="Art.-Nr.">#MT-200305</td>
-              <td data-label="Bezeichnung">Mobil ATF 320</td>
-              <td data-label="Kategorie">Öle & Flüssigkeiten</td>
-              <td data-label="Typ">Getriebeöl</td>
-              <td data-label="Hersteller">Mobil</td>
-              <td data-label="Inhalt/Anzahl">1 L</td>
-              <td data-label="Bestand" class="stock-warning">8</td>
-              <td data-label="Min.">15</td>
-              <td data-label="Status"><span class="status-badge warning">Kritisch</span></td>
-              <td data-label="Aktion">
-                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
-                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
-              </td>
-            </tr>
-            <!-- Ersatzteile -->
-            <tr data-category="Ersatzteile" data-type="Bremsbeläge" data-hersteller="Brembo" data-stock="12">
-              <td data-label="Art.-Nr.">#MT-300410</td>
-              <td data-label="Bezeichnung">Brembo Sport Beläge</td>
-              <td data-label="Kategorie">Ersatzteile</td>
-              <td data-label="Typ">Bremsbeläge</td>
-              <td data-label="Hersteller">Brembo</td>
-              <td data-label="Inhalt/Anzahl">1 Satz</td>
-              <td data-label="Bestand" class="stock-positive">12</td>
-              <td data-label="Min.">5</td>
-              <td data-label="Status"><span class="status-badge success">OK</span></td>
-              <td data-label="Aktion">
-                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
-                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
-              </td>
-            </tr>
-            <!-- Sonstige -->
-            <tr data-category="Sonstige" data-type="Zubehör" data-hersteller="CAR-MATE" data-stock="4">
-              <td data-label="Art.-Nr.">#MT-400506</td>
-              <td data-label="Bezeichnung">Scheibenwischer-Set</td>
-              <td data-label="Kategorie">Sonstige</td>
-              <td data-label="Typ">Zubehör</td>
-              <td data-label="Hersteller">CAR-MATE</td>
-              <td data-label="Inhalt/Anzahl">2 Stk</td>
-              <td data-label="Bestand" class="stock-warning">4</td>
-              <td data-label="Min.">10</td>
-              <td data-label="Status"><span class="status-badge warning">Kritisch</span></td>
-              <td data-label="Aktion">
-                <button class="action-icon edit"><i class="fas fa-edit"></i></button>
-                <button class="action-icon delete"><i class="fas fa-trash"></i></button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Fahrzeug-Karten -->
+      <div class="card-grid">
+        <div class="card">
+          <img src="../img/golf.jpg" alt="VW Golf VII">
+          <div class="card-content">
+            <h3>VW Golf VII</h3>
+            <p>Bj. 2018 • 75.000 km</p>
+            <p><strong>€ 12.900</strong></p>
+          </div>
+          <div class="card-actions">
+            <a href="verkaufsfahrzeug-detail.html?id=1" class="card-btn">Details</a>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../img/bmw.jpg" alt="BMW 3er">
+          <div class="card-content">
+            <h3>BMW 3er F30</h3>
+            <p>Bj. 2017 • 82.000 km</p>
+            <p><strong>€ 14.500</strong></p>
+          </div>
+          <div class="card-actions">
+            <a href="verkaufsfahrzeug-detail.html?id=2" class="card-btn">Details</a>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../img/audi.jpg" alt="Audi A4">
+          <div class="card-content">
+            <h3>Audi A4 B9</h3>
+            <p>Bj. 2019 • 60.000 km</p>
+            <p><strong>€ 18.200</strong></p>
+          </div>
+          <div class="card-actions">
+            <a href="verkaufsfahrzeug-detail.html?id=3" class="card-btn">Details</a>
+          </div>
+        </div>
+        <div class="card">
+          <img src="../img/mercedes.jpg" alt="Mercedes C-Klasse">
+          <div class="card-content">
+            <h3>Mercedes C Klasse</h3>
+            <p>Bj. 2016 • 95.000 km</p>
+            <p><strong>€ 16.800</strong></p>
+          </div>
+          <div class="card-actions">
+            <a href="verkaufsfahrzeug-detail.html?id=4" class="card-btn">Details</a>
+          </div>
+        </div>
       </div>
     </main>
 
+    <!-- Right Sidebar -->
     <aside class="right-sidebar">
       <div class="right-sidebar-content">
-        <!-- Kalender -->
         <section class="calendar-section">
           <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
           <div class="section-header">
@@ -230,7 +190,6 @@
             <div class="calendar-grid" id="calendar-grid"></div>
           </div>
         </section>
-        <!-- Termine -->
         <section class="appointments-section">
           <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
           <div class="section-header">
@@ -244,7 +203,6 @@
             <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
           </div>
         </section>
-        <!-- Notizen -->
         <section class="notes-section">
           <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
           <div class="section-header">
@@ -260,7 +218,6 @@
           </div>
         </section>
         <div id="notes-modal" class="notes-modal">Gespeichert!</div>
-        <!-- Notizen-Modal -->
         <div id="note-edit-modal" class="modal">
           <div class="modal-content">
             <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
@@ -280,7 +237,6 @@
             </form>
           </div>
         </div>
-        <!-- Termin-Modal -->
         <div id="appointment-modal" class="modal">
           <div class="modal-content">
             <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
@@ -329,7 +285,16 @@
     </aside>
   </div>
 
-  <script src="../scripts/lagerbestand.js"></script>
   <script src="../scripts/right-sidebar.js"></script>
+  <script>
+    (() => {
+      const menuToggle = document.getElementById('menu-toggle');
+      document.querySelectorAll('.menu-icon, .close-btn').forEach(item => {
+        item.addEventListener('click', () => {
+          menuToggle.checked = !menuToggle.checked;
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
