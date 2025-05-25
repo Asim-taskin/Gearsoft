@@ -8,175 +8,305 @@
     <link rel="stylesheet" href="../styles/kunden.css">
     <link rel="stylesheet" href="../styles/right-sidebar.css">
     <link rel="stylesheet" href="../styles/kunde-hinzufuegen-modal.css">
-    <link rel="stylesheet" href="../styles/fahrzeug-hinzufuegen-modal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const input = document.querySelector(".search-input");
-    const rows = document.querySelectorAll(".customer-table tbody tr");
-    const statsSpan = document.querySelector(".stat-item[data-type='kunden']");
-    const pageInfo = document.querySelector(".pagination-info");
-    const deleteButton = document.querySelector(".action-btn.delete");
-    const checkboxes = document.querySelectorAll(".customer-checkbox");
-
-    const addCustomerBtn = document.querySelector(".action-btn.primary");
-    const customerModal = document.getElementById("add-customer-modal");
-    const customerClose = customerModal?.querySelector(".modal-close");
-    const customerDiscardBtn = customerModal?.querySelector(".btn.secondary");
-
-    const fahrzeugAdd = document.querySelector(".fahrzeug-add");
-    const fahrzeugModal = document.getElementById("add-vehicle-modal");
-    const fahrzeugClose = fahrzeugModal?.querySelector(".modal-close");
-    const fahrzeugCancelBtn = fahrzeugModal?.querySelector(".btn.secondary");
-    const fahrzeugeListe = document.getElementById("fahrzeuge-liste");
-    const fahrzeugForm = fahrzeugModal?.querySelector("form");
-    const imageInput = document.getElementById("vehicle-images");
-    const imagePreview = document.getElementById("image-preview");
-
-    let editTarget = null;
-    let images = [];
-
-    // Kunde Modal
-    addCustomerBtn.addEventListener("click", () => customerModal.style.display = "block");
-    customerClose?.addEventListener("click", () => customerModal.style.display = "none");
-    customerDiscardBtn?.addEventListener("click", () => customerModal.style.display = "none");
-
-    // Fahrzeug Modal öffnen
-    fahrzeugAdd?.addEventListener("click", () => {
-        fahrzeugModal.style.display = "block";
-        fahrzeugForm.reset();
-        editTarget = null;
-        images = [];
-        imagePreview.innerHTML = "";
-        populateVehicleForm(null);
-    });
-
-    fahrzeugClose?.addEventListener("click", () => fahrzeugModal.style.display = "none");
-    fahrzeugCancelBtn?.addEventListener("click", () => fahrzeugModal.style.display = "none");
-
-    window.addEventListener("click", (e) => {
-        if (e.target === customerModal) customerModal.style.display = "none";
-        if (e.target === fahrzeugModal) fahrzeugModal.style.display = "none";
-    });
-
-    // Handle vehicle image upload
-    imageInput?.addEventListener("change", function (e) {
-        const files = Array.from(e.target.files);
-        files.forEach(file => {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                images.push(event.target.result);
-                const imgElement = document.createElement("img");
-                imgElement.src = event.target.result;
-                imgElement.style.maxWidth = "100px";
-                imgElement.style.maxHeight = "100px";
-                imgElement.style.margin = "5px";
-                imagePreview.appendChild(imgElement);
-            };
-            reader.readAsDataURL(file);
-        });
-    });
-
-    fahrzeugForm?.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
-        const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
-        const modellInput = fahrzeugForm.querySelectorAll("input")[6];
-
-        const kennzeichen = kennzeichenInput?.value.trim() || "-";
-        const laufleistung = laufleistungInput?.value.trim() || "-";
-        const modell = modellInput?.value.trim() || "-";
-
-        const fahrzeugHTML = `
-            <div class="fahrzeug-eintrag" data-kennzeichen="${kennzeichen}" data-laufleistung="${laufleistung}" data-modell="${modell}" style="border:1px solid #ccc; padding:8px; margin-top:8px; border-radius:5px;">
-                <strong>Kennzeichen:</strong> ${kennzeichen}<br>
-                <strong>Modell:</strong> ${modell}<br>
-                <strong>Laufleistung:</strong> ${laufleistung} km
-                <div class="fahrzeug-actions" style="margin-top:5px;">
-                    <button class="edit-fahrzeug" title="Bearbeiten" style="margin-right:10px;"><i class="fas fa-edit"></i></button>
-                    <button class="delete-fahrzeug" title="Löschen"><i class="fas fa-trash"></i></button>
-                </div>
-            </div>
-        `;
-
-        if (editTarget) {
-            editTarget.outerHTML = fahrzeugHTML;
-            editTarget = null;
-        } else {
-            fahrzeugeListe.insertAdjacentHTML("beforeend", fahrzeugHTML);
+    <style>
+        /* Spezifische Stile für das Fahrzeug-Modal */
+        #add-vehicle-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 1000;
         }
 
-        fahrzeugModal.style.display = "none";
-        attachFahrzeugEvents();
-    });
-
-    function attachFahrzeugEvents() {
-        fahrzeugeListe.querySelectorAll(".delete-fahrzeug").forEach(btn => {
-            btn.onclick = function () {
-                const eintrag = this.closest(".fahrzeug-eintrag");
-                if (eintrag) eintrag.remove();
-            };
-        });
-
-        fahrzeugeListe.querySelectorAll(".edit-fahrzeug").forEach(btn => {
-            btn.onclick = function () {
-                const eintrag = this.closest(".fahrzeug-eintrag");
-                if (!eintrag) return;
-
-                editTarget = eintrag;
-                populateVehicleForm(eintrag);
-                fahrzeugModal.style.display = "block";
-            };
-        });
-    }
-
-    function populateVehicleForm(eintrag) {
-        const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
-        const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
-        const modellInput = fahrzeugForm.querySelectorAll("input")[6];
-
-        if (eintrag) {
-            kennzeichenInput.value = eintrag.dataset.kennzeichen;
-            laufleistungInput.value = eintrag.dataset.laufleistung;
-            modellInput.value = eintrag.dataset.modell;
-        } else {
-            kennzeichenInput.value = "";
-            laufleistungInput.value = "";
-            modellInput.value = "";
+        /* Sicherstellen, dass Kunden-Modal standardmäßig unsichtbar ist */
+        #add-customer-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 1000;
         }
-    }
 
-    function updateCountAndPage() {
-        const visibleRows = Array.from(rows).filter(r => r.style.display !== "none");
-        statsSpan.innerHTML = `<i class='fas fa-users'></i> ${rows.length} Kunden gesamt`;
-        pageInfo.textContent = `${visibleRows.length ? 1 : 0}-${visibleRows.length} von ${rows.length}`;
-    }
+        .fahrzeug-modal {
+            width: 90%;
+            max-width: 1024px;
+            max-height: 90vh;
+            margin: 5vh auto;
+            overflow-y: auto;
+            box-sizing: border-box;
+            padding: 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
 
-    function updateDeleteButton() {
-        deleteButton.style.display = Array.from(checkboxes).some(cb => cb.checked) ? "flex" : "none";
-    }
+        .fahrzeug-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            box-sizing: border-box;
+        }
 
-    input.addEventListener("input", function () {
-        const filter = input.value.toLowerCase().replace(/[^a-z0-9]/gi, "");
-        rows.forEach(row => {
-            const text = Array.from(row.querySelectorAll('td'))
-                .map(td => td.textContent.toLowerCase().replace(/[^a-z0-9]/gi, ""))
-                .join('');
-            row.style.display = text.includes(filter) ? "" : "none";
+        .fahrzeug-grid .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .fahrzeug-grid .form-group label {
+            font-size: 0.875rem;
+            color: #374151;
+        }
+
+        .fahrzeug-grid .form-group input,
+        .fahrzeug-grid .form-group select,
+        .fahrzeug-grid .form-group textarea {
+            padding: 8px;
+            border: 1px solid #D1D5DB;
+            border-radius: 4px;
+            font-size: 0.875rem;
+        }
+
+        .fahrzeug-grid .form-group textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        .fahrzeug-grid .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .fahrzeug-footer {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .fahrzeug-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fahrzeug-modal {
+                width: 95%;
+                max-height: 95vh;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const input = document.querySelector(".search-input");
+            const rows = document.querySelectorAll(".customer-table tbody tr");
+            const statsSpan = document.querySelector(".stat-item[data-type='kunden']");
+            const pageInfo = document.querySelector(".pagination-info");
+            const deleteButton = document.querySelector(".action-btn.delete");
+            const checkboxes = document.querySelectorAll(".customer-checkbox");
+
+            const addCustomerBtn = document.querySelector(".action-btn.primary");
+            const customerModal = document.getElementById("add-customer-modal");
+            const customerClose = customerModal?.querySelector(".modal-close");
+            const customerDiscardBtn = customerModal?.querySelector(".btn.secondary");
+
+            const fahrzeugAdd = document.querySelector(".fahrzeug-add");
+            const fahrzeugModal = document.getElementById("add-vehicle-modal");
+            const fahrzeugClose = fahrzeugModal?.querySelector(".modal-close");
+            const fahrzeugCancelBtn = fahrzeugModal?.querySelector(".fahrzeug-footer .btn.secondary");
+            const fahrzeugeListe = document.getElementById("fahrzeuge-liste");
+            const fahrzeugForm = fahrzeugModal?.querySelector("form");
+            const imageInput = document.getElementById("vehicle-images");
+            const imagePreview = document.getElementById("image-preview");
+
+            let editTarget = null;
+            let images = [];
+
+            // Debug: Prüfen, ob Kunden-Modal beim Laden sichtbar ist
+            console.log("Initial customerModal display:", customerModal.style.display);
+
+            // Kunde Modal
+            if (addCustomerBtn) {
+                addCustomerBtn.addEventListener("click", () => {
+                    console.log("Kunde hinzufügen geklickt");
+                    customerModal.style.display = "block";
+                });
+            } else {
+                console.error("addCustomerBtn nicht gefunden");
+            }
+
+            customerClose?.addEventListener("click", () => {
+                customerModal.style.display = "none";
+            });
+
+            customerDiscardBtn?.addEventListener("click", () => {
+                customerModal.style.display = "none";
+            });
+
+            // Fahrzeug Modal öffnen
+            fahrzeugAdd?.addEventListener("click", () => {
+                fahrzeugModal.style.display = "flex";
+                fahrzeugForm.reset();
+                editTarget = null;
+                images = [];
+                imagePreview.innerHTML = "";
+                populateVehicleForm(null);
+            });
+
+            // Modal schließen
+            fahrzeugClose?.addEventListener("click", () => {
+                fahrzeugModal.style.display = "none";
+            });
+
+            fahrzeugCancelBtn?.addEventListener("click", () => {
+                fahrzeugModal.style.display = "none";
+                fahrzeugForm.reset();
+                imagePreview.innerHTML = "";
+                images = [];
+            });
+
+            window.addEventListener("click", (e) => {
+                if (e.target === customerModal) {
+                    customerModal.style.display = "none";
+                }
+                if (e.target === fahrzeugModal) {
+                    fahrzeugModal.style.display = "none";
+                }
+            });
+
+            // Handle vehicle image upload
+            imageInput?.addEventListener("change", function (e) {
+                const files = Array.from(e.target.files);
+                files.forEach(file => {
+                    const reader = new FileReader();
+                    reader.onload = function (event) {
+                        images.push(event.target.result);
+                        const imgElement = document.createElement("img");
+                        imgElement.src = event.target.result;
+                        imgElement.style.maxWidth = "100px";
+                        imgElement.style.maxHeight = "100px";
+                        imgElement.style.margin = "5px";
+                        imagePreview.appendChild(imgElement);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            fahrzeugForm?.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
+                const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
+                const modellInput = fahrzeugForm.querySelectorAll("input")[6];
+
+                const kennzeichen = kennzeichenInput?.value.trim() || "-";
+                const laufleistung = laufleistungInput?.value.trim() || "-";
+                const modell = modellInput?.value.trim() || "-";
+
+                const fahrzeugHTML = `
+                    <div class="fahrzeug-eintrag" data-kennzeichen="${kennzeichen}" data-laufleistung="${laufleistung}" data-modell="${modell}" style="border:1px solid #ccc; padding:8px; margin-top:8px; border-radius:5px;">
+                        <strong>Kennzeichen:</strong> ${kennzeichen}<br>
+                        <strong>Modell:</strong> ${modell}<br>
+                        <strong>Laufleistung:</strong> ${laufleistung} km
+                        <div class="fahrzeug-actions" style="margin-top:5px;">
+                            <button class="edit-fahrzeug" title="Bearbeiten" style="margin-right:10px;"><i class="fas fa-edit"></i></button>
+                            <button class="delete-fahrzeug" title="Löschen"><i class="fas fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+
+                if (editTarget) {
+                    editTarget.outerHTML = fahrzeugHTML;
+                    editTarget = null;
+                } else {
+                    fahrzeugeListe.insertAdjacentHTML("beforeend", fahrzeugHTML);
+                }
+
+                fahrzeugModal.style.display = "none";
+                attachFahrzeugEvents();
+            });
+
+            function attachFahrzeugEvents() {
+                fahrzeugeListe.querySelectorAll(".delete-fahrzeug").forEach(btn => {
+                    btn.onclick = function () {
+                        const eintrag = this.closest(".fahrzeug-eintrag");
+                        if (eintrag) eintrag.remove();
+                    };
+                });
+
+                fahrzeugeListe.querySelectorAll(".edit-fahrzeug").forEach(btn => {
+                    btn.onclick = function () {
+                        const eintrag = this.closest(".fahrzeug-eintrag");
+                        if (!eintrag) return;
+
+                        editTarget = eintrag;
+                        populateVehicleForm(eintrag);
+                        fahrzeugModal.style.display = "flex";
+                    };
+                });
+            }
+
+            function populateVehicleForm(eintrag) {
+                const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
+                const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
+                const modellInput = fahrzeugForm.querySelectorAll("input")[6];
+
+                if (eintrag) {
+                    kennzeichenInput.value = eintrag.dataset.kennzeichen;
+                    laufleistungInput.value = eintrag.dataset.laufleistung;
+                    modellInput.value = eintrag.dataset.modell;
+                } else {
+                    kennzeichenInput.value = "";
+                    laufleistungInput.value = "";
+                    modellInput.value = "";
+                }
+            }
+
+            function updateCountAndPage() {
+                const visibleRows = Array.from(rows).filter(r => r.style.display !== "none");
+                statsSpan.innerHTML = `<i class='fas fa-users'></i> ${rows.length} Kunden gesamt`;
+                pageInfo.textContent = `${visibleRows.length ? 1 : 0}-${visibleRows.length} von ${rows.length}`;
+            }
+
+            function updateDeleteButton() {
+                deleteButton.style.display = Array.from(checkboxes).some(cb => cb.checked) ? "flex" : "none";
+            }
+
+            input.addEventListener("input", function () {
+                const filter = input.value.toLowerCase().replace(/[^a-z0-9]/gi, "");
+                rows.forEach(row => {
+                    const text = Array.from(row.querySelectorAll('td'))
+                        .map(td => td.textContent.toLowerCase().replace(/[^a-z0-9]/gi, ""))
+                        .join('');
+                    row.style.display = text.includes(filter) ? "" : "none";
+                });
+                updateCountAndPage();
+            });
+
+            checkboxes.forEach(cb => cb.addEventListener("change", updateDeleteButton));
+
+            updateCountAndPage();
+            updateDeleteButton();
+            attachFahrzeugEvents();
         });
-        updateCountAndPage();
-    });
-
-    checkboxes.forEach(cb => cb.addEventListener("change", updateDeleteButton));
-
-    updateCountAndPage();
-    updateDeleteButton();
-    attachFahrzeugEvents();
-});
-</script>
+    </script>
 </head>
 <body>
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
@@ -452,7 +582,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                     <label for="appointment-vehicle">Fahrzeug</label>
                                     <input type="text" id="appointment-vehicle" required style="width: 100%; padding: 0.5rem;">
                                 </div>
-                                <div class="form-group full-widthobo" style="grid-column: span 2;">
+                                <div class="form-group full-width" style="grid-column: span 2;">
                                     <label for="appointment-service">Dienstleistung</label>
                                     <input type="text" id="appointment-service" required style="width: 100%; padding: 0.5rem;">
                                 </div>
@@ -475,230 +605,220 @@ document.addEventListener("DOMContentLoaded", function () {
             </div>
         </aside>
 
-<!-- ####################################################################################################################################### -->
-<!--                                                              Kunde hinzufügen                                                           -->
-<!-- ####################################################################################################################################### -->
-
-            <div id="add-customer-modal" class="modal">
-              <div class="modal-content add-customer-modal">
+        <div id="add-customer-modal" class="modal">
+            <div class="modal-content add-customer-modal">
                 <div class="modal-header">
-                  <h2>Neuen Kunden hinzufügen</h2>
-                  <button class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
+                    <h2>Neuen Kunden hinzufügen</h2>
+                    <button class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
                 </div>
                 <form>
-                  <div class="modal-body add-customer-grid">
-                    <div class="form-group">
-                      <label>Anrede</label>
-                      <select><option>--</option><option>Herr</option><option>Frau</option></select>
-                    </div>
-                    <div class="form-group">
-                      <label>Titel</label>
-                      <input type="text" />
-                    </div>
-                    <div class="form-group">
-                      <label>Vorname</label>
-                      <input type="text" />
-                    </div>
-                    <div class="form-group required">
-                      <label>Nachname *</label>
-                      <input type="text" required />
-                    </div>
-                    <div class="form-group">
-                      <label>Extra Adresszeile (wird unter Namen gedruckt)</label>
-                      <input type="text" />
-                    </div>
-                    <div class="form-group">
-                      <label>Straße und Hausnummer</label>
-                      <input type="text" />
-                    </div>
-                    <div class="form-group">
-                      <label>PLZ</label>
-                      <input type="text" />
-                    </div>
-                    <div class="form-group">
-                      <label>Ort</label>
-                      <input type="text" />
-                    </div>
-                    <div class="form-group required">
-                      <label>Land *</label>
-                      <select><option>Österreich</option><option>Deutschland</option><option>Schweiz</option></select>
-                    </div>
-                    <div class="form-group">
-                      <label>Handy</label>
-                      <input type="tel" />
-                    </div>
-                    <div class="form-group">
-                      <label>Telefon</label>
-                      <input type="tel" />
-                    </div>
-                    <div class="form-group">
-                      <label>E-Mail Adresse</label>
-                      <input type="email" />
-                    </div>
-                    <div class="form-group">
-                      <label>Geburtstag</label>
-                      <input type="date" />
-                    </div>
-                    <div class="form-group">
-                      <label>UID</label>
-                      <input type="text" value="ATU000000000" />
-                    </div>
-                    <div class="form-group full-width">
-                      <label>Zusatzinfo</label>
-                      <textarea></textarea>
-                    </div>
-                    <div class="form-group checkbox-group full-width">
-                      <label><input type="checkbox" /> Zusatzinfo auf Angebote und Rechnungen drucken</label>
-                    </div>
-                    <div class="form-group full-width">
-                      <div id="fahrzeug-section" class="fahrzeug-section">
-                        <div class="fahrzeug-section-header">
-                          <span class="fahrzeug-add">+ Fahrzeug hinzufügen</span>
-                          <span class="fahrzeug-text">Fahrzeug zum Kunden hinzufügen</span>
+                    <div class="modal-body add-customer-grid">
+                        <div class="form-group">
+                            <label>Anrede</label>
+                            <select><option>--</option><option>Herr</option><option>Frau</option></select>
                         </div>
-                        <div id="fahrzeuge-liste" class="fahrzeuge-liste"></div>
-                      </div>
+                        <div class="form-group">
+                            <label>Titel</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Vorname</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group required">
+                            <label>Nachname *</label>
+                            <input type="text" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Extra Adresszeile (wird unter Namen gedruckt)</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Straße und Hausnummer</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>PLZ</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Ort</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group required">
+                            <label>Land *</label>
+                            <select><option>Österreich</option><option>Deutschland</option><option>Schweiz</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Handy</label>
+                            <input type="tel" />
+                        </div>
+                        <div class="form-group">
+                            <label>Telefon</label>
+                            <input type="tel" />
+                        </div>
+                        <div class="form-group">
+                            <label>E-Mail Adresse</label>
+                            <input type="email" />
+                        </div>
+                        <div class="form-group">
+                            <label>Geburtstag</label>
+                            <input type="date" />
+                        </div>
+                        <div class="form-group">
+                            <label>UID</label>
+                            <input type="text" value="ATU000000000" />
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Zusatzinfo</label>
+                            <textarea></textarea>
+                        </div>
+                        <div class="form-group checkbox-group full-width">
+                            <label><input type="checkbox" /> Zusatzinfo auf Angebote und Rechnungen drucken</label>
+                        </div>
+                        <div class="form-group full-width">
+                            <div id="fahrzeug-section" class="fahrzeug-section">
+                                <div class="fahrzeug-section-header">
+                                    <span class="fahrzeug-add">+ Fahrzeug hinzufügen</span>
+                                    <span class="fahrzeug-text">Fahrzeug zum Kunden hinzufügen</span>
+                                </div>
+                                <div id="fahrzeuge-liste" class="fahrzeuge-liste"></div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn secondary">Verwerfen</button>
-                    <button type="submit" class="btn primary">+ Kunde hinzufügen</button>
-                  </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn secondary">Verwerfen</button>
+                        <button type="submit" class="btn primary">+ Kunde hinzufügen</button>
+                    </div>
                 </form>
-              </div>
             </div>
+        </div>
 
-<!-- ####################################################################################################################################### -->
-<!--                                                           Fahrzeug hinzufügen                                                           -->
-<!-- ####################################################################################################################################### -->
-
-<div id="add-vehicle-modal" class="modal">
-  <div class="modal-content fahrzeug-modal">
-    <div class="modal-header">
-      <h2>Fahrzeug erstellen</h2>
-      <button class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
-    </div>
-    <form>
-      <div class="fahrzeug-grid">
-        <div class="form-group full-width">
-          <label><i class="fas fa-user"></i> Kunde wählen *</label>
-          <input type="text" placeholder="Kunde auswählen" />
+        <div id="add-vehicle-modal" class="modal">
+            <div class="modal-content fahrzeug-modal">
+                <div class="modal-header">
+                    <h2>Fahrzeug erstellen</h2>
+                    <button class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
+                </div>
+                <form>
+                    <div class="fahrzeug-grid">
+                        <!-- <div class="form-group full-width">
+                            <label><i class="fas fa-user"></i> Kunde wählen *</label>
+                            <input type="text" placeholder="Kunde auswählen" />
+                        </div> -->
+                        <div class="form-group">
+                            <label>Kennzeichen A</label>
+                            <input type="text" value="" />
+                        </div>
+                        <div class="form-group">
+                            <label>Laufleistung</label>
+                            <input type="text" placeholder="Hinzufügen" />
+                        </div>
+                        <div class="form-group">
+                            <label>Nationaler Code A7</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Fahrzeugidentifikationsnummer E</label>
+                            <input type="text" value="0" />
+                        </div>
+                        <div class="form-group">
+                            <label>Hersteller D.1 *</label>
+                            <select><option>Hersteller wählen</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Modell / Handelsbezeichnung D.3 *</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Type/Variante/Version D.2</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Fahrzeugklasse J</label>
+                            <select><option>M1 | PKW/Kombi</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Getriebeart</label>
+                            <select><option>wählen</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Eigengewicht G</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>höchstzul. Gesamtgewicht F.2</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Leistung P.2</label>
+                            <input type="text" placeholder="0 PS" />
+                        </div>
+                        <div class="form-group">
+                            <label>Hubraum P.1</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Letzte Zulassung</label>
+                            <input type="date" />
+                        </div>
+                        <div class="form-group">
+                            <label>Erstzulassung B</label>
+                            <input type="date" />
+                        </div>
+                        <div class="form-group">
+                            <label>Genehmigungsdatum 6</label>
+                            <input type="date" />
+                        </div>
+                        <div class="form-group">
+                            <label>Motor-Kategorie</label>
+                            <select><option>wählen</option></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Motortype 10</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group">
+                            <label>Farbe R</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Polizzennummer</label>
+                            <input type="text" />
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Zusatzinfo</label>
+                            <textarea></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Bilder hochladen</label>
+                            <input type="file" id="vehicle-images" multiple accept="image/*" />
+                            <div id="image-preview" style="display: flex; flex-wrap: wrap; margin-top: 10px;"></div>
+                        </div>
+                        <div class="form-group full-width">
+                            <label>Zulassung hinzufügen (als Bild)</label>
+                            <input type="file" id="zulassung-image" accept="image/*" class="btn secondary" />
+                        </div>
+                    </div>
+                    <div class="fahrzeug-footer">
+                        <button type="button" class="btn secondary">Abbrechen</button>
+                        <button type="submit" class="btn primary">Speichern</button>
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="form-group">
-          <label>Kennzeichen A</label>
-          <input type="text" value="" />
-        </div>
-        <div class="form-group">
-          <label>Laufleistung</label>
-          <input type="text" placeholder="Hinzufügen" />
-        </div>
-        <div class="form-group">
-          <label>Nationaler Code A7</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Fahrzeugidentifikationsnummer E</label>
-          <input type="text" value="0" />
-        </div>
-        <div class="form-group">
-          <label>Hersteller D.1 *</label>
-          <select><option>Hersteller wählen</option></select>
-        </div>
-        <div class="form-group">
-          <label>Modell / Handelsbezeichnung D.3 *</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Type/Variante/Version D.2</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Fahrzeugklasse J</label>
-          <select><option>M1 | PKW/Kombi</option></select>
-        </div>
-        <div class="form-group">
-          <label>Getriebeart</label>
-          <select><option>wählen</option></select>
-        </div>
-        <div class="form-group">
-          <label>Eigengewicht G</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>höchstzul. Gesamtgewicht F.2</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Leistung P.2</label>
-          <input type="text" placeholder="0 PS" />
-        </div>
-        <div class="form-group">
-          <label>Hubraum P.1</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Letzte Zulassung</label>
-          <input type="date" />
-        </div>
-        <div class="form-group">
-          <label>Erstzulassung B</label>
-          <input type="date" />
-        </div>
-        <div class="form-group">
-          <label>Genehmigungsdatum 6</label>
-          <input type="date" />
-        </div>
-        <div class="form-group">
-          <label>Motor-Kategorie</label>
-          <select><option>wählen</option></select>
-        </div>
-        <div class="form-group">
-          <label>Motortype 10</label>
-          <input type="text" />
-        </div>
-        <div class="form-group">
-          <label>Farbe R</label>
-          <input type="text" />
-        </div>
-        <div class="form-group full-width">
-          <label>Polizzennummer</label>
-          <input type="text" />
-        </div>
-        <div class="form-group full-width">
-          <label>Zusatzinfo</label>
-          <textarea></textarea>
-        </div>
-        <div class="form-group full-width">
-          <label>Bilder hochladen</label>
-          <input type="file" id="vehicle-images" multiple accept="image/*" />
-          <div id="image-preview" style="display: flex; flex-wrap: wrap; margin-top: 10px;"></div>
-        </div>
-        <div class="form-group full-width">
-          <label>Zulassung hinzufügen (als Bild)</label>
-          <label for="zulassung-image" class="btn secondary">Datei auswählen</label>
-          <input type="file" id="zulassung-image" accept="image/*" style="display: none;" />
-        </div>
-      </div>
-      <div class="fahrzeug-footer">
-        <button type="button" class="btn secondary modal-close">Abbrechen</button>
-        <button type="submit" class="btn primary">Speichern</button>
-      </div>
-    </form>
-  </div>
-</div>
-
     </div>
 
     <script src="../scripts/right-sidebar.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".modal-close").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const modal = btn.closest(".modal");
-      if (modal) modal.style.display = "none";
-    });
-  });
-});
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".modal-close").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const modal = btn.closest(".modal");
+                    if (modal) modal.style.display = "none";
+                });
+            });
+        });
     </script>
 </body>
 </html>

@@ -152,6 +152,16 @@
   padding: 1rem;
 }
 
+#add-customer-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    overflow: auto;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
 .add-customer-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -221,4 +231,16 @@
     white-space: normal;
   }
 
+}
+
+
+.modal-content.add-customer-modal {
+    max-height: 95vh;
+    overflow-y: auto;
+    background-color: white;
+}
+
+.modal-content {
+    padding: 2rem;
+    box-sizing: border-box;
 }
