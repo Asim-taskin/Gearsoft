@@ -84,13 +84,15 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const openVehicleModalBtn = document.querySelector(".vehicle-header .action-btn.primary");
   const vehicleModal = document.getElementById("add-vehicle-modal");
   const vehicleClose = vehicleModal?.querySelector(".modal-close");
-  const vehicleCancel = vehicleModal?.querySelector(".btn.secondary");
+  const vehicleCancel = document.getElementById("cancel-vehicle-modal");
 
-  openVehicleModalBtn?.addEventListener("click", () => {
-    vehicleModal.style.display = "block";
+  const openVehicleModalBtns = document.querySelectorAll(".action-btn.primary.open-add-vehicle");
+  openVehicleModalBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      vehicleModal.style.display = "block";
+    });
   });
 
   vehicleClose?.addEventListener("click", () => {
@@ -102,9 +104,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   window.addEventListener("click", (e) => {
-    if (e.target === vehicleModal) vehicleModal.style.display = "none";
+    if (e.target === vehicleModal) {
+      vehicleModal.style.display = "none";
+    }
   });
 });
+
 </script>
 
 
@@ -183,12 +188,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 <main class="main-content">
-  <div class="tab-bar">
+<div class="tab-bar" style="justify-content: space-between; align-items: center;">
+  <div>
     <button class="tab-link active" data-tab="tab-fahrzeugliste">Fahrzeugliste</button>
     <button class="tab-link" data-tab="tab-57a">§57A Prüfungen</button>
     <button class="tab-link" data-tab="tab-tuev">TÜV Prüfungen</button>
     <button class="tab-link" data-tab="tab-reifen">Reifenlager</button>
   </div>
+  <button class="action-btn primary open-add-vehicle"><i class="fas fa-plus"></i> Neues Fahrzeug</button>
+
+</div>
+
 
   <div id="tab-fahrzeugliste" class="tab-content">
     <div class="section-title in-workshop">Aktuelle Fahrzeuge in der Werkstatt</div>
@@ -291,7 +301,7 @@ document.addEventListener("DOMContentLoaded", () => {
           <input type="text" placeholder="Fahrzeug suchen...">
           <i class="fas fa-search"></i>
         </div>
-        <button class="action-btn primary"><i class="fas fa-plus"></i> Neues Fahrzeug</button>
+        <!-- <button class="action-btn primary"><i class="fas fa-plus"></i> Neues Fahrzeug</button> -->
       </div>
       <table class="vehicle-table-list">
         <thead>
@@ -671,7 +681,7 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
       </div>
       <div class="fahrzeug-footer">
-        <button type="button" class="btn secondary">Abbrechen</button>
+        <button type="button" class="btn secondary" id="cancel-vehicle-modal">Abbrechen</button>
         <button type="submit" class="btn primary">Speichern</button>
       </div>
     </form>
