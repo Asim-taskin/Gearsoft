@@ -14,6 +14,74 @@
 
 </head>
 
+
+<style>
+.tab-bar {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #e5e7eb;
+}
+.tab-link {
+  padding: 0.5rem 1rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+}
+.tab-link.active {
+  border-bottom: 3px solid #c99c5f;
+  color: #c99c5f;
+}
+.tab-content {
+  display: none;
+  padding: 1rem 0;
+}
+.tab-content#tab-fahrzeugliste {
+  display: block;
+}
+
+/* Styling für §57A Tabelle */
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+.styled-table th, .styled-table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+.styled-table th {
+  background-color: #f3f4f6;
+  font-weight: 600;
+}
+.status-green {
+  color: #10b981;
+  font-weight: 600;
+}
+.status-yellow {
+  color: #facc15;
+  font-weight: 600;
+}
+
+/* Styling für TÜV & Reifen Listen */
+.styled-list {
+  margin-top: 1rem;
+  padding-left: 1.25rem;
+  list-style: disc;
+}
+.styled-list li {
+  margin-bottom: 0.5rem;
+}
+.highlight {
+  color: #c99c5f;
+  font-weight: 600;
+}
+</style>
+
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const openVehicleModalBtn = document.querySelector(".vehicle-header .action-btn.primary");
@@ -111,196 +179,279 @@ document.addEventListener("DOMContentLoaded", () => {
                 </ul>
             </nav>
         </aside>
-        <main class="main-content">
-            <div class="section-title in-workshop">Aktuelle Fahrzeuge in der Werkstatt</div>
-            <div class="vehicle-list">
-                <div class="vehicle-header">
-                    <div class="vehicle-search">
-                        <input type="text" placeholder="Fahrzeug suchen...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                <div class="vehicle-grid">
-                    <div class="vehicle-card">
-                        <div class="vehicle-image">
-                            <img src="../img/placeholder-car1.jpeg" alt="Fahrzeug">
-                        </div>
-                        <div class="vehicle-meta">
-                            <div class="vehicle-status status-in-progress">In Reparatur</div>
-                            <div class="vehicle-details">KM: 123.456</div>
-                        </div>
-                        <h3 class="vehicle-title">VW Golf VIII</h3>
-                        <div class="vehicle-details">
-                            <div class="license-plate">
-                                <div class="blue-field"><span>A</span></div>
-                                <div class="plate-text">M-MS-1234</div>
-                            </div>
-                            <div>FIN: WVWZZZAUZNW123456</div>
-                            <div>Auftrag: Inspektion & Bremsen</div>
-                        </div>
-                        <div class="vehicle-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
-                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
-                        </div>
-                    </div>
-                    <div class="vehicle-card">
-                        <div class="vehicle-image">
-                            <img src="../img/placeholder-car2.jpeg" alt="Fahrzeug">
-                        </div>
-                        <div class="vehicle-meta">
-                            <div class="vehicle-status status-in-progress">In Inspektion</div>
-                            <div class="vehicle-details">KM: 89.245</div>
-                        </div>
-                        <h3 class="vehicle-title">BMW 3er G20</h3>
-                        <div class="vehicle-details">
-                            <div class="license-plate">
-                                <div class="blue-field"><span>A</span></div>
-                                <div class="plate-text">M-BM-5678</div>
-                            </div>
-                            <div>FIN: WBA7Y310XKGV12345</div>
-                            <div>Auftrag: Jahresinspektion</div>
-                        </div>
-                        <div class="vehicle-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
-                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
-                        </div>
-                    </div>
-                </div>
+
+
+
+<main class="main-content">
+  <div class="tab-bar">
+    <button class="tab-link active" data-tab="tab-fahrzeugliste">Fahrzeugliste</button>
+    <button class="tab-link" data-tab="tab-57a">§57A Prüfungen</button>
+    <button class="tab-link" data-tab="tab-tuev">TÜV Prüfungen</button>
+    <button class="tab-link" data-tab="tab-reifen">Reifenlager</button>
+  </div>
+
+  <div id="tab-fahrzeugliste" class="tab-content">
+    <div class="section-title in-workshop">Aktuelle Fahrzeuge in der Werkstatt</div>
+    <div class="vehicle-list">
+      <div class="vehicle-header">
+        <div class="vehicle-search">
+          <input type="text" placeholder="Fahrzeug suchen...">
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+      <div class="vehicle-grid">
+        <div class="vehicle-card">
+          <div class="vehicle-image">
+            <img src="../img/placeholder-car1.jpeg" alt="Fahrzeug">
+          </div>
+          <div class="vehicle-meta">
+            <div class="vehicle-status status-in-progress">In Reparatur</div>
+            <div class="vehicle-details">KM: 123.456</div>
+          </div>
+          <h3 class="vehicle-title">VW Golf VIII</h3>
+          <div class="vehicle-details">
+            <div class="license-plate">
+              <div class="blue-field"><span>A</span></div>
+              <div class="plate-text">M-MS-1234</div>
             </div>
-            <div class="section-title upcoming">Bevorstehende Termine</div>
-            <div class="vehicle-list">
-                <div class="vehicle-header">
-                    <div class="vehicle-search">
-                        <input type="text" placeholder="Fahrzeug suchen...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                <div class="vehicle-grid">
-                    <div class="vehicle-card">
-                        <div class="vehicle-image">
-                            <img src="../img/Placeholder-car-4.jpg" alt="Fahrzeug">
-                        </div>
-                        <div class="vehicle-meta">
-                            <div class="vehicle-status status-warning">Termin 28.04.2025</div>
-                            <div class="vehicle-details">KM: 45.789</div>
-                        </div>
-                        <h3 class="vehicle-title">Audi A4 B9</h3>
-                        <div class="vehicle-details">
-                            <div class="license-plate">
-                                <div class="blue-field"><span>A</span></div>
-                                <div class="plate-text">M-AD-9012</div>
-                            </div>
-                            <div>FIN: WAUZZZF49KA123456</div>
-                            <div>Geplanter Service: Ölwechsel</div>
-                        </div>
-                        <div class="vehicle-actions">
-                            <button class="action-btn"><i class="fas fa-edit"></i></button>
-                            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
-                            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
-                        </div>
-                    </div>
-                </div>
+            <div>FIN: WVWZZZAUZNW123456</div>
+            <div>Auftrag: Inspektion & Bremsen</div>
+          </div>
+          <div class="vehicle-actions">
+            <button class="action-btn"><i class="fas fa-edit"></i></button>
+            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+          </div>
+        </div>
+        <div class="vehicle-card">
+          <div class="vehicle-image">
+            <img src="../img/placeholder-car2.jpeg" alt="Fahrzeug">
+          </div>
+          <div class="vehicle-meta">
+            <div class="vehicle-status status-in-progress">In Inspektion</div>
+            <div class="vehicle-details">KM: 89.245</div>
+          </div>
+          <h3 class="vehicle-title">BMW 3er G20</h3>
+          <div class="vehicle-details">
+            <div class="license-plate">
+              <div class="blue-field"><span>A</span></div>
+              <div class="plate-text">M-BM-5678</div>
             </div>
-            <div class="section-title all-vehicles">Alle Fahrzeuge</div>
-            <div class="vehicle-table">
-                <div class="vehicle-header">
-                    <div class="vehicle-search">
-                        <input type="text" placeholder="Fahrzeug suchen...">
-                        <i class="fas fa-search"></i>
-                    </div>
-                    <button class="action-btn primary"><i class="fas fa-plus"></i> Neues Fahrzeug</button>
-                </div>
-                <table class="vehicle-table-list">
-                    <thead>
-                        <tr>
-                            <th>Bild</th>
-                            <th>Fahrzeug</th>
-                            <th>Kennzeichen</th>
-                            <th>FIN</th>
-                            <th>Kilometer</th>
-                            <th>Nächste HU</th>
-                            <th>Aktionen</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-label="Bild">
-                                <div class="vehicle-image">
-                                    <img src="../img/Placeholder-car-3.jpg" alt="Fahrzeug">
-                                </div>
-                            </td>
-                            <td data-label="Fahrzeug">VW Golf VIII</td>
-                            <td data-label="Kennzeichen">
-                                <div class="license-plate">
-                                    <div class="blue-field"><span>A</span></div>
-                                    <div class="plate-text">M-MS-1234</div>
-                                </div>
-                            </td>
-                            <td data-label="FIN">WVWZZZAUZNW123456</td>
-                            <td data-label="Kilometer">123.456</td>
-                            <td data-label="Nächste HU">12/2025</td>
-                            <td data-label="Aktionen">
-                                <div class="vehicle-actions">
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn danger"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn secondary"><i class="fas fa-history"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-label="Bild">
-                                <div class="vehicle-image">
-                                    <img src="../img/placeholder-car2.jpeg" alt="Fahrzeug">
-                                </div>
-                            </td>
-                            <td data-label="Fahrzeug">BMW 3er G20</td>
-                            <td data-label="Kennzeichen">
-                                <div class="license-plate">
-                                    <div class="blue-field"><span>A</span></div>
-                                    <div class="plate-text">M-BM-5678</div>
-                                </div>
-                            </td>
-                            <td data-label="FIN">WBA7Y310XKGV12345</td>
-                            <td data-label="Kilometer">89.245</td>
-                            <td data-label="Nächste HU">06/2024</td>
-                            <td data-label="Aktionen">
-                                <div class="vehicle-actions">
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn danger"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn secondary"><i class="fas fa-history"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td data-label="Bild">
-                                <div class="vehicle-image">
-                                    <img src="../img/Placeholder-car-4.jpg" alt="Fahrzeug">
-                                </div>
-                            </td>
-                            <td data-label="Fahrzeug">Audi A4 B9</td>
-                            <td data-label="Kennzeichen">
-                                <div class="license-plate">
-                                    <div class="blue-field"><span>A</span></div>
-                                    <div class="plate-text">M-AD-9012</div>
-                                </div>
-                            </td>
-                            <td data-label="FIN">WAUZZZF49KA123456</td>
-                            <td data-label="Kilometer">45.789</td>
-                            <td data-label="Nächste HU">03/2025</td>
-                            <td data-label="Aktionen">
-                                <div class="vehicle-actions">
-                                    <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                    <button class="action-btn danger"><i class="fas fa-trash"></i></button>
-                                    <button class="action-btn secondary"><i class="fas fa-history"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div>FIN: WBA7Y310XKGV12345</div>
+            <div>Auftrag: Jahresinspektion</div>
+          </div>
+          <div class="vehicle-actions">
+            <button class="action-btn"><i class="fas fa-edit"></i></button>
+            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title upcoming">Bevorstehende Termine</div>
+    <div class="vehicle-list">
+      <div class="vehicle-header">
+        <div class="vehicle-search">
+          <input type="text" placeholder="Fahrzeug suchen...">
+          <i class="fas fa-search"></i>
+        </div>
+      </div>
+      <div class="vehicle-grid">
+        <div class="vehicle-card">
+          <div class="vehicle-image">
+            <img src="../img/Placeholder-car-4.jpg" alt="Fahrzeug">
+          </div>
+          <div class="vehicle-meta">
+            <div class="vehicle-status status-warning">Termin 28.04.2025</div>
+            <div class="vehicle-details">KM: 45.789</div>
+          </div>
+          <h3 class="vehicle-title">Audi A4 B9</h3>
+          <div class="vehicle-details">
+            <div class="license-plate">
+              <div class="blue-field"><span>A</span></div>
+              <div class="plate-text">M-AD-9012</div>
             </div>
-        </main>
+            <div>FIN: WAUZZZF49KA123456</div>
+            <div>Geplanter Service: Ölwechsel</div>
+          </div>
+          <div class="vehicle-actions">
+            <button class="action-btn"><i class="fas fa-edit"></i></button>
+            <button class="action-btn danger"><i class="fas fa-trash"></i></button>
+            <button class="action-btn secondary"><i class="fas fa-history"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title all-vehicles">Alle Fahrzeuge</div>
+    <div class="vehicle-table">
+      <div class="vehicle-header">
+        <div class="vehicle-search">
+          <input type="text" placeholder="Fahrzeug suchen...">
+          <i class="fas fa-search"></i>
+        </div>
+        <button class="action-btn primary"><i class="fas fa-plus"></i> Neues Fahrzeug</button>
+      </div>
+      <table class="vehicle-table-list">
+        <thead>
+          <tr>
+            <th>Bild</th>
+            <th>Fahrzeug</th>
+            <th>Kennzeichen</th>
+            <th>FIN</th>
+            <th>Kilometer</th>
+            <th>Nächste HU</th>
+            <th>Aktionen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="vehicle-image"><img src="../img/Placeholder-car-3.jpg" alt="Fahrzeug"></div></td>
+            <td>VW Golf VIII</td>
+            <td><div class="license-plate"><div class="blue-field"><span>A</span></div><div class="plate-text">M-MS-1234</div></div></td>
+            <td>WVWZZZAUZNW123456</td>
+            <td>123.456</td>
+            <td>12/2025</td>
+            <td><div class="vehicle-actions"><button class="action-btn"><i class="fas fa-edit"></i></button><button class="action-btn danger"><i class="fas fa-trash"></i></button><button class="action-btn secondary"><i class="fas fa-history"></i></button></div></td>
+          </tr>
+          <tr>
+            <td><div class="vehicle-image"><img src="../img/placeholder-car2.jpeg" alt="Fahrzeug"></div></td>
+            <td>BMW 3er G20</td>
+            <td><div class="license-plate"><div class="blue-field"><span>A</span></div><div class="plate-text">M-BM-5678</div></div></td>
+            <td>WBA7Y310XKGV12345</td>
+            <td>89.245</td>
+            <td>06/2024</td>
+            <td><div class="vehicle-actions"><button class="action-btn"><i class="fas fa-edit"></i></button><button class="action-btn danger"><i class="fas fa-trash"></i></button><button class="action-btn secondary"><i class="fas fa-history"></i></button></div></td>
+          </tr>
+          <tr>
+            <td><div class="vehicle-image"><img src="../img/Placeholder-car-4.jpg" alt="Fahrzeug"></div></td>
+            <td>Audi A4 B9</td>
+            <td><div class="license-plate"><div class="blue-field"><span>A</span></div><div class="plate-text">M-AD-9012</div></div></td>
+            <td>WAUZZZF49KA123456</td>
+            <td>45.789</td>
+            <td>03/2025</td>
+            <td><div class="vehicle-actions"><button class="action-btn"><i class="fas fa-edit"></i></button><button class="action-btn danger"><i class="fas fa-trash"></i></button><button class="action-btn secondary"><i class="fas fa-history"></i></button></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="tab-57a" class="tab-content">
+    <h3>§57A Prüfungen</h3>
+    <div class="vehicle-table">
+      <table class="vehicle-table-list">
+        <thead>
+          <tr>
+            <th>Bild</th>
+            <th>Fahrzeug</th>
+            <th>Kennzeichen</th>
+            <th>FIN</th>
+            <th>Prüfdatum</th>
+            <th>Status</th>
+            <th>Aktionen</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="vehicle-image"><img src="../img/Placeholder-car-3.jpg" alt="Fahrzeug"></div></td>
+            <td>VW Golf VIII</td>
+            <td><div class="license-plate"><div class="blue-field"><span>A</span></div><div class="plate-text">M-MS-1234</div></div></td>
+            <td>WVWZZZAUZNW123456</td>
+            <td>12.04.2024</td>
+            <td class="status-green">Bestanden</td>
+            <td><div class="vehicle-actions"><button class="action-btn"><i class="fas fa-edit"></i></button><button class="action-btn danger"><i class="fas fa-trash"></i></button></div></td>
+          </tr>
+          <tr>
+            <td><div class="vehicle-image"><img src="../img/Placeholder-car-4.jpg" alt="Fahrzeug"></div></td>
+            <td>Audi A4 B9</td>
+            <td><div class="license-plate"><div class="blue-field"><span>A</span></div><div class="plate-text">M-AD-9012</div></div></td>
+            <td>WAUZZZF49KA123456</td>
+            <td>03.03.2024</td>
+            <td class="status-yellow">Mängel vorhanden</td>
+            <td><div class="vehicle-actions"><button class="action-btn"><i class="fas fa-edit"></i></button><button class="action-btn danger"><i class="fas fa-trash"></i></button></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="tab-tuev" class="tab-content">
+    <h3>TÜV Prüfungen</h3>
+    <div class="vehicle-table">
+      <table class="vehicle-table-list">
+        <thead>
+          <tr>
+            <th>Fahrzeug</th>
+            <th>Kennzeichen</th>
+            <th>FIN</th>
+            <th>Nächste Prüfung</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BMW 3er G20</td>
+            <td><div class="license-plate"><div class="blue-field"><span>A</span></div><div class="plate-text">M-BM-5678</div></div></td>
+            <td>WBA7Y310XKGV12345</td>
+            <td class="highlight">10.09.2025</td>
+          </tr>
+          <tr>
+            <td>Audi A4 B9</td>
+            <td><div class="license-plate"><div class="blue-field"><span>A</span></div><div class="plate-text">M-AD-9012</div></div></td>
+            <td>WAUZZZF49KA123456</td>
+            <td class="highlight">01.05.2025</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="tab-reifen" class="tab-content">
+    <h3>Reifenlager</h3>
+    <div class="vehicle-table">
+      <table class="vehicle-table-list">
+        <thead>
+          <tr>
+            <th>Fahrzeug</th>
+            <th>Kennzeichen</th>
+            <th>Regal</th>
+            <th>Reifentyp</th>
+            <th>Profil</th>
+            <th>Von</th>
+            <th>Bis</th>
+            <th>Zustand</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Golf VIII</td>
+            <td><div class="license-plate"><div class="blue-field"><span>A</span></div><div class="plate-text">M-MS-1234</div></div></td>
+            <td class="highlight">B3</td>
+            <td>Winterreifen</td>
+            <td>6mm</td>
+            <td>01.11.2024</td>
+            <td>31.03.2025</td>
+            <td>Gebraucht</td>
+          </tr>
+          <tr>
+            <td>BMW G20</td>
+            <td><div class="license-plate"><div class="blue-field"><span>A</span></div><div class="plate-text">M-BM-5678</div></div></td>
+            <td class="highlight">A1</td>
+            <td>Sommerreifen</td>
+            <td>5mm</td>
+            <td>01.04.2025</td>
+            <td>30.10.2025</td>
+            <td>Neu</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</main>
+
+
+
         <aside class="right-sidebar">
             <div class="right-sidebar-content">
                 <section class="calendar-section">
@@ -541,5 +692,22 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     })();
     </script>
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".tab-link").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".tab-link").forEach(btn => btn.classList.remove("active"));
+      document.querySelectorAll(".tab-content").forEach(content => content.style.display = "none");
+
+      button.classList.add("active");
+      const tabId = button.getAttribute("data-tab");
+      document.getElementById(tabId).style.display = "block";
+    });
+  });
+});
+</script>
+
 </body>
 </html>
