@@ -196,9 +196,6 @@
   color: #6B7280;
 }
 
-.fahrzeuge-liste {
-  /* margin-top: 1rem; */
-}
 
 
 
@@ -224,7 +221,5 @@
     white-space: normal;
   }
 
-  .checkbox-group label {
-    /* white-space: normal; */
-  }
+
 }
