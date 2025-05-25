@@ -1,0 +1,530 @@
+    
+        /* Layout für Container und Main-Content */
+        .container {
+            display: flex;
+            flex-wrap: nowrap;
+            width: 100%;
+            margin-right: 320px; /* Platz für Right-Sidebar */
+        }
+        .main-content {
+            flex: 1;
+            padding: 1.5rem;
+            background-color: var(--gray-50);
+            /* margin-left: 280px; */
+            max-width: calc(100% - 280px - 320px);
+            min-height: 100vh;
+        }
+        /* Section-Titel */
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            padding: 0.5rem 1rem;
+            border-radius: 8px 8px 0 0; /* Nur oben abgerundet für Tab-Optik */
+            margin: 0 0 0; /* Kein Margin unten */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        .section-title.in-workshop {
+            background: #fef9c3;
+            color: #ca8a04;
+        }
+        .section-title.upcoming {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .section-title.all-vehicles {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        /* Vehicle List (für Workshop und Upcoming) */
+        .vehicle-list {
+            background: white;
+            border-radius: 0 8px 8px 8px; /* Oben links keine Rundung */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease;
+            position: relative;
+            top: -1px; /* Leicht nach oben verschieben für Tab-Effekt */
+        }
+        .vehicle-list:hover {
+            transform: translateY(-2px);
+        }
+        /* Vehicle Header */
+        .vehicle-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .vehicle-search {
+            flex: 1;
+            max-width: 400px;
+            position: relative;
+        }
+        .vehicle-search input {
+            width: 100%;
+            padding: 0.6rem 2rem 0.6rem 0.8rem;
+            border: 1px solid var(--gray-200);
+            border-radius: 6px;
+            font-size: 0.85rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: var(--gray-50);
+        }
+        .vehicle-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(37,99,235,0.1);
+        }
+        .vehicle-search i {
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-500);
+            font-size: 0.9rem;
+        }
+        /* Buttons */
+        .action-btn {
+            padding: 0.5rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+            border: none;
+        }
+        .action-btn.primary {
+            background: var(--primary);
+            color: white;
+        }
+        .action-btn.primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        .action-btn.secondary {
+            background: var(--gray-100);
+            color: var(--gray-700);
+        }
+        .action-btn.secondary:hover {
+            background: var(--gray-200);
+        }
+        .action-btn.danger {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .action-btn.danger:hover {
+            background: #fecaca;
+        }
+        /* Vehicle Grid (für Workshop und Upcoming) */
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 1rem;
+        }
+        /* Vehicle Card */
+        .vehicle-card {
+            background: white;
+            border: 1px solid var(--gray-100);
+            border-radius: 6px;
+            padding: 0.75rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .vehicle-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+        }
+        .vehicle-image {
+            height: 120px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+            background: var(--gray-50);
+        }
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        .vehicle-card:hover .vehicle-image img {
+            transform: scale(1.05);
+        }
+        .vehicle-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.4rem;
+        }
+        .vehicle-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.3rem;
+        }
+        .vehicle-details {
+            font-size: 0.8rem;
+            color: var(--gray-600);
+            line-height: 1.3;
+            margin-bottom: 0.5rem;
+        }
+        .vehicle-details div {
+            margin-bottom: 0.15rem;
+        }
+        .vehicle-status {
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+        }
+        .status-ready {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+        .status-in-progress {
+            background: #fef9c3;
+            color: #ca8a04;
+        }
+        .status-warning {
+            background: #fee2e2;
+            color: #dc2626;
+        }
+        .vehicle-actions {
+            display: flex;
+            gap: 0.4rem;
+            justify-content: flex-end;
+        }
+        /* Kennzeichen-Design */
+        .license-plate {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            flex-wrap: nowrap;
+            background-color: white !important;
+            border: 1px solid #000 !important;
+            border-radius: 4px;
+            font-family: 'DIN Next Pro', 'Arial', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #000;
+            overflow: visible;
+            line-height: 1.2;
+            height: 1.4rem;
+            min-width: 5.2rem;
+            width: auto;
+            visibility: visible;
+            box-shadow: 0 -1px 0 red, 0 1px 0 red; /* Debugging: rote Linien oben und unten */
+        }
+        .license-plate .blue-field {
+            background: #003087;
+            color: white;
+            width: 1.2rem;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 0.15rem;
+            flex-shrink: 0;
+            margin: 0;
+        }
+        .license-plate .blue-field span {
+            font-size: 0.6rem;
+            font-weight: 400; /* Dünneres A */
+            line-height: 1;
+        }
+        .license-plate .plate-text {
+            display: inline-block;
+            flex-grow: 1;
+            flex-shrink: 1;
+            padding: 0.2rem 0.3rem;
+            margin: 0;
+            white-space: nowrap;
+            visibility: visible;
+            opacity: 1;
+            color: #000;
+            min-width: 4rem;
+            background-color: white !important;
+        }
+        .vehicle-details .license-plate,
+        .vehicle-table-list .license-plate {
+            margin-top: 0.2rem;
+            display: inline-flex;
+            border: 1px solid #000 !important;
+            background-color: white !important;
+            box-shadow: 0 -1px 0 red, 0 1px 0 red; /* Debugging: rote Linien oben und unten */
+        }
+        /* Höhere Spezifität für plate-text und license-plate */
+        .vehicle-details .license-plate .plate-text,
+        .vehicle-table-list .license-plate .plate-text {
+            display: inline-block !important;
+            margin: 0 !important;
+            visibility: visible !important;
+            opacity: 1 !important;
+            color: #000 !important;
+            background-color: white !important;
+        }
+        /* Vehicle Table (für Alle Fahrzeuge) */
+        .vehicle-table {
+            background: white;
+            border-radius: 0 8px 8px 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            padding: 1rem;
+            margin-bottom: 64px; /* Abstand zum Boden */
+            overflow-x: auto;
+            position: relative;
+            top: -1px;
+        }
+        .vehicle-table-list {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        .vehicle-table-list th,
+        .vehicle-table-list td {
+            padding: 0.6rem;
+            text-align: left;
+            font-size: 0.8rem;
+            color: var(--gray-700);
+        }
+        .vehicle-table-list th {
+            font-weight: 600;
+            color: var(--gray-900);
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .vehicle-table-list td {
+            border-bottom: 1px solid var(--gray-100);
+        }
+        .vehicle-table-list tr:last-child td {
+            border-bottom: none;
+        }
+        .vehicle-table-list tr:nth-child(even) {
+            background: var(--gray-50);
+        }
+        .vehicle-table-list tr:hover {
+            background: var(--gray-100);
+            cursor: pointer;
+        }
+        .vehicle-table-list .vehicle-image {
+            width: 70px;
+            height: 50px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0;
+        }
+        .vehicle-table-list .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .vehicle-table-list .vehicle-actions {
+            display: flex;
+            gap: 0.3rem;
+            justify-content: flex-end;
+        }
+        .vehicle-table-list .vehicle-actions .action-btn {
+            padding: 0.3rem;
+            font-size: 0.75rem;
+        }
+        /* Responsive Anpassungen */
+        @media (max-width: 1200px) {
+            .container {
+                margin-right: 280px;
+            }
+            .main-content {
+                /* margin-left: 240px; */
+                max-width: calc(100% - 240px - 280px);
+            }
+            .vehicle-grid {
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            }
+        }
+        @media (max-width: 992px) {
+            .container {
+                margin-right: 0;
+            }
+            .main-content {
+                /* margin-left: 280px; */
+                max-width: calc(100% - 280px);
+            }
+            .vehicle-grid {
+                grid-template-columns: 1fr;
+            }
+            .vehicle-table {
+                margin-bottom: 64px; /* Abstand zum Boden */
+            }
+            .vehicle-table-list {
+                display: block;
+            }
+            .vehicle-table-list thead {
+                display: none;
+            }
+            .vehicle-table-list tr {
+                display: block;
+                margin-bottom: 0.75rem;
+                border: 1px solid var(--gray-100);
+                border-radius: 6px;
+                padding: 0.6rem;
+            }
+            .vehicle-table-list td {
+                display: flex;
+                justify-content: space-between;
+                padding: 0.3rem 0;
+                border-bottom: none;
+            }
+            .vehicle-table-list td:before {
+                content: attr(data-label);
+                font-weight: 600;
+                color: var(--gray-900);
+                flex: 0 0 40%;
+            }
+            .vehicle-table-list .vehicle-image {
+                width: 100%;
+                height: 80px;
+                margin-bottom: 0.3rem;
+            }
+            .vehicle-table-list .license-plate {
+                font-size: 0.75rem;
+                height: 1.2rem;
+                min-width: 4.8rem;
+                border: 1px solid #000 !important;
+                background-color: white !important;
+                box-shadow: 0 -1px 0 red, 0 1px 0 red; /* Debugging: rote Linien oben und unten */
+            }
+            .vehicle-table-list .license-plate .blue-field {
+                width: 1rem;
+            }
+            .vehicle-table-list .license-plate .blue-field span {
+                font-size: 0.55rem;
+                font-weight: 400;
+            }
+            .vehicle-table-list .license-plate .plate-text {
+                font-size: 0.75rem;
+                min-width: 3.8rem;
+            }
+            .vehicle-table-list .vehicle-actions {
+                justify-content: flex-start;
+            }
+        }
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+                max-width: 100%;
+                padding: 1rem;
+            }
+            .section-title {
+                font-size: 1.3rem;
+                padding: 0.4rem 0.8rem;
+            }
+            .vehicle-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .vehicle-search {
+                max-width: 100%;
+                width: 100%;
+            }
+            .vehicle-list,
+            .vehicle-table {
+                padding: 0.75rem;
+                margin-bottom: 64px; /* Abstand zum Boden */
+            }
+            .vehicle-card {
+                padding: 0.6rem;
+            }
+            .vehicle-image {
+                height: 100px;
+            }
+            .vehicle-grid {
+                gap: 0.75rem;
+            }
+            .license-plate {
+                font-size: 0.75rem;
+                height: 1.2rem;
+                min-width: 4.8rem;
+                border: 1px solid #000 !important;
+                background-color: white !important;
+                box-shadow: 0 -1px 0 red, 0 1px 0 red; /* Debugging: rote Linien oben und unten */
+            }
+            .license-plate .blue-field {
+                width: 1rem;
+            }
+            .license-plate .blue-field span {
+                font-size: 0.55rem;
+                font-weight: 400;
+            }
+            .license-plate .plate-text {
+                font-size: 0.75rem;
+                min-width: 3.8rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .section-title {
+                font-size: 1.1rem;
+                padding: 0.3rem 0.6rem;
+            }
+            .vehicle-search input {
+                padding: 0.5rem 1.8rem 0.5rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .action-btn {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.75rem;
+            }
+            .vehicle-card {
+                padding: 0.5rem;
+            }
+            .vehicle-title {
+                font-size: 0.9rem;
+            }
+            .vehicle-details {
+                font-size: 0.75rem;
+            }
+            .vehicle-status {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.5rem;
+            }
+            .vehicle-table-list td {
+                font-size: 0.75rem;
+            }
+            .vehicle-image {
+                height: 80px;
+            }
+            .license-plate {
+                font-size: 0.7rem;
+                height: 1rem;
+                min-width: 4.5rem;
+                border: 1px solid #000 !important;
+                background-color: white !important;
+                box-shadow: 0 -1px 0 red, 0 1px 0 red; /* Debugging: rote Linien oben und unten */
+            }
+            .license-plate .blue-field {
+                width: 0.9rem;
+            }
+            .license-plate .blue-field span {
+                font-size: 0.5rem;
+                font-weight: 400;
+            }
+            .license-plate .plate-text {
+                font-size: 0.7rem;
+                min-width: 3.6rem;
+            }
+            .vehicle-table {
+                margin-bottom: 64px; /* Abstand zum Boden */
+            }
+        }
+    
