@@ -85,14 +85,23 @@
 }
 
 .checkbox-group {
-    flex-direction: row;
-    align-items: center;
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: nowrap;
     gap: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .checkbox-group label {
     display: flex;
     align-items: center;
+    gap: 8px;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .checkbox-group input {
@@ -206,4 +215,16 @@
     .modal-body {
         grid-template-columns: 1fr;
     }
+}
+
+
+@media (max-width: 600px) {
+  .checkbox-group {
+    flex-wrap: wrap;
+    white-space: normal;
+  }
+
+  .checkbox-group label {
+    /* white-space: normal; */
+  }
 }
