@@ -1,126 +1,141 @@
 <!DOCTYPE html>
 <html lang="de">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kunden | mt.cars</title>
-    <link rel="stylesheet" href="../styles/dashboard.css">
-    <link rel="stylesheet" href="../styles/kunden.css">
-    <link rel="stylesheet" href="../styles/right-sidebar.css">
-    <link rel="stylesheet" href="../styles/kunde-hinzufuegen-modal.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../styles/dashboard.css" />
+    <link rel="stylesheet" href="../styles/kunden.css" />
+    <link rel="stylesheet" href="../styles/right-sidebar.css" />
+    <link rel="stylesheet" href="../styles/kunde-hinzufuegen-modal.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
 
 
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const input = document.querySelector(".search-input");
-            const rows = document.querySelectorAll(".customer-table tbody tr");
-            const statsSpan = document.querySelector(".stat-item[data-type='kunden']");
-            const pageInfo = document.querySelector(".pagination-info");
-            const deleteButton = document.querySelector(".action-btn.delete");
-            const checkboxes = document.querySelectorAll(".customer-checkbox");
+      document.addEventListener("DOMContentLoaded", function () {
+        const input = document.querySelector(".search-input");
+        const rows = document.querySelectorAll(".customer-table tbody tr");
+        const statsSpan = document.querySelector(
+          ".stat-item[data-type='kunden']"
+        );
+        const pageInfo = document.querySelector(".pagination-info");
+        const deleteButton = document.querySelector(".action-btn.delete");
+        const checkboxes = document.querySelectorAll(".customer-checkbox");
 
-            const addCustomerBtn = document.querySelector(".action-btn.primary");
-            const customerModal = document.getElementById("add-customer-modal");
-            const customerClose = customerModal?.querySelector(".modal-close");
-            const customerDiscardBtn = customerModal?.querySelector(".btn.secondary");
+        const addCustomerBtn = document.querySelector(".action-btn.primary");
+        const customerModal = document.getElementById("add-customer-modal");
+        const customerClose = customerModal?.querySelector(".modal-close");
+        const customerDiscardBtn =
+          customerModal?.querySelector(".btn.secondary");
 
-            const fahrzeugAdd = document.querySelector(".fahrzeug-add");
-            const fahrzeugModal = document.getElementById("add-vehicle-modal");
-            const fahrzeugClose = fahrzeugModal?.querySelector(".modal-close");
-            const fahrzeugCancelBtn = fahrzeugModal?.querySelector(".fahrzeug-footer .btn.secondary");
-            const fahrzeugeListe = document.getElementById("fahrzeuge-liste");
-            const fahrzeugForm = fahrzeugModal?.querySelector("form");
-            const imageInput = document.getElementById("vehicle-images");
-            const imagePreview = document.getElementById("image-preview");
+        const fahrzeugAdd = document.querySelector(".fahrzeug-add");
+        const fahrzeugModal = document.getElementById("add-vehicle-modal");
+        const fahrzeugClose = fahrzeugModal?.querySelector(".modal-close");
+        const fahrzeugCancelBtn = fahrzeugModal?.querySelector(
+          ".fahrzeug-footer .btn.secondary"
+        );
+        const fahrzeugeListe = document.getElementById("fahrzeuge-liste");
+        const fahrzeugForm = fahrzeugModal?.querySelector("form");
+        const imageInput = document.getElementById("vehicle-images");
+        const imagePreview = document.getElementById("image-preview");
 
-            let editTarget = null;
-            let images = [];
+        let editTarget = null;
+        let images = [];
 
-            // Debug: Prüfen, ob Kunden-Modal beim Laden sichtbar ist
-            console.log("Initial customerModal display:", customerModal.style.display);
+        // Debug: Prüfen, ob Kunden-Modal beim Laden sichtbar ist
+        console.log(
+          "Initial customerModal display:",
+          customerModal.style.display
+        );
 
-            // Kunde Modal
-            if (addCustomerBtn) {
-                addCustomerBtn.addEventListener("click", () => {
-                    console.log("Kunde hinzufügen geklickt");
-                    customerModal.style.display = "block";
-                });
-            } else {
-                console.error("addCustomerBtn nicht gefunden");
-            }
+        // Kunde Modal
+        if (addCustomerBtn) {
+          addCustomerBtn.addEventListener("click", () => {
+            console.log("Kunde hinzufügen geklickt");
+            customerModal.style.display = "block";
+          });
+        } else {
+          console.error("addCustomerBtn nicht gefunden");
+        }
 
-            customerClose?.addEventListener("click", () => {
-                customerModal.style.display = "none";
-            });
+        customerClose?.addEventListener("click", () => {
+          customerModal.style.display = "none";
+        });
 
-            customerDiscardBtn?.addEventListener("click", () => {
-                customerModal.style.display = "none";
-            });
+        customerDiscardBtn?.addEventListener("click", () => {
+          customerModal.style.display = "none";
+        });
 
-            // Fahrzeug Modal öffnen
-            fahrzeugAdd?.addEventListener("click", () => {
-                fahrzeugModal.style.display = "flex";
-                fahrzeugForm.reset();
-                editTarget = null;
-                images = [];
-                imagePreview.innerHTML = "";
-                populateVehicleForm(null);
-            });
+        // Fahrzeug Modal öffnen
+        fahrzeugAdd?.addEventListener("click", () => {
+          fahrzeugModal.style.display = "flex";
+          fahrzeugForm.reset();
+          editTarget = null;
+          images = [];
+          imagePreview.innerHTML = "";
+          populateVehicleForm(null);
+        });
 
-            // Modal schließen
-            fahrzeugClose?.addEventListener("click", () => {
-                fahrzeugModal.style.display = "none";
-            });
+        // Modal schließen
+        fahrzeugClose?.addEventListener("click", () => {
+          fahrzeugModal.style.display = "none";
+        });
 
-            fahrzeugCancelBtn?.addEventListener("click", () => {
-                fahrzeugModal.style.display = "none";
-                fahrzeugForm.reset();
-                imagePreview.innerHTML = "";
-                images = [];
-            });
+        fahrzeugCancelBtn?.addEventListener("click", () => {
+          fahrzeugModal.style.display = "none";
+          fahrzeugForm.reset();
+          imagePreview.innerHTML = "";
+          images = [];
+        });
 
-            window.addEventListener("click", (e) => {
-                if (e.target === customerModal) {
-                    customerModal.style.display = "none";
-                }
-                if (e.target === fahrzeugModal) {
-                    fahrzeugModal.style.display = "none";
-                }
-            });
+        window.addEventListener("click", (e) => {
+          if (e.target === customerModal) {
+            customerModal.style.display = "none";
+          }
+          if (e.target === fahrzeugModal) {
+            fahrzeugModal.style.display = "none";
+          }
+        });
 
-            // Handle vehicle image upload
-            imageInput?.addEventListener("change", function (e) {
-                const files = Array.from(e.target.files);
-                files.forEach(file => {
-                    const reader = new FileReader();
-                    reader.onload = function (event) {
-                        images.push(event.target.result);
-                        const imgElement = document.createElement("img");
-                        imgElement.src = event.target.result;
-                        imgElement.style.maxWidth = "100px";
-                        imgElement.style.maxHeight = "100px";
-                        imgElement.style.margin = "5px";
-                        imagePreview.appendChild(imgElement);
-                    };
-                    reader.readAsDataURL(file);
-                });
-            });
+        // Handle vehicle image upload
+        imageInput?.addEventListener("change", function (e) {
+          const files = Array.from(e.target.files);
+          files.forEach((file) => {
+            const reader = new FileReader();
+            reader.onload = function (event) {
+              images.push(event.target.result);
+              const imgElement = document.createElement("img");
+              imgElement.src = event.target.result;
+              imgElement.style.maxWidth = "100px";
+              imgElement.style.maxHeight = "100px";
+              imgElement.style.margin = "5px";
+              imagePreview.appendChild(imgElement);
+            };
+            reader.readAsDataURL(file);
+          });
+        });
 
-            fahrzeugForm?.addEventListener("submit", function (e) {
-                e.preventDefault();
+        fahrzeugForm?.addEventListener("submit", function (e) {
+          e.preventDefault();
 
-                const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
-                const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
-                const modellInput = fahrzeugForm.querySelectorAll("input")[6];
+          const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
+          const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
+          const modellInput = fahrzeugForm.querySelectorAll("input")[6];
 
-                const kennzeichen = kennzeichenInput?.value.trim() || "-";
-                const laufleistung = laufleistungInput?.value.trim() || "-";
-                const modell = modellInput?.value.trim() || "-";
+          const kennzeichen = kennzeichenInput?.value.trim() || "-";
+          const laufleistung = laufleistungInput?.value.trim() || "-";
+          const modell = modellInput?.value.trim() || "-";
 
-                const fahrzeugHTML = `
+          const fahrzeugHTML = `
                     <div class="fahrzeug-eintrag" data-kennzeichen="${kennzeichen}" data-laufleistung="${laufleistung}" data-modell="${modell}" style="border:1px solid #ccc; padding:8px; margin-top:8px; border-radius:5px;">
                         <strong>Kennzeichen:</strong> ${kennzeichen}<br>
                         <strong>Modell:</strong> ${modell}<br>
@@ -132,593 +147,1000 @@
                     </div>
                 `;
 
-                if (editTarget) {
-                    editTarget.outerHTML = fahrzeugHTML;
-                    editTarget = null;
-                } else {
-                    fahrzeugeListe.insertAdjacentHTML("beforeend", fahrzeugHTML);
-                }
+          if (editTarget) {
+            editTarget.outerHTML = fahrzeugHTML;
+            editTarget = null;
+          } else {
+            fahrzeugeListe.insertAdjacentHTML("beforeend", fahrzeugHTML);
+          }
 
-                fahrzeugModal.style.display = "none";
-                attachFahrzeugEvents();
-            });
-
-            function attachFahrzeugEvents() {
-                fahrzeugeListe.querySelectorAll(".delete-fahrzeug").forEach(btn => {
-                    btn.onclick = function () {
-                        const eintrag = this.closest(".fahrzeug-eintrag");
-                        if (eintrag) eintrag.remove();
-                    };
-                });
-
-                fahrzeugeListe.querySelectorAll(".edit-fahrzeug").forEach(btn => {
-                    btn.onclick = function () {
-                        const eintrag = this.closest(".fahrzeug-eintrag");
-                        if (!eintrag) return;
-
-                        editTarget = eintrag;
-                        populateVehicleForm(eintrag);
-                        fahrzeugModal.style.display = "flex";
-                    };
-                });
-            }
-
-            function populateVehicleForm(eintrag) {
-                const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
-                const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
-                const modellInput = fahrzeugForm.querySelectorAll("input")[6];
-
-                if (eintrag) {
-                    kennzeichenInput.value = eintrag.dataset.kennzeichen;
-                    laufleistungInput.value = eintrag.dataset.laufleistung;
-                    modellInput.value = eintrag.dataset.modell;
-                } else {
-                    kennzeichenInput.value = "";
-                    laufleistungInput.value = "";
-                    modellInput.value = "";
-                }
-            }
-
-            function updateCountAndPage() {
-                const visibleRows = Array.from(rows).filter(r => r.style.display !== "none");
-                statsSpan.innerHTML = `<i class='fas fa-users'></i> ${rows.length} Kunden gesamt`;
-                pageInfo.textContent = `${visibleRows.length ? 1 : 0}-${visibleRows.length} von ${rows.length}`;
-            }
-
-            function updateDeleteButton() {
-                deleteButton.style.display = Array.from(checkboxes).some(cb => cb.checked) ? "flex" : "none";
-            }
-
-            input.addEventListener("input", function () {
-                const filter = input.value.toLowerCase().replace(/[^a-z0-9]/gi, "");
-                rows.forEach(row => {
-                    const text = Array.from(row.querySelectorAll('td'))
-                        .map(td => td.textContent.toLowerCase().replace(/[^a-z0-9]/gi, ""))
-                        .join('');
-                    row.style.display = text.includes(filter) ? "" : "none";
-                });
-                updateCountAndPage();
-            });
-
-            checkboxes.forEach(cb => cb.addEventListener("change", updateDeleteButton));
-
-            updateCountAndPage();
-            updateDeleteButton();
-            attachFahrzeugEvents();
+          fahrzeugModal.style.display = "none";
+          attachFahrzeugEvents();
         });
+
+        function attachFahrzeugEvents() {
+          fahrzeugeListe.querySelectorAll(".delete-fahrzeug").forEach((btn) => {
+            btn.onclick = function () {
+              const eintrag = this.closest(".fahrzeug-eintrag");
+              if (eintrag) eintrag.remove();
+            };
+          });
+
+          fahrzeugeListe.querySelectorAll(".edit-fahrzeug").forEach((btn) => {
+            btn.onclick = function () {
+              const eintrag = this.closest(".fahrzeug-eintrag");
+              if (!eintrag) return;
+
+              editTarget = eintrag;
+              populateVehicleForm(eintrag);
+              fahrzeugModal.style.display = "flex";
+            };
+          });
+        }
+
+        function populateVehicleForm(eintrag) {
+          const kennzeichenInput = fahrzeugForm.querySelectorAll("input")[1];
+          const laufleistungInput = fahrzeugForm.querySelectorAll("input")[2];
+          const modellInput = fahrzeugForm.querySelectorAll("input")[6];
+
+          if (eintrag) {
+            kennzeichenInput.value = eintrag.dataset.kennzeichen;
+            laufleistungInput.value = eintrag.dataset.laufleistung;
+            modellInput.value = eintrag.dataset.modell;
+          } else {
+            kennzeichenInput.value = "";
+            laufleistungInput.value = "";
+            modellInput.value = "";
+          }
+        }
+
+        function updateCountAndPage() {
+          const visibleRows = Array.from(rows).filter(
+            (r) => r.style.display !== "none"
+          );
+          statsSpan.innerHTML = `<i class='fas fa-users'></i> ${rows.length} Kunden gesamt`;
+          pageInfo.textContent = `${visibleRows.length ? 1 : 0}-${
+            visibleRows.length
+          } von ${rows.length}`;
+        }
+
+        function updateDeleteButton() {
+          deleteButton.style.display = Array.from(checkboxes).some(
+            (cb) => cb.checked
+          )
+            ? "flex"
+            : "none";
+        }
+
+        input.addEventListener("input", function () {
+          const filter = input.value.toLowerCase().replace(/[^a-z0-9]/gi, "");
+          rows.forEach((row) => {
+            const text = Array.from(row.querySelectorAll("td"))
+              .map((td) =>
+                td.textContent.toLowerCase().replace(/[^a-z0-9]/gi, "")
+              )
+              .join("");
+            row.style.display = text.includes(filter) ? "" : "none";
+          });
+          updateCountAndPage();
+        });
+
+        checkboxes.forEach((cb) =>
+          cb.addEventListener("change", updateDeleteButton)
+        );
+
+        updateCountAndPage();
+        updateDeleteButton();
+        attachFahrzeugEvents();
+      });
     </script>
-</head>
-<body>
-    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+  </head>
+  <body>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle" />
     <header class="header">
-        <div class="header-left">
-            <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
-            <div class="logo-title">
-                <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
-                <div class="title">Kunden</div>
-            </div>
+      <div class="header-left">
+        <label for="menu-toggle" class="menu-icon"
+          ><i class="fas fa-bars"></i
+        ></label>
+        <div class="logo-title">
+          <div class="logo">
+            <img src="../img/GearSoft-Img_2.PNG" alt="Logo" />
+          </div>
+          <div class="title">Kunden</div>
         </div>
-        <div class="header-right">
-            <div class="date-filter">
+      </div>
+      <div class="header-right">
+        <!-- <div class="date-filter">
                 <button class="nav-arrow"><i class="fas fa-chevron-left"></i></button>
                 <button class="nav-arrow"><i class="fas fa-chevron-right"></i></button>
-            </div>
-            <div class="header-actions">
-                <div class="icons">
-                    <button class="icon-btn"><i class="fas fa-smile"></i></button>
-                    <button class="icon-btn notification"><i class="fas fa-bell"></i><span class="badge">3</span></button>
-                    <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
-                    <button class="icon-btn"><i class="fas fa-cog"></i></button>
-                </div>
-                <a href="#" class="detail-link">Detailierte Kundenübersicht</a>
-            </div>
+            </div> -->
+        <div class="header-actions">
+          <div class="icons">
+            <button class="icon-btn"><i class="fas fa-smile"></i></button>
+            <button class="icon-btn notification">
+              <i class="fas fa-bell"></i><span class="badge">3</span>
+            </button>
+            <button class="icon-btn">
+              <i class="fas fa-question-circle"></i>
+            </button>
+            <button class="icon-btn"><i class="fas fa-cog"></i></button>
+          </div>
+          <a href="#" class="detail-link">Detailierte Kundenübersicht</a>
         </div>
+      </div>
     </header>
 
     <div class="container">
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <div class="user-profile">
-                    <div class="avatar">MA</div>
-                    <div class="user-info">
-                        <div class="user-name">Max Mustermann</div>
-                        <div class="user-role">Werkstatt</div>
-                    </div>
-                </div>
-                <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="user-profile">
+            <div class="avatar">MA</div>
+            <div class="user-info">
+              <div class="user-name">Max Mustermann</div>
+              <div class="user-role">Werkstatt</div>
             </div>
-            <nav class="sidebar-nav">
-                <ul>
-                    <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
-                    <li class="active"><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
-                    <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
-                    <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
-                    <li><a href="./verkaufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
-                    <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
-                    <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
-                    <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
-                    <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
-                    <li class="menu-item has-submenu">
-                        <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
-                        <label for="lagerbestand-toggle" class="submenu-label">
-                            <i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
-                        </label>
-                        <ul class="submenu">
-                            <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
-                            <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
-                            <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
-                            <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
-                            <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item has-submenu">
-                        <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
-                        <label for="berichte-toggle" class="submenu-label">
-                            <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
-                        </label>
-                        <ul class="submenu">
-                            <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
-                            <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
-                        </ul>
-                    </li>
-                </ul>
-            </nav>
-        </aside>
+          </div>
+          <label for="menu-toggle" class="close-btn"
+            ><i class="fas fa-times"></i
+          ></label>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li>
+              <a href="./dashboard.html"
+                ><i class="fas fa-tachometer-alt"></i> Übersicht</a
+              >
+            </li>
+            <li class="active">
+              <a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a>
+            </li>
+            <li>
+              <a href="./kalender.html"
+                ><i class="fas fa-calendar-alt"></i> Kalender</a
+              >
+            </li>
+            <li>
+              <a href="./fahrzeuge.html"
+                ><i class="fas fa-car"></i> Fahrzeuge</a
+              >
+            </li>
+            <li>
+              <a href="./verkaufsfahrzeuge.html"
+                ><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a
+              >
+            </li>
+            <li>
+              <a href="./angebote.html"
+                ><i class="fas fa-file-alt"></i> Angebote</a
+              >
+            </li>
+            <li>
+              <a href="./auftraege.html"
+                ><i class="fas fa-wrench"></i> Aufträge</a
+              >
+            </li>
+            <li>
+              <a href="./rechnungen.html"
+                ><i class="fas fa-file-invoice"></i> Rechnungen</a
+              >
+            </li>
+            <li>
+              <a href="./kassenbuch.html"
+                ><i class="fas fa-wallet"></i> Kassenbuch</a
+              >
+            </li>
+            <li class="menu-item has-submenu">
+              <input
+                type="checkbox"
+                id="lagerbestand-toggle"
+                class="submenu-toggle"
+              />
+              <label for="lagerbestand-toggle" class="submenu-label">
+                <i class="fas fa-list"></i> Lagerbestand
+                <i class="fas fa-chevron-down arrow"></i>
+              </label>
+              <ul class="submenu">
+                <li>
+                  <a href="./tires.html"
+                    ><i class="fas fa-circle"></i> Reifen</a
+                  >
+                </li>
+                <li>
+                  <a href="./fluidtechnik.html"
+                    ><i class="fas fa-oil-can"></i> Fluidtechnik</a
+                  >
+                </li>
+                <li>
+                  <a href="./ersatzteile.html"
+                    ><i class="fas fa-box fa-fw"></i> Ersatzteile</a
+                  >
+                </li>
+                <li>
+                  <a href="./sonstige.html"
+                    ><i class="fas fa-boxes"></i> Sonstige</a
+                  >
+                </li>
+                <li>
+                  <a href="./lagerbestand.html"
+                    ><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item has-submenu">
+              <input
+                type="checkbox"
+                id="berichte-toggle"
+                class="submenu-toggle"
+              />
+              <label for="berichte-toggle" class="submenu-label">
+                <i class="fas fa-chart-bar"></i> Berichte
+                <i class="fas fa-chevron-down arrow"></i>
+              </label>
+              <ul class="submenu">
+                <li>
+                  <a href="./berichte/email.html"
+                    ><i class="fas fa-envelope"></i> Gesendete E-Mails</a
+                  >
+                </li>
+                <li>
+                  <a href="./berichte/papierkorb.html"
+                    ><i class="fas fa-trash"></i> Papierkorb</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </aside>
 
-        <main class="main-content">
-            <div class="customer-actions">
-                <div class="search-box">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Kunden oder Kennzeichen suchen..." class="search-input">
-                </div>
-                <div class="action-buttons">
-                    <button class="action-btn primary">
-                        <i class="fas fa-plus"></i> Kunde hinzufügen
-                    </button>
-                    <button class="action-btn">
-                        <i class="fas fa-id-card"></i> Zulassung erkennen
-                    </button>
-                    <button class="action-btn">
-                        <i class="fas fa-file-export"></i> Exportieren
-                    </button>
-                    <button class="action-btn delete" style="display: none;">
-                        <i class="fas fa-trash"></i> Kunden Löschen
-                    </button>
-                </div>
-            </div>
+      <main class="main-content">
+        <div class="customer-actions">
 
-            <div class="customer-stats">
-                <span class="stat-item" data-type="kunden"><i class="fas fa-users"></i> 0 Kunden gesamt</span>
-                <span class="stat-item"><i class="fas fa-filter"></i> 25 aktive Filter</span>
-            </div>
 
-            <div class="customer-table-container">
-                <table class="customer-table">
-                    <thead>
-                        <tr>
-                            <th width="40px"><input type="checkbox" class="select-all"></th>
-                            <th>Name</th>
-                            <th>Ort</th>
-                            <th>Straße</th>
-                            <th>Telefon</th>
-                            <th>Email</th>
-                            <th>Kennzeichen</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-label=""><input type="checkbox" class="customer-checkbox"></td>
-                            <td data-label="Name">Simon Angermeier</td>
-                            <td data-label="Ort">München</td>
-                            <td data-label="Straße">Hauptstr. 12</td>
-                            <td data-label="Telefon">089 1234567</td>
-                            <td data-label="Email">simon@example.com</td>
-                            <td data-label="Kennzeichen"><span class="plate"><span class="plate-number">M-AB1234</span></span></td>
-                            <td class="delete-action"><button class="table-action delete"><i class="fas fa-trash"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td data-label=""><input type="checkbox" class="customer-checkbox"></td>
-                            <td data-label="Name">Maria Schmidt</td>
-                            <td data-label="Ort">Berlin</td>
-                            <td data-label="Straße">Berliner Str. 45</td>
-                            <td data-label="Telefon">030 7654321</td>
-                            <td data-label="Email">maria@example.com</td>
-                            <td data-label="Kennzeichen"><span class="plate"><span class="plate-number">B-MX9876</span></span></td>
-                            <td class="delete-action"><button class="table-action delete"><i class="fas fa-trash"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td data-label=""><input type="checkbox" class="customer-checkbox"></td>
-                            <td data-label="Name">Thomas Müller</td>
-                            <td data-label="Ort">Hamburg</td>
-                            <td data-label="Straße">Hafenweg 8</td>
-                            <td data-label="Telefon">040 9876543</td>
-                            <td data-label="Email">thomas@example.com</td>
-                            <td data-label="Kennzeichen"><span class="plate"><span class="plate-number">HH-TM2025</span></span></td>
-                            <td class="delete-action"><button class="table-action delete"><i class="fas fa-trash"></i></button></td>
-                        </tr>
-                        <tr>
-                            <td data-label=""><input type="checkbox" class="customer-checkbox"></td>
-                            <td data-label="Name">Max Mustermann</td>
-                            <td data-label="Ort">Köln</td>
-                            <td data-label="Straße">Domplatz 1</td>
-                            <td data-label="Telefon">0221 123456</td>
-                            <td data-label="Email">max@example.com</td>
-                            <td data-label="Kennzeichen"><span class="plate"><span class="plate-number">K-MA4040</span></span></td>
-                            <td class="delete-action"><button class="table-action delete"><i class="fas fa-trash"></i></button></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
 
-            <div class="table-footer">
-                <div class="table-pagination">
-                    <button class="pagination-btn" disabled><i class="fas fa-chevron-left"></i></button>
-                    <span class="pagination-info">1-6 von 142</span>
-                    <button class="pagination-btn"><i class="fas fa-chevron-right"></i></button>
-                </div>
-                <div class="table-page-size">
-                    <span>Einträge pro Seite:</span>
-                    <select class="page-size-select">
-                        <option>10</option>
-                        <option selected>25</option>
-                        <option>50</option>
-                        <option>100</option>
-                    </select>
-                </div>
-            </div>
-        </main>
-
-        <aside class="right-sidebar">
-            <div class="right-sidebar-content">
-                <section class="calendar-section">
-                    <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
-                    <div class="section-header">
-                        <h2>Kalender</h2>
-                        <div class="calendar-controls">
-                            <button class="nav-arrow" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
-                            <span class="calendar-month" id="calendar-month">Mai 2025</span>
-                            <button class="nav-arrow" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
-                            <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
-                        </div>
-                    </div>
-                    <div class="section-content calendar-content">
-                        <div class="calendar-grid" id="calendar-grid"></div>
-                    </div>
-                </section>
-
-                <section class="appointments-section">
-                    <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
-                    <div class="section-header">
-                        <h2>Termine <span id="selected-date"></span></h2>
-                        <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
-                    </div>
-                    <div class="section-content appointments-content">
-                        <div class="appointments-list-container">
-                            <ul class="appointments-list" id="appointments-list"></ul>
-                        </div>
-                        <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
-                    </div>
-                </section>
-
-                <section class="notes-section">
-                    <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
-                    <div class="section-header">
-                        <h2>Notizen</h2>
-                        <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
-                    </div>
-                    <div class="section-content notes-content">
-                        <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
-                        <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
-                        <div class="notes-list-container">
-                            <ul id="notes-list" class="notes-list"></ul>
-                        </div>
-                    </div>
-                </section>
-
-                <div id="notes-modal" class="notes-modal">Gespeichert!</div>
-
-                <div id="note-edit-modal" class="modal">
-                    <div class="modal-content">
-                        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Notiz bearbeiten</h2>
-                            <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
-                        </div>
-                        <form id="note-edit-form" class="modal-form">
-                            <div class="form-group">
-                                <label for="note-content">Notiz</label>
-                                <textarea id="note-content" class="notes-textarea" style="width: 100%; height: 150px; padding: 0.5rem;"></textarea>
-                            </div>
-                            <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
-                                <button type="button" class="modal-btn modal-btn-delete">Löschen</button>
-                                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
-                                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <div id="appointment-modal" class="modal">
-                    <div class="modal-content">
-                        <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Neuer Termin</h2>
-                            <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
-                        </div>
-                        <form id="appointment-form" class="modal-form">
-                            <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
-                                <div class="form-group">
-                                    <label for="appointment-time">Uhrzeit</label>
-                                    <select id="appointment-time" required style="width: 100%; padding: 0.5rem;"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="appointment-duration">Dauer</label>
-                                    <select id="appointment-duration" required style="width: 100%; padding: 0.5rem;"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="appointment-customer">Kunde</label>
-                                    <input type="text" id="appointment-customer" required style="width: 100%; padding: 0.5rem;">
-                                </div>
-                                <div class="form-group">
-                                    <label for="appointment-vehicle">Fahrzeug</label>
-                                    <input type="text" id="appointment-vehicle" required style="width: 100%; padding: 0.5rem;">
-                                </div>
-                                <div class="form-group full-width" style="grid-column: span 2;">
-                                    <label for="appointment-service">Dienstleistung</label>
-                                    <input type="text" id="appointment-service" required style="width: 100%; padding: 0.5rem;">
-                                </div>
-                                <div class="form-group full-width" style="grid-column: span 2;">
-                                    <label for="appointment-note">Notiz</label>
-                                    <textarea id="appointment-note" style="width: 100%; padding: 0.5rem;"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="appointment-price">Preis (€)</label>
-                                    <input type="number" id="appointment-price" step="0.01" min="0" style="width: 100%; padding: 0.5rem;">
-                                </div>
-                            </div>
-                            <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
-                                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
-                                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </aside>
-
-        <div id="add-customer-modal" class="modal">
-            <div class="modal-content add-customer-modal">
-                <div class="modal-header">
-                    <h2>Neuen Kunden hinzufügen</h2>
-                    <button class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
-                </div>
-                <form>
-                    <div class="modal-body add-customer-grid">
-                        <div class="form-group">
-                            <label>Anrede</label>
-                            <select><option>--</option><option>Herr</option><option>Frau</option></select>
-                        </div>
-                        <div class="form-group">
-                            <label>Titel</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>Vorname</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group required">
-                            <label>Nachname *</label>
-                            <input type="text" required />
-                        </div>
-                        <div class="form-group">
-                            <label>Extra Adresszeile (wird unter Namen gedruckt)</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>Straße und Hausnummer</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>PLZ</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>Ort</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group required">
-                            <label>Land *</label>
-                            <select><option>Österreich</option><option>Deutschland</option><option>Schweiz</option></select>
-                        </div>
-                        <div class="form-group">
-                            <label>Handy</label>
-                            <input type="tel" />
-                        </div>
-                        <div class="form-group">
-                            <label>Telefon</label>
-                            <input type="tel" />
-                        </div>
-                        <div class="form-group">
-                            <label>E-Mail Adresse</label>
-                            <input type="email" />
-                        </div>
-                        <div class="form-group">
-                            <label>Geburtstag</label>
-                            <input type="date" />
-                        </div>
-                        <div class="form-group">
-                            <label>UID</label>
-                            <input type="text" value="ATU000000000" />
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Zusatzinfo</label>
-                            <textarea></textarea>
-                        </div>
-                        <div class="form-group checkbox-group full-width">
-                            <label><input type="checkbox" /> Zusatzinfo auf Angebote und Rechnungen drucken</label>
-                        </div>
-                        <div class="form-group full-width">
-                            <div id="fahrzeug-section" class="fahrzeug-section">
-                                <div class="fahrzeug-section-header">
-                                    <span class="fahrzeug-add">+ Fahrzeug hinzufügen</span>
-                                    <span class="fahrzeug-text">Fahrzeug zum Kunden hinzufügen</span>
-                                </div>
-                                <div id="fahrzeuge-liste" class="fahrzeuge-liste"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn secondary">Verwerfen</button>
-                        <button type="submit" class="btn primary">+ Kunde hinzufügen</button>
-                    </div>
-                </form>
-            </div>
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input
+              type="text"
+              placeholder="Kunden oder Kennzeichen suchen..."
+              class="search-input"
+            />
+          </div>
+          <div class="action-buttons">
+            <button class="action-btn primary">
+              <i class="fas fa-plus"></i> Kunde hinzufügen
+            </button>
+            <button class="action-btn">
+              <i class="fas fa-file-export"></i> Exportieren
+            </button>
+            <button class="action-btn delete" style="display: none">
+              <i class="fas fa-trash"></i> Kunden Löschen
+            </button>
+          </div>
         </div>
 
-        <div id="add-vehicle-modal" class="modal">
-            <div class="modal-content fahrzeug-modal">
-                <div class="modal-header">
-                    <h2>Fahrzeug erstellen</h2>
-                    <button class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
+
+
+<div class="birthday-filter">
+
+     <div class="birthday-control" id="birthday-controls" style="display: none; gap: 0.5rem; align-items: center;">
+
+    <label for="birthday-month">Monat:</label>
+    <select id="birthday-month">
+      <option value="0">Januar</option>
+      <option value="1">Februar</option>
+      <option value="2">März</option>
+      <option value="3">April</option>
+      <option value="4">Mai</option>
+      <option value="5">Juni</option>
+      <option value="6">Juli</option>
+      <option value="7">August</option>
+      <option value="8">September</option>
+      <option value="9">Oktober</option>
+      <option value="10">November</option>
+      <option value="11">Dezember</option>
+    </select>
+    <button id="reset-birthdays" class="action-btn">
+      <i class="fas fa-undo"></i> Zurücksetzen
+    </button>
+  </div>
+
+  <button id="filter-birthdays" class="action-btn birthday-filter-btn ">
+    <i class="fas fa-birthday-cake"></i> Geburtstagsliste anzeigen
+  </button>
+
+
+</div>
+
+        <div class="customer-table-container">
+          <table class="customer-table">
+            <thead>
+              <tr>
+                <th width="40px">
+                  <input type="checkbox" class="select-all" />
+                </th>
+                <th>Name</th>
+                <th>Ort</th>
+                <th>Straße</th>
+                <th>Telefon</th>
+                <th>Email</th>
+                <th>Kennzeichen</th>
+                <th>Geburtstag</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><input type="checkbox" class="customer-checkbox" /></td>
+                <td data-label="Name">Julia Sommer</td>
+                <td data-label="Ort">Wien</td>
+                <td data-label="Straße">Ringstraße 7</td>
+                <td data-label="Telefon">01 1234567</td>
+                <td data-label="Email">julia@example.com</td>
+                <td data-label="Kennzeichen">
+                  <span class="plate"
+                    ><span class="plate-number">W-AB9876</span></span
+                  >
+                </td>
+                <td data-label="Geburtstag">1990-05-26</td>
+                <td class="delete-action">
+                  <button class="table-action delete">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="customer-checkbox" /></td>
+                <td data-label="Name">Lukas Steiner</td>
+                <td data-label="Ort">Salzburg</td>
+                <td data-label="Straße">Mozartplatz 3</td>
+                <td data-label="Telefon">0664 987654</td>
+                <td data-label="Email">lukas@example.com</td>
+                <td data-label="Kennzeichen">
+                  <span class="plate"
+                    ><span class="plate-number">S-LU3210</span></span
+                  >
+                </td>
+                <td data-label="Geburtstag">1985-06-10</td>
+                <td class="delete-action">
+                  <button class="table-action delete">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td><input type="checkbox" class="customer-checkbox" /></td>
+                <td data-label="Name">Clara Neubauer</td>
+                <td data-label="Ort">Graz</td>
+                <td data-label="Straße">Lendplatz 2</td>
+                <td data-label="Telefon">0316 123789</td>
+                <td data-label="Email">clara@example.com</td>
+                <td data-label="Kennzeichen">
+                  <span class="plate"
+                    ><span class="plate-number">GZ-CN5555</span></span
+                  >
+                </td>
+                <td data-label="Geburtstag">1979-05-01</td>
+                <td class="delete-action">
+                  <button class="table-action delete">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <div class="table-pagination">
+            <button class="pagination-btn" disabled>
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <span class="pagination-info">1–3 von 3</span>
+            <button class="pagination-btn">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+                      <div class="customer-stats">
+  <span class="stat-item" data-type="kunden">
+    <i class="fas fa-users"></i> 0 Kunden gesamt
+  </span>
+</div>
+
+          <div class="table-page-size">
+            <span>Einträge pro Seite:</span>
+            <select class="page-size-select">
+              <option>10</option>
+              <option selected>25</option>
+              <option>50</option>
+              <option>100</option>
+            </select>
+          </div>
+          
+        </div>
+
+
+      
+      </main>
+
+      <aside class="right-sidebar">
+        <div class="right-sidebar-content">
+          <section class="calendar-section">
+            <input
+              type="checkbox"
+              id="calendar-toggle"
+              class="toggle-checkbox"
+              checked
+            />
+            <div class="section-header">
+              <h2>Kalender</h2>
+              <div class="calendar-controls">
+                <button class="nav-arrow" onclick="prevMonth()">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="calendar-month" id="calendar-month">Mai 2025</span>
+                <button class="nav-arrow" onclick="nextMonth()">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+                <label for="calendar-toggle" class="toggle-btn"
+                  ><i class="fas fa-chevron-down"></i
+                ></label>
+              </div>
+            </div>
+            <div class="section-content calendar-content">
+              <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
+          </section>
+
+          <section class="appointments-section">
+            <input
+              type="checkbox"
+              id="appointments-toggle"
+              class="toggle-checkbox"
+              checked
+            />
+            <div class="section-header">
+              <h2>Termine <span id="selected-date"></span></h2>
+              <label for="appointments-toggle" class="toggle-btn"
+                ><i class="fas fa-chevron-down"></i
+              ></label>
+            </div>
+            <div class="section-content appointments-content">
+              <div class="appointments-list-container">
+                <ul class="appointments-list" id="appointments-list"></ul>
+              </div>
+              <button class="card-btn outline" id="add-appointment">
+                + Neuer Termin
+              </button>
+            </div>
+          </section>
+
+          <section class="notes-section">
+            <input
+              type="checkbox"
+              id="notes-toggle"
+              class="toggle-checkbox"
+              checked
+            />
+            <div class="section-header">
+              <h2>Notizen</h2>
+              <label for="notes-toggle" class="toggle-btn"
+                ><i class="fas fa-chevron-down"></i
+              ></label>
+            </div>
+            <div class="section-content notes-content">
+              <textarea
+                id="notes-textarea"
+                class="notes-textarea"
+                placeholder="Hier Notizen eingeben..."
+              ></textarea>
+              <button class="card-btn" id="save-notes-btn">
+                Notizen speichern
+              </button>
+              <div class="notes-list-container">
+                <ul id="notes-list" class="notes-list"></ul>
+              </div>
+            </div>
+          </section>
+
+          <div id="notes-modal" class="notes-modal">Gespeichert!</div>
+
+          <div id="note-edit-modal" class="modal">
+            <div class="modal-content">
+              <div
+                class="modal-header"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 1rem;
+                "
+              >
+                <h2
+                  class="modal-title"
+                  style="font-size: 1.25rem; font-weight: 600; color: #1f2937"
+                >
+                  Notiz bearbeiten
+                </h2>
+                <button
+                  class="modal-close"
+                  aria-label="Modal schließen"
+                  style="
+                    background: none;
+                    border: none;
+                    font-size: 1.25rem;
+                    cursor: pointer;
+                  "
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <form id="note-edit-form" class="modal-form">
+                <div class="form-group">
+                  <label for="note-content">Notiz</label>
+                  <textarea
+                    id="note-content"
+                    class="notes-textarea"
+                    style="width: 100%; height: 150px; padding: 0.5rem"
+                  ></textarea>
                 </div>
-                <form>
-                    <div class="fahrzeug-grid">
-                        <!-- <div class="form-group full-width">
+                <div
+                  class="modal-footer"
+                  style="
+                    margin-top: 1rem;
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 1rem;
+                  "
+                >
+                  <button type="button" class="modal-btn modal-btn-delete">
+                    Löschen
+                  </button>
+                  <button type="button" class="modal-btn modal-btn-secondary">
+                    Abbrechen
+                  </button>
+                  <button type="submit" class="modal-btn modal-btn-primary">
+                    Speichern
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div id="appointment-modal" class="modal">
+            <div class="modal-content">
+              <div
+                class="modal-header"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 1rem;
+                "
+              >
+                <h2
+                  class="modal-title"
+                  style="font-size: 1.25rem; font-weight: 600; color: #1f2937"
+                >
+                  Neuer Termin
+                </h2>
+                <button
+                  class="modal-close"
+                  aria-label="Modal schließen"
+                  style="
+                    background: none;
+                    border: none;
+                    font-size: 1.25rem;
+                    cursor: pointer;
+                  "
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <form id="appointment-form" class="modal-form">
+                <div
+                  class="form-grid"
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem;
+                  "
+                >
+                  <div class="form-group">
+                    <label for="appointment-time">Uhrzeit</label>
+                    <select
+                      id="appointment-time"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    ></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="appointment-duration">Dauer</label>
+                    <select
+                      id="appointment-duration"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    ></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="appointment-customer">Kunde</label>
+                    <input
+                      type="text"
+                      id="appointment-customer"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="appointment-vehicle">Fahrzeug</label>
+                    <input
+                      type="text"
+                      id="appointment-vehicle"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    />
+                  </div>
+                  <div
+                    class="form-group full-width"
+                    style="grid-column: span 2"
+                  >
+                    <label for="appointment-service">Dienstleistung</label>
+                    <input
+                      type="text"
+                      id="appointment-service"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    />
+                  </div>
+                  <div
+                    class="form-group full-width"
+                    style="grid-column: span 2"
+                  >
+                    <label for="appointment-note">Notiz</label>
+                    <textarea
+                      id="appointment-note"
+                      style="width: 100%; padding: 0.5rem"
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="appointment-price">Preis (€)</label>
+                    <input
+                      type="number"
+                      id="appointment-price"
+                      step="0.01"
+                      min="0"
+                      style="width: 100%; padding: 0.5rem"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="modal-footer"
+                  style="
+                    margin-top: 1rem;
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 1rem;
+                  "
+                >
+                  <button type="button" class="modal-btn modal-btn-secondary">
+                    Abbrechen
+                  </button>
+                  <button type="submit" class="modal-btn modal-btn-primary">
+                    Speichern
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <div id="add-customer-modal" class="modal">
+        <div class="modal-content add-customer-modal">
+          <div class="modal-header">
+            <h2>Neuen Kunden hinzufügen</h2>
+            <button class="modal-close" aria-label="Schließen">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <form>
+            <div class="modal-body add-customer-grid">
+              <div class="form-group">
+                <label>Anrede</label>
+                <select>
+                  <option>--</option>
+                  <option>Herr</option>
+                  <option>Frau</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Titel</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>Vorname</label>
+                <input type="text" />
+              </div>
+              <div class="form-group required">
+                <label>Nachname *</label>
+                <input type="text" required />
+              </div>
+              <div class="form-group">
+                <label>Extra Adresszeile (wird unter Namen gedruckt)</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>Straße und Hausnummer</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>PLZ</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>Ort</label>
+                <input type="text" />
+              </div>
+              <div class="form-group required">
+                <label>Land *</label>
+                <select>
+                  <option>Österreich</option>
+                  <option>Deutschland</option>
+                  <option>Schweiz</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Handy</label>
+                <input type="tel" />
+              </div>
+              <div class="form-group">
+                <label>Telefon</label>
+                <input type="tel" />
+              </div>
+              <div class="form-group">
+                <label>E-Mail Adresse</label>
+                <input type="email" />
+              </div>
+              <div class="form-group">
+                <label>Geburtstag</label>
+                <input type="date" />
+              </div>
+              <div class="form-group">
+                <label>UID</label>
+                <input type="text" value="ATU000000000" />
+              </div>
+              <div class="form-group full-width">
+                <label>Zusatzinfo</label>
+                <textarea></textarea>
+              </div>
+              <div class="form-group checkbox-group full-width">
+                <label
+                  ><input type="checkbox" /> Zusatzinfo auf Angebote und
+                  Rechnungen drucken</label
+                >
+              </div>
+              <div class="form-group full-width">
+                <div id="fahrzeug-section" class="fahrzeug-section">
+                  <div class="fahrzeug-section-header">
+                    <span class="fahrzeug-add">+ Fahrzeug hinzufügen</span>
+                    <span class="fahrzeug-text"
+                      >Fahrzeug zum Kunden hinzufügen</span
+                    >
+                  </div>
+                  <div id="fahrzeuge-liste" class="fahrzeuge-liste"></div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn secondary">Verwerfen</button>
+              <button type="submit" class="btn primary">
+                + Kunde hinzufügen
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="add-vehicle-modal" class="modal">
+        <div class="modal-content fahrzeug-modal">
+          <div class="modal-header">
+            <h2>Fahrzeug erstellen</h2>
+            <button class="modal-close" aria-label="Schließen">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <form>
+            <div class="fahrzeug-grid">
+              <!-- <div class="form-group full-width">
                             <label><i class="fas fa-user"></i> Kunde wählen *</label>
                             <input type="text" placeholder="Kunde auswählen" />
                         </div> -->
-                        <div class="form-group">
-                            <label>Kennzeichen A</label>
-                            <input type="text" value="" />
-                        </div>
-                        <div class="form-group">
-                            <label>Laufleistung</label>
-                            <input type="text" placeholder="Hinzufügen" />
-                        </div>
-                        <div class="form-group">
-                            <label>Nationaler Code A7</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>Fahrzeugidentifikationsnummer E</label>
-                            <input type="text" value="0" />
-                        </div>
-                        <div class="form-group">
-                            <label>Hersteller D.1 *</label>
-                            <select><option>Hersteller wählen</option></select>
-                        </div>
-                        <div class="form-group">
-                            <label>Modell / Handelsbezeichnung D.3 *</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>Type/Variante/Version D.2</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>Fahrzeugklasse J</label>
-                            <select><option>M1 | PKW/Kombi</option></select>
-                        </div>
-                        <div class="form-group">
-                            <label>Getriebeart</label>
-                            <select><option>wählen</option></select>
-                        </div>
-                        <div class="form-group">
-                            <label>Eigengewicht G</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>höchstzul. Gesamtgewicht F.2</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>Leistung P.2</label>
-                            <input type="text" placeholder="0 PS" />
-                        </div>
-                        <div class="form-group">
-                            <label>Hubraum P.1</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>Letzte Zulassung</label>
-                            <input type="date" />
-                        </div>
-                        <div class="form-group">
-                            <label>Erstzulassung B</label>
-                            <input type="date" />
-                        </div>
-                        <div class="form-group">
-                            <label>Genehmigungsdatum 6</label>
-                            <input type="date" />
-                        </div>
-                        <div class="form-group">
-                            <label>Motor-Kategorie</label>
-                            <select><option>wählen</option></select>
-                        </div>
-                        <div class="form-group">
-                            <label>Motortype 10</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group">
-                            <label>Farbe R</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Polizzennummer</label>
-                            <input type="text" />
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Zusatzinfo</label>
-                            <textarea></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Bilder hochladen</label>
-                            <input type="file" id="vehicle-images" multiple accept="image/*" />
-                            <div id="image-preview" style="display: flex; flex-wrap: wrap; margin-top: 10px;"></div>
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Zulassung hinzufügen (als Bild)</label>
-                            <input type="file" id="zulassung-image" accept="image/*" class="btn secondary" />
-                        </div>
-                    </div>
-                    <div class="fahrzeug-footer">
-                        <button type="button" class="btn secondary">Abbrechen</button>
-                        <button type="submit" class="btn primary">Speichern</button>
-                    </div>
-                </form>
+              <div class="form-group">
+                <label>Kennzeichen A</label>
+                <input type="text" value="" />
+              </div>
+              <div class="form-group">
+                <label>Laufleistung</label>
+                <input type="text" placeholder="Hinzufügen" />
+              </div>
+              <div class="form-group">
+                <label>Nationaler Code A7</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>Fahrzeugidentifikationsnummer E</label>
+                <input type="text" value="0" />
+              </div>
+              <div class="form-group">
+                <label>Hersteller D.1 *</label>
+                <select>
+                  <option>Hersteller wählen</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Modell / Handelsbezeichnung D.3 *</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>Type/Variante/Version D.2</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>Fahrzeugklasse J</label>
+                <select>
+                  <option>M1 | PKW/Kombi</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Getriebeart</label>
+                <select>
+                  <option>wählen</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Eigengewicht G</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>höchstzul. Gesamtgewicht F.2</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>Leistung P.2</label>
+                <input type="text" placeholder="0 PS" />
+              </div>
+              <div class="form-group">
+                <label>Hubraum P.1</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>Letzte Zulassung</label>
+                <input type="date" />
+              </div>
+              <div class="form-group">
+                <label>Erstzulassung B</label>
+                <input type="date" />
+              </div>
+              <div class="form-group">
+                <label>Genehmigungsdatum 6</label>
+                <input type="date" />
+              </div>
+              <div class="form-group">
+                <label>Motor-Kategorie</label>
+                <select>
+                  <option>wählen</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Motortype 10</label>
+                <input type="text" />
+              </div>
+              <div class="form-group">
+                <label>Farbe R</label>
+                <input type="text" />
+              </div>
+              <div class="form-group full-width">
+                <label>Polizzennummer</label>
+                <input type="text" />
+              </div>
+              <div class="form-group full-width">
+                <label>Zusatzinfo</label>
+                <textarea></textarea>
+              </div>
+              <div class="form-group full-width">
+                <label>Bilder hochladen</label>
+                <input
+                  type="file"
+                  id="vehicle-images"
+                  multiple
+                  accept="image/*"
+                />
+                <div
+                  id="image-preview"
+                  style="display: flex; flex-wrap: wrap; margin-top: 10px"
+                ></div>
+              </div>
+              <div class="form-group full-width">
+                <label>Zulassung hinzufügen (als Bild)</label>
+                <input
+                  type="file"
+                  id="zulassung-image"
+                  accept="image/*"
+                  class="btn secondary"
+                />
+              </div>
             </div>
+            <div class="fahrzeug-footer">
+              <button type="button" class="btn secondary">Abbrechen</button>
+              <button type="submit" class="btn primary">Speichern</button>
+            </div>
+          </form>
         </div>
+      </div>
     </div>
 
     <script src="../scripts/right-sidebar.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll(".modal-close").forEach(btn => {
-                btn.addEventListener("click", () => {
-                    const modal = btn.closest(".modal");
-                    if (modal) modal.style.display = "none";
-                });
-            });
+      document.addEventListener("DOMContentLoaded", function () {
+        document.querySelectorAll(".modal-close").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const modal = btn.closest(".modal");
+            if (modal) modal.style.display = "none";
+          });
         });
+      });
     </script>
-</body>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const birthdayMonthSelect = document.getElementById("birthday-month");
+    const birthdayFilterBtn = document.getElementById("filter-birthdays");
+    const resetBirthdaysBtn = document.getElementById("reset-birthdays");
+    const birthdayControls = document.getElementById("birthday-controls");
+    const rows = document.querySelectorAll(".customer-table tbody tr");
+
+    // Anfangszustand: ausblenden
+    birthdayControls.style.display = "none";
+
+    function filterByMonth(month) {
+      rows.forEach((row) => {
+        const geburtstagCell = row.querySelector('td[data-label="Geburtstag"]');
+        if (!geburtstagCell) {
+          row.style.display = "none";
+          return;
+        }
+
+        const dateText = geburtstagCell.textContent.trim();
+        const date = new Date(dateText);
+        const cellMonth = date.getMonth();
+
+        row.style.display = cellMonth === month ? "" : "none";
+      });
+    }
+
+    birthdayFilterBtn.addEventListener("click", function () {
+      birthdayControls.style.display = "flex";
+
+      // Monat aus select nehmen und direkt filtern
+      const selectedMonth = parseInt(birthdayMonthSelect.value);
+      filterByMonth(selectedMonth);
+    });
+
+    birthdayMonthSelect.addEventListener("change", function () {
+      const selectedMonth = parseInt(this.value);
+      filterByMonth(selectedMonth);
+    });
+
+    resetBirthdaysBtn.addEventListener("click", function () {
+      birthdayControls.style.display = "none";
+      rows.forEach((row) => (row.style.display = ""));
+    });
+  });
+</script>
+
+
+
+
+  </body>
 </html>
