@@ -46,6 +46,7 @@ function renderCalendar(date) {
 
 function selectDay(date) {
     selectedDate = date;
+    window.selectedDate = selectedDate;
 
     const selectedDateElement = document.getElementById("selected-date");
     if (selectedDateElement) {
@@ -330,3 +331,122 @@ document.addEventListener("DOMContentLoaded", () => {
     selectDay(currentDate);
     renderNotes();
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const sidebarAddBtn = document.getElementById("sidebar-add-appointment");
+    const modal = document.getElementById("appointment-modal");
+    const form = document.getElementById("appointment-form");
+
+    if (sidebarAddBtn && modal && form) {
+        sidebarAddBtn.addEventListener("click", () => {
+            const today = new Date();
+            const selected = window.selectedDate || today;
+
+            // Prüfen ob vergangenes Datum
+            const todayMidnight = new Date();
+            todayMidnight.setHours(0, 0, 0, 0);
+            if (selected < todayMidnight) {
+                alert("Neue Termine können für vergangene Daten nicht erstellt werden.");
+                return;
+            }
+
+            // Modal öffnen
+            form.reset();
+            document.querySelector(".modal-title").textContent = `Neuer Termin am ${selected.getDate()}. ${selected.toLocaleString("de-DE", { month: "long" })} ${selected.getFullYear()}`;
+            modal.style.display = "flex";
+        });
+    }
+});
+
+
+
+
+
+
+// === Sidebar-Termine & Modal ===
+
+function renderSidebarAppointments() {
+    const sidebarList = document.getElementById("sidebar-appointments-list");
+    if (!sidebarList) return;
+
+    let selected = window.selectedDate;
+    if (!selected) selected = new Date();
+    selected.setHours(0, 0, 0, 0);
+
+    const selectedKey = `${selected.getFullYear()}-${String(selected.getMonth() + 1).padStart(2, "0")}-${String(selected.getDate()).padStart(2, "0")}`;
+
+    try {
+        const stored = localStorage.getItem("appointments");
+        const allAppointments = stored ? JSON.parse(stored) : [];
+        const dayAppointments = allAppointments.filter(a => a.date === selectedKey);
+
+        sidebarList.innerHTML = "";
+        if (dayAppointments.length === 0) {
+            sidebarList.innerHTML = '<li class="appointment-item no-appointments">Keine Termine für diesen Tag</li>';
+        } else {
+            dayAppointments.forEach(a => {
+                sidebarList.innerHTML += `
+                    <li class="appointment-item">
+                        <div class="appointment-time">${a.time}</div>
+                        <div class="appointment-details">
+                            <div class="appointment-title">${a.title}</div>
+                            <div class="appointment-location">${a.location}</div>
+                        </div>
+                    </li>
+                `;
+            });
+        }
+    } catch (e) {
+        sidebarList.innerHTML = '<li class="appointment-item">Fehler beim Laden</li>';
+    }
+}
+
+// Diese Funktion war nicht verfügbar -> Fehlerbehebung für renderNotes
+function renderNotes() {
+    const notesList = document.getElementById("notes-list");
+    const notes = JSON.parse(localStorage.getItem("dashboardNotes")) || [];
+    if (!notesList) return;
+    notesList.innerHTML = "";
+    if (notes.length === 0) {
+        notesList.innerHTML = '<li class="note-item no-notes">Keine Notizen gespeichert.</li>';
+    } else {
+        notes.forEach((note, index) => {
+            notesList.innerHTML += `
+                <li class="note-item" data-index="${index}">
+                    <div class="note-content">${note.content}</div>
+                    <div class="note-meta">${new Date(note.timestamp).toLocaleString()}</div>
+                </li>
+            `;
+        });
+    }
+}
+
+// Sicherstellen, dass nur EIN document.addEventListener verwendet wird
+if (!window.__sidebar_initialized__) {
+    window.__sidebar_initialized__ = true;
+    document.addEventListener("DOMContentLoaded", () => {
+        renderSidebarAppointments();
+        renderNotes();
+
+        const sidebarAddBtn = document.getElementById("sidebar-add-appointment");
+        const modal = document.getElementById("appointment-modal");
+        const form = document.getElementById("appointment-form");
+
+        if (sidebarAddBtn && modal && form) {
+            sidebarAddBtn.addEventListener("click", () => {
+                const selected = window.selectedDate || new Date();
+                const todayMidnight = new Date();
+                todayMidnight.setHours(0, 0, 0, 0);
+                if (selected < todayMidnight) {
+                    alert("Neue Termine können für vergangene Daten nicht erstellt werden.");
+                    return;
+                }
+
+                form.reset();
+                document.querySelector(".modal-title").textContent = `Neuer Termin am ${selected.getDate()}. ${selected.toLocaleString("de-DE", { month: "long" })} ${selected.getFullYear()}`;
+                modal.style.display = "flex";
+            });
+        }
+    });
+}
