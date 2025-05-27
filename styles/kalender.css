@@ -358,6 +358,19 @@
             margin-left: 280px; /* Platz für Left-Sidebar */
             max-width: calc(100% - 280px - 320px); /* Left-Sidebar (280px) + Right-Sidebar (320px) */
         }
+
+
+        .calendar-day.holiday {
+            background-color: #fde68a !important;
+            color: #92400e;
+        }
+
+        .calendar-day.holiday:hover {
+            background-color: #fcd34d !important;
+        }
+
+
+
         /* Responsive Anpassungen (aus kunden.css übernommen) */
         @media (max-width: 1200px) {
             .container {

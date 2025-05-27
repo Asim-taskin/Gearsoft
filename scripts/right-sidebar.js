@@ -2,11 +2,19 @@ function renderCalendar(date) {
     const calendarGrid = document.getElementById("calendar-grid");
     const calendarMonth = document.getElementById("calendar-month");
 
-    // Wenn die Elemente im DOM nicht vorhanden sind, beende die Funktion
-    if (!calendarGrid || !calendarMonth) return;
+    if (!calendarGrid || !calendarMonth || !date) return;
 
     const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
     calendarMonth.textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+
+    const realToday = new Date(); // Aktuelles Datum
+    realToday.setHours(0, 0, 0, 0);
+
+    const holidays = [
+        "2025-01-01", "2025-05-01", "2025-05-29",
+        "2025-10-03", "2025-12-25", "2025-12-26"
+    ];
+
     const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
     const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 
@@ -27,13 +35,25 @@ function renderCalendar(date) {
 
     for (let day = 1; day <= daysInMonth; day++) {
         const wd = new Date(date.getFullYear(), date.getMonth(), day).getDay();
-        const isToday = date.getFullYear() === today.getFullYear() && date.getMonth() === today.getMonth() && day === today.getDate();
-        const isSelected = date.getFullYear() === selectedDate.getFullYear() && date.getMonth() === selectedDate.getMonth() && day === selectedDate.getDate();
+        const currentLoopDate = new Date(date.getFullYear(), date.getMonth(), day);
+        currentLoopDate.setHours(0, 0, 0, 0);
+
+        const isToday = currentLoopDate.getTime() === realToday.getTime();
+        const isSelected = window.selectedDate &&
+            window.selectedDate.getFullYear() === date.getFullYear() &&
+            window.selectedDate.getMonth() === date.getMonth() &&
+            window.selectedDate.getDate() === day;
+
+        const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+        const isHoliday = holidays.includes(dateStr);
+
         let className = "calendar-day";
-        if (isSelected) className = "calendar-day selected";
-        else if (isToday) className = "calendar-day today";
-        else if (wd === 0 || wd === 6) className = "calendar-day weekend";
-        calendarGrid.innerHTML += `<div class="${className}" data-date="${date.getFullYear()}-${date.getMonth() + 1}-${day}">${day}</div>`;
+        if (isHoliday) className += " holiday";
+        else if (wd === 0 || wd === 6) className += " weekend";
+        if (isToday) className += " today";
+        if (isSelected) className += " selected";
+
+        calendarGrid.innerHTML += `<div class="${className}" data-date="${dateStr}">${day}</div>`;
     }
 
     document.querySelectorAll(".calendar-day:not(.empty)").forEach(el => {
@@ -45,24 +65,30 @@ function renderCalendar(date) {
 }
 
 function selectDay(date) {
-    selectedDate = date;
-    window.selectedDate = selectedDate;
+    if (!date || isNaN(new Date(date).getTime())) return;
+
+    window.selectedDate = new Date(date);
+    window.selectedDate.setHours(0, 0, 0, 0);
 
     const selectedDateElement = document.getElementById("selected-date");
     if (selectedDateElement) {
-        selectedDateElement.textContent = `für ${date.toLocaleDateString("de-DE")}`;
+        selectedDateElement.textContent = `für ${window.selectedDate.toLocaleDateString("de-DE")}`;
     }
 
-    renderCalendar(currentDate);
-    renderAppointments(date);
-}
+    clearSidebarSelection();
 
+    const formatted = `${window.selectedDate.getFullYear()}-${String(window.selectedDate.getMonth() + 1).padStart(2, "0")}-${String(window.selectedDate.getDate()).padStart(2, "0")}`;
+    const selectedEl = document.querySelector(`[data-date='${formatted}']`);
+    if (selectedEl) selectedEl.classList.add("selected");
+
+    renderCalendar(window.currentDate);
+    renderAppointments(window.selectedDate);
+    renderSidebarAppointments();
+}
 
 function renderAppointments(date) {
     const appointmentsList = document.getElementById("appointments-list");
-
-    // Sicherheitsprüfung: nur rendern, wenn das Element existiert
-    if (!appointmentsList) return;
+    if (!appointmentsList || !date) return;
 
     const dateStr = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
     const dayAppointments = appointments.filter(a => a.date === dateStr);
@@ -82,6 +108,46 @@ function renderAppointments(date) {
                 </li>
             `;
         });
+    }
+}
+
+function clearSidebarSelection() {
+    const allDays = document.querySelectorAll("#calendar-grid .calendar-day");
+    allDays.forEach(el => el.classList.remove("selected"));
+}
+
+function renderSidebarAppointments() {
+    const sidebarList = document.getElementById("sidebar-appointments-list");
+    if (!sidebarList) return;
+
+    const selected = window.selectedDate || new Date();
+    selected.setHours(0, 0, 0, 0);
+
+    const selectedKey = `${selected.getFullYear()}-${String(selected.getMonth() + 1).padStart(2, "0")}-${String(selected.getDate()).padStart(2, "0")}`;
+
+    try {
+        const stored = localStorage.getItem("appointments");
+        const allAppointments = stored ? JSON.parse(stored) : [];
+        const dayAppointments = allAppointments.filter(a => a.date === selectedKey);
+
+        sidebarList.innerHTML = "";
+        if (dayAppointments.length === 0) {
+            sidebarList.innerHTML = '<li class="appointment-item no-appointments">Keine Termine für diesen Tag</li>';
+        } else {
+            dayAppointments.forEach(a => {
+                sidebarList.innerHTML += `
+                    <li class="appointment-item">
+                        <div class="appointment-time">${a.time}</div>
+                        <div class="appointment-details">
+                            <div class="appointment-title">${a.title}</div>
+                            <div class="appointment-location">${a.location}</div>
+                        </div>
+                    </li>
+                `;
+            });
+        }
+    } catch (e) {
+        sidebarList.innerHTML = '<li class="appointment-item">Fehler beim Laden</li>';
     }
 }
 
@@ -402,7 +468,6 @@ function renderSidebarAppointments() {
     }
 }
 
-// Diese Funktion war nicht verfügbar -> Fehlerbehebung für renderNotes
 function renderNotes() {
     const notesList = document.getElementById("notes-list");
     const notes = JSON.parse(localStorage.getItem("dashboardNotes")) || [];
@@ -422,31 +487,45 @@ function renderNotes() {
     }
 }
 
-// Sicherstellen, dass nur EIN document.addEventListener verwendet wird
 if (!window.__sidebar_initialized__) {
     window.__sidebar_initialized__ = true;
     document.addEventListener("DOMContentLoaded", () => {
+        const now = new Date();
+        now.setHours(0, 0, 0, 0);
+        window.today = new Date(now);
+        window.currentDate = new Date(now);
+        window.selectedDate = new Date(now);
+
         renderSidebarAppointments();
         renderNotes();
 
-        const sidebarAddBtn = document.getElementById("sidebar-add-appointment");
-        const modal = document.getElementById("appointment-modal");
-        const form = document.getElementById("appointment-form");
-
-        if (sidebarAddBtn && modal && form) {
-            sidebarAddBtn.addEventListener("click", () => {
-                const selected = window.selectedDate || new Date();
-                const todayMidnight = new Date();
-                todayMidnight.setHours(0, 0, 0, 0);
-                if (selected < todayMidnight) {
-                    alert("Neue Termine können für vergangene Daten nicht erstellt werden.");
-                    return;
-                }
-
-                form.reset();
-                document.querySelector(".modal-title").textContent = `Neuer Termin am ${selected.getDate()}. ${selected.toLocaleString("de-DE", { month: "long" })} ${selected.getFullYear()}`;
-                modal.style.display = "flex";
-            });
+        if (typeof renderCalendar === "function") {
+            renderCalendar(window.currentDate);
         }
     });
 }
+
+function clearSidebarSelection() {
+    const allDays = document.querySelectorAll("#calendar-grid .calendar-day");
+    allDays.forEach(el => el.classList.remove("selected"));
+}
+
+window.selectDay = function(date) {
+    if (!date || isNaN(new Date(date).getTime())) return;
+
+    window.selectedDate = new Date(date);
+    window.selectedDate.setHours(0, 0, 0, 0);
+
+    clearSidebarSelection();
+
+    const formatted = `${window.selectedDate.getFullYear()}-${String(window.selectedDate.getMonth() + 1).padStart(2, "0")}-${String(window.selectedDate.getDate()).padStart(2, "0")}`;
+    const selectedEl = document.querySelector(`[data-date='${formatted}']`);
+    if (selectedEl) selectedEl.classList.add("selected");
+
+    renderSidebarAppointments();
+    renderNotes();
+
+    if (typeof renderCalendar === "function") {
+        renderCalendar(window.currentDate);
+    }
+};
