@@ -1,89 +1,109 @@
+// Hilfsfunktion ganz oben in der Datei einfügen (nur einmal!)
+function isSameDay(a, b) {
+  return a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate();
+}
+
 function renderCalendar(date) {
-    const calendarGrid = document.getElementById("calendar-grid");
-    const calendarMonth = document.getElementById("calendar-month");
-    if (!calendarGrid || !calendarMonth || !(date instanceof Date)) return;
+  const calendarGrid = document.getElementById("calendar-grid");
+  const calendarMonth = document.getElementById("calendar-month");
+  if (!calendarGrid || !calendarMonth || !(date instanceof Date)) return;
 
-    const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
-    calendarMonth.textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+  const monthNames = [
+    "Januar", "Februar", "März", "April", "Mai", "Juni", "Juli",
+    "August", "September", "Oktober", "November", "Dezember"
+  ];
+  calendarMonth.textContent = `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
 
-    const realToday = new Date();
-    realToday.setHours(0, 0, 0, 0);
+  // Heute immer mit 0 Uhr
+  const realToday = new Date();
+  realToday.setHours(0, 0, 0, 0);
 
-    const holidays = [
-        "2025-01-01", "2025-05-01", "2025-05-29",
-        "2025-10-03", "2025-12-25", "2025-12-26"
-    ];
+  const holidays = [
+    "2025-01-01", "2025-05-01", "2025-05-29",
+    "2025-10-03", "2025-12-25", "2025-12-26"
+  ];
 
-    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
-    const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  const firstDay = new Date(date.getFullYear(), date.getMonth(), 1).getDay();
+  const daysInMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
 
-    calendarGrid.innerHTML = `
-        <div class="calendar-day-header">Mo</div>
-        <div class="calendar-day-header">Di</div>
-        <div class="calendar-day-header">Mi</div>
-        <div class="calendar-day-header">Do</div>
-        <div class="calendar-day-header">Fr</div>
-        <div class="calendar-day-header weekend">Sa</div>
-        <div class="calendar-day-header weekend">So</div>
-    `;
+  // Header
+  calendarGrid.innerHTML = `
+    <div class="calendar-day-header">Mo</div>
+    <div class="calendar-day-header">Di</div>
+    <div class="calendar-day-header">Mi</div>
+    <div class="calendar-day-header">Do</div>
+    <div class="calendar-day-header">Fr</div>
+    <div class="calendar-day-header weekend">Sa</div>
+    <div class="calendar-day-header weekend">So</div>
+  `;
 
-    const startDay = firstDay === 0 ? 6 : firstDay - 1;
-    for (let i = 0; i < startDay; i++) {
-        calendarGrid.innerHTML += `<div class="calendar-day empty"></div>`;
-    }
+  // Leere Felder am Monatsanfang (Mo=0 ... So=6)
+  const startDay = firstDay === 0 ? 6 : firstDay - 1;
+  for (let i = 0; i < startDay; i++) {
+    calendarGrid.innerHTML += `<div class="calendar-day empty"></div>`;
+  }
 
-    for (let day = 1; day <= daysInMonth; day++) {
-        const wd = new Date(date.getFullYear(), date.getMonth(), day).getDay();
-        const loopDate = new Date(date.getFullYear(), date.getMonth(), day);
-        loopDate.setHours(0, 0, 0, 0);
+  for (let day = 1; day <= daysInMonth; day++) {
+    const loopDate = new Date(date.getFullYear(), date.getMonth(), day);
+    loopDate.setHours(0, 0, 0, 0);
 
-        const dateStr = `${loopDate.getFullYear()}-${String(loopDate.getMonth() + 1).padStart(2, "0")}-${String(loopDate.getDate()).padStart(2, "0")}`;
-        const isToday = loopDate.getTime() === realToday.getTime();
-        const isHoliday = holidays.includes(dateStr);
+    const dateStr = `${loopDate.getFullYear()}-${String(loopDate.getMonth() + 1).padStart(2, "0")}-${String(loopDate.getDate()).padStart(2, "0")}`;
+    const isHoliday = holidays.includes(dateStr);
+    const wd = loopDate.getDay();
 
-        let isSelected = false;
-        if (window.selectedDate instanceof Date) {
-            isSelected = window.selectedDate.getFullYear() === loopDate.getFullYear() &&
-                         window.selectedDate.getMonth() === loopDate.getMonth() &&
-                         window.selectedDate.getDate() === loopDate.getDate();
-        }
+    const isToday = isSameDay(loopDate, realToday);
+    const isSelected = window.selectedDate && isSameDay(window.selectedDate, loopDate);
 
-        let className = "calendar-day";
-        if (isHoliday) className += " holiday";
-        else if (wd === 0 || wd === 6) className += " weekend";
-        if (isToday) className += " today";
-        if (isSelected) className += " selected";
+    let className = "calendar-day";
+    if (isHoliday) className += " holiday";
+    if (wd === 0 || wd === 6) className += " weekend";
+    if (isToday) className += " today";
+    if (isSelected) className += " selected";
 
-        calendarGrid.innerHTML += `<div class="${className}" data-date="${dateStr}">${day}</div>`;
-    }
+    calendarGrid.innerHTML += `<div class="${className}" data-date="${dateStr}">${day}</div>`;
+  }
 
-    document.querySelectorAll(".calendar-day:not(.empty)").forEach(el => {
-        el.addEventListener("click", () => {
-            const [y, m, d] = el.getAttribute("data-date").split("-").map(Number);
-            selectDay(new Date(y, m - 1, d));
-        });
+  // Click Handler neu setzen
+  document.querySelectorAll(".calendar-day:not(.empty)").forEach(el => {
+    el.addEventListener("click", () => {
+      const [y, m, d] = el.getAttribute("data-date").split("-").map(Number);
+      selectDay(new Date(y, m - 1, d));
     });
+  });
 }
 
+// Diese Funktion ab jetzt: KEIN erneutes renderCalendar aufrufen!
 function selectDay(date) {
-    if (!(date instanceof Date) || isNaN(date.getTime())) return;
+  if (!(date instanceof Date) || isNaN(date.getTime())) return;
 
-    window.selectedDate = new Date(date);
-    window.selectedDate.setHours(0, 0, 0, 0);
+  window.selectedDate = new Date(date);
+  window.selectedDate.setHours(0, 0, 0, 0);
 
-    const selectedEl = document.querySelector(`[data-date='${date.toISOString().split("T")[0]}']`);
-    clearSidebarSelection();
-    if (selectedEl) selectedEl.classList.add("selected");
-
-    const selectedDateElement = document.getElementById("selected-date");
-    if (selectedDateElement) {
-        selectedDateElement.textContent = `für ${window.selectedDate.toLocaleDateString("de-DE")}`;
+  // Markiere nur den aktuellen Tag als selected
+  document.querySelectorAll("#calendar-grid .calendar-day").forEach(el => {
+    const [y, m, d] = el.getAttribute("data-date")?.split("-") || [];
+    if (y && m && d) {
+      const thisDate = new Date(Number(y), Number(m) - 1, Number(d));
+      thisDate.setHours(0, 0, 0, 0);
+      if (isSameDay(thisDate, window.selectedDate)) {
+        el.classList.add("selected");
+      } else {
+        el.classList.remove("selected");
+      }
     }
+  });
 
-    renderSidebarAppointments();
-    renderCalendar(window.currentDate);
-    if (typeof renderAppointments === "function") renderAppointments(window.selectedDate);
+  const selectedDateElement = document.getElementById("selected-date");
+  if (selectedDateElement) {
+    selectedDateElement.textContent = `für ${window.selectedDate.toLocaleDateString("de-DE")}`;
+  }
+
+  renderSidebarAppointments();
+  if (typeof renderAppointments === "function") renderAppointments(window.selectedDate);
 }
+
 
 function clearSidebarSelection() {
     document.querySelectorAll("#calendar-grid .calendar-day.selected").forEach(el => {
