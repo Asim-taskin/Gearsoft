@@ -99,17 +99,13 @@
                 </div>
                 <div id="calendar-view" class="calendar-view"></div>
             </div>
-            <div id="appointment-panel" class="appointment-panel">
-                <div class="panel-header">
-                    <h2 class="panel-title" id="panel-title"></h2>
-                    <button id="close-panel" class="close-btn"><i class="fas fa-times"></i></button>
-                </div>
-                <div class="appointment-list" id="appointment-list"></div>
-                <button id="add-appointment" class="add-appointment-btn">Neuen Termin hinzufügen</button>
-                <div id="past-date-message" class="past-date-message" style="display: none;">
-                    Neue Termine können für vergangene Daten nicht erstellt werden.
-                </div>
-            </div>
+<div id="appointment-panel" class="appointment-panel active">
+  <div class="panel-header">
+    <h2 class="panel-title" id="panel-title"></h2>
+  </div>
+  <div class="day-grid" id="day-grid"></div>
+  <button id="add-appointment" class="add-appointment-btn">Neuen Termin hinzufügen</button>
+</div>
             <!-- Neues Modal-Design -->
             <div id="appointment-modal" class="modal">
                 <div class="modal-content">

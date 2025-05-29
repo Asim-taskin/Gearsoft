@@ -1,56 +1,60 @@
 (() => {
+    // --------- VARIABLEN UND SETUP ---------------
     const calendarView = document.getElementById('calendar-view');
     const monthLabel = document.getElementById('month-label');
     const panel = document.getElementById('appointment-panel');
     const panelTitle = document.getElementById('panel-title');
-    const appointmentList = document.getElementById('appointment-list');
+    const dayGrid = document.getElementById('day-grid'); // <- wichtig!
     const addAppointmentBtn = document.getElementById('add-appointment');
-    const pastDateMessage = document.getElementById('past-date-message');
     const modal = document.getElementById('appointment-modal');
     const appointmentForm = document.getElementById('appointment-form');
     const timeSelect = document.getElementById('appointment-time');
     const durationSelect = document.getElementById('appointment-duration');
     const calendarContainer = document.getElementById('calendar-container');
     const toggleCalendarBtn = document.getElementById('toggle-calendar');
-    const todayList = document.getElementById('today-appointments-list');
+
     let currentDate = new Date();
     let selectedDate = new Date();
     let dataStore = {};
-            try {
-              const stored = localStorage.getItem("appointments");
-              const loaded = stored ? JSON.parse(stored) : [];
-              loaded.forEach(entry => {
-                const key = entry.date;
-                if (!dataStore[key]) dataStore[key] = [];
-                dataStore[key].push(entry);
-              });
-            } catch (e) {
-              console.warn("Fehler beim Laden der Termine aus localStorage");
-            }
 
-    for (let h = 7; h <= 19; h++) {
-        for (let m = 0; m < 60; m += 30) {
-            const time = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-            const option = document.createElement('option');
-            option.value = time;
-            option.textContent = time;
-            timeSelect.appendChild(option);
-        }
+    // Termine aus LocalStorage laden
+    try {
+        const stored = localStorage.getItem("appointments");
+        const loaded = stored ? JSON.parse(stored) : [];
+        loaded.forEach(entry => {
+            const key = entry.date;
+            if (!dataStore[key]) dataStore[key] = [];
+            dataStore[key].push(entry);
+        });
+    } catch (e) {
+        console.warn("Fehler beim Laden der Termine aus localStorage");
     }
 
-    const durations = [
-        '10min', '20min', '30min', '40min', '50min',
-        '1h', '1h30m', '2h', '2h30m', '3h', '3h30m', '4h', '4h30m', '5h', '5h30m', '6h',
-        '6h30m', '7h', '7h30m', '8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h',
-        '16h', '17h', '18h', '19h', '20h', '21h', '22h', '23h', '24h'
-    ];
-    durations.forEach(d => {
-        const option = document.createElement('option');
-        option.value = d;
-        option.textContent = d;
-        durationSelect.appendChild(option);
-    });
+    // Zeitoptionen & Dauern befüllen
+    if (timeSelect && durationSelect) {
+        for (let h = 7; h <= 19; h++) {
+            for (let m = 0; m < 60; m += 30) {
+                const time = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+                const option = document.createElement('option');
+                option.value = time;
+                option.textContent = time;
+                timeSelect.appendChild(option);
+            }
+        }
+        [
+            '10min', '20min', '30min', '40min', '50min',
+            '1h', '1h30m', '2h', '2h30m', '3h', '3h30m', '4h', '4h30m', '5h', '5h30m', '6h',
+            '6h30m', '7h', '7h30m', '8h', '9h', '10h', '11h', '12h', '13h', '14h', '15h',
+            '16h', '17h', '18h', '19h', '20h', '21h', '22h', '23h', '24h'
+        ].forEach(d => {
+            const option = document.createElement('option');
+            option.value = d;
+            option.textContent = d;
+            durationSelect.appendChild(option);
+        });
+    }
 
+    // --------- HILFSFUNKTIONEN ---------------
     function getDateKey(date) {
         return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     }
@@ -61,15 +65,7 @@
         return date < today;
     }
 
-    function renderTodayAppointments() {
-        const todayKey = getDateKey(new Date());
-        const events = dataStore[todayKey] || [];
-        if (!todayList) return;
-        todayList.innerHTML = events.length
-            ? events.map(e => `<li>${e.time} - ${e.customer} (${e.service})</li>`).join("")
-            : '<li>Keine Termine für heute</li>';
-    }
-
+    // --------- MONATSKALENDER ---------------
     function renderCalendar(date) {
         calendarView.innerHTML = '';
         monthLabel.textContent = date.toLocaleString('de-DE', { month: 'long', year: 'numeric' });
@@ -118,64 +114,122 @@
             cell.onclick = () => {
                 selectedDate = new Date(date.getFullYear(), date.getMonth(), d);
                 renderCalendar(currentDate);
-                showAppointments(dateKey, d);
+                showDayView(selectedDate);
             };
 
             calendarView.appendChild(cell);
         }
-
-        renderTodayAppointments();
     }
 
-    function showAppointments(key, day) {
-        panel.classList.add('active');
-        panelTitle.textContent = `${day}. ${currentDate.toLocaleString('de-DE', { month: 'long' })} ${currentDate.getFullYear()}`;
-        appointmentList.innerHTML = '';
+    // --------- TAGESANSICHT: 07:00–19:00 als Zeitraster ---------------
+ function showDayView(date) {
+    panel.classList.add('active');
+    panelTitle.textContent = date.toLocaleDateString('de-DE', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 
-        const isPast = isPastDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day));
-        addAppointmentBtn.disabled = isPast;
-        pastDateMessage.style.display = isPast ? 'block' : 'none';
+    const key = getDateKey(date);
+    const events = dataStore[key] || [];
 
-        const events = dataStore[key] || [];
-        events.forEach((event, index) => {
-            const item = document.createElement('div');
-            item.className = 'appointment-item';
-            item.innerHTML = `
-                <span>${event.time} (${event.duration}) - ${event.customer}: ${event.service} ${event.vehicle ? '(' + event.vehicle + ')' : ''}</span>
-                <div>
-                    <button class="edit-btn"><i class="fas fa-edit"></i></button>
-                    <button class="delete-btn"><i class="fas fa-trash"></i></button>
-                </div>
-            `;
+    dayGrid.innerHTML = '';
+    const startHour = 7, endHour = 19;
+    for (let h = startHour; h <= endHour; h++) {
+        for (let m = 0; m < 60; m += 30) {
+            const timeStr = `${String(h).padStart(2, '0')}:${m === 0 ? '00' : '30'}`;
+            // Linke Spalte: Zeitbeschriftung
+            const hourDiv = document.createElement('div');
+            hourDiv.className = 'day-grid-hour';
+            hourDiv.textContent = timeStr;
+            dayGrid.appendChild(hourDiv);
 
-            item.querySelector('.edit-btn').onclick = () => editAppointment(key, index, day);
-            item.querySelector('.delete-btn').onclick = () => {
-                dataStore[key].splice(index, 1);
-                if (!dataStore[key].length) delete dataStore[key];
-                renderCalendar(currentDate);
-                showAppointments(key, day);
-                renderTodayAppointments();
-            };
+            // Rechte Spalte: Slot für mehrere Termine ODER frei
+            const slotDiv = document.createElement('div');
+            slotDiv.className = 'day-grid-slot free';
 
-            appointmentList.appendChild(item);
-        });
+            // Alle Events für diesen Slot
+            const slotEvents = events.filter(e => e.time === timeStr);
+
+            if (slotEvents.length > 0) {
+                slotDiv.className = 'day-grid-slot termin-multi';
+                // Termin-Badges-Container
+                const badgeContainer = document.createElement('div');
+                badgeContainer.className = 'termin-badges';
+
+                slotEvents.forEach((event, i) => {
+                    const badge = document.createElement('div');
+                    badge.className = 'termin-badge';
+                    badge.innerHTML = `
+                        <span>${event.time} (${event.duration}) - ${event.customer}: ${event.service} ${event.vehicle ? '(' + event.vehicle + ')' : ''}</span>
+                        <div>
+                            <button class="edit-btn" title="Bearbeiten"><i class="fas fa-edit"></i></button>
+                            <button class="delete-btn" title="Löschen"><i class="fas fa-trash"></i></button>
+                        </div>
+                    `;
+                    badge.querySelector('.edit-btn').onclick = () => editAppointment(key, events.indexOf(slotEvents[i]), date.getDate());
+                    badge.querySelector('.delete-btn').onclick = () => {
+                        dataStore[key].splice(events.indexOf(slotEvents[i]), 1);
+                        if (!dataStore[key].length) delete dataStore[key];
+                        showDayView(date);
+                        renderCalendar(currentDate);
+                    };
+                    badgeContainer.appendChild(badge);
+                });
+
+                slotDiv.appendChild(badgeContainer);
+
+                // Slot selbst klickbar für weiteren Termin
+                slotDiv.onclick = (e) => {
+                    // Nur wenn außerhalb der Buttons geklickt wird
+                    if (e.target === slotDiv) {
+                        selectedDate = new Date(date);
+                        openModal(date.getDate());
+                    }
+                };
+            } else {
+                slotDiv.onclick = () => {
+                    selectedDate = new Date(date);
+                    openModal(date.getDate());
+                };
+            }
+            dayGrid.appendChild(slotDiv);
+        }
     }
+}
 
+
+    // --------- MODAL HANDLING (Termine anlegen/bearbeiten) ---------------
     function openModal(day) {
-        if (isPastDate(new Date(currentDate.getFullYear(), currentDate.getMonth(), day))) {
+        const dateObj = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), day);
+        if (isPastDate(dateObj)) {
             alert('Neue Termine können für vergangene Daten nicht erstellt werden.');
             return;
         }
-
         modal.style.display = 'flex';
         appointmentForm.reset();
         document.querySelector('.modal-title').textContent = `Neuer Termin am ${day}. ${currentDate.toLocaleString('de-DE', { month: 'long' })} ${currentDate.getFullYear()}`;
+
+        appointmentForm.onsubmit = (e) => {
+            e.preventDefault();
+            const key = getDateKey(selectedDate);
+            const time = document.getElementById('appointment-time').value;
+            const duration = document.getElementById('appointment-duration').value;
+            const customer = document.getElementById('appointment-customer').value;
+            const vehicle = document.getElementById('appointment-vehicle').value;
+            const service = document.getElementById('appointment-service').value;
+            const note = document.getElementById('appointment-note').value;
+            const price = document.getElementById('appointment-price').value;
+            dataStore[key] = dataStore[key] || [];
+            dataStore[key].push({ time, duration, customer, vehicle, service, note, price });
+            localStorage.setItem("appointments", JSON.stringify(
+                Object.values(dataStore).flat()
+            ));
+            modal.style.display = 'none';
+            showDayView(selectedDate);
+            renderCalendar(currentDate);
+        };
     }
 
     function editAppointment(key, index, day) {
         const event = dataStore[key][index];
         openModal(day);
-
         document.getElementById('appointment-time').value = event.time;
         document.getElementById('appointment-duration').value = event.duration;
         document.getElementById('appointment-customer').value = event.customer;
@@ -193,45 +247,45 @@
             const service = document.getElementById('appointment-service').value;
             const note = document.getElementById('appointment-note').value;
             const price = document.getElementById('appointment-price').value;
-            const newAppointment = { date: key, time, duration, customer, vehicle, service, note, price, title: `${service} - ${customer}`, location: "Werkstatt" };
-dataStore[key].push(newAppointment);
-appointments.push(newAppointment);
-localStorage.setItem("appointments", JSON.stringify(appointments));
+            dataStore[key][index] = { time, duration, customer, vehicle, service, note, price };
+            localStorage.setItem("appointments", JSON.stringify(
+                Object.values(dataStore).flat()
+            ));
             modal.style.display = 'none';
+            showDayView(selectedDate);
             renderCalendar(currentDate);
-            showAppointments(key, day);
-            renderTodayAppointments();
         };
     }
 
-    addAppointmentBtn.onclick = () => {
-        const day = selectedDate.getDate();
-        const key = getDateKey(selectedDate);
-
-        if (isPastDate(selectedDate)) {
-            alert('Neue Termine können für vergangene Daten nicht erstellt werden.');
-            return;
-        }
-
-        openModal(day);
-        appointmentForm.onsubmit = (e) => {
-            e.preventDefault();
-            const time = document.getElementById('appointment-time').value;
-            const duration = document.getElementById('appointment-duration').value;
-            const customer = document.getElementById('appointment-customer').value;
-            const vehicle = document.getElementById('appointment-vehicle').value;
-            const service = document.getElementById('appointment-service').value;
-            const note = document.getElementById('appointment-note').value;
-            const price = document.getElementById('appointment-price').value;
-            dataStore[key] = dataStore[key] || [];
-            dataStore[key].push({ time, duration, customer, vehicle, service, note, price });
-            modal.style.display = 'none';
-            renderCalendar(currentDate);
-            showAppointments(key, day);
-            renderTodayAppointments();
-        };
+    // --------- STEUERUNG DER KALENDER-NAVIGATION ---------------
+    document.getElementById('prev-month').onclick = () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar(currentDate);
+    };
+    document.getElementById('next-month').onclick = () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar(currentDate);
+    };
+    document.getElementById('today').onclick = () => {
+        currentDate = new Date();
+        selectedDate = new Date();
+        renderCalendar(currentDate);
+        showDayView(selectedDate);
     };
 
+    // Panel bleibt IMMER offen (nicht mehr schließbar)
+    // Modal-Schließen
+    document.querySelector('.modal-close').onclick = () => {
+        modal.style.display = 'none';
+    };
+    document.querySelector('.modal-btn-secondary').onclick = () => {
+        modal.style.display = 'none';
+    };
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.style.display = 'none';
+    });
+
+    // Kalender aus/einklappen
     let isCalendarCollapsed = false;
     toggleCalendarBtn.onclick = () => {
         isCalendarCollapsed = !isCalendarCollapsed;
@@ -242,50 +296,12 @@ localStorage.setItem("appointments", JSON.stringify(appointments));
         toggleCalendarBtn.title = isCalendarCollapsed ? 'Kalender aufklappen' : 'Kalender zuklappen';
     };
 
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) modal.style.display = 'none';
-    });
-
-    document.getElementById('prev-month').onclick = () => {
-        currentDate.setMonth(currentDate.getMonth() - 1);
-        if (selectedDate.getMonth() !== currentDate.getMonth()) {
-            selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        }
-        renderCalendar(currentDate);
-        panel.classList.remove('active');
-        modal.style.display = 'none';
+    // Button "Neuen Termin hinzufügen" fügt Termin zum aktuell selektierten Zeit-Slot hinzu
+    addAppointmentBtn.onclick = () => {
+        openModal(selectedDate.getDate());
     };
 
-    document.getElementById('next-month').onclick = () => {
-        currentDate.setMonth(currentDate.getMonth() + 1);
-        if (selectedDate.getMonth() !== currentDate.getMonth()) {
-            selectedDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
-        }
-        renderCalendar(currentDate);
-        panel.classList.remove('active');
-        modal.style.display = 'none';
-    };
-
-    document.getElementById('today').onclick = () => {
-        currentDate = new Date();
-        selectedDate = new Date();
-        renderCalendar(currentDate);
-        panel.classList.remove('active');
-        modal.style.display = 'none';
-    };
-
-    document.getElementById('close-panel').onclick = () => {
-        panel.classList.remove('active');
-    };
-
-    document.querySelector('.modal-close').onclick = () => {
-        modal.style.display = 'none';
-    };
-
-    document.querySelector('.modal-btn-secondary').onclick = () => {
-        modal.style.display = 'none';
-    };
-
-    // Initialisierung
+    // --------- INIT ---------------
     renderCalendar(currentDate);
+    showDayView(selectedDate);
 })();
