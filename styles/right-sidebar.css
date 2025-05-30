@@ -155,7 +155,7 @@
 
 .calendar-day.today {
   background: #2563eb;
-  color: #92400e;
+  color: #ffffff;
   /* border-radius: 50%; */
 }
 
@@ -167,7 +167,7 @@
 /* Falls beides gleichzeitig: */
 .calendar-day.today.selected {
   background: #2563eb;
-  color: #92400e;
+  color: #ffffff;
   outline: 2px solid #2563eb;
 }
 
