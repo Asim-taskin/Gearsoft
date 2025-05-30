@@ -129,7 +129,7 @@
                     </div>
                     <div class="input-block">
                         <label for="bearbeiter">Bearbeiter*in</label>
-                        <input type="text" id="bearbeiter" value="Taskin Metehan">
+                        <input type="text" id="bearbeiter" value="Name">
                     </div>
                 </div>
             </div>
@@ -145,38 +145,38 @@
                     <table class="position-table">
                         <thead>
                             <tr>
-                                <th><input type="checkbox"></th>
-                                <th>Artikelnummer</th>
-                                <th>Menge</th>
-                                <th>Einheit</th>
-                                <th>Bezeichnung</th>
-                                <th>Einzelpreis exkl.</th>
-                                <th>Steuersatz</th>
-                                <th>Betrag exkl.</th>
-                                <th></th>
+                                <th data-label="Auswahl"><input type="checkbox"></th>
+                                <th data-label="Artikelnummer">Artikelnummer</th>
+                                <th data-label="Menge">Menge</th>
+                                <th data-label="Einheit">Einheit</th>
+                                <th data-label="Bezeichnung">Bezeichnung</th>
+                                <th data-label="Einzelpreis">Einzelpreis exkl.</th>
+                                <th data-label="Steuersatz">Steuersatz</th>
+                                <th data-label="Betrag">Betrag exkl.</th>
+                                <th data-label="Aktion"></th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="checkbox"></td>
-                                <td><input type="text"></td>
-                                <td><input type="number" value="1"></td>
-                                <td>
+                                <td data-label="Auswahl"><input type="checkbox"></td>
+                                <td data-label="Artikelnummer"><input type="text"></td>
+                                <td data-label="Menge"><input type="number" value="1"></td>
+                                <td data-label="Einheit">
                                     <select>
                                         <option>Stk.</option>
                                         <option>Std.</option>
                                     </select>
                                 </td>
-                                <td><input type="text" value="Klein und Verbrauchsmaterial"></td>
-                                <td><input type="text" value="0,00"></td>
-                                <td>
+                                <td data-label="Bezeichnung"><input type="text" value="Klein und Verbrauchsmaterial"></td>
+                                <td data-label="Einzelpreis"><input type="text" value="0,00"></td>
+                                <td data-label="Steuersatz">
                                     <select>
                                         <option>20% Standard</option>
                                         <option>10% Ermäßigt</option>
                                     </select>
                                 </td>
-                                <td>0,00</td>
-                                <td><button class="btn mini"><i class="fas fa-trash"></i></button></td>
+                                <td data-label="Betrag">0,00</td>
+                                <td data-label="Aktion"><button class="btn mini"><i class="fas fa-trash"></i></button></td>
                             </tr>
                         </tbody>
                     </table>

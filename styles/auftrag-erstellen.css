@@ -301,7 +301,7 @@ body, .auftrag-main, .auftrag-form, .auftrag-header {
 }
 
 .position-table input[type="number"] {
-    width: 70px;
+    max-width: 70px;
 }
 
 .position-table input:focus,
@@ -320,6 +320,66 @@ body, .auftrag-main, .auftrag-form, .auftrag-header {
 
 .position-table .btn.mini:hover {
     background: var(--danger-dark);
+}
+
+@media (max-width: 768px) {
+    .position-table {
+        display: block;
+    }
+
+    .position-table thead {
+        display: none;
+    }
+
+    .position-table tbody,
+    .position-table tr {
+        display: block;
+    }
+
+    .position-table tr {
+        margin-bottom: 1rem;
+        background: #fff;
+        border-radius: var(--radius-md);
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        padding: 0.5rem;
+    }
+
+    .position-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem;
+        border-bottom: none;
+        font-size: 0.85rem;
+    }
+
+    .position-table td:before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--gray-700);
+        flex: 1;
+        margin-right: 0.5rem;
+    }
+
+    .position-table td input[type="text"],
+    .position-table td input[type="number"],
+    .position-table td select {
+        flex: 2;
+        max-width: none;
+    }
+
+    .position-table td[data-label="Menge"] input[type="number"] {
+        max-width: 70px;
+    }
+
+    .position-table td[data-label="Aktion"] {
+        justify-content: flex-end;
+    }
+
+    .position-table td[data-label="Betrag"] {
+        font-weight: 600;
+        color: var(--gray-800);
+    }
 }
 
 .zusatzpaket {
@@ -439,11 +499,6 @@ body, .auftrag-main, .auftrag-form, .auftrag-header {
     .auftrag-block {
         padding: 0.75rem;
     }
-    .position-table th,
-    .position-table td {
-        padding: 0.5rem;
-        font-size: 0.85rem;
-    }
 }
 
 @media (max-width: 576px) {
@@ -478,11 +533,5 @@ body, .auftrag-main, .auftrag-form, .auftrag-header {
     .input-block textarea {
         font-size: 0.9rem;
         padding: 0.5rem;
-    }
-    .position-table-container {
-        font-size: 0.8rem;
-    }
-    .position-table input[type="number"] {
-        width: 50px;
     }
 }
