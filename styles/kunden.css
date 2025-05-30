@@ -1,6 +1,6 @@
 :root {
-    --danger-dark: #B91C1C; /* Dunkleres Rot für Hover-Effekt */
-    --plate-blue: #003087; /* Blau für Fallback */
+    --danger-dark: #B91C1C;
+    --plate-blue: #003087;
     --gray-50: #F9FAFB;
     --gray-100: #F3F4F6;
     --gray-200: #E5E7EB;
@@ -139,11 +139,9 @@ html, body {
 }
 
 .customer-stats {
-    
     display: flex;
     justify-content: space-between;
     gap: 1.5rem;
-    /* margin-bottom: 1.5rem; */
     font-size: 0.75rem;
     color: var(--gray-600);
     flex-wrap: wrap;
@@ -213,7 +211,6 @@ html, body {
     font-size: 0.75rem;
 }
 
-/* Kennzeichen Styling */
 .customer-table td[data-label="Kennzeichen"] {
     display: flex;
     align-items: center;
@@ -227,14 +224,14 @@ html, body {
     width: 104px;
     height: 32px;
     background-image: url('../img/kennzeichen.png');
-    background-size:  contain;
+    background-size: contain;
     background-position: center;
 }
 
 .plate-number {
     display: flex;
     align-items: center;
-    justify-content:flex-end;
+    justify-content: flex-end;
     width: 90%;
     height: 100%;
     color: #000;
@@ -294,7 +291,7 @@ html, body {
 }
 
 .table-footer {
-    width:100%;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -374,14 +371,7 @@ html, body {
         margin-right: 0;
     }
     .main-content {
-        /* margin-left: ; */
         max-width: calc(100% - 280px);
-    }
-    .customer-table th:nth-child(4),
-    .customer-table td:nth-child(4),
-    .customer-table th:nth-child(7),
-    .customer-table td:nth-child(7) {
-        /* display: none; */
     }
     .customer-table td.delete-action {
         display: table-cell;
@@ -389,220 +379,407 @@ html, body {
 }
 
 @media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: flex-start;
+        margin-right: 0;
+        width: 100%;
+    }
+
     .main-content {
         margin-left: 0;
         max-width: 100%;
+        padding: 1rem;
     }
+
     .customer-actions {
         flex-direction: column;
         align-items: stretch;
+        gap: 0.75rem;
     }
-    .search-box {
-        max-width: 100%;
+
+    .customer-table-container {
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+        border-radius: 0;
+        margin-bottom: 1.5rem;
     }
-    .action-buttons {
-        justify-content: flex-start;
+
+    .customer-table {
+        border-collapse: separate;
+        border-spacing: 0;
+        width: 100%;
+        min-width: 0;
     }
-    .customer-table th:nth-child(4),
-    .customer-table td:nth-child(4),
-    .customer-table th:nth-child(7),
-    .customer-table td:nth-child(7) {
+
+    .customer-table thead {
         display: none;
+    }
+
+    .customer-table tbody,
+    .customer-table tr {
+        display: block;
+        width: 100%;
+    }
+
+    .customer-table tr {
+        margin-bottom: 1.3rem;
+        background: #fff;
+        border-radius: var(--radius-lg);
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.09);
+        padding: 1.2rem 1.2rem 1rem 1.2rem;
+        position: relative;
+        min-width: 0;
+    }
+
+    .customer-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0.25rem 0 0.25rem 0;
+        border: none;
+        background: none;
+        font-size: 1.05rem;
+        color: var(--gray-800);
+        position: relative;
+        text-align: left;
+        line-height: 1.5;
+    }
+
+    .customer-table td:not([data-label="Name"]):not([data-label="Ort"]):not(.delete-action):not(:nth-child(1))::before {
+        content: attr(data-label) ": ";
+        display: inline-block;
+        font-weight: 500;
+        color: var(--gray-400);
+        min-width: 68px;
+        font-size: 0.93em;
+        margin-right: 0.17em;
+        vertical-align: middle;
+    }
+
+    .customer-table td:nth-child(1) {
+        position: absolute;
+        top: 1.1rem;
+        left: 1.1rem;
+        width: auto;
+        background: none;
+        padding: 0;
+        z-index: 2;
+        display: block;
+    }
+    .customer-table td:nth-child(1)::before {
+        content: none;
+    }
+    .customer-checkbox {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--primary);
+    }
+
+    .customer-table td[data-label="Name"] {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--primary-dark);
+        display: inline-block;
+        width: auto;
+        margin-bottom: 0.1rem;
+        padding: 0;
+        border: none;
+        vertical-align: top;
+    }
+    .customer-table td[data-label="Ort"] {
+        font-size: 1rem;
+        font-weight: 500;
+        color: var(--gray-600);
+        display: inline-block;
+        width: auto;
+        margin-left: 0.9rem;
+        margin-bottom: 0.13rem;
+        padding: 0;
+        border: none;
+        vertical-align: top;
+    }
+
+    .customer-table td.delete-action {
+        position: absolute;
+        top: 1.1rem;
+        right: 1.1rem;
+        background: none;
+        padding: 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        z-index: 3;
+        opacity: 1;
+    }
+    .table-action.delete {
+        background: none;
+        border: none;
+        color: var(--danger-dark);
+        cursor: pointer;
+        font-size: 1.3rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: var(--radius-md);
+        transition: background 0.13s, color 0.13s;
+    }
+    .table-action.delete:hover {
+        background-color: var(--gray-100);
+        color: var(--danger-dark);
+    }
+
+    .customer-table td[data-label="Straße"],
+    .customer-table td[data-label="Telefon"],
+    .customer-table td[data-label="Email"] {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        min-width: 0;
+        margin-right: 0;
+        margin-bottom: 0.08rem;
+        white-space: normal;
+        overflow: visible;
+        text-overflow: initial;
+    }
+
+    .customer-table td[data-label="Kennzeichen"] {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+        min-width: 0;
+        padding: 0.3rem 0 0.3rem 0;
+        margin: 0.3rem 0 0.3rem 0;
+        background: none;
+        border: none;
+    }
+    .customer-table td[data-label="Kennzeichen"]::before {
+        content: "Kennzeichen: ";
+        color: var(--gray-400);
+        font-weight: 700;
+        font-size: 0.98em;
+        margin-right: 0.33em;
+        min-width: 100px;
+    }
+    .plate {
+        margin-left: 0.22em;
+        width: 128px;
+        height: 36px;
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        display: flex;
+        align-items: center;
+    }
+    .plate-number {
+        font-size: 1.0em;
+        font-weight: 700;
+        color: #000;
+        margin-left: 0.25em;
+        text-align: left;
+        height: 100%;
+        align-items: center;
+        display: flex;
+    }
+
+    .customer-table td[data-label="Geburtstag"] {
+        color: var(--primary-dark);
+        font-size: 1.01em;
+        font-weight: 600;
+        margin-top: 0.18rem;
+        margin-bottom: 0.05rem;
+    }
+    .customer-table td[data-label="Geburtstag"]::before {
+        content: "Geburtstag: ";
+        color: var(--primary-dark);
+        font-weight: 700;
+        font-size: 0.95em;
+        margin-right: 0.18em;
     }
 }
 
 @media (max-width: 1353px) {
-  .customer-table-container {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    overflow-x: visible !important;
-  }
-  .customer-table tr,
-  .customer-table tbody tr,
-  .customer-table td {
-    background: #fff !important;
-    border: none !important;
-  }
-  .customer-table {
-    min-width: 100% !important;
-    border-collapse: separate !important;
-    border-spacing: 0 !important;
-  }
-  .customer-table thead {
-    display: none !important;
-  }
-  .customer-table tbody,
-  .customer-table tr {
-    display: block !important;
-    width: 100% !important;
-  }
-  .customer-table tr {
-    margin-bottom: 1.8rem !important;
-    border-radius: var(--radius-lg) !important;
-    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.09) !important;
-    padding: 1.2rem 1.2rem 1rem 1.2rem !important;
-    position: relative !important;
-    min-width: 0 !important;
-  }
-  /* Floating Checkbox */
-  .customer-table td:nth-child(1) {
-    position: absolute !important;
-    top: 1.1rem !important;
-    left: 1.1rem !important;
-    width: auto !important;
-    background: none !important;
-    padding: 0 !important;
-    z-index: 2 !important;
-    display: block !important;
-  }
-  .customer-table td:nth-child(1)::before {
-    content: none !important;
-  }
-  .customer-checkbox {
-    width: 20px !important;
-    height: 20px !important;
-    accent-color: var(--primary) !important;
-  }
-  /* Header: Name, Ort, Delete */
-  .customer-table td[data-label="Name"] {
-    font-size: 1.15rem !important;
-    font-weight: 700 !important;
-    color: var(--primary-dark) !important;
-    display: inline-block !important;
-    width: auto !important;
-    margin-bottom: 0.1rem !important;
-    padding: 0 !important;
-    border: none !important;
-    vertical-align: top !important;
-  }
-  .customer-table td[data-label="Ort"] {
-    font-size: 1rem !important;
-    font-weight: 500 !important;
-    color: var(--gray-600) !important;
-    display: inline-block !important;
-    width: auto !important;
-    margin-left: 0.9rem !important;
-    margin-bottom: 0.13rem !important;
-    padding: 0 !important;
-    border: none !important;
-    vertical-align: top !important;
-  }
-  .customer-table td.delete-action {
-    position: absolute !important;
-    top: 1.1rem !important;
-    right: 1.1rem !important;
-    background: none !important;
-    padding: 0 !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    z-index: 3 !important;
-    opacity: 1 !important;
-  }
-  .table-action.delete {
-    background: none !important;
-    border: none !important;
-    color: var(--danger-dark) !important;
-    cursor: pointer !important;
-    font-size: 1.3rem !important;
-    padding: 0.3rem 0.6rem !important;
-    border-radius: var(--radius-md) !important;
-    transition: background 0.13s, color 0.13s !important;
-  }
-  .table-action.delete:hover {
-    background-color: var(--gray-100) !important;
-    color: var(--danger-dark) !important;
-  }
-  /* Felder untereinander */
-  .customer-table td:not([data-label="Name"]):not([data-label="Ort"]):not(.delete-action):not(:nth-child(1)) {
-    /* display: block !important; */
-    display: flex !important;
-    justify-content: space-between !important;
-    width: 100% !important;
-    border: none !important;
-    background: none !important;
-    min-width: 0 !important;
-    padding: 0.25rem 0 0.25rem 0 !important;
-    margin-bottom: 0.18rem !important;
-    font-size: 1.02rem !important;
-    color: var(--gray-800) !important;
-    position: relative !important;
-    text-align: left !important;
-    line-height: 1.5 !important;
-  }
-  .customer-table td:not([data-label="Name"]):not([data-label="Ort"]):not(.delete-action):not(:nth-child(1))::before {
-    content: attr(data-label) ": " !important;
-    display: inline-block !important;
-    font-weight: 500 !important;
-    color: var(--gray-400) !important;
-    min-width: 68px !important;
-    font-size: 0.93em !important;
-    margin-right: 0.17em !important;
-    vertical-align: middle !important;
-  }
-  /* Keine Zeile nebeneinander! */
-  .customer-table td[data-label="Straße"],
-  .customer-table td[data-label="Telefon"] {
-    width: 100% !important;
-    min-width: 0 !important;
-    display: block !important;
-    margin-right: 0 !important;
-    margin-bottom: 0.08rem !important;
-    white-space: normal !important;
-    overflow: visible !important;
-    text-overflow: initial !important;
-  }
-  /* Kennzeichen */
-  .customer-table td[data-label="Kennzeichen"] {
-    display: flex !important;
-    justify-content: space-between;
-    align-items: center !important;
-    width: 100% !important;
-    min-width: 0 !important;
-    padding: 0.3rem 0 0.3rem 0 !important;
-    margin: 0.3rem 0 0.3rem 0 !important;
-    background: none !important;
-    border: none !important;
-  }
-  .customer-table td[data-label="Kennzeichen"]::before {
-    content: "Kennzeichen: " !important;
-    color: var(--gray-400) !important;
-    font-weight: 700 !important;
-    font-size: 0.98em !important;
-    margin-right: 0.33em !important;
-    min-width: 100px !important;
-  }
-  .plate {
-    margin-left: 0.22em !important;
-    width: 128px !important;
-    height: 36px !important;
-    background-size: contain !important;
-    background-position: center !important;
-    background-repeat: no-repeat !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-  .plate-number {
-    font-size: 1.0em !important;
-    font-weight: 700 !important;
-    color: #000 !important;
-    margin-left: 0.25em !important;
-    text-align: left !important;
-    /* width: auto !important; */
-    height: 100% !important;
-    align-items: center !important;
-    display: flex !important;
-  }
+    .customer-table-container {
+        background: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        overflow-x: visible !important;
+    }
+    .customer-table tr,
+    .customer-table tbody tr,
+    .customer-table td {
+        background: #fff !important;
+        border: none !important;
+    }
+    .customer-table {
+        min-width: 100% !important;
+        border-collapse: separate !important;
+        border-spacing: 0 !important;
+    }
+    .customer-table thead {
+        display: none !important;
+    }
+    .customer-table tbody,
+    .customer-table tr {
+        display: block !important;
+        width: 100% !important;
+    }
+    .customer-table tr {
+        margin-bottom: 1.8rem !important;
+        border-radius: var(--radius-lg) !important;
+        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.09) !important;
+        padding: 1.2rem 1.2rem 1rem 1.2rem !important;
+        position: relative !important;
+        min-width: 0 !important;
+    }
+    .customer-table td:nth-child(1) {
+        position: absolute !important;
+        top: 1.1rem !important;
+        left: 1.1rem !important;
+        width: auto !important;
+        background: none !important;
+        padding: 0 !important;
+        z-index: 2 !important;
+        display: block !important;
+    }
+    .customer-table td:nth-child(1)::before {
+        content: none !important;
+    }
+    .customer-checkbox {
+        width: 20px !important;
+        height: 20px !important;
+        accent-color: var(--primary) !important;
+    }
+    .customer-table td[data-label="Name"] {
+        display: flex;
+        justify-content: space-around;
+        font-size: 1.15rem !important;
+        font-weight: 700 !important;
+        color: var(--primary-dark) !important;
+        width: auto !important;
+        margin-bottom: 0.1rem !important;
+        padding: 0 !important;
+        border: none !important;
+        vertical-align: top !important;
+    }
+    .customer-table td[data-label="Ort"] {
+        font-size: 1rem !important;
+        font-weight: 500 !important;
+        color: var(--gray-600) !important;
+        display: inline-block !important;
+        width: auto !important;
+        margin-left: 0.9rem !important;
+        margin-bottom: 0.13rem !important;
+        padding: 0 !important;
+        border: none !important;
+        vertical-align: top !important;
+    }
+    .customer-table td.delete-action {
+        position: absolute !important;
+        top: 1.1rem !important;
+        right: 1.1rem !important;
+        background: none !important;
+        padding: 0 !important;
+        display: flex !important;
+        justify-content: flex-end !important;
+        align-items: center !important;
+        z-index: 3 !important;
+        opacity: 1 !important;
+    }
+    .table-action.delete {
+        background: none !important;
+        border: none !important;
+        color: var(--danger-dark) !important;
+        cursor: pointer !important;
+        font-size: 1.3rem !important;
+        padding: 0.3rem 0.6rem !important;
+        border-radius: var(--radius-md) !important;
+        transition: background 0.13s, color 0.13s !important;
+    }
+    .table-action.delete:hover {
+        background-color: var(--gray-100) !important;
+        color: var(--danger-dark) !important;
+    }
+    .customer-table td:not([data-label="Name"]):not([data-label="Ort"]):not(.delete-action):not(:nth-child(1)) {
+        display: flex !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        border: none !important;
+        background: none !important;
+        min-width: 0 !important;
+        padding: 0.25rem 0 0.25rem 0 !important;
+        font-size: 1.02rem !important;
+        color: var(--gray-800) !important;
+        position: relative !important;
+        text-align: left !important;
+        line-height: 1.5 !important;
+    }
+    .customer-table td:not([data-label="Name"]):not([data-label="Ort"]):not(.delete-action):not(:nth-child(1))::before {
+        content: attr(data-label) ": " !important;
+        display: inline-block !important;
+        font-weight: 500 !important;
+        color: var(--gray-400) !important;
+        min-width: 68px !important;
+        font-size: 0.93em !important;
+        margin-right: 0.17em !important;
+        vertical-align: middle !important;
+    }
+    .customer-table td[data-label="Straße"],
+    .customer-table td[data-label="Telefon"] {
+        width: 100% !important;
+        min-width: 0 !important;
+        display: block !important;
+        margin-right: 0 !important;
+        margin-bottom: 0.08rem !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: initial !important;
+    }
+    .customer-table td[data-label="Kennzeichen"] {
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        padding: 0.3rem 0 0.3rem 0 !important;
+        background: none !important;
+        border: none !important;
+    }
+    .customer-table td[data-label="Kennzeichen"]::before {
+        content: "Kennzeichen: " !important;
+        color: var(--gray-400) !important;
+        font-weight: 700 !important;
+        font-size: 0.98em !important;
+        margin-right: 0.33em !important;
+        min-width: 100px !important;
+    }
+    .plate {
+        margin-left: 0.22em !important;
+        width: 128px !important;
+        height: 36px !important;
+        background-size: contain !important;
+        background-position: center !important;
+        background-repeat: no-repeat !important;
+        display: flex !important;
+        align-items: center !important;
+    }
+    .plate-number {
+        font-size: 1.0em !important;
+        font-weight: 700 !important;
+        color: #000 !important;
+        margin-left: 0.25em !important;
+        text-align: left !important;
+        height: 100% !important;
+        align-items: center !important;
+        display: flex !important;
+    }
 }
 
-
-
-
-
 .birthday-filter {
-    margin-bottom:12px;
-    flex-wrap:wrap;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -619,10 +796,12 @@ html, body {
     font-size: 0.75rem;
 }
 
-.birthday-control{
-    flex-wrap:wrap;
+.birthday-control {
+    flex-wrap: wrap;
 }
 
-/* .birthday-filter-btn{
-    margin-bottom:12px;
-} */
+
+
+
+
+
