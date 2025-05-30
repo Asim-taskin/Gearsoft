@@ -297,5 +297,17 @@
       });
     })();
   </script>
+
+    <script>
+    (() => {
+      const menuToggle = document.getElementById('menu-toggle');
+      document.querySelectorAll('.menu-icon, .close-btn').forEach(item => {
+          item.addEventListener('click', () => {
+              menuToggle.checked = !menuToggle.checked;
+          });
+      });
+    })();
+  </script>
+  
 </body>
 </html>
