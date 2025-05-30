@@ -411,121 +411,193 @@ html, body {
     }
 }
 
-@media (max-width: 576px) {
-    .customer-table-container {
-        background-color: transparent;
-        border: none;
-        box-shadow: none;
-        overflow-x: visible;
-    }
-    .customer-table {
-        min-width: 100%;
-    }
-    .customer-table thead {
-        display: none;
-    }
-    .customer-table tbody,
-    .customer-table tr,
-    .customer-table td {
-        display: block;
-        width: 100%;
-    }
-    .customer-table tr {
-        margin-bottom: 1rem;
-        background-color: white;
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-sm);
-        padding: 0.75rem;
-        position: relative;
-    }
-    .customer-table td {
-        text-align: right;
-        padding: 0.5rem 1rem;
-        border: none;
-        position: relative;
-        font-size: 0.75rem;
-        color: var(--gray-800);
-    }
-    .customer-table td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 1rem;
-        font-weight: 600;
-        text-align: left;
-        color: var(--gray-600);
-        font-size: 0.6875rem;
-    }
-    .customer-table td:nth-child(1) {
-        display: flex;
-        justify-content: flex-end;
-        padding: 0.5rem 1rem;
-    }
-    .customer-table td:nth-child(1)::before {
-        content: none;
-    }
-    .customer-table td.delete-action {
-        display: flex;
-        justify-content: flex-end;
-        padding: 0.5rem 1rem;
-        opacity: 1;
-    }
-    .customer-table td.delete-action::before {
-        content: none;
-    }
-    .customer-table td[data-label="Kennzeichen"] {
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        width: auto;
-        padding: 0.5rem 1rem;
-    }
-    .customer-table td[data-label="Kennzeichen"]::before {
-        content: attr(data-label);
-        left: 1rem;
-        font-weight: 600;
-        color: var(--gray-600);
-        font-size: 0.6875rem;
-    }
-    .plate {
-        display: flex;
-        align-items: center;
-        width: 90px;
-        height: 28px;
-        background-image: url('../img/kennzeichen.png');
-        background-size: contain;
-        background-position: center;
-    }
-    .plate-number {
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        width: 90%;
-        height: 100%;
-        color: #000;
-        font-size: 0.6875rem;
-        font-weight: 500;
-        text-align: center;
-    }
-    .table-action.delete {
-        position: static;
-    }
-    .table-footer {
-        flex-direction: column;
-        align-items: center;
-        background-color: transparent;
-        border: none;
-    }
-    .table-page-size {
-        justify-content: center;
-    }
-    .table-pagination {
-        justify-content: center;
-    }
-    .pagination-btn {
-        width: 40px;
-        height: 40px;
-    }
+@media (max-width: 1353px) {
+  .customer-table-container {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow-x: visible !important;
+  }
+  .customer-table tr,
+  .customer-table tbody tr,
+  .customer-table td {
+    background: #fff !important;
+    border: none !important;
+  }
+  .customer-table {
+    min-width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+  }
+  .customer-table thead {
+    display: none !important;
+  }
+  .customer-table tbody,
+  .customer-table tr {
+    display: block !important;
+    width: 100% !important;
+  }
+  .customer-table tr {
+    margin-bottom: 1.8rem !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow: 0 2px 8px 0 rgba(0,0,0,0.09) !important;
+    padding: 1.2rem 1.2rem 1rem 1.2rem !important;
+    position: relative !important;
+    min-width: 0 !important;
+  }
+  /* Floating Checkbox */
+  .customer-table td:nth-child(1) {
+    position: absolute !important;
+    top: 1.1rem !important;
+    left: 1.1rem !important;
+    width: auto !important;
+    background: none !important;
+    padding: 0 !important;
+    z-index: 2 !important;
+    display: block !important;
+  }
+  .customer-table td:nth-child(1)::before {
+    content: none !important;
+  }
+  .customer-checkbox {
+    width: 20px !important;
+    height: 20px !important;
+    accent-color: var(--primary) !important;
+  }
+  /* Header: Name, Ort, Delete */
+  .customer-table td[data-label="Name"] {
+    font-size: 1.15rem !important;
+    font-weight: 700 !important;
+    color: var(--primary-dark) !important;
+    display: inline-block !important;
+    width: auto !important;
+    margin-bottom: 0.1rem !important;
+    padding: 0 !important;
+    border: none !important;
+    vertical-align: top !important;
+  }
+  .customer-table td[data-label="Ort"] {
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    color: var(--gray-600) !important;
+    display: inline-block !important;
+    width: auto !important;
+    margin-left: 0.9rem !important;
+    margin-bottom: 0.13rem !important;
+    padding: 0 !important;
+    border: none !important;
+    vertical-align: top !important;
+  }
+  .customer-table td.delete-action {
+    position: absolute !important;
+    top: 1.1rem !important;
+    right: 1.1rem !important;
+    background: none !important;
+    padding: 0 !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    z-index: 3 !important;
+    opacity: 1 !important;
+  }
+  .table-action.delete {
+    background: none !important;
+    border: none !important;
+    color: var(--danger-dark) !important;
+    cursor: pointer !important;
+    font-size: 1.3rem !important;
+    padding: 0.3rem 0.6rem !important;
+    border-radius: var(--radius-md) !important;
+    transition: background 0.13s, color 0.13s !important;
+  }
+  .table-action.delete:hover {
+    background-color: var(--gray-100) !important;
+    color: var(--danger-dark) !important;
+  }
+  /* Felder untereinander */
+  .customer-table td:not([data-label="Name"]):not([data-label="Ort"]):not(.delete-action):not(:nth-child(1)) {
+    /* display: block !important; */
+    display: flex !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    border: none !important;
+    background: none !important;
+    min-width: 0 !important;
+    padding: 0.25rem 0 0.25rem 0 !important;
+    margin-bottom: 0.18rem !important;
+    font-size: 1.02rem !important;
+    color: var(--gray-800) !important;
+    position: relative !important;
+    text-align: left !important;
+    line-height: 1.5 !important;
+  }
+  .customer-table td:not([data-label="Name"]):not([data-label="Ort"]):not(.delete-action):not(:nth-child(1))::before {
+    content: attr(data-label) ": " !important;
+    display: inline-block !important;
+    font-weight: 500 !important;
+    color: var(--gray-400) !important;
+    min-width: 68px !important;
+    font-size: 0.93em !important;
+    margin-right: 0.17em !important;
+    vertical-align: middle !important;
+  }
+  /* Keine Zeile nebeneinander! */
+  .customer-table td[data-label="Straße"],
+  .customer-table td[data-label="Telefon"] {
+    width: 100% !important;
+    min-width: 0 !important;
+    display: block !important;
+    margin-right: 0 !important;
+    margin-bottom: 0.08rem !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: initial !important;
+  }
+  /* Kennzeichen */
+  .customer-table td[data-label="Kennzeichen"] {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center !important;
+    width: 100% !important;
+    min-width: 0 !important;
+    padding: 0.3rem 0 0.3rem 0 !important;
+    margin: 0.3rem 0 0.3rem 0 !important;
+    background: none !important;
+    border: none !important;
+  }
+  .customer-table td[data-label="Kennzeichen"]::before {
+    content: "Kennzeichen: " !important;
+    color: var(--gray-400) !important;
+    font-weight: 700 !important;
+    font-size: 0.98em !important;
+    margin-right: 0.33em !important;
+    min-width: 100px !important;
+  }
+  .plate {
+    margin-left: 0.22em !important;
+    width: 128px !important;
+    height: 36px !important;
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+  .plate-number {
+    font-size: 1.0em !important;
+    font-weight: 700 !important;
+    color: #000 !important;
+    margin-left: 0.25em !important;
+    text-align: left !important;
+    /* width: auto !important; */
+    height: 100% !important;
+    align-items: center !important;
+    display: flex !important;
+  }
 }
+
+
+
 
 
 .birthday-filter {
