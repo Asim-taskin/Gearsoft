@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neuer Auftrag | GearSoft</title>
+    <link rel="stylesheet" href="../styles/dashboard.css">
+    <link rel="stylesheet" href="../styles/right-sidebar.css">
+    <link rel="stylesheet" href="../styles/webkit.css">
+    <link rel="stylesheet" href="../styles/auftrag-erstellen.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<input type="checkbox" id="menu-toggle" class="menu-toggle">
+<header class="header">
+    <div class="header-left">
+        <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
+        <div class="logo-title">
+            <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
+            <div class="title">Neuer Auftrag</div>
+        </div>
+    </div>
+    <div class="header-right">
+
+
+    </div>
+</header>
+<div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="user-profile">
+                <div class="avatar">MA</div>
+                <div class="user-info">
+                    <div class="user-name">Max Mustermann</div>
+                    <div class="user-role">Werkstatt</div>
+                </div>
+            </div>
+            <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
+                <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
+                <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
+                <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
+                <li><a href="./verkaufsfahrzeuge.html"><i class="fas fa-warehouse"></i> Verkaufsfahrzeuge</a></li>
+                <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> Angebote</a></li>
+                <li class="active"><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
+                <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
+                <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
+                <li class="menu-item has-submenu">
+                    <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+                    <label for="lagerbestand-toggle" class="submenu-label"><i class="fas fa-list"></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i></label>
+                    <ul class="submenu">
+                        <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
+                        <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
+                        <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
+                        <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
+                        <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
+                    </ul>
+                </li>
+                <li class="menu-item has-submenu">
+                    <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+                    <label for="berichte-toggle" class="submenu-label"><i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i></label>
+                    <ul class="submenu">
+                        <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
+                        <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content Auftrag erstellen -->
+    <main class="main-content auftrag-main">
+<div class="auftrag-header">
+    <h1>Neuer Auftrag</h1>
+    <div class="auftrag-preis">0,00&nbsp;€</div>
+    <div class="stars" style="color:#eab308;">
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i>
+    </div>
+    <div class="auftrag-header-actions">
+        <button class="btn outline">Abbrechen</button>
+        <button class="btn primary">Speichern</button>
+    </div>
+</div>
+
+
+
+        <!-- Formular -->
+        <form class="auftrag-form">
+            <div class="auftrag-row" style="display: flex; gap:2rem; margin-bottom:1rem; flex-wrap:wrap;">
+                <div class="auftrag-block" style="flex:2; min-width: 260px;">
+                    <label style="font-weight:500;">KUNDENDATEN</label>
+                    <div class="input-block" style="margin-bottom:0.6rem;">
+                        <button type="button" class="select-btn"><i class="fas fa-user"></i> Kunde wählen</button>
+                    </div>
+                    <label style="font-weight:500;">FAHRZEUG</label>
+                    <div class="input-block" style="margin-bottom:0.6rem;">
+                        <button type="button" class="select-btn"><i class="fas fa-car"></i> Fahrzeug wählen</button>
+                    </div>
+                    <label style="font-weight:500;">KUNDENTEXT</label>
+                    <div class="input-block">
+                        <textarea placeholder="Kundentext..." rows="2" style="width:100%;"></textarea>
+                    </div>
+                </div>
+                <div class="auftrag-block" style="flex:1; min-width: 200px;">
+                    <label style="font-weight:500;">RECHNUNGSDATEN</label>
+                    <div class="input-block">
+                        <label>Auftragsdatum</label>
+                        <input type="date" value="2025-05-30">
+                    </div>
+                    <div class="input-block">
+                        <label>Leistungszeitraum von</label>
+                        <input type="date" value="2025-05-30">
+                    </div>
+                    <div class="input-block">
+                        <label>Leistungszeitraum bis</label>
+                        <input type="date" value="2025-05-30">
+                    </div>
+                    <div class="input-block">
+                        <label>Bearbeiter*in</label>
+                        <input type="text" value="Taskin Metehan">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Positionen -->
+            <div style="margin-top:2rem; margin-bottom:1.5rem;">
+                <div class="position-buttons">
+                    <button type="button" class="btn primary" style="margin-bottom:1rem;"><i class="fas fa-plus"></i> Position hinzufügen</button>
+                    <button type="button" class="btn secondary" style="margin-left:1rem;">Anzeigeoptionen</button>
+                </div>
+                <table class="position-table" style="width:100%; margin-top:1rem;">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox"></th>
+                            <th>Artikelnummer</th>
+                            <th>Menge</th>
+                            <th>Einheit</th>
+                            <th>Bezeichnung</th>
+                            <th>Einzelpreis exkl.</th>
+                            <th>Steuersatz</th>
+                            <th>Betrag exkl.</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td><input type="text" style="width:70px;"></td>
+                            <td><input type="number" value="1" style="width:50px;"></td>
+                            <td>
+                                <select>
+                                    <option>Stk.</option>
+                                    <option>Std.</option>
+                                </select>
+                            </td>
+                            <td><input type="text" value="Klein und verbrauchsmaterial"></td>
+                            <td><input type="text" value="0,00"></td>
+                            <td>
+                                <select>
+                                    <option>20% Standard</option>
+                                    <option>10% Ermäßigt</option>
+                                </select>
+                            </td>
+                            <td>0,00</td>
+                            <td><button class="btn mini"><i class="fas fa-trash"></i></button></td>
+                        </tr>
+                        <!-- Weitere Positionen... -->
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Zusatzpaket Schnittstellen -->
+            <div class="zusatzpaket" style="margin-bottom:2rem;">
+                <div style="font-weight:500; margin-bottom:0.3rem;">Zusatzpaket: Schnittstellen</div>
+                <div style="font-weight:600; color:var(--primary-dark);">Wähle eine Schnittstelle aus!</div>
+                <div style="margin:0.7rem 0;">
+                    <select style="padding:0.5rem; min-width:180px;">
+                        <option>Schnittstelle auswählen</option>
+                    </select>
+                </div>
+                <div style="color:var(--gray-600); font-size:0.93em;">
+                    Je nach Schnittstelle stehen dir dann verschiedene Aktionen zur Auswahl.
+                </div>
+            </div>
+
+            <!-- Gesamtsummen -->
+            <div class="summen" style="margin-top:2.2rem; text-align:right;">
+                <div>Rabatt: <span>0,00&nbsp;€</span></div>
+                <div>Gesamt exkl.: <span>0,00&nbsp;€</span></div>
+                <div>Gesamt inkl.: <span>0,00&nbsp;€</span></div>
+            </div>
+        </form>
+    </main>
+
+    <!-- Rechte Sidebar -->
+    <aside class="right-sidebar">
+        <div class="right-sidebar-content">
+            <!-- Notizen -->
+            <section class="notes-section">
+                <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
+                <div class="section-header">
+                    <h2>Notizen</h2>
+                    <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                    <button class="card-btn outline" style="margin-left:auto; margin-right: 0.2rem;">+ Notiz</button>
+                </div>
+                <div class="section-content notes-content">
+                    <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
+                    <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
+                    <div class="notes-list-container">
+                        <ul id="notes-list" class="notes-list"></ul>
+                    </div>
+                </div>
+            </section>
+            <!-- Aufgaben -->
+      <aside class="right-sidebar">
+        <div class="right-sidebar-content">
+          <section class="calendar-section">
+            <input
+              type="checkbox"
+              id="calendar-toggle"
+              class="toggle-checkbox"
+              checked
+            />
+            <div class="section-header">
+              <h2>Kalender</h2>
+              <div class="calendar-controls">
+                <button class="nav-arrow" onclick="prevMonth()">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <span class="calendar-month" id="calendar-month">Mai 2025</span>
+                <button class="nav-arrow" onclick="nextMonth()">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+                <label for="calendar-toggle" class="toggle-btn"
+                  ><i class="fas fa-chevron-down"></i
+                ></label>
+              </div>
+            </div>
+            <div class="section-content calendar-content">
+              <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
+          </section>
+
+          <section class="appointments-section">
+            <input
+              type="checkbox"
+              id="appointments-toggle"
+              class="toggle-checkbox"
+              checked
+            />
+            <div class="section-header">
+              <h2>Termine <span id="selected-date"></span></h2>
+              <label for="appointments-toggle" class="toggle-btn"
+                ><i class="fas fa-chevron-down"></i
+              ></label>
+            </div>
+            <div class="section-content appointments-content">
+              <div class="appointments-list-container">
+                <ul class="appointments-list" id="appointments-list"></ul>
+              </div>
+              <button class="card-btn outline" id="add-appointment">
+                + Neuer Termin
+              </button>
+            </div>
+          </section>
+
+          <section class="notes-section">
+            <input
+              type="checkbox"
+              id="notes-toggle"
+              class="toggle-checkbox"
+              checked
+            />
+            <div class="section-header">
+              <h2>Notizen</h2>
+              <label for="notes-toggle" class="toggle-btn"
+                ><i class="fas fa-chevron-down"></i
+              ></label>
+            </div>
+            <div class="section-content notes-content">
+              <textarea
+                id="notes-textarea"
+                class="notes-textarea"
+                placeholder="Hier Notizen eingeben..."
+              ></textarea>
+              <button class="card-btn" id="save-notes-btn">
+                Notizen speichern
+              </button>
+              <div class="notes-list-container">
+                <ul id="notes-list" class="notes-list"></ul>
+              </div>
+            </div>
+          </section>
+
+          <div id="notes-modal" class="notes-modal">Gespeichert!</div>
+
+          <div id="note-edit-modal" class="modal">
+            <div class="modal-content">
+              <div
+                class="modal-header"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 1rem;
+                "
+              >
+                <h2
+                  class="modal-title"
+                  style="font-size: 1.25rem; font-weight: 600; color: #1f2937"
+                >
+                  Notiz bearbeiten
+                </h2>
+                <button
+                  class="modal-close"
+                  aria-label="Modal schließen"
+                  style="
+                    background: none;
+                    border: none;
+                    font-size: 1.25rem;
+                    cursor: pointer;
+                  "
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <form id="note-edit-form" class="modal-form">
+                <div class="form-group">
+                  <label for="note-content">Notiz</label>
+                  <textarea
+                    id="note-content"
+                    class="notes-textarea"
+                    style="width: 100%; height: 150px; padding: 0.5rem"
+                  ></textarea>
+                </div>
+                <div
+                  class="modal-footer"
+                  style="
+                    margin-top: 1rem;
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 1rem;
+                  "
+                >
+                  <button type="button" class="modal-btn modal-btn-delete">
+                    Löschen
+                  </button>
+                  <button type="button" class="modal-btn modal-btn-secondary">
+                    Abbrechen
+                  </button>
+                  <button type="submit" class="modal-btn modal-btn-primary">
+                    Speichern
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div id="appointment-modal" class="modal">
+            <div class="modal-content">
+              <div
+                class="modal-header"
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-bottom: 1rem;
+                "
+              >
+                <h2
+                  class="modal-title"
+                  style="font-size: 1.25rem; font-weight: 600; color: #1f2937"
+                >
+                  Neuer Termin
+                </h2>
+                <button
+                  class="modal-close"
+                  aria-label="Modal schließen"
+                  style="
+                    background: none;
+                    border: none;
+                    font-size: 1.25rem;
+                    cursor: pointer;
+                  "
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <form id="appointment-form" class="modal-form">
+                <div
+                  class="form-grid"
+                  style="
+                    display: grid;
+                    grid-template-columns: 1fr 1fr;
+                    gap: 1rem;
+                  "
+                >
+                  <div class="form-group">
+                    <label for="appointment-time">Uhrzeit</label>
+                    <select
+                      id="appointment-time"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    ></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="appointment-duration">Dauer</label>
+                    <select
+                      id="appointment-duration"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    ></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="appointment-customer">Kunde</label>
+                    <input
+                      type="text"
+                      id="appointment-customer"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label for="appointment-vehicle">Fahrzeug</label>
+                    <input
+                      type="text"
+                      id="appointment-vehicle"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    />
+                  </div>
+                  <div
+                    class="form-group full-width"
+                    style="grid-column: span 2"
+                  >
+                    <label for="appointment-service">Dienstleistung</label>
+                    <input
+                      type="text"
+                      id="appointment-service"
+                      required
+                      style="width: 100%; padding: 0.5rem"
+                    />
+                  </div>
+                  <div
+                    class="form-group full-width"
+                    style="grid-column: span 2"
+                  >
+                    <label for="appointment-note">Notiz</label>
+                    <textarea
+                      id="appointment-note"
+                      style="width: 100%; padding: 0.5rem"
+                    ></textarea>
+                  </div>
+                  <div class="form-group">
+                    <label for="appointment-price">Preis (€)</label>
+                    <input
+                      type="number"
+                      id="appointment-price"
+                      step="0.01"
+                      min="0"
+                      style="width: 100%; padding: 0.5rem"
+                    />
+                  </div>
+                </div>
+                <div
+                  class="modal-footer"
+                  style="
+                    margin-top: 1rem;
+                    display: flex;
+                    justify-content: flex-end;
+                    gap: 1rem;
+                  "
+                >
+                  <button type="button" class="modal-btn modal-btn-secondary">
+                    Abbrechen
+                  </button>
+                  <button type="submit" class="modal-btn modal-btn-primary">
+                    Speichern
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </aside>
+</div>
+<script src="../scripts/right-sidebar.js"></script>
+</body>
+</html>
