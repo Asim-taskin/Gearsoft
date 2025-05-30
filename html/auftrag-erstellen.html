@@ -13,6 +13,7 @@
 </head>
 <body>
 <input type="checkbox" id="menu-toggle" class="menu-toggle">
+
 <header class="header">
     <div class="header-left">
         <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
@@ -22,12 +23,10 @@
         </div>
     </div>
     <div class="header-right">
-
-
     </div>
 </header>
+
 <div class="container">
-    <!-- Sidebar -->
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="user-profile">
@@ -73,23 +72,20 @@
         </nav>
     </aside>
 
-    <!-- Main Content Auftrag erstellen -->
     <main class="main-content auftrag-main">
-<div class="auftrag-header">
-    <h1>Neuer Auftrag</h1>
-    <div class="auftrag-preis">0,00&nbsp;€</div>
-    <div class="stars" style="color:#eab308;">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-        <i class="fas fa-star"></i>
-    </div>
-    <div class="auftrag-header-actions">
-        <button class="btn outline">Abbrechen</button>
-        <button class="btn primary">Speichern</button>
-    </div>
-</div>
-
-
+        <div class="auftrag-header">
+            <h1>Neuer Auftrag</h1>
+            <div class="auftrag-preis">0,00&nbsp;€</div>
+            <div class="stars" style="color:#eab308;">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i><i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+            </div>
+            <div class="auftrag-header-actions">
+                <button class="btn outline">Abbrechen</button>
+                <button class="btn primary">Speichern</button>
+            </div>
+        </div>
 
         <!-- Formular -->
         <form class="auftrag-form">
@@ -199,10 +195,38 @@
         </form>
     </main>
 
-    <!-- Rechte Sidebar -->
     <aside class="right-sidebar">
         <div class="right-sidebar-content">
-            <!-- Notizen -->
+            <section class="calendar-section">
+                <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
+                <div class="section-header">
+                    <h2>Kalender</h2>
+                    <div class="calendar-controls">
+                        <button class="nav-arrow" onclick="prevMonth()"><i class="fas fa-chevron-left"></i></button>
+                        <span class="calendar-month" id="calendar-month">Mai 2025</span>
+                        <button class="nav-arrow" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
+                        <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                    </div>
+                </div>
+                <div class="section-content calendar-content">
+                    <div class="calendar-grid" id="calendar-grid"></div>
+                </div>
+            </section>
+
+            <section class="appointments-section">
+                <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
+                <div class="section-header">
+                    <h2>Termine <span id="selected-date"></span></h2>
+                    <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+                </div>
+                <div class="section-content appointments-content">
+                    <div class="appointments-list-container">
+                        <ul class="appointments-list" id="appointments-list"></ul>
+                    </div>
+                    <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
+                </div>
+            </section>
+
             <section class="notes-section">
                 <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
                 <div class="section-header">
@@ -218,278 +242,75 @@
                     </div>
                 </div>
             </section>
-            <!-- Aufgaben -->
-      <aside class="right-sidebar">
-        <div class="right-sidebar-content">
-          <section class="calendar-section">
-            <input
-              type="checkbox"
-              id="calendar-toggle"
-              class="toggle-checkbox"
-              checked
-            />
-            <div class="section-header">
-              <h2>Kalender</h2>
-              <div class="calendar-controls">
-                <button class="nav-arrow" onclick="prevMonth()">
-                  <i class="fas fa-chevron-left"></i>
-                </button>
-                <span class="calendar-month" id="calendar-month">Mai 2025</span>
-                <button class="nav-arrow" onclick="nextMonth()">
-                  <i class="fas fa-chevron-right"></i>
-                </button>
-                <label for="calendar-toggle" class="toggle-btn"
-                  ><i class="fas fa-chevron-down"></i
-                ></label>
-              </div>
-            </div>
-            <div class="section-content calendar-content">
-              <div class="calendar-grid" id="calendar-grid"></div>
-            </div>
-          </section>
 
-          <section class="appointments-section">
-            <input
-              type="checkbox"
-              id="appointments-toggle"
-              class="toggle-checkbox"
-              checked
-            />
-            <div class="section-header">
-              <h2>Termine <span id="selected-date"></span></h2>
-              <label for="appointments-toggle" class="toggle-btn"
-                ><i class="fas fa-chevron-down"></i
-              ></label>
-            </div>
-            <div class="section-content appointments-content">
-              <div class="appointments-list-container">
-                <ul class="appointments-list" id="appointments-list"></ul>
-              </div>
-              <button class="card-btn outline" id="add-appointment">
-                + Neuer Termin
-              </button>
-            </div>
-          </section>
+            <div id="notes-modal" class="notes-modal">Gespeichert!</div>
 
-          <section class="notes-section">
-            <input
-              type="checkbox"
-              id="notes-toggle"
-              class="toggle-checkbox"
-              checked
-            />
-            <div class="section-header">
-              <h2>Notizen</h2>
-              <label for="notes-toggle" class="toggle-btn"
-                ><i class="fas fa-chevron-down"></i
-              ></label>
-            </div>
-            <div class="section-content notes-content">
-              <textarea
-                id="notes-textarea"
-                class="notes-textarea"
-                placeholder="Hier Notizen eingeben..."
-              ></textarea>
-              <button class="card-btn" id="save-notes-btn">
-                Notizen speichern
-              </button>
-              <div class="notes-list-container">
-                <ul id="notes-list" class="notes-list"></ul>
-              </div>
-            </div>
-          </section>
-
-          <div id="notes-modal" class="notes-modal">Gespeichert!</div>
-
-          <div id="note-edit-modal" class="modal">
-            <div class="modal-content">
-              <div
-                class="modal-header"
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  margin-bottom: 1rem;
-                "
-              >
-                <h2
-                  class="modal-title"
-                  style="font-size: 1.25rem; font-weight: 600; color: #1f2937"
-                >
-                  Notiz bearbeiten
-                </h2>
-                <button
-                  class="modal-close"
-                  aria-label="Modal schließen"
-                  style="
-                    background: none;
-                    border: none;
-                    font-size: 1.25rem;
-                    cursor: pointer;
-                  "
-                >
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-              <form id="note-edit-form" class="modal-form">
-                <div class="form-group">
-                  <label for="note-content">Notiz</label>
-                  <textarea
-                    id="note-content"
-                    class="notes-textarea"
-                    style="width: 100%; height: 150px; padding: 0.5rem"
-                  ></textarea>
+            <div id="note-edit-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Notiz bearbeiten</h2>
+                        <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+                    </div>
+                    <form id="note-edit-form" class="modal-form">
+                        <div class="form-group">
+                            <label for="note-content">Notiz</label>
+                            <textarea id="note-content" class="notes-textarea" style="width: 100%; height: 150px; padding: 0.5rem;"></textarea>
+                        </div>
+                        <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                            <button type="button" class="modal-btn modal-btn-delete">Löschen</button>
+                            <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                            <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                        </div>
+                    </form>
                 </div>
-                <div
-                  class="modal-footer"
-                  style="
-                    margin-top: 1rem;
-                    display: flex;
-                    justify-content: flex-end;
-                    gap: 1rem;
-                  "
-                >
-                  <button type="button" class="modal-btn modal-btn-delete">
-                    Löschen
-                  </button>
-                  <button type="button" class="modal-btn modal-btn-secondary">
-                    Abbrechen
-                  </button>
-                  <button type="submit" class="modal-btn modal-btn-primary">
-                    Speichern
-                  </button>
-                </div>
-              </form>
             </div>
-          </div>
 
-          <div id="appointment-modal" class="modal">
-            <div class="modal-content">
-              <div
-                class="modal-header"
-                style="
-                  display: flex;
-                  justify-content: space-between;
-                  align-items: center;
-                  margin-bottom: 1rem;
-                "
-              >
-                <h2
-                  class="modal-title"
-                  style="font-size: 1.25rem; font-weight: 600; color: #1f2937"
-                >
-                  Neuer Termin
-                </h2>
-                <button
-                  class="modal-close"
-                  aria-label="Modal schließen"
-                  style="
-                    background: none;
-                    border: none;
-                    font-size: 1.25rem;
-                    cursor: pointer;
-                  "
-                >
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-              <form id="appointment-form" class="modal-form">
-                <div
-                  class="form-grid"
-                  style="
-                    display: grid;
-                    grid-template-columns: 1fr 1fr;
-                    gap: 1rem;
-                  "
-                >
-                  <div class="form-group">
-                    <label for="appointment-time">Uhrzeit</label>
-                    <select
-                      id="appointment-time"
-                      required
-                      style="width: 100%; padding: 0.5rem"
-                    ></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="appointment-duration">Dauer</label>
-                    <select
-                      id="appointment-duration"
-                      required
-                      style="width: 100%; padding: 0.5rem"
-                    ></select>
-                  </div>
-                  <div class="form-group">
-                    <label for="appointment-customer">Kunde</label>
-                    <input
-                      type="text"
-                      id="appointment-customer"
-                      required
-                      style="width: 100%; padding: 0.5rem"
-                    />
-                  </div>
-                  <div class="form-group">
-                    <label for="appointment-vehicle">Fahrzeug</label>
-                    <input
-                      type="text"
-                      id="appointment-vehicle"
-                      required
-                      style="width: 100%; padding: 0.5rem"
-                    />
-                  </div>
-                  <div
-                    class="form-group full-width"
-                    style="grid-column: span 2"
-                  >
-                    <label for="appointment-service">Dienstleistung</label>
-                    <input
-                      type="text"
-                      id="appointment-service"
-                      required
-                      style="width: 100%; padding: 0.5rem"
-                    />
-                  </div>
-                  <div
-                    class="form-group full-width"
-                    style="grid-column: span 2"
-                  >
-                    <label for="appointment-note">Notiz</label>
-                    <textarea
-                      id="appointment-note"
-                      style="width: 100%; padding: 0.5rem"
-                    ></textarea>
-                  </div>
-                  <div class="form-group">
-                    <label for="appointment-price">Preis (€)</label>
-                    <input
-                      type="number"
-                      id="appointment-price"
-                      step="0.01"
-                      min="0"
-                      style="width: 100%; padding: 0.5rem"
-                    />
-                  </div>
+            <div id="appointment-modal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2 class="modal-title" style="font-size: 1.25rem; font-weight: 600; color: #1F2937;">Neuer Termin</h2>
+                        <button class="modal-close" aria-label="Modal schließen" style="background: none; border: none; font-size: 1.25rem; cursor: pointer;"><i class="fas fa-times"></i></button>
+                    </div>
+                    <form id="appointment-form" class="modal-form">
+                        <div class="form-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div class="form-group">
+                                <label for="appointment-time">Uhrzeit</label>
+                                <select id="appointment-time" required style="width: 100%; padding: 0.5rem;"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-duration">Dauer</label>
+                                <select id="appointment-duration" required style="width: 100%; padding: 0.5rem;"></select>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-customer">Kunde</label>
+                                <input type="text" id="appointment-customer" required style="width: 100%; padding: 0.5rem;">
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-vehicle">Fahrzeug</label>
+                                <input type="text" id="appointment-vehicle" required style="width: 100%; padding: 0.5rem;">
+                            </div>
+                            <div class="form-group full-width" style="grid-column: span 2;">
+                                <label for="appointment-service">Dienstleistung</label>
+                                <input type="text" id="appointment-service" required style="width: 100%; padding: 0.5rem;">
+                            </div>
+                            <div class="form-group full-width" style="grid-column: span 2;">
+                                <label for="appointment-note">Notiz</label>
+                                <textarea id="appointment-note" style="width: 100%; padding: 0.5rem;"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="appointment-price">Preis (€)</label>
+                                <input type="number" id="appointment-price" step="0.01" min="0" style="width: 100%; padding: 0.5rem;">
+                            </div>
+                        </div>
+                        <div class="modal-footer" style="margin-top: 1rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                            <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                            <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+                        </div>
+                    </form>
                 </div>
-                <div
-                  class="modal-footer"
-                  style="
-                    margin-top: 1rem;
-                    display: flex;
-                    justify-content: flex-end;
-                    gap: 1rem;
-                  "
-                >
-                  <button type="button" class="modal-btn modal-btn-secondary">
-                    Abbrechen
-                  </button>
-                  <button type="submit" class="modal-btn modal-btn-primary">
-                    Speichern
-                  </button>
-                </div>
-              </form>
             </div>
-          </div>
         </div>
-      </aside>
+    </aside>
 </div>
 <script src="../scripts/right-sidebar.js"></script>
 </body>
