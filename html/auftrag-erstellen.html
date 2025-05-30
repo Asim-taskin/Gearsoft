@@ -74,123 +74,130 @@
 
     <main class="main-content auftrag-main">
         <div class="auftrag-header">
-            <h1>Neuer Auftrag</h1>
-            <div class="auftrag-preis">0,00&nbsp;€</div>
-            <div class="stars" style="color:#eab308;">
-                <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                <i class="fas fa-star"></i><i class="fas fa-star"></i>
-                <i class="fas fa-star"></i>
+            <div class="auftrag-header-top">
+                <h1>Neuer Auftrag</h1>
+                <div class="auftrag-preis">0,00 €</div>
             </div>
-            <div class="auftrag-header-actions">
-                <button class="btn outline">Abbrechen</button>
-                <button class="btn primary">Speichern</button>
+            <div class="auftrag-header-bottom">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <div class="auftrag-header-actions">
+                    <button class="btn outline">Abbrechen</button>
+                    <button class="btn primary">Speichern</button>
+                </div>
             </div>
         </div>
 
-        <!-- Formular -->
         <form class="auftrag-form">
-            <div class="auftrag-row" style="display: flex; gap:2rem; margin-bottom:1rem; flex-wrap:wrap;">
-                <div class="auftrag-block" style="flex:2; min-width: 260px;">
-                    <label style="font-weight:500;">KUNDENDATEN</label>
-                    <div class="input-block" style="margin-bottom:0.6rem;">
-                        <button type="button" class="select-btn"><i class="fas fa-user"></i> Kunde wählen</button>
-                    </div>
-                    <label style="font-weight:500;">FAHRZEUG</label>
-                    <div class="input-block" style="margin-bottom:0.6rem;">
-                        <button type="button" class="select-btn"><i class="fas fa-car"></i> Fahrzeug wählen</button>
-                    </div>
-                    <label style="font-weight:500;">KUNDENTEXT</label>
+            <div class="auftrag-row">
+                <div class="auftrag-block">
+                    <h3>Kundendaten</h3>
                     <div class="input-block">
-                        <textarea placeholder="Kundentext..." rows="2" style="width:100%;"></textarea>
+                        <button type="button" class="select-btn">
+                            <i class="fas fa-user"></i> Kunde wählen
+                        </button>
+                    </div>
+                    <h3>Fahrzeug</h3>
+                    <div class="input-block">
+                        <button type="button" class="select-btn">
+                            <i class="fas fa-car"></i> Fahrzeug wählen
+                        </button>
+                    </div>
+                    <h3>Kundentext</h3>
+                    <div class="input-block">
+                        <textarea placeholder="Kundentext..." rows="4"></textarea>
                     </div>
                 </div>
-                <div class="auftrag-block" style="flex:1; min-width: 200px;">
-                    <label style="font-weight:500;">RECHNUNGSDATEN</label>
+                <div class="auftrag-block">
+                    <h3>Rechnungsdaten</h3>
                     <div class="input-block">
-                        <label>Auftragsdatum</label>
-                        <input type="date" value="2025-05-30">
+                        <label for="auftragsdatum">Auftragsdatum</label>
+                        <input type="date" id="auftragsdatum" value="2025-05-30">
                     </div>
                     <div class="input-block">
-                        <label>Leistungszeitraum von</label>
-                        <input type="date" value="2025-05-30">
+                        <label for="leistungszeitraum-von">Leistungszeitraum von</label>
+                        <input type="date" id="leistungszeitraum-von" value="2025-05-30">
                     </div>
                     <div class="input-block">
-                        <label>Leistungszeitraum bis</label>
-                        <input type="date" value="2025-05-30">
+                        <label for="leistungszeitraum-bis">Leistungszeitraum bis</label>
+                        <input type="date" id="leistungszeitraum-bis" value="2025-05-30">
                     </div>
                     <div class="input-block">
-                        <label>Bearbeiter*in</label>
-                        <input type="text" value="Taskin Metehan">
+                        <label for="bearbeiter">Bearbeiter*in</label>
+                        <input type="text" id="bearbeiter" value="Taskin Metehan">
                     </div>
                 </div>
             </div>
 
-            <!-- Positionen -->
-            <div style="margin-top:2rem; margin-bottom:1.5rem;">
+            <div class="position-section">
                 <div class="position-buttons">
-                    <button type="button" class="btn primary" style="margin-bottom:1rem;"><i class="fas fa-plus"></i> Position hinzufügen</button>
-                    <button type="button" class="btn secondary" style="margin-left:1rem;">Anzeigeoptionen</button>
+                    <button type="button" class="btn primary">
+                        <i class="fas fa-plus"></i> Position hinzufügen
+                    </button>
+                    <button type="button" class="btn secondary">Anzeigeoptionen</button>
                 </div>
-                <table class="position-table" style="width:100%; margin-top:1rem;">
-                    <thead>
-                        <tr>
-                            <th><input type="checkbox"></th>
-                            <th>Artikelnummer</th>
-                            <th>Menge</th>
-                            <th>Einheit</th>
-                            <th>Bezeichnung</th>
-                            <th>Einzelpreis exkl.</th>
-                            <th>Steuersatz</th>
-                            <th>Betrag exkl.</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><input type="checkbox"></td>
-                            <td><input type="text" style="width:70px;"></td>
-                            <td><input type="number" value="1" style="width:50px;"></td>
-                            <td>
-                                <select>
-                                    <option>Stk.</option>
-                                    <option>Std.</option>
-                                </select>
-                            </td>
-                            <td><input type="text" value="Klein und verbrauchsmaterial"></td>
-                            <td><input type="text" value="0,00"></td>
-                            <td>
-                                <select>
-                                    <option>20% Standard</option>
-                                    <option>10% Ermäßigt</option>
-                                </select>
-                            </td>
-                            <td>0,00</td>
-                            <td><button class="btn mini"><i class="fas fa-trash"></i></button></td>
-                        </tr>
-                        <!-- Weitere Positionen... -->
-                    </tbody>
-                </table>
+                <div class="position-table-container">
+                    <table class="position-table">
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox"></th>
+                                <th>Artikelnummer</th>
+                                <th>Menge</th>
+                                <th>Einheit</th>
+                                <th>Bezeichnung</th>
+                                <th>Einzelpreis exkl.</th>
+                                <th>Steuersatz</th>
+                                <th>Betrag exkl.</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><input type="checkbox"></td>
+                                <td><input type="text"></td>
+                                <td><input type="number" value="1"></td>
+                                <td>
+                                    <select>
+                                        <option>Stk.</option>
+                                        <option>Std.</option>
+                                    </select>
+                                </td>
+                                <td><input type="text" value="Klein und Verbrauchsmaterial"></td>
+                                <td><input type="text" value="0,00"></td>
+                                <td>
+                                    <select>
+                                        <option>20% Standard</option>
+                                        <option>10% Ermäßigt</option>
+                                    </select>
+                                </td>
+                                <td>0,00</td>
+                                <td><button class="btn mini"><i class="fas fa-trash"></i></button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <!-- Zusatzpaket Schnittstellen -->
-            <div class="zusatzpaket" style="margin-bottom:2rem;">
-                <div style="font-weight:500; margin-bottom:0.3rem;">Zusatzpaket: Schnittstellen</div>
-                <div style="font-weight:600; color:var(--primary-dark);">Wähle eine Schnittstelle aus!</div>
-                <div style="margin:0.7rem 0;">
-                    <select style="padding:0.5rem; min-width:180px;">
+            <div class="zusatzpaket">
+                <h3>Zusatzpaket: Schnittstellen</h3>
+                <p>Wähle eine Schnittstelle aus!</p>
+                <div class="input-block">
+                    <select>
                         <option>Schnittstelle auswählen</option>
                     </select>
                 </div>
-                <div style="color:var(--gray-600); font-size:0.93em;">
-                    Je nach Schnittstelle stehen dir dann verschiedene Aktionen zur Auswahl.
-                </div>
+                <p class="zusatzpaket-info">Je nach Schnittstelle stehen dir dann verschiedene Aktionen zur Auswahl.</p>
             </div>
 
-            <!-- Gesamtsummen -->
-            <div class="summen" style="margin-top:2.2rem; text-align:right;">
-                <div>Rabatt: <span>0,00&nbsp;€</span></div>
-                <div>Gesamt exkl.: <span>0,00&nbsp;€</span></div>
-                <div>Gesamt inkl.: <span>0,00&nbsp;€</span></div>
+            <div class="summen">
+                <div>Rabatt: <span>0,00 €</span></div>
+                <div>Gesamt exkl.: <span>0,00 €</span></div>
+                <div>Gesamt inkl.: <span>0,00 €</span></div>
             </div>
         </form>
     </main>
