@@ -322,6 +322,59 @@ body, .auftrag-main, .auftrag-form, .auftrag-header {
     background: var(--danger-dark);
 }
 
+.progress-bar {
+    width: 120px;
+    height: 24px;
+    background: var(--gray-200);
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(to right, var(--primary), var(--primary-dark));
+    border-radius: 6px;
+    transition: width 0.4s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.progress-text {
+    font-size: 0.75rem;
+    color: #fff;
+    font-weight: 700;
+    padding-right: 4px;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 576px) {
+    .progress-bar {
+        width: 100px;
+        height: 20px;
+        border-radius: 5px;
+    }
+
+    .progress {
+        border-radius: 5px;
+    }
+
+    .progress-text {
+        font-size: 0.7rem;
+        padding-right: 3px;
+    }
+}
+
+@media (max-width: 576px) {
+    .progress-bar {
+        width: 80px;
+        height: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .position-table {
         display: block;
@@ -461,7 +514,7 @@ body, .auftrag-main, .auftrag-form, .auftrag-header {
         top: 64px;
         bottom: 0;
         width: 280px;
-        transform: translateX(-100%);
+        /* transform: translateX(-100%); */
         transition: transform 0.3s;
         background: #fff;
         box-shadow: 2px 0 8px rgba(0,0,0,0.1);
@@ -475,8 +528,9 @@ body, .auftrag-main, .auftrag-form, .auftrag-header {
         max-width: none;
     }
     .main-content.auftrag-main {
+        margin-left:279px;
         padding: 80px 1rem 1rem;
-        max-width: 100%;
+        max-width:71%;
     }
     .auftrag-row {
         grid-template-columns: 1fr;
@@ -498,6 +552,11 @@ body, .auftrag-main, .auftrag-form, .auftrag-header {
     }
     .auftrag-block {
         padding: 0.75rem;
+    }
+
+    .main-content.auftrag-main{
+        margin-left:0;
+        max-width:100%;
     }
 }
 

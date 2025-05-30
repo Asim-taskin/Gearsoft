@@ -73,18 +73,16 @@
     </aside>
 
     <main class="main-content auftrag-main">
-        <div class="auftrag-header">
+<div class="auftrag-header">
             <div class="auftrag-header-top">
                 <h1>Neuer Auftrag</h1>
                 <div class="auftrag-preis">0,00 €</div>
             </div>
             <div class="auftrag-header-bottom">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
+                <div class="progress-bar">
+                    <div class="progress" style="width: 100%;">
+                        <span class="progress-text">100%</span>
+                    </div>
                 </div>
                 <div class="auftrag-header-actions">
                     <button class="btn outline">Abbrechen</button>
@@ -239,7 +237,7 @@
                 <div class="section-header">
                     <h2>Notizen</h2>
                     <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
-                    <button class="card-btn outline" style="margin-left:auto; margin-right: 0.2rem;">+ Notiz</button>
+                    <!-- <button class="card-btn outline" style="margin-left:auto; margin-right: 0.2rem;">+ Notiz</button> -->
                 </div>
                 <div class="section-content notes-content">
                     <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
