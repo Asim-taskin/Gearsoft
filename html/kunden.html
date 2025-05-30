@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../styles/kunden.css" />
     <link rel="stylesheet" href="../styles/right-sidebar.css" />
     <link rel="stylesheet" href="../styles/kunde-hinzufuegen-modal.css" />
+    <link rel="stylesheet" href="../styles/webkit.css">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
@@ -242,84 +243,80 @@
 
 </div>
 
-        <div class="customer-table-container">
-          <table class="customer-table">
-            <thead>
-              <tr>
-                <th width="40px">
-                  <input type="checkbox" class="select-all" />
-                </th>
-                <th>Name</th>
-                <th>Ort</th>
-                <th>Straße</th>
-                <th>Telefon</th>
-                <th>Email</th>
-                <th>Kennzeichen</th>
-                <th>Geburtstag</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><input type="checkbox" class="customer-checkbox" /></td>
-                <td data-label="Name">Julia Sommer</td>
-                <td data-label="Ort">Wien</td>
-                <td data-label="Straße">Ringstraße 7</td>
-                <td data-label="Telefon">01 1234567</td>
-                <td data-label="Email">julia@example.com</td>
-                <td data-label="Kennzeichen">
-                  <span class="plate"
-                    ><span class="plate-number">W-AB9876</span></span
-                  >
-                </td>
-                <td data-label="Geburtstag">1990-05-26</td>
-                <td class="delete-action">
-                  <button class="table-action delete">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" class="customer-checkbox" /></td>
-                <td data-label="Name">Lukas Steiner</td>
-                <td data-label="Ort">Salzburg</td>
-                <td data-label="Straße">Mozartplatz 3</td>
-                <td data-label="Telefon">0664 987654</td>
-                <td data-label="Email">lukas@example.com</td>
-                <td data-label="Kennzeichen">
-                  <span class="plate"
-                    ><span class="plate-number">S-LU3210</span></span
-                  >
-                </td>
-                <td data-label="Geburtstag">1985-06-10</td>
-                <td class="delete-action">
-                  <button class="table-action delete">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td><input type="checkbox" class="customer-checkbox" /></td>
-                <td data-label="Name">Clara Neubauer</td>
-                <td data-label="Ort">Graz</td>
-                <td data-label="Straße">Lendplatz 2</td>
-                <td data-label="Telefon">0316 123789</td>
-                <td data-label="Email">clara@example.com</td>
-                <td data-label="Kennzeichen">
-                  <span class="plate"
-                    ><span class="plate-number">GZ-CN5555</span></span
-                  >
-                </td>
-                <td data-label="Geburtstag">1979-05-01</td>
-                <td class="delete-action">
-                  <button class="table-action delete">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+<div class="customer-table-container">
+  <table class="customer-table">
+    <thead>
+      <tr>
+        <th width="40px">
+          <input type="checkbox" class="select-all" />
+        </th>
+        <th>Name</th>
+        <th>Ort</th>
+        <th>Straße</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Kennzeichen</th>
+        <th>Geburtstag</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><input type="checkbox" class="customer-checkbox" /></td>
+        <td data-label="Name">Julia Sommer</td>
+        <td data-label="Ort">Wien</td>
+        <td data-label="Straße">Ringstraße 7</td>
+        <td data-label="Telefon">01 1234567</td>
+        <td data-label="Email">julia@example.com</td>
+        <td data-label="Kennzeichen">
+          <span class="plate"><span class="plate-number">W-AB9876</span></span>
+        </td>
+        <td data-label="Geburtstag">1990-05-26</td>
+        <td class="delete-action">
+          <button class="table-action delete">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="customer-checkbox" /></td>
+        <td data-label="Name">Lukas Steiner</td>
+        <td data-label="Ort">Salzburg</td>
+        <td data-label="Straße">Mozartplatz 3</td>
+        <td data-label="Telefon">0664 987654</td>
+        <td data-label="Email">lukas@example.com</td>
+        <td data-label="Kennzeichen">
+          <span class="plate"><span class="plate-number">S-LU3210</span></span>
+        </td>
+        <td data-label="Geburtstag">1985-06-10</td>
+        <td class="delete-action">
+          <button class="table-action delete">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+      <tr>
+        <td><input type="checkbox" class="customer-checkbox" /></td>
+        <td data-label="Name">Clara Neubauer</td>
+        <td data-label="Ort">Graz</td>
+        <td data-label="Straße">Lendplatz 2</td>
+        <td data-label="Telefon">0316 123789</td>
+        <td data-label="Email">clara@example.com</td>
+        <td data-label="Kennzeichen">
+          <span class="plate"><span class="plate-number">GZ-CN5555</span></span>
+        </td>
+        <td data-label="Geburtstag">1979-05-01</td>
+        <td class="delete-action">
+          <button class="table-action delete">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
 
         <div class="table-footer">
           <div class="table-pagination">
