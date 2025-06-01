@@ -212,7 +212,7 @@ html, body { overflow-x: hidden; background-color: #ffffff; }
     order: 7;
     font-weight: 700;
     font-size: 1.1rem;
-    color: var(--white);
+    color: white;
     background-color: var(--primary);
     padding: 0.5rem 1rem;
     border-radius: var(--radius-md);
