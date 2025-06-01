@@ -622,3 +622,22 @@
                 padding: 0.6rem 1rem;
             }
         }
+
+
+
+body.sidebar-collapsed .main-content {
+    margin-left: 56px !important;  /* Breite deiner eingeklappten Sidebar */
+    max-width: calc(100% - 56px - 320px) !important;
+    transition: margin-left 0.3s, max-width 0.3s;
+}
+body.sidebar-collapsed .sidebar {
+    width: 56px !important;
+    min-width: 56px !important;
+    transition: width 0.3s;
+}
+body.sidebar-collapsed .sidebar-nav span {
+    display: none !important;
+}
+body.sidebar-collapsed .sidebar {
+    overflow-x: hidden;
+}
