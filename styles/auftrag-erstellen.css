@@ -52,7 +52,7 @@ body, .auftrag-main, .auftrag-form, .auftrag-header {
     min-width: 0;
     box-sizing: border-box;
     padding: 1.5rem;
-    padding-top: 80px;
+    /* padding-top: 80px; */
     background: var(--gray-100);
     width: auto;
     margin-left: 280px;
