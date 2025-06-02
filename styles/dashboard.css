@@ -433,6 +433,13 @@ body {
 .customer-name { font-size: 0.875rem; color: var(--gray-700);}
 .customer-amount { font-size: 0.875rem; font-weight: 500; color: var(--gray-800); }
 
+
+body.sidebar-collapsed .main-content {
+    margin-left: 64px !important;
+    transition: margin-left 0.3s;
+}
+
+
 /* RESPONSIVE (NUR MAIN & KARTEN) */
 @media (max-width: 1200px) {
     .main-content { margin-left: 240px;}
