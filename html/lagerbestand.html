@@ -9,21 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        
         .icons-container {
-            /* height: 100vh; */
           display: flex;
           align-content: flex-start;
           justify-content: center;
           align-items: center;
           flex-wrap: wrap;
           gap: 1.5rem;
-          /* margin-top: 2rem; */
         }
-      
-        
         .lc-img {
-          height:164px;  
+          height:164px;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -37,26 +32,19 @@
           border: 1px solid grey;
           border-radius: 8px;
         }
-      
         .lc-img img {
           width: 64px;
           height: 64px;
           object-fit: contain;
         }
-      
         .lc-img span {
           margin-top: 0.5rem;
           font-size: 0.95rem;
         }
-      
-        
         .lc-img:hover {
           border-color: #2072ff;
         }
-      
-        
         @media (max-width: 768px) {
-
           .lc-img img {
             width: 48px;
             height: 48px;
@@ -65,12 +53,10 @@
             font-size: 0.85rem;
           }
         }
-      
         @media (max-width: 480px) {
           .icons-container {
             gap: 1rem;
           }
-
           .lc-img img {
             width: 40px;
             height: 40px;
@@ -79,8 +65,7 @@
             font-size: 0.8rem;
           }
         }
-      </style>
-      
+    </style>
 </head>
 <body>
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
@@ -109,86 +94,95 @@
             </div>
         </div>
     </header>
-    
     <div class="container">
-    <aside class="sidebar">
-      <div class="sidebar-header">
-        <div class="user-profile">
-          <div class="avatar">MA</div>
-          <div class="user-info">
-            <div class="user-name">Max Mustermann</div>
-            <div class="user-role">Werkstatt</div>
-          </div>
-        </div>
-        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
-      </div>
-      <nav class="sidebar-nav">
-        <ul>
-          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> Übersicht</a></li>
-          <li><a href="./kunden.html"><i class="fas fa-users"></i> Kunden</a></li>
-          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> Kalender</a></li>
-          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> Fahrzeuge</a></li>
-          <li><a href="./verkaufsfahrzeuge.html"><i class="fas fa-warehouse"></i>Verkaufsfahrzeuge</a></li>
-          <li><a href="./angebote.html" class="active"><i class="fas fa-file-alt"></i> Angebote</a></li>
-          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> Aufträge</a></li>
-          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> Rechnungen</a></li>
-          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> Kassenbuch</a></li>
-
-          <li class="menu-item has-submenu">
-            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle  ">
-            <label for="lagerbestand-toggle" class="submenu-label">
-              <i class="fas fa-list  "></i> Lagerbestand <i class="fas fa-chevron-down arrow"></i>
-            </label>
-            <ul class="submenu">
-              <li><a href="./tires.html"><i class="fas fa-circle"></i> Reifen</a></li>
-              <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> Fluidtechnik</a></li>
-              <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> Ersatzteile</a></li>
-              <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> Sonstige</a></li>
-              <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> Gesamter Lagerbestand</a></li>
-
-            </ul>
-          </li>
-
-
-          <li class="menu-item has-submenu">
-            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
-            <label for="berichte-toggle" class="submenu-label">
-              <i class="fas fa-chart-bar"></i> Berichte <i class="fas fa-chevron-down arrow"></i>
-            </label>
-            <ul class="submenu">
-              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> Gesendete E-Mails</a></li>
-              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> Papierkorb</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-    </aside>
-        
-        <main class="main-content">
-            <div class="icons-container">
-              <a href="#reifen" class="lc-img">
-                <img src="../img/icons/reifen.png" alt="Reifen">
-                <span>Reifen</span>
-              </a>
-              <a href="#ersatzteile" class="lc-img">
-                <img src="../img/icons/ersatzteile.png" alt="Ersatzteile">
-                <span>Ersatzteile</span>
-              </a>
-              <a href="#loesungsmittel" class="lc-img">
-                <img src="../img/icons/öl_mittel.png" alt="Öl und Mittel">
-                <span>Fluidtechnik</span>
-              </a>
-              <a href="#sonstige" class="lc-img">
-                <img src="../img/icons/sonstige.png" alt="Sonstige">
-                <span>Sonstige</span>
-              </a>
-              <a href="#gesamt" class="lc-img">
-                <img src="../img/icons/gesamterLC.png" alt="Gesamter Lagerbestand">
-                <span>Gesamter<br>Lagerbestand</span>
-              </a>
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="user-profile">
+            <div class="avatar">MA</div>
+            <div class="user-info">
+              <div class="user-name">Max Mustermann</div>
+              <div class="user-role">Werkstatt</div>
             </div>
-          </main>
-          
+          </div>
+          <button id="sidebarCollapseBtn" class="collapse-btn" aria-label="Sidebar zuklappen">
+              <i class="fas fa-angle-double-left"></i>
+          </button>
+          <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+        </div>
+        <nav class="sidebar-nav">
+          <ul>
+            <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Übersicht</span></a></li>
+            <li><a href="./kunden.html"><i class="fas fa-users"></i> <span>Kunden</span></a></li>
+            <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> <span>Kalender</span></a></li>
+            <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> <span>Fahrzeuge</span></a></li>
+            <li><a href="./verkaufsfahrzeuge.html"><i class="fas fa-warehouse"></i> <span>Verkaufsfahrzeuge</span></a></li>
+            <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> <span>Angebote</span></a></li>
+            <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> <span>Aufträge</span></a></li>
+            <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> <span>Rechnungen</span></a></li>
+            <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> <span>Kassenbuch</span></a></li>
+            <li class="menu-item has-submenu">
+              <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+              <label for="lagerbestand-toggle" class="submenu-label">
+                <i class="fas fa-list"></i> <span>Lagerbestand</span> <i class="fas fa-chevron-down arrow"></i>
+              </label>
+              <ul class="submenu">
+                <li><a href="./tires.html"><i class="fas fa-circle"></i> <span>Reifen</span></a></li>
+                <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> <span>Fluidtechnik</span></a></li>
+                <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> <span>Ersatzteile</span></a></li>
+                <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> <span>Sonstige</span></a></li>
+                <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> <span>Gesamter Lagerbestand</span></a></li>
+              </ul>
+            </li>
+            <li class="menu-item has-submenu">
+              <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+              <label for="berichte-toggle" class="submenu-label">
+                <i class="fas fa-chart-bar"></i> <span>Berichte</span> <i class="fas fa-chevron-down arrow"></i>
+              </label>
+              <ul class="submenu">
+                <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> <span>Gesendete E-Mails</span></a></li>
+                <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> <span>Papierkorb</span></a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </aside>
+      <main class="main-content">
+        <div class="icons-container">
+          <a href="#reifen" class="lc-img">
+            <img src="../img/icons/reifen.png" alt="Reifen">
+            <span>Reifen</span>
+          </a>
+          <a href="#ersatzteile" class="lc-img">
+            <img src="../img/icons/ersatzteile.png" alt="Ersatzteile">
+            <span>Ersatzteile</span>
+          </a>
+          <a href="#loesungsmittel" class="lc-img">
+            <img src="../img/icons/öl_mittel.png" alt="Öl und Mittel">
+            <span>Fluidtechnik</span>
+          </a>
+          <a href="#sonstige" class="lc-img">
+            <img src="../img/icons/sonstige.png" alt="Sonstige">
+            <span>Sonstige</span>
+          </a>
+          <a href="#gesamt" class="lc-img">
+            <img src="../img/icons/gesamterLC.png" alt="Gesamter Lagerbestand">
+            <span>Gesamter<br>Lagerbestand</span>
+          </a>
+        </div>
+      </main>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const collapseBtn = document.getElementById('sidebarCollapseBtn');
+          if (collapseBtn) {
+              collapseBtn.addEventListener('click', function() {
+                  document.body.classList.toggle('sidebar-collapsed');
+                  const icon = this.querySelector('i');
+                  icon.classList.toggle('fa-angle-double-left');
+                  icon.classList.toggle('fa-angle-double-right');
+              });
+          }
+      });
+    </script>
 </body>
 </html>
