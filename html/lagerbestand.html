@@ -42,19 +42,25 @@
     </header>
     <div class="container">
       <aside class="sidebar">
-        <div class="sidebar-header">
-          <div class="user-profile">
-            <div class="avatar">MA</div>
-            <div class="user-info">
-              <div class="user-name">Max Mustermann</div>
-              <div class="user-role">Werkstatt</div>
-            </div>
-          </div>
-          <button id="sidebarCollapseBtn" class="collapse-btn" aria-label="Sidebar zuklappen">
-              <i class="fas fa-angle-double-left"></i>
-          </button>
-          <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
-        </div>
+<div class="sidebar-header">
+  <div class="user-profile" id="profileTrigger" tabindex="0">
+    <div class="avatar">MA</div>
+    <div class="user-info">
+      <div class="user-name">Max Mustermann</div>
+      <div class="user-role">Werkstatt</div>
+    </div>
+  </div>
+  <button id="sidebarCollapseBtn" class="collapse-btn" aria-label="Sidebar zuklappen">
+    <i class="fas fa-angle-double-left"></i>
+  </button>
+  <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+  <!-- Profile Dropdown -->
+  <div class="profile-dropdown" id="profileDropdown">
+    <!-- <div class="profile-dropdown-name">Max Mustermann</div>   (Name nicht nochmal anzeigen) -->
+    <button class="profile-dropdown-btn" id="settingsBtn"><i class="fas fa-cog"></i> Einstellungen</button>
+    <button class="profile-dropdown-btn logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Abmelden</button>
+  </div>
+</div>
         <nav class="sidebar-nav">
           <ul>
             <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Übersicht</span></a></li>
@@ -147,6 +153,7 @@
 
 <script src="../scripts/settings-panel.js"></script>
       <script src="../scripts/sidebar-collapse.js"></script>
+      <script src="../scripts/sidebar.js"></script>
 
 
 

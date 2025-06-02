@@ -24,6 +24,7 @@
 }
 
 .user-profile {
+    cursor: pointer;
     display: flex;
     align-items: center;
     gap: 0.75rem;
@@ -162,4 +163,55 @@ body.sidebar-collapsed .sidebar-nav li a i {
 }
 @media (max-width: 1200px) {
     .sidebar { width: 240px; }
+}
+
+
+
+
+
+/* --- Profile Dropdown --- */
+.profile-dropdown {
+  position: absolute;
+  top: 72px; /* etwas unterhalb vom Profil, anpassen wenn nötig */
+  left: 32px;
+  min-width: 180px;
+  background: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 6px 28px rgba(16,40,80,0.13);
+  border: 1px solid var(--gray-200);
+  z-index: 999;
+  display: none;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  animation: profile-fadein 0.18s;
+}
+@keyframes profile-fadein {
+  from { opacity:0; transform: translateY(-8px);}
+  to { opacity:1; transform: translateY(0);}
+}
+.profile-dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  background: none;
+  border: none;
+  font-size: 1rem;
+  color: var(--gray-700);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s;
+  border-radius: 0;
+}
+.profile-dropdown-btn:hover, .profile-dropdown-btn:focus {
+    
+  background: var(--primary-light);
+  color: var(--primary-dark);
+}
+.profile-dropdown-btn.logout {
+  color: var(--danger);
+}
+.profile-dropdown-btn.logout:hover {
+  background: #fbeaea;
+  color: var(--danger-dark);
 }
