@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neuer Auftrag | GearSoft</title>
+    <title>Neue Rechnung | GearSoft</title>
     <link rel="stylesheet" href="../styles/dashboard.css">
     <link rel="stylesheet" href="../styles/right-sidebar.css">
     <link rel="stylesheet" href="../styles/webkit.css">
@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../styles/settings-panel.css">
     <link rel="stylesheet" href="../styles/sidebar.css">
         <link rel="stylesheet" href="../styles/auftrag-erstellen.css">
+        <link rel="stylesheet" href="../styles/positionen-modal-rechnungen.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -22,7 +23,7 @@
             <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
             <div class="logo-title">
                 <div class="logo"><img src="../img/GearSoft-Img_2.PNG" alt="Logo"></div>
-                <div class="title">Dashboard</div>
+                <div class="title">Rechnung erstellen</div>
             </div>
         </div>
         <div class="header-right">
@@ -159,7 +160,7 @@
                         <input type="date" id="leistungszeitraum-bis" value="2025-05-30">
                     </div>
 
-<div class="input-block">
+<div class=" zahlungsfrist-input  input-block ">
     <label for="zahlungsfrist">Zahlungsfrist (Tage)</label>
     <div class="input-icon-wrapper">
         <input 
@@ -395,16 +396,424 @@
   </ul>
 </div>
 
+
+
+<!-- Positionen-Modal -->
+<div id="positionenModal" class="modal">
+  <div class="modal-content positionen-modal-content">
+    <div class="modal-header">
+      <h2>Position hinzufügen</h2>
+      <button class="modal-close" aria-label="Schließen" onclick="closePositionenModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-search-block">
+      <input type="text" placeholder="🔍 Suchen..." class="modal-search-input">
+    </div>
+    <div class="modal-hint">Doppelklick auf eine Position oder Positionsgruppe um sie direkt im Hintergrund zu übernehmen.</div>
+    <div class="modal-list-header">
+      <span><i class="fas fa-layer-group"></i> Positionen</span>
+      <button class="btn outline btn-add-pos"><i class="fas fa-plus"></i> Position</button>
+    </div>
+    <div class="modal-list">
+      <!-- Beispielkarten: Du ersetzt später mit echtem JS die Inhalte -->
+      <div class="position-card">
+        <div class="pos-row">
+          <span class="pos-title">Unterbodenschutz <span class="pos-unit">(Stk.)</span></span>
+          <span class="pos-price">18,88 €</span>
+        </div>
+        <div class="pos-row pos-details">
+          <span class="pos-number">123</span>
+          <span class="pos-ek">EK 6,10 €</span>
+        </div>
+      </div>
+      <div class="position-card">
+        <div class="pos-row">
+          <span class="pos-title">Öl ablassschraube vag <span class="pos-unit">(Stk.)</span></span>
+          <span class="pos-price">4,65 €</span>
+        </div>
+        <div class="pos-row pos-details">
+          <span class="pos-number">15374</span>
+          <span class="pos-ek">EK 0,96 €</span>
+        </div>
+        <div class="pos-row pos-lager">
+          <span><i class="fas fa-box"></i> 14,00</span>
+          <span class="pos-min">mind. 10,00</span>
+          <span>Lagerplatz werkstatt</span>
+        </div>
+      </div>
+      <!-- ...weitere Cards siehe Bild... -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn outline" onclick="closePositionenModal()">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+<div id="positionModal" class="modal" style="display:none;">
+  <div class="modal-content position-modal-content">
+    <button class="modal-close" onclick="closePositionModal()"><i class="fas fa-times"></i></button>
+    <h2>Neue Position</h2>
+    <form id="positionForm" autocomplete="off">
+      <div class="position-modal-grid">
+        <!-- Linke Seite -->
+        <div class="position-modal-left">
+          <div class="input-block">
+            <label>Artikelnummer <span style="color:#ef4444;">*</span></label>
+            <input type="text" required>
+          </div>
+          <div class="input-block">
+            <label>Name <span style="color:#ef4444;">*</span></label>
+            <input type="text" required>
+          </div>
+          <div class="input-block">
+            <label>Beschreibung</label>
+            <textarea rows="2"></textarea>
+          </div>
+          <div class="input-row">
+            <div class="input-block">
+              <label>Preis <span style="color:#ef4444;">*</span></label>
+              <input type="number" step="0.01" min="0" required>
+            </div>
+            <div class="input-block">
+              <label>Einheit</label>
+              <select>
+                <option>Stk.</option>
+                <option>Std.</option>
+              </select>
+            </div>
+            <div class="input-block">
+              <label>Steuersatz</label>
+              <select>
+                <option>20% - Standard</option>
+                <option>10% - Ermäßigt</option>
+              </select>
+            </div>
+          </div>
+          <div class="input-block">
+            <label>Zusatzinfo (z.B. weitere Artikelnummern)</label>
+            <input type="text">
+          </div>
+<div class="input-block checkbox-block">
+  <input type="checkbox" id="autoadd">
+  <label for="autoadd">Artikel automatisch zu Aufträgen und Rechnungen hinzufügen</label>
+</div>
+
+          <div class="position-modal-actions">
+            <button type="submit" class="btn primary">Erstellen</button>
+            <button type="button" class="btn outline" onclick="closePositionModal()">Abbrechen</button>
+          </div>
+        </div>
+        <!-- Rechte Seite mit Tabs -->
+        <div class="position-modal-right">
+          <div class="tabs">
+            <button type="button" class="tab-btn active" data-tab="material" onclick="switchTab('material')"><i class="fas fa-toolbox"></i> Material</button>
+            <button type="button" class="tab-btn" data-tab="arbeit" onclick="switchTab('arbeit')"><i class="fas fa-user-cog"></i> Arbeit</button>
+            <button type="button" class="tab-btn" data-tab="sonstiges" onclick="switchTab('sonstiges')"><i class="fas fa-ellipsis-h"></i> Sonstiges</button>
+          </div>
+          <!-- Tab-Inhalte -->
+          <div class="tab-content tab-content-material">
+            <div class="input-row">
+              <div class="input-block">
+                <label>Herstellernummer</label>
+                <input type="text">
+              </div>
+              <div class="input-block">
+                <label>Lieferant</label>
+                <input type="text">
+              </div>
+            </div>
+            <div class="card-info">
+              <strong><i class="fas fa-euro-sign"></i> Gib den Einkaufspreis ein, um den Aufschlag zu berechnen.</strong>
+<div class="input-row">
+  <div class="input-block">
+    <label>Einkaufspreis</label>
+    <input type="number" step="0.01" min="0">
+  </div>
+  <div class="input-block aufschlag-group">
+    <label>Aufschlag</label>
+    <input type="number" step="1" min="0" value="0">
+    <span class="input-addon">%</span>
+  </div>
+</div>
+
+            </div>
+            <div class="card-info">
+              <strong><i class="fas fa-warehouse"></i> Der Lagerstand wird reduziert, wenn du dieses Teil verkaufst.</strong>
+              <div class="input-row">
+                <div class="input-block">
+                  <label>Lagerstand</label>
+                  <input type="number" min="0">
+                </div>
+                <div class="input-block">
+                  <label>Mindestlagerstand</label>
+                  <input type="number" min="0">
+                </div>
+              </div>
+              <div class="input-block">
+                <label>Lagerplatz</label>
+                <input type="text">
+              </div>
+            </div>
+          </div>
+          <div class="tab-content tab-content-arbeit" style="display:none;">
+            <div class="card-info">
+              <strong> Gib die Dauer in Minuten ein, damit dein effektiver Stundensatz berechnet wird.</strong>
+              <div class="input-row">
+                <div class="input-block">
+                  <label>Minuten <span style="color:#ef4444;">*</span></label>
+                  <input type="number" min="1" value="60">
+                </div>
+                <div class="input-block" style="flex:1;align-self:flex-end;">
+                  <span class="input-addon">pro Einheit</span>
+                </div>
+              </div>
+              <div class="input-block">
+                <label>Stundensatz <span style="color:#ef4444;">*</span></label>
+                <input type="number" min="0">
+              </div>
+            </div>
+          </div>
+          <div class="tab-content tab-content-sonstiges" style="display:none;">
+            <div class="card-info">
+              <strong>Keine speziellen Felder für Sonstiges.</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Anzeigeeinstellungen Modal -->
+<div id="anzeigeeinstellungenModal" class="modal">
+  <div class="modal-content anzeigen-modal-content">
+    <div class="modal-header">
+      <h2><i class="fas fa-eye" style="margin-right:0.5rem;"></i> Anzeigeeinstellungen</h2>
+      <button class="modal-close" aria-label="Schließen" onclick="closeAnzeigeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="input-block">
+        <label>Standard Einheit für Teile</label>
+        <select>
+          <option>Stk.</option>
+          <option>m</option>
+          <option>kg</option>
+        </select>
+      </div>
+      <div class="input-block">
+        <label>Standard Einheit für Arbeit</label>
+        <select>
+          <option>AW</option>
+          <option>Std.</option>
+        </select>
+      </div>
+      <div class="settings-switch-row">
+        <span>Preise und Rabatte anzeigen</span>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="settings-switch-row">
+        <span>Rabatte anzeigen</span>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="settings-switch-row">
+        <span>Beschreibung, Einkaufspreis und Dauer immer anzeigen</span>
+        <label class="switch">
+          <input type="checkbox">
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="settings-switch-row">
+        <span>Produktvorschläge anzeigen</span>
+        <label class="switch">
+          <input type="checkbox" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script src="../scripts/right-sidebar.js"></script>
 <script src="../scripts/settings-panel.js"></script>
-      <script src="../scripts/sidebar-collapse.js"></script>
-      <script src="../scripts/sidebar.js"></script>
+<script src="../scripts/sidebar-collapse.js"></script>
+<script src="../scripts/sidebar.js"></script>
+
+
+
+
+<script>
+/** ---- MODAL STACK LOGIK ---- **/
+
+// Hauptmodal: Positionen-Liste öffnen
+document.querySelectorAll('.btn.primary, .btn-add-pos').forEach(btn => {
+  btn.addEventListener('click', function (e) {
+    // Prüfe ob es die Position-hinzufügen-Buttons sind (nur im richtigen Kontext)
+    if (btn.classList.contains('btn-add-pos') || btn.innerText.includes('Position hinzufügen')) {
+      e.preventDefault();
+      openPositionenModal();
+    }
+  });
+});
+
+// Hauptmodal Positionen-Liste
+function openPositionenModal() {
+  document.getElementById('positionenModal').style.display = 'flex';
+  document.body.classList.add('modal-open');
+}
+function closePositionenModal() {
+  document.getElementById('positionenModal').style.display = 'none';
+  document.body.classList.remove('modal-open');
+}
+
+// Untermodal: "Neue Position" – öffnet sich IMMER über der Liste!
+document.querySelectorAll('.btn-add-pos').forEach(btn => {
+  btn.addEventListener('click', function (e) {
+    e.stopPropagation();
+    openPositionModal();
+  });
+});
+
+function openPositionModal() {
+  document.getElementById('positionModal').style.display = 'flex';
+  document.getElementById('positionModal').focus();
+}
+function closePositionModal() {
+  document.getElementById('positionModal').style.display = 'none';
+}
+
+// ESC schließt nur das **oberste** offene Modal
+document.addEventListener('keydown', function (e) {
+  if (e.key === "Escape") {
+    // Untermodal zuerst schließen
+    if (document.getElementById('positionModal').style.display === 'flex') {
+      closePositionModal();
+    } else if (document.getElementById('positionenModal').style.display === 'flex') {
+      closePositionenModal();
+    }
+    // Notiz- und andere Modale separat behandeln!
+    if (document.getElementById('note-edit-modal')) {
+      const editModal = document.getElementById('note-edit-modal');
+      if (editModal.style.display === 'flex' || editModal.style.display === 'block') {
+        editModal.style.display = 'none';
+      }
+    }
+  }
+});
+
+// Klick außerhalb: Modal schließen (nur aktives)
+document.getElementById('positionenModal').addEventListener('mousedown', function(e){
+  if(e.target === this) closePositionenModal();
+});
+document.getElementById('positionModal').addEventListener('mousedown', function(e){
+  if(e.target === this) closePositionModal();
+});
+
+// Tabs in "Neue Position"
+window.switchTab = function(tab) {
+  document.querySelectorAll('.tab-btn').forEach(btn =>
+    btn.classList.toggle('active', btn.dataset.tab === tab)
+  );
+  document.querySelector('.tab-content-material').style.display = (tab === 'material') ? 'block' : 'none';
+  document.querySelector('.tab-content-arbeit').style.display = (tab === 'arbeit') ? 'block' : 'none';
+  document.querySelector('.tab-content-sonstiges').style.display = (tab === 'sonstiges') ? 'block' : 'none';
+};
+
+// Default immer auf Material
+document.addEventListener('DOMContentLoaded', function() {
+  window.switchTab('material');
+});
+</script>
 
 
 
 
 
+<script>
+/* 1. Notiz-Edit-Modal öffnen/schließen */
+document.querySelectorAll('.notes-list .edit-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.getElementById('note-edit-modal').style.display = 'flex';
+    document.getElementById('note-edit-modal').focus();
+  });
+});
+document.querySelectorAll('#note-edit-modal .modal-close, #note-edit-modal .modal-btn-secondary').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.getElementById('note-edit-modal').style.display = 'none';
+  });
+});
+document.getElementById('note-edit-modal').addEventListener('mousedown', function(e) {
+  if (e.target === this) this.style.display = 'none';
+});
 
+/* 2. ESC schließt alle Modale korrekt */
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape") {
+    if (document.getElementById('positionModal').style.display === 'flex') closePositionModal();
+    else if (document.getElementById('positionenModal').style.display === 'flex') closePositionenModal();
+    if (document.getElementById('note-edit-modal').style.display === 'flex') {
+      document.getElementById('note-edit-modal').style.display = 'none';
+    }
+  }
+});
+</script>
+
+
+
+
+
+<script>
+    // Öffnet das Anzeigeeinstellungen-Modal
+document.querySelector('.btn.secondary').addEventListener('click', function () {
+  document.getElementById('anzeigeeinstellungenModal').style.display = 'flex';
+  document.body.classList.add('modal-open');
+});
+
+// Schließen mit X oder außerhalb klicken
+function closeAnzeigeModal() {
+  document.getElementById('anzeigeeinstellungenModal').style.display = 'none';
+  document.body.classList.remove('modal-open');
+}
+document.getElementById('anzeigeeinstellungenModal').addEventListener('mousedown', function(e){
+  if(e.target === this) closeAnzeigeModal();
+});
+// ESC schließt Modal
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape" && document.getElementById('anzeigeeinstellungenModal').style.display === 'flex') {
+    closeAnzeigeModal();
+  }
+});
+
+</script>
 
 
 
