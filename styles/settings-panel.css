@@ -1,0 +1,131 @@
+.settings-menu {
+  display: none;
+  position: absolute;
+  top: 52px;
+  right: 10px;
+  min-width: 210px;
+  max-width: 96vw;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 32px 0 rgba(31, 41, 55, 0.14), 0 1.5px 6px 0 rgba(31,41,55,0.08);
+  z-index: 150;
+  padding: 0.3rem 0 0.2rem 0;
+  border: 1px solid #e5e7eb;
+  font-size: 0.97rem;
+  animation: fadeIn 0.18s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+
+.settings-panel__close {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  background: none;
+  border: none;
+  color: #a1a1aa;
+  font-size: 1.13rem;
+  padding: 4px 5px;
+  border-radius: 7px;
+  cursor: pointer;
+  z-index: 10;
+  transition: background 0.16s, color 0.15s;
+}
+.settings-panel__close:hover {
+  background: #f3f4f6;
+  color: #1e293b;
+}
+
+.settings-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0.6rem 0 0.2rem 0;
+}
+.settings-menu li {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.41rem 1.07rem 0.41rem 1.07rem;
+  font-size: 0.97rem;
+  color: #374151;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background 0.12s, color 0.12s;
+  min-height: 38px;
+}
+.settings-menu li:hover:not(.settings-switch) {
+  background: #f3f4f6;
+  color: #2563eb;
+}
+.settings-menu li i {
+  font-size: 1.08rem;
+  color: #636a73;
+  min-width: 20px;
+  text-align: center;
+}
+.icon-text {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+/* Switch Design für Kundenmodus */
+.settings-switch {
+  justify-content: space-between;
+  background: #f8fafc;
+  cursor: default;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.settings-switch .icon-text i {
+  color: #64748b;
+}
+
+/* Schmaler moderner Switch */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 18px;
+}
+.switch input {display: none;}
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: #e5e7eb;
+  border-radius: 34px;
+  transition: background .18s;
+  box-shadow: 0 1px 4px rgba(55,65,81,0.09);
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 13px; width: 13px;
+  left: 2.5px; bottom: 2.4px;
+  background: #fff;
+  border-radius: 50%;
+  transition: .2s;
+  box-shadow: 0 0.5px 1.5px rgba(31,41,55,0.06);
+}
+.switch input:checked + .slider {
+  background: #3b82f6;
+}
+.switch input:checked + .slider:before {
+  transform: translateX(15px);
+}
+
+@media (max-width: 500px) {
+  .settings-menu {
+    right: 4px;
+    left: 4px;
+    min-width: unset;
+    width: auto;
+    max-width: 99vw;
+    font-size: 0.97rem;
+  }
+  .settings-panel__close { right: 8px; top: 7px; }
+}
