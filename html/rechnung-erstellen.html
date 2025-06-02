@@ -94,10 +94,16 @@
 
     <main class="main-content auftrag-main">
 <div class="auftrag-header">
-            <div class="auftrag-header-top">
-                <h1>Rechnung </h1>
-                <div class="auftrag-preis">0,00 €</div>
-            </div>
+<div class="auftrag-header-top" style="display: flex; align-items: center; gap: 1rem;">
+    <h1>Rechnung</h1>
+    <div class="icon-action-bar">
+      <button class="icon-action-btn" title="Rechnung drucken"><i class="fas fa-print"></i></button>
+      <button class="icon-action-btn" title="Als PDF speichern"><i class="fas fa-file-pdf"></i></button>
+      <button class="icon-action-btn" title="Per E-Mail senden"><i class="fas fa-envelope"></i></button>
+    </div>
+    <div class="auftrag-preis" style="margin-left:auto;">0,00 €</div>
+</div>
+
             <div class="auftrag-header-bottom">
                 <div class="progress-bar">
                     <div class="progress" style="width: 100%;">
