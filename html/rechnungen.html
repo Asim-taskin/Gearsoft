@@ -347,8 +347,10 @@
   </ul>
 </div>s
 
-  <script src="../scripts/right-sidebar.js"></script>#
+  <script src="../scripts/right-sidebar.js"></script>
   <script src="../scripts/settings-panel.js"></script>
+        <script src="../scripts/sidebar-collapse.js"></script>
+
   <script>
     // Menu-Toggle für Left-Sidebar
     (() => {
@@ -410,22 +412,7 @@
   </script>
 
 
-<script>
-  // Collapse/Expand Left Sidebar (Desktop)
-  const collapseBtn = document.getElementById('sidebarCollapseBtn');
-  collapseBtn?.addEventListener('click', () => {
-    document.body.classList.toggle('sidebar-collapsed');
-    // Icon drehen für visuelles Feedback
-    const icon = collapseBtn.querySelector('i');
-    icon.classList.toggle('fa-angle-double-left');
-    icon.classList.toggle('fa-angle-double-right');
-  });
 
-  // Optional: Sidebar auf kleinen Screens nicht collapsen
-  window.addEventListener('resize', () => {
-    if(window.innerWidth < 768) document.body.classList.remove('sidebar-collapsed');
-  });
-</script>
 
 
 

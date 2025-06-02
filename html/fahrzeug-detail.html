@@ -412,6 +412,8 @@
 </div>
     <script src="../scripts/right-sidebar.js"></script>
     <script src="../scripts/settings-panel.js"></script>
+          <script src="../scripts/sidebar-collapse.js"></script>
+
 
     <script>
         // Bildwechsel-Funktion bleibt unverändert
@@ -517,19 +519,7 @@
   
 
 
-  <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const collapseBtn = document.getElementById('sidebarCollapseBtn');
-    if (collapseBtn) {
-        collapseBtn.addEventListener('click', function() {
-            document.body.classList.toggle('sidebar-collapsed');
-            const icon = this.querySelector('i');
-            icon.classList.toggle('fa-angle-double-left');
-            icon.classList.toggle('fa-angle-double-right');
-        });
-    }
-});
-</script>
+
 
 
 
