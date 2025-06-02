@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../styles/right-sidebar.css">
     <link rel="stylesheet" href="../styles/fahrzeuge-detail.css">
     <link rel="stylesheet" href="../styles/webkit.css">
+    <link rel="stylesheet" href="../styles/settings-panel.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -30,7 +31,7 @@
                     <button class="icon-btn"><i class="fas fa-question-circle"></i></button>
                     <button class="icon-btn"><i class="fas fa-cog"></i></button>
                 </div>
-                <a href="#" class="detail-link">Detaillierte Kundenübersicht</a>
+                <!-- <a href="#" class="detail-link">Detaillierte Kundenübersicht</a> -->
             </div>
         </div>
     </header>
@@ -382,7 +383,35 @@
             </div>
         </div>
     </div>
+
+    <!-- settings - panel -->
+  <div id="settings-menu" class="settings-menu">
+  <button class="settings-panel__close" aria-label="Schließen">
+    <i class="fas fa-times"></i>
+  </button>
+  <ul>
+    <li class="settings-switch">
+      <div class="icon-text">
+        <i class="fas fa-user-circle"></i>
+        <span>Kundenmodus</span>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="kundenmodus-switch">
+        <span class="slider"></span>
+      </label>
+    </li>
+    <li><i class="fas fa-tools"></i><span>Werkstatteinstellungen</span></li>
+    <li><i class="fas fa-users-cog"></i><span>Benutzer</span></li>
+    <li><i class="fas fa-print"></i><span>Vorlagen / Druck</span></li>
+    <li><i class="fas fa-book"></i><span>Buchhaltung</span></li>
+    <li><i class="fas fa-cash-register"></i><span>Registrierkasse</span></li>
+    <li><i class="fas fa-plug"></i><span>Schnittstellen</span></li>
+    <li><i class="fas fa-credit-card"></i><span>Tarif und Zahlung</span></li>
+  </ul>
+</div>
     <script src="../scripts/right-sidebar.js"></script>
+    <script src="../scripts/settings-panel.js"></script>
+
     <script>
         // Bildwechsel-Funktion bleibt unverändert
         function changeImage(src, element) {
