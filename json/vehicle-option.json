@@ -1,0 +1,1247 @@
+{
+  "fahrzeugklasse": [
+    "C1 Lot Zugmasch. Ketten (=1150mm)",
+    "C2 Lot Zugmasch. Ketten (<40km/h, SW <1150mm)",
+    "C3 Lot Zugmasch. Ketten (<40km/h, LM <600kg)",
+    "C4 Lot Zugmasch. Ketten (Stelzenschepper)",
+    "C5 Lot Zugmasch. Ketten (<40km/h)",
+    "C1E | einspr. Motorfahrzeug",
+    "L2E | mehrspr. Motorfahrzeug",
+    "L3E | Kraftrad (Motorrad)",
+    "L4E | Motorrad mit Beiwagen",
+    "L5E | Motorradreifahrzeug (z.B. Trike)",
+    "L6E | vierrädrige Leichtkraftfahrzeuge",
+    "L7E | vierrädrige Kraftfahrzeuge im Sinne der Richtlinie 2002/24/EG",
+    "M1 | PKW/Kombi (höchstens 8 Sitzplätze außer Fahrer)",
+    "M2 | Omnibus (mehr als 8 Sitze, höchstzul. Gesamtgew. bis 5 t)",
+    "M3 | Omnibus (mehr als 8 Sitze, höchstzul. Gesamtgew. über 5 t)",
+    "N1 | Lastkraftwagen (höchstzul. Gesamtgew. bis 3,5 t)",
+    "N2 | Lastkraftwagen (höchstzul. Gesamtgew. über 3,5 t und bis 12 t)",
+    "N3 | Lastkraftwagen (höchstzul. Gesamtgew. über 12 t)",
+    "O1 | Anhänger (höchstzul. Gesamtgew. bis 0,75 t)",
+    "O2 | Anhänger (höchstzul. Gesamtgew. über 0,75 t und bis 3,5 t)",
+    "O3 | Anhänger (höchstzul. Gesamtgew. über 3,5 t und bis 10 t)",
+    "O4 | Anhänger (höchstzul. Gesamtgew. über 10 t)",
+    "R1 | Lof Anhänger, bis 1.500kg/Achse",
+    "R2 | Lof Anhänger, bis 3.500kg/Achse",
+    "R3 | Lof Anhänger, bis 21.000kg/Achse",
+    "R4 | Lof Anhänger, mehr als 21.000kg/Achse",
+    "T1 | Lof Zugmasch. (<1150mm)",
+    "T2 | Lof Zugmasch. (<40km/h, SW <1150mm)",
+    "T3 | Lof Zugmasch. (<40km/h, LM <600kg)",
+    "T4 | Lof Zugmasch. (<40km/h)",
+    "T5 | Lof Zugmasch. (<40km/h)"
+  ],
+  "getriebeart": [
+    "manuell", "automatik"
+  ],
+  "motorkategorie": [
+    "AD | Andere",
+    "D | Diesel-Motor S | Saug-Diesel",
+    "D | Diesel-Motor TD | Turbo-Diesel",
+    "E | Elektromotor",
+    "HD | Hybrid Diesel",
+    "HB | Hybrid Benzin",
+    "O02 | Otto-Motor 2-Takt",
+    "O04 | Otto-Motor 4-Takt Kat | mit Katalysator",
+    "O04 | Otto-Motor 4-Takt Okat | ohne Katalysator"
+  ],
+  "hersteller": [
+    {
+      "name": "Audi",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/9/92/Audi-Logo_2016.svg"
+    },
+    {
+      "name": "VW",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Volkswagen_logo_2019.svg/512px-Volkswagen_logo_2019.svg.png"
+    },
+    {
+      "name": "Skoda",
+      "logo": "https://upload.wikimedia.org/wikipedia/de/thumb/1/1c/Skoda_Logo.svg/960px-Skoda_Logo.svg.png?20081027005925"
+    },
+    {
+      "name": "Suzuki",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/Suzuki_logo_2025_%28vertical%29.svg/496px-Suzuki_logo_2025_%28vertical%29.svg.png"
+    },
+    {
+      "name": "Mazda",
+      "logo": "https://upload.wikimedia.org/wikipedia/de/thumb/e/e2/Mazda_logo_2.svg/278px-Mazda_logo_2.svg.png?20080903131001"
+    },
+    {
+      "name": "BMW",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/BMW_logo_%28gray%29.svg/600px-BMW_logo_%28gray%29.svg.png"
+    },
+    {
+      "name": "Mercedes-Benz",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/90/Mercedes-Logo.svg/567px-Mercedes-Logo.svg.png?20230111203159"
+    },
+    {
+      "name": "Toyota",
+      "logo": "https://upload.wikimedia.org/wikipedia/de/thumb/b/b1/Toyota_Logo_silver.svg/1224px-Toyota_Logo_silver.svg.png"
+    },
+    {
+      "name": "Honda",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Honda.svg/275px-Honda.svg.png?20180115222507"
+    },
+    {
+      "name": "Ford",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Ford_logo_flat.svg/960px-Ford_logo_flat.svg.png"
+    },
+    {
+      "name": "Hyundai",
+      "logo": "https://upload.wikimedia.org/wikipedia/de/thumb/b/b1/Hyundai.svg/645px-Hyundai.svg.png?20080815131529"
+    },
+    {
+      "name": "Kia",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/KIA_logo2.svg/960px-KIA_logo2.svg.png"
+    },
+    {
+      "name": "Nissan",
+      "logo": "https://upload.wikimedia.org/wikipedia/de/thumb/1/15/Nissan_Logo.svg/1200px-Nissan_Logo.svg.png"
+    },
+    {
+      "name": "Renault",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/b/b7/Renault_2021_Text.svg"
+    },
+    {
+      "name": "Peugeot",
+      "logo": "https://images.seeklogo.com/logo-png/25/2/peugeot-logo-png_seeklogo-251567.png"
+    },
+    {
+      "name": "Citroën",
+      "logo": "https://cdn.worldvectorlogo.com/logos/citroen-2009.svg"
+    },
+    {
+      "name": "Volvo",
+      "logo": "https://upload.wikimedia.org/wikipedia/de/thumb/3/3e/Volvo_logo1.svg/1200px-Volvo_logo1.svg.png"
+    },
+    {
+      "name": "Porsche",
+      "logo": "https://upload.wikimedia.org/wikipedia/de/thumb/2/2d/Porsche_Wappen.svg/1200px-Porsche_Wappen.svg.png"
+    },
+    {
+      "name": "Ferrari",
+      "logo": "https://upload.wikimedia.org/wikipedia/de/thumb/c/c0/Scuderia_Ferrari_Logo.svg/1536px-Scuderia_Ferrari_Logo.svg.png"
+    },
+    {
+      "name": "Lamborghini",
+      "logo": "https://upload.wikimedia.org/wikipedia/it/0/02/Logo_della_Lamborghini.svg"
+    },
+    {
+      "name": "AGCO",
+      "logo": "https://via.placeholder.com/50?text=AGCO"
+    },
+    {
+      "name": "AMG",
+      "logo": "https://via.placeholder.com/50?text=AMG"
+    },
+    {
+      "name": "ARO",
+      "logo": "https://via.placeholder.com/50?text=ARO"
+    },
+    {
+      "name": "ATZ",
+      "logo": "https://via.placeholder.com/50?text=ATZ"
+    },
+    {
+      "name": "Adly",
+      "logo": "https://via.placeholder.com/50?text=Adly"
+    },
+    {
+      "name": "Aeon Motor",
+      "logo": "https://via.placeholder.com/50?text=Aeon+Motor"
+    },
+    {
+      "name": "Agroliner",
+      "logo": "https://via.placeholder.com/50?text=Agroliner"
+    },
+    {
+      "name": "Aixam",
+      "logo": "https://via.placeholder.com/50?text=Aixam"
+    },
+    {
+      "name": "Allinger",
+      "logo": "https://via.placeholder.com/50?text=Allinger"
+    },
+    {
+      "name": "Anssems",
+      "logo": "https://via.placeholder.com/50?text=Anssems"
+    },
+    {
+      "name": "Aprilia",
+      "logo": "https://via.placeholder.com/50?text=Aprilia"
+    },
+    {
+      "name": "Artega",
+      "logo": "https://via.placeholder.com/50?text=Artega"
+    },
+    {
+      "name": "Asia Motors",
+      "logo": "https://via.placeholder.com/50?text=Asia+Motors"
+    },
+    {
+      "name": "BLYSS",
+      "logo": "https://via.placeholder.com/50?text=BLYSS"
+    },
+    {
+      "name": "BMW-Motorrad",
+      "logo": "https://via.placeholder.com/50?text=BMW-Motorrad"
+    },
+    {
+      "name": "BRP",
+      "logo": "https://via.placeholder.com/50?text=BRP"
+    },
+    {
+      "name": "Bactian",
+      "logo": "https://via.placeholder.com/50?text=Bactian"
+    },
+    {
+      "name": "Baumann",
+      "logo": "https://via.placeholder.com/50?text=Baumann"
+    },
+    {
+      "name": "Beeline",
+      "logo": "https://via.placeholder.com/50?text=Beeline"
+    },
+    {
+      "name": "Benelli",
+      "logo": "https://via.placeholder.com/50?text=Benelli"
+    },
+    {
+      "name": "Benzhou",
+      "logo": "https://via.placeholder.com/50?text=Benzhou"
+    },
+    {
+      "name": "Beta",
+      "logo": "https://via.placeholder.com/50?text=Beta"
+    },
+    {
+      "name": "Bimota",
+      "logo": "https://via.placeholder.com/50?text=Bimota"
+    },
+    {
+      "name": "Binz",
+      "logo": "https://via.placeholder.com/50?text=Binz"
+    },
+    {
+      "name": "Bockmann",
+      "logo": "https://via.placeholder.com/50?text=Bockmann"
+    },
+    {
+      "name": "Boss Hoss",
+      "logo": "https://via.placeholder.com/50?text=Boss+Hoss"
+    },
+    {
+      "name": "Boxer",
+      "logo": "https://via.placeholder.com/50?text=Boxer"
+    },
+    {
+      "name": "Brandner",
+      "logo": "https://via.placeholder.com/50?text=Brandner"
+    },
+    {
+      "name": "Brilliance",
+      "logo": "https://via.placeholder.com/50?text=Brilliance"
+    },
+    {
+      "name": "Brunner",
+      "logo": "https://via.placeholder.com/50?text=Brunner"
+    },
+    {
+      "name": "Buell",
+      "logo": "https://via.placeholder.com/50?text=Buell"
+    },
+    {
+      "name": "Böckmann",
+      "logo": "https://via.placeholder.com/50?text=Böckmann"
+    },
+    {
+      "name": "CCM Motorcycles",
+      "logo": "https://via.placeholder.com/50?text=CCM+Motorcycles"
+    },
+    {
+      "name": "CHM Motorsport",
+      "logo": "https://via.placeholder.com/50?text=CHM+Motorsport"
+    },
+    {
+      "name": "CJYM",
+      "logo": "https://via.placeholder.com/50?text=CJYM"
+    },
+    {
+      "name": "CPI Moped",
+      "logo": "https://via.placeholder.com/50?text=CPI+Moped"
+    },
+    {
+      "name": "CR&S",
+      "logo": "https://via.placeholder.com/50?text=CR&S"
+    },
+    {
+      "name": "Cagiva",
+      "logo": "https://via.placeholder.com/50?text=Cagiva"
+    },
+    {
+      "name": "Caravan",
+      "logo": "https://via.placeholder.com/50?text=Caravan"
+    },
+    {
+      "name": "Carraro",
+      "logo": "https://via.placeholder.com/50?text=Carraro"
+    },
+    {
+      "name": "Caterham",
+      "logo": "https://via.placeholder.com/50?text=Caterham"
+    },
+    {
+      "name": "China Taotao Group Xiangyuan",
+      "logo": "https://via.placeholder.com/50?text=China+Taotao+Group+Xiangyuan"
+    },
+    {
+      "name": "Confederate Motors",
+      "logo": "https://via.placeholder.com/50?text=Confederate+Motors"
+    },
+    {
+      "name": "Corda",
+      "logo": "https://via.placeholder.com/50?text=Corda"
+    },
+    {
+      "name": "Da Changjiang",
+      "logo": "https://via.placeholder.com/50?text=Da+Changjiang"
+    },
+    {
+      "name": "Daelim",
+      "logo": "https://via.placeholder.com/50?text=Daelim"
+    },
+    {
+      "name": "Damco",
+      "logo": "https://via.placeholder.com/50?text=Damco"
+    },
+    {
+      "name": "Dayang",
+      "logo": "https://via.placeholder.com/50?text=Dayang"
+    },
+    {
+      "name": "Derbi",
+      "logo": "https://via.placeholder.com/50?text=Derbi"
+    },
+    {
+      "name": "Dethleffs",
+      "logo": "https://via.placeholder.com/50?text=Dethleffs"
+    },
+    {
+      "name": "Dimos",
+      "logo": "https://via.placeholder.com/50?text=Dimos"
+    },
+    {
+      "name": "Dinkel",
+      "logo": "https://via.placeholder.com/50?text=Dinkel"
+    },
+    {
+      "name": "Dnepr",
+      "logo": "https://via.placeholder.com/50?text=Dnepr"
+    },
+    {
+      "name": "Donkervoort",
+      "logo": "https://via.placeholder.com/50?text=Donkervoort"
+    },
+    {
+      "name": "E-TON",
+      "logo": "https://via.placeholder.com/50?text=E-TON"
+    },
+    {
+      "name": "EVT",
+      "logo": "https://via.placeholder.com/50?text=EVT"
+    },
+    {
+      "name": "Eigenbau",
+      "logo": "https://via.placeholder.com/50?text=Eigenbau"
+    },
+    {
+      "name": "Esthme",
+      "logo": "https://via.placeholder.com/50?text=Esthme"
+    },
+    {
+      "name": "FYM",
+      "logo": "https://via.placeholder.com/50?text=FYM"
+    },
+    {
+      "name": "Fantic",
+      "logo": "https://via.placeholder.com/50?text=Fantic"
+    },
+    {
+      "name": "Fantic Motor",
+      "logo": "https://via.placeholder.com/50?text=Fantic+Motor"
+    },
+    {
+      "name": "Fendt",
+      "logo": "https://via.placeholder.com/50?text=Fendt"
+    },
+    {
+      "name": "Fisher",
+      "logo": "https://via.placeholder.com/50?text=Fisher"
+    },
+    {
+      "name": "Fisher Motor Company",
+      "logo": "https://via.placeholder.com/50?text=Fisher+Motor+Company"
+    },
+    {
+      "name": "Fisker",
+      "logo": "https://via.placeholder.com/50?text=Fisker"
+    },
+    {
+      "name": "Fitz",
+      "logo": "https://via.placeholder.com/50?text=Fitz"
+    },
+    {
+      "name": "Fuechan",
+      "logo": "https://via.placeholder.com/50?text=Fuechan"
+    },
+    {
+      "name": "Fuliatai",
+      "logo": "https://via.placeholder.com/50?text=Fuliatai"
+    },
+    {
+      "name": "Futong",
+      "logo": "https://via.placeholder.com/50?text=Futong"
+    },
+    {
+      "name": "GW Wr. Neustadt",
+      "logo": "https://via.placeholder.com/50?text=GW+Wr.+Neustadt"
+    },
+    {
+      "name": "Gamma",
+      "logo": "https://via.placeholder.com/50?text=Gamma"
+    },
+    {
+      "name": "Garelli",
+      "logo": "https://via.placeholder.com/50?text=Garelli"
+    },
+    {
+      "name": "GasGas",
+      "logo": "https://via.placeholder.com/50?text=GasGas"
+    },
+    {
+      "name": "Generic",
+      "logo": "https://via.placeholder.com/50?text=Generic"
+    },
+    {
+      "name": "Gfölner",
+      "logo": "https://via.placeholder.com/50?text=Gfölner"
+    },
+    {
+      "name": "Gigant",
+      "logo": "https://via.placeholder.com/50?text=Gigant"
+    },
+    {
+      "name": "Gilera",
+      "logo": "https://via.placeholder.com/50?text=Gilera"
+    },
+    {
+      "name": "Gsodam",
+      "logo": "https://via.placeholder.com/50?text=Gsodam"
+    },
+    {
+      "name": "Gumpert",
+      "logo": "https://via.placeholder.com/50?text=Gumpert"
+    },
+    {
+      "name": "Hain Sundiro",
+      "logo": "https://via.placeholder.com/50?text=Hain+Sundiro"
+    },
+    {
+      "name": "Hangler",
+      "logo": "https://via.placeholder.com/50?text=Hangler"
+    },
+    {
+      "name": "Hanglong",
+      "logo": "https://via.placeholder.com/50?text=Hanglong"
+    },
+    {
+      "name": "Haoque",
+      "logo": "https://via.placeholder.com/50?text=Haoque"
+    },
+    {
+      "name": "Hartford",
+      "logo": "https://via.placeholder.com/50?text=Hartford"
+    },
+    {
+      "name": "Hensim",
+      "logo": "https://via.placeholder.com/50?text=Hensim"
+    },
+    {
+      "name": "Highland",
+      "logo": "https://via.placeholder.com/50?text=Highland"
+    },
+    {
+      "name": "Hitachi",
+      "logo": "https://via.placeholder.com/50?text=Hitachi"
+    },
+    {
+      "name": "Horex",
+      "logo": "https://via.placeholder.com/50?text=Horex"
+    },
+    {
+      "name": "Hua",
+      "logo": "https://via.placeholder.com/50?text=Hua"
+    },
+    {
+      "name": "Hua Sha",
+      "logo": "https://via.placeholder.com/50?text=Hua+Sha"
+    },
+    {
+      "name": "Huotian",
+      "logo": "https://via.placeholder.com/50?text=Huotian"
+    },
+    {
+      "name": "Huawin",
+      "logo": "https://via.placeholder.com/50?text=Huawin"
+    },
+    {
+      "name": "Hunter",
+      "logo": "https://via.placeholder.com/50?text=Hunter"
+    },
+    {
+      "name": "Husaberg",
+      "logo": "https://via.placeholder.com/50?text=Husaberg"
+    },
+    {
+      "name": "Husqvarna Motorcycles",
+      "logo": "https://via.placeholder.com/50?text=Husqvarna+Motorcycles"
+    },
+    {
+      "name": "Hyosung S&T Motors",
+      "logo": "https://via.placeholder.com/50?text=Hyosung+S&T+Motors"
+    },
+    {
+      "name": "Hüffermann",
+      "logo": "https://via.placeholder.com/50?text=Hüffermann"
+    },
+    {
+      "name": "INEOS Grenadier",
+      "logo": "https://via.placeholder.com/50?text=INEOS+Grenadier"
+    },
+    {
+      "name": "Infiniti",
+      "logo": "https://via.placeholder.com/50?text=Infiniti"
+    },
+    {
+      "name": "Iveco",
+      "logo": "https://via.placeholder.com/50?text=Iveco"
+    },
+    {
+      "name": "JL",
+      "logo": "https://via.placeholder.com/50?text=JL"
+    },
+    {
+      "name": "JSCFO",
+      "logo": "https://via.placeholder.com/50?text=JSCFO"
+    },
+    {
+      "name": "Jawa",
+      "logo": "https://via.placeholder.com/50?text=Jawa"
+    },
+    {
+      "name": "Jianshe",
+      "logo": "https://via.placeholder.com/50?text=Jianshe"
+    },
+    {
+      "name": "Jingganshan",
+      "logo": "https://via.placeholder.com/50?text=Jingganshan"
+    },
+    {
+      "name": "Jonway",
+      "logo": "https://via.placeholder.com/50?text=Jonway"
+    },
+    {
+      "name": "Jumbo",
+      "logo": "https://via.placeholder.com/50?text=Jumbo"
+    },
+    {
+      "name": "Jungheinrich",
+      "logo": "https://via.placeholder.com/50?text=Jungheinrich"
+    },
+    {
+      "name": "Kaeser",
+      "logo": "https://via.placeholder.com/50?text=Kaeser"
+    },
+    {
+      "name": "Kalmar",
+      "logo": "https://via.placeholder.com/50?text=Kalmar"
+    },
+    {
+      "name": "Kanced",
+      "logo": "https://via.placeholder.com/50?text=Kanced"
+    },
+    {
+      "name": "Kanda",
+      "logo": "https://via.placeholder.com/50?text=Kanda"
+    },
+    {
+      "name": "Kanuni",
+      "logo": "https://via.placeholder.com/50?text=Kanuni"
+    },
+    {
+      "name": "Kingpeng",
+      "logo": "https://via.placeholder.com/50?text=Kingpeng"
+    },
+    {
+      "name": "Kinlong",
+      "logo": "https://via.placeholder.com/50?text=Kinlong"
+    },
+    {
+      "name": "Kocel",
+      "logo": "https://via.placeholder.com/50?text=Kocel"
+    },
+    {
+      "name": "Komos",
+      "logo": "https://via.placeholder.com/50?text=Komos"
+    },
+    {
+      "name": "Kreidler",
+      "logo": "https://via.placeholder.com/50?text=Kreidler"
+    },
+    {
+      "name": "Kögler",
+      "logo": "https://via.placeholder.com/50?text=Kögler"
+    },
+    {
+      "name": "König",
+      "logo": "https://via.placeholder.com/50?text=König"
+    },
+    {
+      "name": "LMC",
+      "logo": "https://via.placeholder.com/50?text=LMC"
+    },
+    {
+      "name": "LPA",
+      "logo": "https://via.placeholder.com/50?text=LPA"
+    },
+    {
+      "name": "Lada",
+      "logo": "https://via.placeholder.com/50?text=Lada"
+    },
+    {
+      "name": "Land Rover",
+      "logo": "https://via.placeholder.com/50?text=Land+Rover"
+    },
+    {
+      "name": "Landex",
+      "logo": "https://via.placeholder.com/50?text=Landex"
+    },
+    {
+      "name": "Laverda",
+      "logo": "https://via.placeholder.com/50?text=Laverda"
+    },
+    {
+      "name": "Lidao",
+      "logo": "https://via.placeholder.com/50?text=Lidao"
+    },
+    {
+      "name": "Liebherr",
+      "logo": "https://via.placeholder.com/50?text=Liebherr"
+    },
+    {
+      "name": "Lifan",
+      "logo": "https://via.placeholder.com/50?text=Lifan"
+    },
+    {
+      "name": "Lindner",
+      "logo": "https://via.placeholder.com/50?text=Lindner"
+    },
+    {
+      "name": "LingKen",
+      "logo": "https://via.placeholder.com/50?text=LingKen"
+    },
+    {
+      "name": "Lingben",
+      "logo": "https://via.placeholder.com/50?text=Lingben"
+    },
+    {
+      "name": "Loncin",
+      "logo": "https://via.placeholder.com/50?text=Loncin"
+    },
+    {
+      "name": "Luchs",
+      "logo": "https://via.placeholder.com/50?text=Luchs"
+    },
+    {
+      "name": "MAFI",
+      "logo": "https://via.placeholder.com/50?text=MAFI"
+    },
+    {
+      "name": "MBS",
+      "logo": "https://via.placeholder.com/50?text=MBS"
+    },
+    {
+      "name": "MV",
+      "logo": "https://via.placeholder.com/50?text=MV"
+    },
+    {
+      "name": "MV Agusta",
+      "logo": "https://via.placeholder.com/50?text=MV+Agusta"
+    },
+    {
+      "name": "MZ",
+      "logo": "https://via.placeholder.com/50?text=MZ"
+    },
+    {
+      "name": "Magni",
+      "logo": "https://via.placeholder.com/50?text=Magni"
+    },
+    {
+      "name": "Maico",
+      "logo": "https://via.placeholder.com/50?text=Maico"
+    },
+    {
+      "name": "Malaguti",
+      "logo": "https://via.placeholder.com/50?text=Malaguti"
+    },
+    {
+      "name": "Malanca",
+      "logo": "https://via.placeholder.com/50?text=Malanca"
+    },
+    {
+      "name": "Manitou",
+      "logo": "https://via.placeholder.com/50?text=Manitou"
+    },
+    {
+      "name": "Marine",
+      "logo": "https://via.placeholder.com/50?text=Marine"
+    },
+    {
+      "name": "Marine Turbine Technologies",
+      "logo": "https://via.placeholder.com/50?text=Marine+Turbine+Technologies"
+    },
+    {
+      "name": "Martin",
+      "logo": "https://via.placeholder.com/50?text=Martin"
+    },
+    {
+      "name": "Maybach",
+      "logo": "https://via.placeholder.com/50?text=Maybach"
+    },
+    {
+      "name": "McLaren",
+      "logo": "https://via.placeholder.com/50?text=McLaren"
+    },
+    {
+      "name": "Megeti",
+      "logo": "https://via.placeholder.com/50?text=Megeti"
+    },
+    {
+      "name": "Merlin",
+      "logo": "https://via.placeholder.com/50?text=Merlin"
+    },
+    {
+      "name": "Meiller",
+      "logo": "https://via.placeholder.com/50?text=Meiller"
+    },
+    {
+      "name": "Melkus",
+      "logo": "https://via.placeholder.com/50?text=Melkus"
+    },
+    {
+      "name": "Mercedes",
+      "logo": "https://via.placeholder.com/50?text=Mercedes"
+    },
+    {
+      "name": "Merkel",
+      "logo": "https://via.placeholder.com/50?text=Merkel"
+    },
+    {
+      "name": "Merkel Motor Company",
+      "logo": "https://via.placeholder.com/50?text=Merkel+Motor+Company"
+    },
+    {
+      "name": "Microcar",
+      "logo": "https://via.placeholder.com/50?text=Microcar"
+    },
+    {
+      "name": "Minarelli",
+      "logo": "https://via.placeholder.com/50?text=Minarelli"
+    },
+    {
+      "name": "Minerva",
+      "logo": "https://via.placeholder.com/50?text=Minerva"
+    },
+    {
+      "name": "Minerva Sachs",
+      "logo": "https://via.placeholder.com/50?text=Minerva+Sachs"
+    },
+    {
+      "name": "Minsk",
+      "logo": "https://via.placeholder.com/50?text=Minsk"
+    },
+    {
+      "name": "Modenas",
+      "logo": "https://via.placeholder.com/50?text=Modenas"
+    },
+    {
+      "name": "Moko",
+      "logo": "https://via.placeholder.com/50?text=Moko"
+    },
+    {
+      "name": "Mondial",
+      "logo": "https://via.placeholder.com/50?text=Mondial"
+    },
+    {
+      "name": "Monsberger",
+      "logo": "https://via.placeholder.com/50?text=Monsberger"
+    },
+    {
+      "name": "Montesa",
+      "logo": "https://via.placeholder.com/50?text=Montesa"
+    },
+    {
+      "name": "Mosler",
+      "logo": "https://via.placeholder.com/50?text=Mosler"
+    },
+    {
+      "name": "Moto",
+      "logo": "https://via.placeholder.com/50?text=Moto"
+    },
+    {
+      "name": "Moto Guzzi",
+      "logo": "https://via.placeholder.com/50?text=Moto+Guzzi"
+    },
+    {
+      "name": "Moto Morini",
+      "logo": "https://via.placeholder.com/50?text=Moto+Morini"
+    },
+    {
+      "name": "Motohispania",
+      "logo": "https://via.placeholder.com/50?text=Motohispania"
+    },
+    {
+      "name": "Mulan",
+      "logo": "https://via.placeholder.com/50?text=Mulan"
+    },
+    {
+      "name": "NSU",
+      "logo": "https://via.placeholder.com/50?text=NSU"
+    },
+    {
+      "name": "NUT",
+      "logo": "https://via.placeholder.com/50?text=NUT"
+    },
+    {
+      "name": "Neander Motorcycles",
+      "logo": "https://via.placeholder.com/50?text=Neander+Motorcycles"
+    },
+    {
+      "name": "Neander",
+      "logo": "https://via.placeholder.com/50?text=Neander"
+    },
+    {
+      "name": "Niewiadów",
+      "logo": "https://via.placeholder.com/50?text=Niewiadów"
+    },
+    {
+      "name": "Norton",
+      "logo": "https://via.placeholder.com/50?text=Norton"
+    },
+    {
+      "name": "Norton Motorcycles",
+      "logo": "https://via.placeholder.com/50?text=Norton+Motorcycles"
+    },
+    {
+      "name": "Oldsmobile",
+      "logo": "https://via.placeholder.com/50?text=Oldsmobile"
+    },
+    {
+      "name": "Orange",
+      "logo": "https://via.placeholder.com/50?text=Orange"
+    },
+    {
+      "name": "Orange County Choppers",
+      "logo": "https://via.placeholder.com/50?text=Orange+County+Choppers"
+    },
+    {
+      "name": "PA",
+      "logo": "https://via.placeholder.com/50?text=PA"
+    },
+    {
+      "name": "PGO Scooters",
+      "logo": "https://via.placeholder.com/50?text=PGO+Scooters"
+    },
+    {
+      "name": "Pagani",
+      "logo": "https://via.placeholder.com/50?text=Pagani"
+    },
+    {
+      "name": "Peischl",
+      "logo": "https://via.placeholder.com/50?text=Peischl"
+    },
+    {
+      "name": "Peraves",
+      "logo": "https://via.placeholder.com/50?text=Peraves"
+    },
+    {
+      "name": "Perkins",
+      "logo": "https://via.placeholder.com/50?text=Perkins"
+    },
+    {
+      "name": "Piaggio",
+      "logo": "https://via.placeholder.com/50?text=Piaggio"
+    },
+    {
+      "name": "Pongratz",
+      "logo": "https://via.placeholder.com/50?text=Pongratz"
+    },
+    {
+      "name": "Pontiac",
+      "logo": "https://via.placeholder.com/50?text=Pontiac"
+    },
+    {
+      "name": "Prestige",
+      "logo": "https://via.placeholder.com/50?text=Prestige"
+    },
+    {
+      "name": "Presto",
+      "logo": "https://via.placeholder.com/50?text=Presto"
+    },
+    {
+      "name": "Proton",
+      "logo": "https://via.placeholder.com/50?text=Proton"
+    },
+    {
+      "name": "Puch",
+      "logo": "https://via.placeholder.com/50?text=Puch"
+    },
+    {
+      "name": "QiSheng",
+      "logo": "https://via.placeholder.com/50?text=QiSheng"
+    },
+    {
+      "name": "Qianjiang Gruppe",
+      "logo": "https://via.placeholder.com/50?text=Qianjiang+Gruppe"
+    },
+    {
+      "name": "Qingqi",
+      "logo": "https://via.placeholder.com/50?text=Qingqi"
+    },
+    {
+      "name": "Quadro",
+      "logo": "https://via.placeholder.com/50?text=Quadro"
+    },
+    {
+      "name": "Reisch",
+      "logo": "https://via.placeholder.com/50?text=Reisch"
+    },
+    {
+      "name": "Reliant Motor PLC",
+      "logo": "https://via.placeholder.com/50?text=Reliant+Motor+PLC"
+    },
+    {
+      "name": "Rendand",
+      "logo": "https://via.placeholder.com/50?text=Rendand"
+    },
+    {
+      "name": "Ressnig",
+      "logo": "https://via.placeholder.com/50?text=Ressnig"
+    },
+    {
+      "name": "Rex-Ame",
+      "logo": "https://via.placeholder.com/50?text=Rex-Ame"
+    },
+    {
+      "name": "Riedler",
+      "logo": "https://via.placeholder.com/50?text=Riedler"
+    },
+    {
+      "name": "Rieju",
+      "logo": "https://via.placeholder.com/50?text=Rieju"
+    },
+    {
+      "name": "Rokon",
+      "logo": "https://via.placeholder.com/50?text=Rokon"
+    },
+    {
+      "name": "Rotax",
+      "logo": "https://via.placeholder.com/50?text=Rotax"
+    },
+    {
+      "name": "Rover",
+      "logo": "https://via.placeholder.com/50?text=Rover"
+    },
+    {
+      "name": "Royal",
+      "logo": "https://via.placeholder.com/50?text=Royal"
+    },
+    {
+      "name": "Royal Enfield",
+      "logo": "https://via.placeholder.com/50?text=Royal+Enfield"
+    },
+    {
+      "name": "SYM",
+      "logo": "https://via.placeholder.com/50?text=SYM"
+    },
+    {
+      "name": "Sachs",
+      "logo": "https://via.placeholder.com/50?text=Sachs"
+    },
+    {
+      "name": "Sachs Bikes",
+      "logo": "https://via.placeholder.com/50?text=Sachs+Bikes"
+    },
+    {
+      "name": "Sandi",
+      "logo": "https://via.placeholder.com/50?text=Sandi"
+    },
+    {
+      "name": "Saturn",
+      "logo": "https://via.placeholder.com/50?text=Saturn"
+    },
+    {
+      "name": "Scania",
+      "logo": "https://via.placeholder.com/50?text=Scania"
+    },
+    {
+      "name": "Schmitz Cargobull",
+      "logo": "https://via.placeholder.com/50?text=Schmitz+Cargobull"
+    },
+    {
+      "name": "Schwarzmüller",
+      "logo": "https://via.placeholder.com/50?text=Schwarzmüller"
+    },
+    {
+      "name": "Schüttorf",
+      "logo": "https://via.placeholder.com/50?text=Schüttorf"
+    },
+    {
+      "name": "Sennebogen",
+      "logo": "https://via.placeholder.com/50?text=Sennebogen"
+    },
+    {
+      "name": "Shandong Pioneer",
+      "logo": "https://via.placeholder.com/50?text=Shandong+Pioneer"
+    },
+    {
+      "name": "Shang Wei",
+      "logo": "https://via.placeholder.com/50?text=Shang+Wei"
+    },
+    {
+      "name": "Shanghai Xingfu",
+      "logo": "https://via.placeholder.com/50?text=Shanghai+Xingfu"
+    },
+    {
+      "name": "She Long",
+      "logo": "https://via.placeholder.com/50?text=She+Long"
+    },
+    {
+      "name": "Sherco",
+      "logo": "https://via.placeholder.com/50?text=Sherco"
+    },
+    {
+      "name": "Side-Bike",
+      "logo": "https://via.placeholder.com/50?text=Side-Bike"
+    },
+    {
+      "name": "Simca",
+      "logo": "https://via.placeholder.com/50?text=Simca"
+    },
+    {
+      "name": "Simson",
+      "logo": "https://via.placeholder.com/50?text=Simson"
+    },
+    {
+      "name": "Sky Team",
+      "logo": "https://via.placeholder.com/50?text=Sky+Team"
+    },
+    {
+      "name": "Speed Monkey",
+      "logo": "https://via.placeholder.com/50?text=Speed+Monkey"
+    },
+    {
+      "name": "SsangYong",
+      "logo": "https://via.placeholder.com/50?text=SsangYong"
+    },
+    {
+      "name": "Stedele",
+      "logo": "https://via.placeholder.com/50?text=Stedele"
+    },
+    {
+      "name": "Stema",
+      "logo": "https://via.placeholder.com/50?text=Stema"
+    },
+    {
+      "name": "Stubenberger",
+      "logo": "https://via.placeholder.com/50?text=Stubenberger"
+    },
+    {
+      "name": "SunWorld",
+      "logo": "https://via.placeholder.com/50?text=SunWorld"
+    },
+    {
+      "name": "TGB",
+      "logo": "https://via.placeholder.com/50?text=TGB"
+    },
+    {
+      "name": "TM",
+      "logo": "https://via.placeholder.com/50?text=TM"
+    },
+    {
+      "name": "TVR",
+      "logo": "https://via.placeholder.com/50?text=TVR"
+    },
+    {
+      "name": "TW Logstacker",
+      "logo": "https://via.placeholder.com/50?text=TW+Logstacker"
+    },
+    {
+      "name": "Takeuchi",
+      "logo": "https://via.placeholder.com/50?text=Takeuchi"
+    },
+    {
+      "name": "Taxo",
+      "logo": "https://via.placeholder.com/50?text=Taxo"
+    },
+    {
+      "name": "Terra Modena",
+      "logo": "https://via.placeholder.com/50?text=Terra+Modena"
+    },
+    {
+      "name": "Timberjack",
+      "logo": "https://via.placeholder.com/50?text=Timberjack"
+    },
+    {
+      "name": "Tresor",
+      "logo": "https://via.placeholder.com/50?text=Tresor"
+    },
+    {
+      "name": "Tula",
+      "logo": "https://via.placeholder.com/50?text=Tula"
+    },
+    {
+      "name": "Tutaevo",
+      "logo": "https://via.placeholder.com/50?text=Tutaevo"
+    },
+    {
+      "name": "Unili",
+      "logo": "https://via.placeholder.com/50?text=Unili"
+    },
+    {
+      "name": "Unsin",
+      "logo": "https://via.placeholder.com/50?text=Unsin"
+    },
+    {
+      "name": "Ural",
+      "logo": "https://via.placeholder.com/50?text=Ural"
+    },
+    {
+      "name": "VOR",
+      "logo": "https://via.placeholder.com/50?text=VOR"
+    },
+    {
+      "name": "Vauxhall",
+      "logo": "https://via.placeholder.com/50?text=Vauxhall"
+    },
+    {
+      "name": "Venturi",
+      "logo": "https://via.placeholder.com/50?text=Venturi"
+    },
+    {
+      "name": "Vertemati",
+      "logo": "https://via.placeholder.com/50?text=Vertemati"
+    },
+    {
+      "name": "Vespa",
+      "logo": "https://via.placeholder.com/50?text=Vespa"
+    },
+    {
+      "name": "Victory",
+      "logo": "https://via.placeholder.com/50?text=Victory"
+    },
+    {
+      "name": "Vincent",
+      "logo": "https://via.placeholder.com/50?text=Vincent"
+    },
+    {
+      "name": "Vivo",
+      "logo": "https://via.placeholder.com/50?text=Vivo"
+    },
+    {
+      "name": "Volvo CE",
+      "logo": "https://via.placeholder.com/50?text=Volvo+CE"
+    },
+    {
+      "name": "Volvo Penta",
+      "logo": "https://via.placeholder.com/50?text=Volvo+Penta"
+    },
+    {
+      "name": "Voxan",
+      "logo": "https://via.placeholder.com/50?text=Voxan"
+    },
+    {
+      "name": "Vyrus",
+      "logo": "https://via.placeholder.com/50?text=Vyrus"
+    },
+    {
+      "name": "Völkl",
+      "logo": "https://via.placeholder.com/50?text=Völkl"
+    },
+    {
+      "name": "WJ",
+      "logo": "https://via.placeholder.com/50?text=WJ"
+    },
+    {
+      "name": "Westfield",
+      "logo": "https://via.placeholder.com/50?text=Westfield"
+    },
+    {
+      "name": "Wiesmann",
+      "logo": "https://via.placeholder.com/50?text=Wiesmann"
+    },
+    {
+      "name": "Wuyang-Honda",
+      "logo": "https://via.placeholder.com/50?text=Wuyang-Honda"
+    },
+    {
+      "name": "Xingchang",
+      "logo": "https://via.placeholder.com/50?text=Xingchang"
+    },
+    {
+      "name": "Yiben",
+      "logo": "https://via.placeholder.com/50?text=Yiben"
+    },
+    {
+      "name": "Yuehao",
+      "logo": "https://via.placeholder.com/50?text=Yuehao"
+    },
+    {
+      "name": "ZID",
+      "logo": "https://via.placeholder.com/50?text=ZID"
+    },
+    {
+      "name": "Zanella",
+      "logo": "https://via.placeholder.com/50?text=Zanella"
+    },
+    {
+      "name": "Zetge",
+      "logo": "https://via.placeholder.com/50?text=Zetge"
+    },
+    {
+      "name": "Zip Star",
+      "logo": "https://via.placeholder.com/50?text=Zip+Star"
+    },
+    {
+      "name": "Zongshen",
+      "logo": "https://via.placeholder.com/50?text=Zongshen"
+    },
+    {
+      "name": "Zuck",
+      "logo": "https://via.placeholder.com/50?text=Zuck"
+    },
+    {
+      "name": "Zundapp",
+      "logo": "https://via.placeholder.com/50?text=Zundapp"
+    },
+    {
+      "name": "iO",
+      "logo": "https://via.placeholder.com/50?text=iO"
+    },
+    {
+      "name": "iO Scooter",
+      "logo": "https://via.placeholder.com/50?text=iO+Scooter"
+    }
+  ]
+}

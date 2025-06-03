@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../styles/webkit.css" />
   <link rel="stylesheet" href="../styles/settings-panel.css" />
   <link rel="stylesheet" href="../styles/sidebar.css" />
+  <link rel="stylesheet" href="../styles/kunden-detail-add-vehicle.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
 </head>
@@ -359,9 +360,208 @@
     </ul>
   </div>
 
+
+<div id="add-vehicle-modal" class="modal">
+  <div class="modal-content vehicle-modal">
+    <div class="modal-header">
+      <h2>Fahrzeug anlegen</h2>
+      <button type="button" class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
+    </div>
+    <form id="vehicle-form" class="vehicle-form">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="hersteller">Hersteller</label>
+          <select id="hersteller" name="hersteller" required></select>
+        </div>
+        <div class="form-group">
+          <label for="modell">Modell</label>
+          <input type="text" id="modell" name="modell" required placeholder="z.B. Golf 7">
+        </div>
+      </div>
+      <div class="form-row">
+<div class="form-group">
+  <label for="fahrzeugklasse">Fahrzeugklasse</label>
+  <div class="custom-dropdown" id="fahrzeugklasse-dropdown">
+    <div class="dropdown-selected" tabindex="0">Bitte wählen</div>
+    <div class="dropdown-options" id="fahrzeugklasse-options"></div>
+    <input type="hidden" name="fahrzeugklasse" id="fahrzeugklasse-value" required>
+  </div>
+</div>
+
+
+
+        <div class="form-group">
+          <label for="baujahr">Baujahr</label>
+          <input type="number" id="baujahr" name="baujahr" min="1900" max="2100" required placeholder="z.B. 2020">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="motorkategorie">Motorkategorie</label>
+          <select id="motorkategorie" name="motorkategorie" required></select>
+        </div>
+        <div class="form-group">
+          <label for="getriebeart">Getriebe</label>
+          <select id="getriebeart" name="getriebeart" required></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group full-width">
+          <label for="kennzeichen">Kennzeichen</label>
+          <input type="text" id="kennzeichen" name="kennzeichen" placeholder="z.B. SD-123AB">
+        </div>
+      </div>
+      <div class="form-footer">
+        <button type="button" class="modal-btn modal-btn-secondary" id="cancel-vehicle-modal-btn">Abbrechen</button>
+        <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
   <script src="../scripts/right-sidebar.js"></script>
   <script src="../scripts/sidebar-collapse.js"></script>
   <script src="../scripts/sidebar.js"></script>
   <script src="../scripts/settings-panel.js"></script>
+  <script src="../json/vehicle-option.js"></script>
+
+
+
+
+
+<script>
+const vehicleModal = document.getElementById("add-vehicle-modal");
+const vehicleForm = document.getElementById("vehicle-form");
+const addVehicleBtn = document.querySelector(".fahrzeuge-section .card-btn.primary");
+const cancelVehicleBtn = document.getElementById("cancel-vehicle-modal-btn");
+const modalCloseBtn = vehicleModal.querySelector(".modal-close");
+
+// Open modal
+if (addVehicleBtn) {
+  addVehicleBtn.addEventListener("click", () => {
+    vehicleModal.classList.add("open");
+  });
+}
+
+// Close modal
+if (cancelVehicleBtn) {
+  cancelVehicleBtn.addEventListener("click", () => {
+    vehicleModal.classList.remove("open");
+    vehicleForm.reset();
+  });
+}
+if (modalCloseBtn) {
+  modalCloseBtn.addEventListener("click", () => {
+    vehicleModal.classList.remove("open");
+    vehicleForm.reset();
+  });
+}
+
+// ESC schließen
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && vehicleModal.classList.contains("open")) {
+    vehicleModal.classList.remove("open");
+    vehicleForm.reset();
+  }
+});
+
+// Klick außerhalb Modal schließt auch
+vehicleModal.addEventListener("mousedown", e => {
+  if (e.target === vehicleModal) {
+    vehicleModal.classList.remove("open");
+    vehicleForm.reset();
+  }
+});
+
+// --- Dropdown dynamisch befüllen ---
+function buildOptions(arr, valueKey = null, labelKey = null) {
+  return arr.map(opt => {
+    if (typeof opt === "string") return `<option value="${opt}">${opt}</option>`;
+    if (typeof opt === "object" && valueKey && labelKey) return `<option value="${opt[valueKey]}">${opt[labelKey]}</option>`;
+    return "";
+  }).join('');
+}
+
+fetch('../json/vehicle-option.json')
+  .then(res => res.json())
+  .then(jsonData => {
+    // Hersteller (normales select)
+    const herstellerSel = document.getElementById("hersteller");
+    if (herstellerSel) {
+      herstellerSel.innerHTML = '<option value="">Bitte wählen</option>' +
+        jsonData.hersteller.map(h => `<option value="${h.name}">${h.name}</option>`).join('');
+    }
+    // Motorkategorie (normales select)
+    const motorkategorieSel = document.getElementById("motorkategorie");
+    if (motorkategorieSel) {
+      motorkategorieSel.innerHTML = '<option value="">Bitte wählen</option>' +
+        buildOptions(jsonData.motorkategorie);
+    }
+    // Getriebeart (normales select)
+    const getriebeartSel = document.getElementById("getriebeart");
+    if (getriebeartSel) {
+      getriebeartSel.innerHTML = '<option value="">Bitte wählen</option>' +
+        buildOptions(jsonData.getriebeart);
+    }
+
+    // --- Custom Dropdown für Fahrzeugklasse ---
+    const fahrzeugklasseDropdown = document.getElementById("fahrzeugklasse-dropdown");
+    const selected = fahrzeugklasseDropdown.querySelector(".dropdown-selected");
+    const optionsContainer = fahrzeugklasseDropdown.querySelector(".dropdown-options");
+    const hiddenInput = fahrzeugklasseDropdown.querySelector("input[type='hidden']");
+
+    // Fülle Optionen
+    optionsContainer.innerHTML = jsonData.fahrzeugklasse.map(opt =>
+      `<div class="dropdown-option" data-value="${opt}">${opt}</div>`
+    ).join('');
+
+    // Toggle Dropdown
+    selected.addEventListener("click", () => {
+      fahrzeugklasseDropdown.classList.toggle("open");
+    });
+    selected.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        fahrzeugklasseDropdown.classList.toggle("open");
+        e.preventDefault();
+      }
+    });
+
+    // Klick auf Option
+    optionsContainer.addEventListener("click", e => {
+      if (e.target.classList.contains("dropdown-option")) {
+        const value = e.target.dataset.value;
+        selected.textContent = value;
+        hiddenInput.value = value;
+        fahrzeugklasseDropdown.classList.remove("open");
+        // Optional: Mark selected
+        [...optionsContainer.children].forEach(opt =>
+          opt.classList.toggle("selected", opt === e.target)
+        );
+      }
+    });
+
+    // Schließen bei Klick außerhalb
+    document.addEventListener("mousedown", e => {
+      if (!fahrzeugklasseDropdown.contains(e.target)) {
+        fahrzeugklasseDropdown.classList.remove("open");
+      }
+    });
+    // Schließen bei Escape
+    document.addEventListener("keydown", e => {
+      if (e.key === "Escape") {
+        fahrzeugklasseDropdown.classList.remove("open");
+      }
+    });
+  })
+  .catch(err => {
+    console.error('vehicle-option.json konnte nicht geladen werden:', err);
+  });
+
+</script>
+
+
+
+
 </body>
 </html>
