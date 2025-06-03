@@ -113,21 +113,22 @@
         <div class="profile-header">
           <div class="avatar">AD</div>
           <div class="kunde-info">
-            <div class="kunde-name"><b>Adrian Doppler</b> <span class="kunde-id">Kd.-Nr. 20065</span></div>
-            <div class="kunde-meta">
+                        <div class="kunde-meta">
               <span><i class="fas fa-user"></i> Herr</span>
               <span><i class="fas fa-globe"></i> Österreich</span>
             </div>
+            <div class="kunde-name"><b>Adrian Doppler</b> <span class="kunde-id">Kd.-Nr. 20065</span></div>
+
           </div>
           <div class="profile-actions">
-            <button class="icon-btn"><i class="fas fa-pen"></i> Bearbeiten</button>
-            <button class="icon-btn"><i class="fas fa-history"></i> Historie</button>
-            <button class="icon-btn"><i class="fas fa-envelope"></i> Nachricht</button>
+            <button class="icon-btn action"><i class="fas fa-pen"></i> </button>
+            <button class="icon-btn action"><i class="fas fa-history"></i></button>
+            <button class="icon-btn action"><i class="fas fa-envelope"></i></button>
           </div>
         </div>
         <div class="profile-contact">
           <span><i class="fas fa-phone"></i> +43 660 988380</span>
-          <span><i class="fas fa-phone-alt"></i> +43 123 456789</span>
+          <!-- <span><i class="fas fa-phone-alt"></i> +43 123 456789</span> -->
           <span><i class="fas fa-envelope"></i> adrian.doppler@example.com</span>
           <span><i class="fas fa-birthday-cake"></i> 15.03.1985</span>
         </div>
@@ -136,13 +137,15 @@
       <div class="kunde-sections-grid">
         <!-- Dokumente -->
         <section class="dokumente-section card">
-          <div class="section-header">
-            <i class="fas fa-file-alt"></i>
-            <h2>Dokumente <span class="count">5</span></h2>
+          <div class="dokumente-section-header">
+              <div class="dokumente-section-header-titel">
+                <i class="fas fa-file-alt"></i>
+                <h2>Dokumente <span class="count">5</span></h2>
+          </div>
             <div class="doc-actions">
-              <button class="card-btn">Angebot</button>
-              <button class="card-btn">Auftrag</button>
-              <button class="card-btn">Rechnung</button>
+              <button class="card-btn margin-del">Angebot</button>
+              <button class="card-btn margin-del ">Auftrag</button>
+              <button class="card-btn margin-del ">Rechnung</button>
             </div>
           </div>
           <div class="umsatz-summary">
@@ -174,9 +177,11 @@
         <!-- Fahrzeuge -->
         <section class="fahrzeuge-section card">
           <div class="section-header">
-            <i class="fas fa-car"></i>
-            <h2>Fahrzeuge <span class="count">0</span></h2>
-            <button class="card-btn primary"><i class="fas fa-plus"></i> Fahrzeug</button>
+            <div class="fahrzeuge-section-header-titel">
+                <i class="fas fa-car"></i>
+                <h2>Fahrzeuge <span class="count">0</span></h2>
+            </div>
+            <button class="card-btn primary margin-del"><i class="fas fa-plus"></i> Fahrzeug</button>
           </div>
           <div class="fahrzeug-list">
             <span>Kein Fahrzeug hinterlegt.</span>
@@ -186,9 +191,11 @@
         <!-- Termine -->
         <section class="termine-section card">
           <div class="section-header">
-            <i class="fas fa-calendar-alt"></i>
-            <h2>Termine <span class="count">0</span></h2>
-            <button class="card-btn primary"><i class="fas fa-plus"></i> Termin</button>
+            <div class="termine-section-header-titel">
+                <i class="fas fa-calendar-alt"></i>
+                <h2>Termine <span class="count">0</span></h2>
+            </div>
+            <button class="card-btn primary margin-del"><i class="fas fa-plus"></i> Termin</button>
           </div>
           <div class="termine-list">
             <span>Keine Termine eingetragen.</span>
@@ -198,9 +205,11 @@
         <!-- Dateien -->
         <section class="dateien-section card">
           <div class="section-header">
-            <i class="fas fa-folder"></i>
-            <h2>Dateien <span class="count">0</span></h2>
-            <button class="card-btn primary"><i class="fas fa-plus"></i> Datei</button>
+            <div class="dateien-section-header-titel">
+                <i class="fas fa-folder"></i>
+                <h2>Dateien <span class="count">0</span></h2>
+            </div>
+            <button class="card-btn primary margin-del"><i class="fas fa-plus"></i> Datei</button>
           </div>
           <div class="dateien-list">
             <span>Keine Dateien hinterlegt.</span>

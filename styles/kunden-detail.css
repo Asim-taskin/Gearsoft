@@ -121,17 +121,52 @@ body.sidebar-collapsed .main-content {
   gap: 0.5rem;
 }
 
-.icon-btn {
+.action {
+    color: #1E3A8A;
+    position: relative;
+    transition: color 0.18s;
+    cursor: pointer;
+    padding: 0.2em 0.6em;
+}
+
+.action::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 20%;
+    bottom: 2px;
+    width: 60%;
+    height: 2px;
+    background: #3B82F6;
+    transform: scaleX(0);
+    transition: transform 0.18s;
+    border-radius: 1px;
+}
+
+.action:hover {
+    color: #2563eb;
+}
+
+.action:hover::after {
+    transform: scaleX(1);
+}
+
+
+
+/* .icon-btn {
   background: var(--primary);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
   cursor: pointer;
-}
+} */
 
 .profile-contact {
   display: flex;
+  justify-content: space-between;
+  border: 1px solid var(--gray-200);
+  padding:6px;
   gap: 1.5rem;
   color: var(--gray-600);
 }
@@ -145,11 +180,50 @@ body.sidebar-collapsed .main-content {
   margin-bottom: 1.5rem;
 }
 
+.dokumente-section-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row ;
+    margin-bottom:24px;
+    /* border:1px solid var(--gray-200); */
+    /* padding:8px; */
+    /* border-radius: 12px; */
+    /* background-color: #003bdd13; */
+    
+}
+
+.dokumente-section-header-titel,
+.fahrzeuge-section-header-titel,
+.termine-section-header-titel,
+.dateien-section-header-titel{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    border:1px solid var(--gray-200);
+    padding:6px;
+    border-radius: 12px;
+    background-color: #1e3b8a17;
+    
+}
+
+
+
+.margin-del{
+    margin-top:0 !important;
+}
+
+.dokumente-section-header-titel h2 {
+    font-size:20px;
+}
+
 .section-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
+  gap:12px;
 }
 
 .section-header h2 {
@@ -193,6 +267,8 @@ body.sidebar-collapsed .main-content {
   font-weight: bold;
 }
 
+
+
 /* Responsive */
 @media (max-width: 768px) {
   .container {
@@ -211,3 +287,154 @@ body.sidebar-collapsed .main-content {
     padding: 1rem;
   }
 }
+
+
+
+
+
+/* --- RESPONSIVE FIXES --- */
+
+/* Main Layout ab ca. 1200px schmaler: Cards untereinander */
+@media (max-width: 1200px) {
+  .kunde-sections-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+  .card {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Main-Content Padding kleiner, keine Margin-Left, wenn wenig Platz */
+@media (max-width: 900px) {
+  .main-content {
+    padding: 0.6rem !important;
+    margin-left: 0 !important;
+    min-width: 0 !important;
+  }
+  .sidebar {
+    position: fixed;
+    left: -280px;
+  }
+  body.sidebar-collapsed .sidebar {
+    left: 0;
+  }
+}
+
+/* Table responsive machen: Zeilen umbrechen, kein Überlauf */
+@media (max-width: 600px) {
+  .doc-table, .doc-table thead, .doc-table tbody, .doc-table tr, .doc-table th, .doc-table td {
+    display: block;
+    width: 100% !important;
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+  }
+  .doc-table thead {
+    display: none;
+  }
+  .doc-table tr {
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--gray-200);
+    padding-bottom: 0.5rem;
+  }
+  .doc-table td {
+    padding: 0.5rem 0.7rem;
+    border: none;
+    position: relative;
+    font-size: 0.97rem;
+    min-width: 0;
+    width: 100%;
+  }
+  .doc-table td:before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: var(--gray-600);
+    display: block;
+    margin-bottom: 0.15rem;
+    font-size: 0.93rem;
+  }
+}
+
+/* Card Buttons in einer Reihe, aber wenn zu wenig Platz: Untereinander */
+@media (max-width: 600px) {
+  .section-header,
+  .doc-actions {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+  }
+  .card-btn {
+    width: 100% !important;
+    box-sizing: border-box;
+    text-align: left;
+    padding-left: 0.8rem !important;
+  }
+}
+
+/* Profile Actions auch umbrechen, falls zu schmal */
+@media (max-width: 600px) {
+  .profile-header,
+  .profile-actions {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 0.5rem !important;
+  }
+}
+
+/* Kontaktinfos umbrechen */
+@media (max-width: 600px) {
+  .profile-contact {
+    flex-direction: column !important;
+    gap: 0.2rem !important;
+    font-size: 0.95rem !important;
+    padding-top: 0.6rem !important;
+  }
+}
+
+/* Sidebar auf Mobil fix ausblenden, nur über Burger-Button anzeigen */
+@media (max-width: 900px) {
+  .sidebar {
+    left: -280px !important;
+    width: 280px !important;
+    z-index: 200 !important;
+    transition: left 0.3s;
+  }
+  .menu-toggle:checked ~ .container .sidebar {
+    left: 0 !important;
+  }
+}
+
+/* Right Sidebar auf Mobil unter Main Content, nicht daneben */
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column !important;
+    margin-right: 0 !important;
+  }
+  .right-sidebar {
+    position: static !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-width: 0 !important;
+  }
+}
+
+/* Cards laufen nie raus, alles wrappt sauber */
+.card, .kunde-profile-card {
+  word-break: break-word;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Listenelemente, falls Text zu lang */
+.fahrzeug-list,
+.termine-list,
+.dateien-list {
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+/* --- ENDE Responsive Fix --- */
