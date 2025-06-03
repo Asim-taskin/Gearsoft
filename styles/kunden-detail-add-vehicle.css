@@ -267,3 +267,21 @@ select:focus option {
   background: #d1d5db;
   border-radius: 4px;
 }
+
+
+
+/* Hersteller-Logo im Dropdown */
+.hersteller-logo {
+  height: 18px;
+  width: 18px;
+  vertical-align: middle;
+  margin-right: 8px;
+  border-radius: 3px;
+  object-fit: contain;
+}
+
+/* Optional: Hersteller Dropdown kann etwas breiter als Fahrzeugklasse */
+#hersteller-dropdown.custom-dropdown {
+  max-width: 280px;
+  min-width: 120px;
+}

@@ -369,10 +369,15 @@
     </div>
     <form id="vehicle-form" class="vehicle-form">
       <div class="form-row">
-        <div class="form-group">
-          <label for="hersteller">Hersteller</label>
-          <select id="hersteller" name="hersteller" required></select>
-        </div>
+<div class="form-group">
+  <label for="hersteller">Hersteller</label>
+  <div class="custom-dropdown" id="hersteller-dropdown">
+    <div class="dropdown-selected" tabindex="0">Bitte wählen</div>
+    <div class="dropdown-options" id="hersteller-options"></div>
+    <input type="hidden" name="hersteller" id="hersteller-value" required>
+  </div>
+</div>
+
         <div class="form-group">
           <label for="modell">Modell</label>
           <input type="text" id="modell" name="modell" required placeholder="z.B. Golf 7">
@@ -474,53 +479,64 @@ vehicleModal.addEventListener("mousedown", e => {
   }
 });
 
-// --- Dropdown dynamisch befüllen ---
-function buildOptions(arr, valueKey = null, labelKey = null) {
-  return arr.map(opt => {
-    if (typeof opt === "string") return `<option value="${opt}">${opt}</option>`;
-    if (typeof opt === "object" && valueKey && labelKey) return `<option value="${opt[valueKey]}">${opt[labelKey]}</option>`;
-    return "";
-  }).join('');
-}
-
 fetch('../json/vehicle-option.json')
   .then(res => res.json())
   .then(jsonData => {
-    // Hersteller (normales select)
-    const herstellerSel = document.getElementById("hersteller");
-    if (herstellerSel) {
-      herstellerSel.innerHTML = '<option value="">Bitte wählen</option>' +
-        jsonData.hersteller.map(h => `<option value="${h.name}">${h.name}</option>`).join('');
-    }
-    // Motorkategorie (normales select)
-    const motorkategorieSel = document.getElementById("motorkategorie");
-    if (motorkategorieSel) {
-      motorkategorieSel.innerHTML = '<option value="">Bitte wählen</option>' +
-        buildOptions(jsonData.motorkategorie);
-    }
-    // Getriebeart (normales select)
-    const getriebeartSel = document.getElementById("getriebeart");
-    if (getriebeartSel) {
-      getriebeartSel.innerHTML = '<option value="">Bitte wählen</option>' +
-        buildOptions(jsonData.getriebeart);
-    }
+    // --- CUSTOM DROPDOWN HERSTELLER MIT LOGO ---
+    const herstellerDropdown = document.getElementById("hersteller-dropdown");
+    const herstellerSelected = herstellerDropdown.querySelector(".dropdown-selected");
+    const herstellerOptionsContainer = herstellerDropdown.querySelector("#hersteller-options");
+    const herstellerHiddenInput = herstellerDropdown.querySelector("input[type='hidden']");
 
-    // --- Custom Dropdown für Fahrzeugklasse ---
+    // Fülle Optionen mit Logos
+    herstellerOptionsContainer.innerHTML = jsonData.hersteller.map(h =>
+      `<div class="dropdown-option" data-value="${h.name}">
+        <img src="${h.logo}" alt="${h.name} Logo" class="hersteller-logo" style="height:18px;width:18px;vertical-align:middle;margin-right:8px;">
+        ${h.name}
+      </div>`
+    ).join('');
+
+    // Toggle Dropdown
+    herstellerSelected.addEventListener("click", () => {
+      herstellerDropdown.classList.toggle("open");
+    });
+    herstellerSelected.addEventListener("keydown", e => {
+      if (e.key === "Enter" || e.key === " ") {
+        herstellerDropdown.classList.toggle("open");
+        e.preventDefault();
+      }
+    });
+
+    // Klick auf Option
+    herstellerOptionsContainer.addEventListener("click", e => {
+      const option = e.target.closest('.dropdown-option');
+      if (option) {
+        herstellerSelected.innerHTML = option.innerHTML;
+        herstellerHiddenInput.value = option.dataset.value;
+        herstellerDropdown.classList.remove("open");
+        // Markierung
+        [...herstellerOptionsContainer.children].forEach(opt =>
+          opt.classList.toggle("selected", opt === option)
+        );
+      }
+    });
+
+    // --- CUSTOM DROPDOWN FAHRZEUGKLASSE ---
     const fahrzeugklasseDropdown = document.getElementById("fahrzeugklasse-dropdown");
-    const selected = fahrzeugklasseDropdown.querySelector(".dropdown-selected");
-    const optionsContainer = fahrzeugklasseDropdown.querySelector(".dropdown-options");
-    const hiddenInput = fahrzeugklasseDropdown.querySelector("input[type='hidden']");
+    const fahrzeugklasseSelected = fahrzeugklasseDropdown.querySelector(".dropdown-selected");
+    const fahrzeugklasseOptionsContainer = fahrzeugklasseDropdown.querySelector("#fahrzeugklasse-options");
+    const fahrzeugklasseHiddenInput = fahrzeugklasseDropdown.querySelector("input[type='hidden']");
 
     // Fülle Optionen
-    optionsContainer.innerHTML = jsonData.fahrzeugklasse.map(opt =>
+    fahrzeugklasseOptionsContainer.innerHTML = jsonData.fahrzeugklasse.map(opt =>
       `<div class="dropdown-option" data-value="${opt}">${opt}</div>`
     ).join('');
 
     // Toggle Dropdown
-    selected.addEventListener("click", () => {
+    fahrzeugklasseSelected.addEventListener("click", () => {
       fahrzeugklasseDropdown.classList.toggle("open");
     });
-    selected.addEventListener("keydown", e => {
+    fahrzeugklasseSelected.addEventListener("keydown", e => {
       if (e.key === "Enter" || e.key === " ") {
         fahrzeugklasseDropdown.classList.toggle("open");
         e.preventDefault();
@@ -528,28 +544,38 @@ fetch('../json/vehicle-option.json')
     });
 
     // Klick auf Option
-    optionsContainer.addEventListener("click", e => {
-      if (e.target.classList.contains("dropdown-option")) {
-        const value = e.target.dataset.value;
-        selected.textContent = value;
-        hiddenInput.value = value;
+    fahrzeugklasseOptionsContainer.addEventListener("click", e => {
+      const option = e.target.closest('.dropdown-option');
+      if (option) {
+        fahrzeugklasseSelected.textContent = option.textContent;
+        fahrzeugklasseHiddenInput.value = option.dataset.value;
         fahrzeugklasseDropdown.classList.remove("open");
-        // Optional: Mark selected
-        [...optionsContainer.children].forEach(opt =>
-          opt.classList.toggle("selected", opt === e.target)
+        [...fahrzeugklasseOptionsContainer.children].forEach(opt =>
+          opt.classList.toggle("selected", opt === option)
         );
       }
     });
 
-    // Schließen bei Klick außerhalb
+    // --- Standard-Selects ---
+    const motorkategorieSel = document.getElementById("motorkategorie");
+    if (motorkategorieSel) {
+      motorkategorieSel.innerHTML = '<option value="">Bitte wählen</option>' +
+        jsonData.motorkategorie.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+    }
+    const getriebeartSel = document.getElementById("getriebeart");
+    if (getriebeartSel) {
+      getriebeartSel.innerHTML = '<option value="">Bitte wählen</option>' +
+        jsonData.getriebeart.map(opt => `<option value="${opt}">${opt}</option>`).join('');
+    }
+
+    // Dropdowns schließen bei Klick außerhalb/ESC
     document.addEventListener("mousedown", e => {
-      if (!fahrzeugklasseDropdown.contains(e.target)) {
-        fahrzeugklasseDropdown.classList.remove("open");
-      }
+      if (!herstellerDropdown.contains(e.target)) herstellerDropdown.classList.remove("open");
+      if (!fahrzeugklasseDropdown.contains(e.target)) fahrzeugklasseDropdown.classList.remove("open");
     });
-    // Schließen bei Escape
     document.addEventListener("keydown", e => {
       if (e.key === "Escape") {
+        herstellerDropdown.classList.remove("open");
         fahrzeugklasseDropdown.classList.remove("open");
       }
     });
@@ -557,8 +583,8 @@ fetch('../json/vehicle-option.json')
   .catch(err => {
     console.error('vehicle-option.json konnte nicht geladen werden:', err);
   });
-
 </script>
+
 
 
 
