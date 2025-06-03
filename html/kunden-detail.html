@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kundendetail | mt.cars</title>
+  <link rel="stylesheet" href="../styles/dashboard.css" />
+  <link rel="stylesheet" href="../styles/kunden-detail.css" />
+  <link rel="stylesheet" href="../styles/right-sidebar.css" />
+  <link rel="stylesheet" href="../styles/webkit.css" />
+  <link rel="stylesheet" href="../styles/settings-panel.css" />
+  <link rel="stylesheet" href="../styles/sidebar.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+</head>
+<body>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle" />
+    <header class="header">
+      <div class="header-left">
+        <label for="menu-toggle" class="menu-icon"
+          ><i class="fas fa-bars"></i
+        ></label>
+        <div class="logo-title">
+          <div class="logo">
+            <img src="../img/GearSoft-Img_2.PNG" alt="Logo" />
+          </div>
+          <div class="title">Kunden</div>
+        </div>
+      </div>
+      <div class="header-right">
+        <!-- <div class="date-filter">
+                <button class="nav-arrow"><i class="fas fa-chevron-left"></i></button>
+                <button class="nav-arrow"><i class="fas fa-chevron-right"></i></button>
+            </div> -->
+        <div class="header-actions">
+          <div class="icons">
+            <button class="icon-btn"><i class="fas fa-smile"></i></button>
+            <button class="icon-btn notification">
+              <i class="fas fa-bell"></i><span class="badge">3</span>
+            </button>
+            <button class="icon-btn">
+              <i class="fas fa-question-circle"></i>
+            </button>
+            <button class="icon-btn"><i class="fas fa-cog"></i></button>
+          </div>
+          <!-- <a href="#" class="detail-link">Detailierte Kundenübersicht</a> -->
+        </div>
+      </div>
+    </header>
+
+  <div class="container">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="user-profile" id="profileTrigger" tabindex="0">
+          <div class="avatar">MA</div>
+          <div class="user-info">
+            <div class="user-name">Max Mustermann</div>
+            <div class="user-role">Werkstatt</div>
+          </div>
+        </div>
+        <button id="sidebarCollapseBtn" class="collapse-btn" aria-label="Sidebar zuklappen">
+          <i class="fas fa-angle-double-left"></i>
+        </button>
+        <label for="menu-toggle" class="close-btn"><i class="fas fa-times"></i></label>
+        <div class="profile-dropdown" id="profileDropdown">
+          <button class="profile-dropdown-btn" id="settingsBtn"><i class="fas fa-cog"></i> Einstellungen</button>
+          <button class="profile-dropdown-btn logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Abmelden</button>
+        </div>
+      </div>
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="./dashboard.html"><i class="fas fa-tachometer-alt"></i> <span>Übersicht</span></a></li>
+          <li class="active"><a href="./kunden.html"><i class="fas fa-users"></i> <span>Kunden</span></a></li>
+          <li><a href="./kalender.html"><i class="fas fa-calendar-alt"></i> <span>Kalender</span></a></li>
+          <li><a href="./fahrzeuge.html"><i class="fas fa-car"></i> <span>Fahrzeuge</span></a></li>
+          <li><a href="./verkaufsfahrzeuge.html"><i class="fas fa-warehouse"></i> <span>Verkaufsfahrzeuge</span></a></li>
+          <li><a href="./angebote.html"><i class="fas fa-file-alt"></i> <span>Angebote</span></a></li>
+          <li><a href="./auftraege.html"><i class="fas fa-wrench"></i> <span>Aufträge</span></a></li>
+          <li><a href="./rechnungen.html"><i class="fas fa-file-invoice"></i> <span>Rechnungen</span></a></li>
+          <li><a href="./kassenbuch.html"><i class="fas fa-wallet"></i> <span>Kassenbuch</span></a></li>
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="lagerbestand-toggle" class="submenu-toggle">
+            <label for="lagerbestand-toggle" class="submenu-label">
+              <i class="fas fa-list"></i> <span>Lagerbestand</span> <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./tires.html"><i class="fas fa-circle"></i> <span>Reifen</span></a></li>
+              <li><a href="./fluidtechnik.html"><i class="fas fa-oil-can"></i> <span>Fluidtechnik</span></a></li>
+              <li><a href="./ersatzteile.html"><i class="fas fa-box fa-fw"></i> <span>Ersatzteile</span></a></li>
+              <li><a href="./sonstige.html"><i class="fas fa-boxes"></i> <span>Sonstige</span></a></li>
+              <li><a href="./lagerbestand.html"><i class="fas fa-list-alt"></i> <span>Gesamter Lagerbestand</span></a></li>
+            </ul>
+          </li>
+          <li class="menu-item has-submenu">
+            <input type="checkbox" id="berichte-toggle" class="submenu-toggle">
+            <label for="berichte-toggle" class="submenu-label">
+              <i class="fas fa-chart-bar"></i> <span>Berichte</span> <i class="fas fa-chevron-down arrow"></i>
+            </label>
+            <ul class="submenu">
+              <li><a href="./berichte/email.html"><i class="fas fa-envelope"></i> <span>Gesendete E-Mails</span></a></li>
+              <li><a href="./berichte/papierkorb.html"><i class="fas fa-trash"></i> <span>Papierkorb</span></a></li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content kunde-detail">
+      <!-- Kundenkopf -->
+      <section class="kunde-profile-card">
+        <div class="profile-header">
+          <div class="avatar">AD</div>
+          <div class="kunde-info">
+            <div class="kunde-name"><b>Adrian Doppler</b> <span class="kunde-id">Kd.-Nr. 20065</span></div>
+            <div class="kunde-meta">
+              <span><i class="fas fa-user"></i> Herr</span>
+              <span><i class="fas fa-globe"></i> Österreich</span>
+            </div>
+          </div>
+          <div class="profile-actions">
+            <button class="icon-btn"><i class="fas fa-pen"></i> Bearbeiten</button>
+            <button class="icon-btn"><i class="fas fa-history"></i> Historie</button>
+            <button class="icon-btn"><i class="fas fa-envelope"></i> Nachricht</button>
+          </div>
+        </div>
+        <div class="profile-contact">
+          <span><i class="fas fa-phone"></i> +43 660 988380</span>
+          <span><i class="fas fa-phone-alt"></i> +43 123 456789</span>
+          <span><i class="fas fa-envelope"></i> adrian.doppler@example.com</span>
+          <span><i class="fas fa-birthday-cake"></i> 15.03.1985</span>
+        </div>
+      </section>
+      <!-- Grid für alle Sub-Bereiche -->
+      <div class="kunde-sections-grid">
+        <!-- Dokumente -->
+        <section class="dokumente-section card">
+          <div class="section-header">
+            <i class="fas fa-file-alt"></i>
+            <h2>Dokumente <span class="count">5</span></h2>
+            <div class="doc-actions">
+              <button class="card-btn">Angebot</button>
+              <button class="card-btn">Auftrag</button>
+              <button class="card-btn">Rechnung</button>
+            </div>
+          </div>
+          <div class="umsatz-summary">
+            <span><b>Umsatz exkl. Steuer:</b> 711,27 €</span>
+            <span class="offene-zahlungen"><i class="fas fa-hourglass-half"></i> Offene Zahlungen: 0,00 €</span>
+          </div>
+          <table class="doc-table">
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Nummer</th>
+                <th>Datum</th>
+                <th>Fahrzeug</th>
+                <th>Gesamt</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="status bezahlt">Bezahlt</span></td>
+                <td>202509</td>
+                <td>26.12.2023</td>
+                <td>Kein Fahrzeug</td>
+                <td>9,18 €</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Fahrzeuge -->
+        <section class="fahrzeuge-section card">
+          <div class="section-header">
+            <i class="fas fa-car"></i>
+            <h2>Fahrzeuge <span class="count">0</span></h2>
+            <button class="card-btn primary"><i class="fas fa-plus"></i> Fahrzeug</button>
+          </div>
+          <div class="fahrzeug-list">
+            <span>Kein Fahrzeug hinterlegt.</span>
+          </div>
+        </section>
+
+        <!-- Termine -->
+        <section class="termine-section card">
+          <div class="section-header">
+            <i class="fas fa-calendar-alt"></i>
+            <h2>Termine <span class="count">0</span></h2>
+            <button class="card-btn primary"><i class="fas fa-plus"></i> Termin</button>
+          </div>
+          <div class="termine-list">
+            <span>Keine Termine eingetragen.</span>
+          </div>
+        </section>
+
+        <!-- Dateien -->
+        <section class="dateien-section card">
+          <div class="section-header">
+            <i class="fas fa-folder"></i>
+            <h2>Dateien <span class="count">0</span></h2>
+            <button class="card-btn primary"><i class="fas fa-plus"></i> Datei</button>
+          </div>
+          <div class="dateien-list">
+            <span>Keine Dateien hinterlegt.</span>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- RIGHT SIDEBAR -->
+    <aside class="right-sidebar">
+      <div class="right-sidebar-content">
+        <!-- Kalender -->
+        <section class="calendar-section">
+          <input type="checkbox" id="calendar-toggle" class="toggle-checkbox" checked>
+          <div class="section-header">
+            <h2>Kalender</h2>
+            <div class="calendar-controls">
+              <button class="nav-arrow"><i class="fas fa-chevron-left"></i></button>
+              <span class="calendar-month" id="calendar-month">Mai 2025</span>
+              <button class="nav-arrow"><i class="fas fa-chevron-right"></i></button>
+              <label for="calendar-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+            </div>
+          </div>
+          <div class="section-content calendar-content">
+            <div class="calendar-grid" id="calendar-grid"></div>
+          </div>
+        </section>
+        <!-- Termine -->
+        <section class="appointments-section">
+          <input type="checkbox" id="appointments-toggle" class="toggle-checkbox" checked>
+          <div class="section-header">
+            <h2>Termine <span id="selected-date"></span></h2>
+            <label for="appointments-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+          </div>
+          <div class="section-content appointments-content">
+            <div class="appointments-list-container">
+              <ul class="appointments-list" id="appointments-list"></ul>
+            </div>
+            <button class="card-btn outline" id="add-appointment">+ Neuer Termin</button>
+          </div>
+        </section>
+        <!-- Notizen -->
+        <section class="notes-section">
+          <input type="checkbox" id="notes-toggle" class="toggle-checkbox" checked>
+          <div class="section-header">
+            <h2>Notizen</h2>
+            <label for="notes-toggle" class="toggle-btn"><i class="fas fa-chevron-down"></i></label>
+          </div>
+          <div class="section-content notes-content">
+            <textarea id="notes-textarea" class="notes-textarea" placeholder="Hier Notizen eingeben..."></textarea>
+            <button class="card-btn" id="save-notes-btn">Notizen speichern</button>
+            <div class="notes-list-container">
+              <ul id="notes-list" class="notes-list"></ul>
+            </div>
+          </div>
+        </section>
+        <div id="notes-modal" class="notes-modal">Gespeichert!</div>
+        <div id="note-edit-modal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title">Notiz bearbeiten</h2>
+              <button class="modal-close" aria-label="Modal schließen"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="note-edit-form" class="modal-form">
+              <div class="form-group">
+                <label for="note-content">Notiz</label>
+                <textarea id="note-content" class="notes-textarea"></textarea>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="modal-btn modal-btn-delete">Löschen</button>
+                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id="appointment-modal" class="modal">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h2 class="modal-title">Neuer Termin</h2>
+              <button class="modal-close" aria-label="Modal schließen"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="appointment-form" class="modal-form">
+              <div class="form-grid">
+                <div class="form-group">
+                  <label for="appointment-time">Uhrzeit</label>
+                  <select id="appointment-time" required></select>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-duration">Dauer</label>
+                  <select id="appointment-duration" required></select>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-customer">Kunde</label>
+                  <input type="text" id="appointment-customer" required>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-vehicle">Fahrzeug</label>
+                  <input type="text" id="appointment-vehicle" required>
+                </div>
+                <div class="form-group full-width">
+                  <label for="appointment-service">Dienstleistung</label>
+                  <input type="text" id="appointment-service" required>
+                </div>
+                <div class="form-group full-width">
+                  <label for="appointment-note">Notiz</label>
+                  <textarea id="appointment-note"></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="appointment-price">Preis (€)</label>
+                  <input type="number" id="appointment-price" step="0.01" min="0">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="modal-btn modal-btn-secondary">Abbrechen</button>
+                <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <div id="settings-menu" class="settings-menu">
+    <button class="settings-panel__close" aria-label="Schließen">
+      <i class="fas fa-times"></i>
+    </button>
+    <ul>
+      <li class="settings-switch">
+        <div class="icon-text">
+          <i class="fas fa-user-circle"></i>
+          <span>Kundenmodus</span>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="kundenmodus-switch">
+          <span class="slider"></span>
+        </label>
+      </li>
+      <li><i class="fas fa-tools"></i><span>Werkstatteinstellungen</span></li>
+      <li><i class="fas fa-users-cog"></i><span>Benutzer</span></li>
+      <li><i class="fas fa-print"></i><span>Vorlagen / Druck</span></li>
+      <li><i class="fas fa-book"></i><span>Buchhaltung</span></li>
+      <li><i class="fas fa-cash-register"></i><span>Registrierkasse</span></li>
+      <li><i class="fas fa-plug"></i><span>Schnittstellen</span></li>
+      <li><i class="fas fa-credit-card"></i><span>Tarif und Zahlung</span></li>
+    </ul>
+  </div>
+
+  <script src="../scripts/right-sidebar.js"></script>
+  <script src="../scripts/sidebar-collapse.js"></script>
+  <script src="../scripts/sidebar.js"></script>
+  <script src="../scripts/settings-panel.js"></script>
+</body>
+</html>
