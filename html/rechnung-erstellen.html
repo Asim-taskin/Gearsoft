@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../styles/sidebar.css">
         <link rel="stylesheet" href="../styles/auftrag-erstellen.css">
         <link rel="stylesheet" href="../styles/positionen-modal-rechnungen.css">
+        <link rel="stylesheet" href="../styles/rechnung-kunde-hinzufügen-modal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -130,15 +131,16 @@
                 <div class="auftrag-block">
                     <h3>Kundendaten</h3>
                     <div class="input-block">
-                        <button type="button" class="select-btn">
-                            <i class="fas fa-user"></i> Kunde wählen
-                        </button>
+<button type="button" class="select-btn" onclick="openKundenModal()">
+  <i class="fas fa-user"></i> Kunde wählen
+</button>
+
                     </div>
                     <h3>Fahrzeug</h3>
                     <div class="input-block">
-                        <button type="button" class="select-btn">
-                            <i class="fas fa-car"></i> Fahrzeug wählen
-                        </button>
+<button type="button" class="select-btn" onclick="openFahrzeugModal()">
+  <i class="fas fa-car"></i> Fahrzeug wählen
+</button>
                     </div>
                     <h3>Kundentext</h3>
                     <div class="input-block">
@@ -217,7 +219,7 @@
                                         <option>Std.</option>
                                     </select>
                                 </td>
-                                <td data-label="Bezeichnung"><input type="text" value="Klein und Verbrauchsmaterial"></td>
+                                <td data-label="Bezeichnung"><input type="text" value=""></td>
                                 <td data-label="Einzelpreis"><input type="text" value="0,00"></td>
                                 <td data-label="Steuersatz">
                                     <select>
@@ -653,7 +655,335 @@
 
 
 
+<!-- Kunden-Auswahl-Modal -->
+<div id="kundenModal" class="modal">
+   <div class="kunden-auswahl-modal-content">
+    <div class="modal-header">
+      <h2>Kunde auswählen</h2>
+      <button class="modal-close" aria-label="Schließen" onclick="closeKundenModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-search-block">
+      <input type="text" placeholder="🔍 Kunde suchen..." class="modal-search-input" id="kundenSearchInput" oninput="filterKundenList()">
+    </div>
+    <div class="modal-hint">Doppelklick auf einen Kunden, um ihn auszuwählen.</div>
+    <div class="modal-list-header">
+      <span><i class="fas fa-users"></i> Kunden</span>
+      <button class="btn outline btn-add-kunde" onclick="openNeuerKundeModal()"><i class="fas fa-plus"></i> Kunde</button>
+    </div>
+    <div class="modal-list" id="kundenList">
+      <!-- Beispiel-Kunden, später per JS ersetzen -->
+      <div class="kunden-card" ondblclick="kundeAuswaehlen('Max', 'Mustermann', '0664 1234567')">
+        <div class="kunden-row">
+          <span class="kunden-name">Max Mustermann</span>
+          <span class="kunden-tel"><i class="fas fa-phone"></i> 0664 1234567</span>
+        </div>
+      </div>
+      <div class="kunden-card" ondblclick="kundeAuswaehlen('Julia', 'Meier', '0676 9876543')">
+        <div class="kunden-row">
+          <span class="kunden-name">Julia Meier</span>
+          <span class="kunden-tel"><i class="fas fa-phone"></i> 0676 9876543</span>
+        </div>
+      </div>
+      <!-- Mehr Kunden per JS... -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn outline" onclick="closeKundenModal()">Abbrechen</button>
+    </div>
+  </div>
+</div>
 
+
+
+
+
+<!-- Kunden Hinzufügen/Bearbeiten Modal -->
+<div id="kundenEditModal" class="modal">
+  <div class="modal-content add-customer-modal">
+    <div class="modal-header">
+      <h2>Kunde bearbeiten</h2>
+      <button class="modal-close" aria-label="Schließen" onclick="closeKundenEditModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <form>
+      <div class="modal-body add-customer-grid">
+        <div class="form-group">
+          <label>Anrede</label>
+          <select>
+            <option>--</option>
+            <option>Herr</option>
+            <option>Frau</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Titel</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Vorname</label>
+          <input type="text" />
+        </div>
+        <div class="form-group required">
+          <label>Nachname *</label>
+          <input type="text" required />
+        </div>
+        <div class="form-group">
+          <label>Extra Adresszeile (wird unter Namen gedruckt)</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Straße und Hausnummer</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>PLZ</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Ort</label>
+          <input type="text" />
+        </div>
+        <div class="form-group required">
+          <label>Land *</label>
+          <select>
+            <option>Österreich</option>
+            <option>Deutschland</option>
+            <option>Schweiz</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Handy</label>
+          <input type="tel" />
+        </div>
+        <div class="form-group">
+          <label>Telefon</label>
+          <input type="tel" />
+        </div>
+        <div class="form-group">
+          <label>E-Mail Adresse</label>
+          <input type="email" />
+        </div>
+        <div class="form-group">
+          <label>Geburtstag</label>
+          <input type="date" />
+        </div>
+        <div class="form-group">
+          <label>UID</label>
+          <input type="text" value="ATU000000000" />
+        </div>
+        <div class="form-group full-width">
+          <label>Zusatzinfo</label>
+          <textarea></textarea>
+        </div>
+        <div class="form-group checkbox-group full-width">
+          <label>
+            <input type="checkbox" />
+            Zusatzinfo auf Angebote und Rechnungen drucken
+          </label>
+        </div>
+        <!-- Optional: Fahrzeugbereich einblenden -->
+        <!--
+        <div class="form-group full-width">
+          <div id="fahrzeug-section" class="fahrzeug-section">
+            ...
+          </div>
+        </div>
+        -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn outline" onclick="closeKundenEditModal()">Verwerfen</button>
+        <button type="submit" class="btn primary">
+          <i class="fas fa-save"></i> Änderungen speichern
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+<!-- Fahrzeug-Auswahl-Modal -->
+<div id="fahrzeugModal" class="modal">
+  <div class="kunden-auswahl-modal-content">
+    <div class="modal-header">
+      <h2>Fahrzeug auswählen</h2>
+      <button class="modal-close" aria-label="Schließen" onclick="closeFahrzeugModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-search-block">
+      <input type="text" placeholder="🔍 Fahrzeug suchen..." class="modal-search-input" id="fahrzeugSearchInput" oninput="filterFahrzeugList()">
+    </div>
+    <div class="modal-hint">Doppelklick auf ein Fahrzeug, um es auszuwählen.</div>
+    <div class="modal-list-header">
+      <span><i class="fas fa-car"></i> Fahrzeuge</span>
+<button class="btn outline btn-add-vehicle" onclick="openAddVehicleModal()"><i class="fas fa-plus"></i> Fahrzeug</button>
+
+    </div>
+    <div class="modal-list" id="fahrzeugList">
+      <!-- Beispiel-Fahrzeuge, später per JS ersetzen -->
+      <div class="kunden-card" ondblclick="fahrzeugAuswaehlen('Max', 'Mustermann', 'VW', 'Golf', 'SD-123AB')">
+        <div class="kunden-row">
+          <span class="kunden-name">Max Mustermann</span>
+          <span class="kunden-tel">VW Golf – <strong>SD-123AB</strong></span>
+        </div>
+      </div>
+      <div class="kunden-card" ondblclick="fahrzeugAuswaehlen('Julia', 'Meier', 'BMW', '320d', 'VB-456CD')">
+        <div class="kunden-row">
+          <span class="kunden-name">Julia Meier</span>
+          <span class="kunden-tel">BMW 320d – <strong>VB-456CD</strong></span>
+        </div>
+      </div>
+      <!-- Mehr Fahrzeuge per JS... -->
+    </div>
+    <div class="modal-footer">
+      <button class="btn outline" onclick="closeFahrzeugModal()">Abbrechen</button>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!-- Fahrzeug Hinzufügen Modal -->
+<div id="add-vehicle-modal" class="modal">
+  <div class="modal-content fahrzeug-modal">
+    <div class="modal-header">
+      <h2>Fahrzeug erstellen</h2>
+      <button class="modal-close" aria-label="Schließen" onclick="closeAddVehicleModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <form>
+      <div class="fahrzeug-grid">
+        <div class="form-group">
+          <label>Kennzeichen A</label>
+          <input type="text" value="" />
+        </div>
+        <div class="form-group">
+          <label>Laufleistung</label>
+          <input type="text" placeholder="Hinzufügen" />
+        </div>
+        <div class="form-group">
+          <label>Nationaler Code A7</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Fahrzeugidentifikationsnummer E</label>
+          <input type="text" value="0" />
+        </div>
+        <div class="form-group">
+          <label>Hersteller D.1 *</label>
+          <select>
+            <option>Hersteller wählen</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Modell / Handelsbezeichnung D.3 *</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Type/Variante/Version D.2</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Fahrzeugklasse J</label>
+          <select>
+            <option>M1 | PKW/Kombi</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Getriebeart</label>
+          <select>
+            <option>wählen</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Eigengewicht G</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>höchstzul. Gesamtgewicht F.2</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Leistung P.2</label>
+          <input type="text" placeholder="0 PS" />
+        </div>
+        <div class="form-group">
+          <label>Hubraum P.1</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Letzte Zulassung</label>
+          <input type="date" />
+        </div>
+        <div class="form-group">
+          <label>Erstzulassung B</label>
+          <input type="date" />
+        </div>
+        <div class="form-group">
+          <label>Genehmigungsdatum 6</label>
+          <input type="date" />
+        </div>
+        <div class="form-group">
+          <label>Motor-Kategorie</label>
+          <select>
+            <option>wählen</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Motortype 10</label>
+          <input type="text" />
+        </div>
+        <div class="form-group">
+          <label>Farbe R</label>
+          <input type="text" />
+        </div>
+        <div class="form-group full-width">
+          <label>Polizzennummer</label>
+          <input type="text" />
+        </div>
+        <div class="form-group full-width">
+          <label>Zusatzinfo</label>
+          <textarea></textarea>
+        </div>
+        <div class="form-group full-width">
+          <label>Bilder hochladen</label>
+          <input
+            type="file"
+            id="vehicle-images"
+            multiple
+            accept="image/*"
+          />
+          <div
+            id="image-preview"
+            style="display: flex; flex-wrap: wrap; margin-top: 10px"
+          ></div>
+        </div>
+        <div class="form-group full-width">
+          <label>Zulassung hinzufügen (als Bild)</label>
+          <input
+            type="file"
+            id="zulassung-image"
+            accept="image/*"
+            class="btn secondary"
+          />
+        </div>
+      </div>
+      <div class="fahrzeug-footer">
+        <button type="button" class="btn secondary" onclick="closeAddVehicleModal()">Abbrechen</button>
+        <button type="submit" class="btn primary">Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
 
 
 
@@ -815,6 +1145,208 @@ document.addEventListener('keydown', function(e) {
 
 </script>
 
+
+
+<script>
+    // Öffnen & Schließen
+function openKundenModal() {
+  document.getElementById('kundenModal').style.display = 'flex';
+  document.body.classList.add('modal-open');
+  document.getElementById('kundenSearchInput').focus();
+}
+function closeKundenModal() {
+  document.getElementById('kundenModal').style.display = 'none';
+  document.body.classList.remove('modal-open');
+}
+
+// ESC und Klick auf Overlay
+document.getElementById('kundenModal').addEventListener('mousedown', function(e){
+  if(e.target === this) closeKundenModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape" && document.getElementById('kundenModal').style.display === 'flex') {
+    closeKundenModal();
+  }
+});
+
+// Suche (sehr simpel: filtert nach Name/Nachname/Telefon)
+function filterKundenList() {
+  let input = document.getElementById('kundenSearchInput').value.toLowerCase();
+  document.querySelectorAll('#kundenList .kunden-card').forEach(card => {
+    const name = card.querySelector('.kunden-name').innerText.toLowerCase();
+    const tel = card.querySelector('.kunden-tel').innerText.toLowerCase();
+    card.style.display = (name.includes(input) || tel.includes(input)) ? "" : "none";
+  });
+}
+
+// Auswahl (hier nur als Demo: Übergibt an Button)
+function kundeAuswaehlen(vorname, nachname, telefon) {
+  // TODO: Trage Kunde ins Formular ein und schließe das Modal
+  alert(`Kunde gewählt: ${vorname} ${nachname}, Tel: ${telefon}`);
+  closeKundenModal();
+}
+
+// Optional: Kunden hinzufügen Modal – hier nur Dummy
+function openNeuerKundeModal() {
+  alert('Kunde hinzufügen – hier dein Modal!');
+}
+
+</script>
+
+
+
+<script>
+// === KUNDEN AUSWAHL MODAL ===
+function openKundenModal() {
+  document.getElementById('kundenModal').style.display = 'flex';
+  document.body.classList.add('modal-open');
+  document.getElementById('kundenSearchInput').focus();
+}
+function closeKundenModal() {
+  document.getElementById('kundenModal').style.display = 'none';
+  document.body.classList.remove('modal-open');
+}
+
+// Klick auf Overlay schließt Auswahlmodal
+document.getElementById('kundenModal').addEventListener('mousedown', function(e){
+  if(e.target === this) closeKundenModal();
+});
+// ESC schließt Auswahlmodal
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape" && document.getElementById('kundenModal').style.display === 'flex') {
+    closeKundenModal();
+  }
+});
+
+// Suchfunktion für Kundenliste
+function filterKundenList() {
+  let input = document.getElementById('kundenSearchInput').value.toLowerCase();
+  document.querySelectorAll('#kundenList .kunden-card').forEach(card => {
+    const name = card.querySelector('.kunden-name').innerText.toLowerCase();
+    const tel = card.querySelector('.kunden-tel').innerText.toLowerCase();
+    card.style.display = (name.includes(input) || tel.includes(input)) ? "" : "none";
+  });
+}
+
+// Kunde aus der Liste auswählen (Demo)
+function kundeAuswaehlen(vorname, nachname, telefon) {
+  // TODO: Trage Kunde ins Formular ein und schließe das Modal
+  alert(`Kunde gewählt: ${vorname} ${nachname}, Tel: ${telefon}`);
+  closeKundenModal();
+}
+
+// === KUNDEN HINZUFÜGEN / BEARBEITEN MODAL ===
+function openKundenEditModal() {
+  // Optional: Formular leeren
+  var form = document.querySelector('#kundenEditModal form');
+  if(form) form.reset();
+  document.getElementById('kundenEditModal').style.display = 'flex';
+  document.body.classList.add('modal-open');
+}
+function closeKundenEditModal() {
+  document.getElementById('kundenEditModal').style.display = 'none';
+  document.body.classList.remove('modal-open');
+}
+// Klick auf Overlay schließt Bearbeitenmodal
+document.getElementById('kundenEditModal').addEventListener('mousedown', function(e){
+  if(e.target === this) closeKundenEditModal();
+});
+// ESC schließt Bearbeitenmodal
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape" && document.getElementById('kundenEditModal').style.display === 'flex') {
+    closeKundenEditModal();
+  }
+});
+
+// + Kunde Button öffnet Hinzufügen/Bearbeiten Modal
+function openNeuerKundeModal() {
+  closeKundenModal(); // Kunden-Auswahlmodal schließen
+  openKundenEditModal(); // Kunden-Hinzufügen/Bearbeiten Modal öffnen
+}
+
+
+
+</script>
+
+
+
+
+<script>
+
+    // ==== FAHRZEUG MODAL ====
+
+// Öffnen & Schließen
+function openFahrzeugModal() {
+  document.getElementById('fahrzeugModal').style.display = 'flex';
+  document.body.classList.add('modal-open');
+  document.getElementById('fahrzeugSearchInput').focus();
+}
+function closeFahrzeugModal() {
+  document.getElementById('fahrzeugModal').style.display = 'none';
+  document.body.classList.remove('modal-open');
+}
+
+// Overlay & ESC
+document.getElementById('fahrzeugModal').addEventListener('mousedown', function(e){
+  if(e.target === this) closeFahrzeugModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape" && document.getElementById('fahrzeugModal').style.display === 'flex') {
+    closeFahrzeugModal();
+  }
+});
+
+// Filter
+function filterFahrzeugList() {
+  let input = document.getElementById('fahrzeugSearchInput').value.toLowerCase();
+  document.querySelectorAll('#fahrzeugList .kunden-card').forEach(card => {
+    const text = card.innerText.toLowerCase();
+    card.style.display = text.includes(input) ? "" : "none";
+  });
+}
+
+// Auswahl
+function fahrzeugAuswaehlen(vorname, nachname, marke, modell, kennzeichen) {
+  // TODO: Trage Fahrzeug ins Formular ein und schließe das Modal
+  alert(`Fahrzeug gewählt:\n${vorname} ${nachname}\n${marke} ${modell} (${kennzeichen})`);
+  closeFahrzeugModal();
+}
+
+// Fahrzeug hinzufügen-Modal (Platzhalter)
+function openNeuesFahrzeugModal() {
+  alert('Fahrzeug hinzufügen – hier dein Modal!');
+}
+
+</script>
+
+
+
+
+<script>
+
+    // --- Fahrzeug Hinzufügen Modal öffnen/schließen ---
+
+function openAddVehicleModal() {
+  document.getElementById('add-vehicle-modal').style.display = 'flex';
+  document.body.classList.add('modal-open');
+}
+function closeAddVehicleModal() {
+  document.getElementById('add-vehicle-modal').style.display = 'none';
+  document.body.classList.remove('modal-open');
+}
+
+// Overlay-Klick schließt Modal
+document.getElementById('add-vehicle-modal').addEventListener('mousedown', function(e){
+  if(e.target === this) closeAddVehicleModal();
+});
+// ESC schließt Modal
+document.addEventListener('keydown', function(e) {
+  if (e.key === "Escape" && document.getElementById('add-vehicle-modal').style.display === 'flex') {
+    closeAddVehicleModal();
+  }
+});
+
+</script>
 
 
 </body>
