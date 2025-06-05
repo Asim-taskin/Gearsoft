@@ -435,48 +435,54 @@
 
 
 <script>
-const vehicleModal = document.getElementById("add-vehicle-modal");
-const vehicleForm = document.getElementById("vehicle-form");
-const addVehicleBtn = document.querySelector(".fahrzeuge-section .card-btn.primary");
-const cancelVehicleBtn = document.getElementById("cancel-vehicle-modal-btn");
-const modalCloseBtn = vehicleModal.querySelector(".modal-close");
+  const vehicleModal = document.getElementById("add-vehicle-modal");
+  const vehicleForm = document.getElementById("vehicle-form");
+  const addVehicleBtn = document.querySelector(".fahrzeuge-section .card-btn.primary");
+  const cancelVehicleBtn = document.getElementById("cancel-vehicle-modal-btn");
+  const modalCloseBtn = vehicleModal.querySelector(".modal-close");
 
-// Open modal
-if (addVehicleBtn) {
-  addVehicleBtn.addEventListener("click", () => {
+  // Hilfsfunktion: Modal wirklich sichtbar machen (setzt Inline‐Style zurück auf „flex“)
+  function openVehicleModal() {
     vehicleModal.classList.add("open");
-  });
-}
+    // Stelle sicher, dass eventuelle Inline‐Styles, die right-sidebar.js gesetzt hat, überschrieben werden:
+    vehicleModal.style.display = "flex";
+  }
 
-// Close modal
-if (cancelVehicleBtn) {
-  cancelVehicleBtn.addEventListener("click", () => {
+  // Hilfsfunktion: Modal ausblenden und Style entfernen
+  function closeVehicleModal() {
     vehicleModal.classList.remove("open");
-    vehicleForm.reset();
-  });
-}
-if (modalCloseBtn) {
-  modalCloseBtn.addEventListener("click", () => {
-    vehicleModal.classList.remove("open");
-    vehicleForm.reset();
-  });
-}
-
-// ESC schließen
-document.addEventListener("keydown", e => {
-  if (e.key === "Escape" && vehicleModal.classList.contains("open")) {
-    vehicleModal.classList.remove("open");
+    vehicleModal.style.display = ""; // Inline‐Style entfernen
     vehicleForm.reset();
   }
-});
 
-// Klick außerhalb Modal schließt auch
-vehicleModal.addEventListener("mousedown", e => {
-  if (e.target === vehicleModal) {
-    vehicleModal.classList.remove("open");
-    vehicleForm.reset();
+  // Öffnen des Modals
+  if (addVehicleBtn) {
+    addVehicleBtn.addEventListener("click", openVehicleModal);
   }
-});
+
+  // Schließen per „Abbrechen“-Button
+  if (cancelVehicleBtn) {
+    cancelVehicleBtn.addEventListener("click", closeVehicleModal);
+  }
+
+  // Schließen per X-Button
+  if (modalCloseBtn) {
+    modalCloseBtn.addEventListener("click", closeVehicleModal);
+  }
+
+  // ESC-Taste schließt Modal
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && vehicleModal.classList.contains("open")) {
+      closeVehicleModal();
+    }
+  });
+
+  // Klick außerhalb schließt Modal
+  vehicleModal.addEventListener("mousedown", e => {
+    if (e.target === vehicleModal) {
+      closeVehicleModal();
+    }
+  });
 
 fetch('../json/vehicle-option.json')
   .then(res => res.json())
