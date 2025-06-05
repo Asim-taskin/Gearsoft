@@ -8,7 +8,7 @@
   background: rgba(31,41,55,0.47); /* Dark overlay */
   align-items: center;
   justify-content: center;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   transition: opacity 0.18s;
 }
 #add-vehicle-modal.modal.open {
@@ -381,7 +381,7 @@ select:focus option {
   background: rgba(31, 41, 55, 0.5);
   align-items: center;
   justify-content: center;
-  overflow-y: auto;
+  /* overflow-y: auto; */
   padding: 1rem; /* etwas Innenabstand, damit bei sehr kleinen Bildschirmen kein Beschnitt */
 }
 
@@ -641,3 +641,22 @@ select:focus option {
 }
 
 
+
+
+
+
+/* … ganz unten in kunden-detail-add-vehicle.css … */
+
+/* 1) Ganz konkretes Targeting nur für das Add‐Vehicle‐Modal: */
+#add-vehicle-modal .fahrzeug-modal {
+  /* Überschreibt alle anderen Max-Height-/Overflow-Regeln */
+  max-height: calc(100vh - 2rem) !important;
+  overflow-y: auto !important;
+  padding-right: 1rem !important; /* Scrollbalken rutscht etwas nach innen */
+}
+
+/* 2) Verhindert, dass dein Grid-Inhalt unter den Scrollbalken rutscht */
+#add-vehicle-modal .fahrzeug-grid {
+  margin-right: -1rem !important;
+  padding-right: 1rem !important;
+}
