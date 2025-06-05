@@ -361,68 +361,187 @@
   </div>
 
 
+
+<!-- ==================================
+     Fahrzeug erstellen Modal (drei Spalten)
+=================================== -->
 <div id="add-vehicle-modal" class="modal">
-  <div class="modal-content vehicle-modal">
+  <div class="modal-content fahrzeug-modal">
+    <!-- Modal-Header -->
     <div class="modal-header">
-      <h2>Fahrzeug anlegen</h2>
-      <button type="button" class="modal-close" aria-label="Schließen"><i class="fas fa-times"></i></button>
+      <h2>Fahrzeug erstellen</h2>
+      <button type="button" class="modal-close" aria-label="Schließen" onclick="closeAddVehicleModal()">
+        <i class="fas fa-times"></i>
+      </button>
     </div>
-    <form id="vehicle-form" class="vehicle-form">
-      <div class="form-row">
-<div class="form-group">
-  <label for="hersteller">Hersteller</label>
-  <div class="custom-dropdown" id="hersteller-dropdown">
-    <div class="dropdown-selected" tabindex="0">Bitte wählen</div>
-    <div class="dropdown-options" id="hersteller-options"></div>
-    <input type="hidden" name="hersteller" id="hersteller-value" required>
-  </div>
-</div>
 
+    <!-- Modal-Formular -->
+    <form id="vehicle-form" class="fahrzeug-grid-form">
+      <!-- Grid mit 3 Spalten (Desktop) -->
+      <div class="fahrzeug-grid">
+        <!-- 1. Kennzeichen A -->
         <div class="form-group">
-          <label for="modell">Modell</label>
-          <input type="text" id="modell" name="modell" required placeholder="z.B. Golf 7">
-        </div>
-      </div>
-      <div class="form-row">
-<div class="form-group">
-  <label for="fahrzeugklasse">Fahrzeugklasse</label>
-  <div class="custom-dropdown" id="fahrzeugklasse-dropdown">
-    <div class="dropdown-selected" tabindex="0">Bitte wählen</div>
-    <div class="dropdown-options" id="fahrzeugklasse-options"></div>
-    <input type="hidden" name="fahrzeugklasse" id="fahrzeugklasse-value" required>
-  </div>
-</div>
-
-
-
-        <div class="form-group">
-          <label for="baujahr">Baujahr</label>
-          <input type="number" id="baujahr" name="baujahr" min="1900" max="2100" required placeholder="z.B. 2020">
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label for="motorkategorie">Motorkategorie</label>
-          <select id="motorkategorie" name="motorkategorie" required></select>
-        </div>
-        <div class="form-group">
-          <label for="getriebeart">Getriebe</label>
-          <select id="getriebeart" name="getriebeart" required></select>
-        </div>
-      </div>
-      <div class="form-row">
-        <div class="form-group full-width">
-          <label for="kennzeichen">Kennzeichen</label>
+          <label for="kennzeichen">Kennzeichen A</label>
           <input type="text" id="kennzeichen" name="kennzeichen" placeholder="z.B. SD-123AB">
         </div>
+
+        <!-- 2. Laufleistung -->
+        <div class="form-group">
+          <label for="laufleistung">Laufleistung (km)</label>
+          <input type="number" id="laufleistung" name="laufleistung" placeholder="z.B. 120000" min="0">
+        </div>
+
+        <!-- 3. Nationaler Code A7 -->
+        <div class="form-group">
+          <label for="nationaler-code">Nationaler Code A7</label>
+          <input type="text" id="nationaler-code" name="nationalerCode" placeholder="z.B. A7-12345">
+        </div>
+
+        <!-- 4. Eigengewicht G (kg) -->
+        <div class="form-group">
+          <label for="eigengewicht">Eigengewicht G (kg)</label>
+          <input type="number" id="eigengewicht" name="eigengewicht" placeholder="z.B. 1350" min="0">
+        </div>
+
+        <!-- 5. FIN (Fahrzeug­ID) -->
+        <div class="form-group">
+          <label for="fin">Fahrzeug-ID (FIN)</label>
+          <input type="text" id="fin" name="fin" placeholder="z.B. WDB12345678901234">
+        </div>
+
+        <!-- 6. Höchstzul. Gesamtgewicht F.2 (kg) -->
+        <div class="form-group">
+          <label for="gesamtgewicht">höchstzul. Gesamtgewicht F.2 (kg)</label>
+          <input type="number" id="gesamtgewicht" name="gesamtgewicht" placeholder="z.B. 2000" min="0">
+        </div>
+
+        <!-- 7. Hersteller D.1 * -->
+        <div class="form-group">
+          <label for="hersteller">Hersteller D.1 <span class="required">*</span></label>
+          <div class="custom-dropdown" id="hersteller-dropdown">
+            <div class="dropdown-selected" tabindex="0">Bitte wählen</div>
+            <div class="dropdown-options" id="hersteller-options"></div>
+            <input type="hidden" name="hersteller" id="hersteller-value" required>
+          </div>
+        </div>
+
+        <!-- 8. Leistung P.2 (PS) -->
+        <div class="form-group">
+          <label for="leistung">Leistung P.2 (PS)</label>
+          <input type="number" id="leistung" name="leistung" placeholder="z.B. 150" min="0">
+        </div>
+
+        <!-- 9. Modell / Handelsbezeichnung D.3 * -->
+        <div class="form-group">
+          <label for="modell">Modell / Handelsbezeichnung D.3 <span class="required">*</span></label>
+          <input type="text" id="modell" name="modell" placeholder="z.B. Golf 7" required>
+        </div>
+
+        <!-- 10. Hubraum P.1 (cm³) -->
+        <div class="form-group">
+          <label for="hubraum">Hubraum P.1 (cm³)</label>
+          <input type="number" id="hubraum" name="hubraum" placeholder="z.B. 1395" min="0">
+        </div>
+
+        <!-- 11. Type / Variante / Version D.2 -->
+        <div class="form-group">
+          <label for="type-variante">Type / Variante / Version D.2</label>
+          <input type="text" id="type-variante" name="typeVariante" placeholder="z.B. Variant Highline">
+        </div>
+
+        <!-- 12. Letzte Zulassung -->
+        <div class="form-group">
+          <label for="letzte-zulassung">Letzte Zulassung</label>
+          <input type="date" id="letzte-zulassung" name="letzteZulassung">
+        </div>
+
+        <!-- 13. Fahrzeugklasse J -->
+        <div class="form-group">
+          <label for="fahrzeugklasse">Fahrzeugklasse J</label>
+          <div class="custom-dropdown" id="fahrzeugklasse-dropdown">
+            <div class="dropdown-selected" tabindex="0">Bitte wählen</div>
+            <div class="dropdown-options" id="fahrzeugklasse-options"></div>
+            <input type="hidden" name="fahrzeugklasse" id="fahrzeugklasse-value" required>
+          </div>
+        </div>
+
+        <!-- 14. Erstzulassung B -->
+        <div class="form-group">
+          <label for="erstzulassung">Erstzulassung B</label>
+          <input type="date" id="erstzulassung" name="erstzulassung">
+        </div>
+
+        <!-- 15. Getriebeart -->
+        <div class="form-group">
+          <label for="getriebeart">Getriebeart</label>
+          <select id="getriebeart" name="getriebeart">
+            <option value="">wählen</option>
+            <!-- JS-Befüllung wie gehabt -->
+          </select>
+        </div>
+
+        <!-- 16. Genehmigungsdatum G6 -->
+        <div class="form-group">
+          <label for="genehmigungsdatum">Genehmigungsdatum G6</label>
+          <input type="date" id="genehmigungsdatum" name="genehmigungsdatum">
+        </div>
+
+        <!-- 17. Motor-Kategorie -->
+        <div class="form-group">
+          <label for="motorkategorie">Motor-Kategorie</label>
+          <select id="motorkategorie" name="motorkategorie">
+            <option value="">Bitte wählen</option>
+            <!-- JS-Befüllung wie gehabt -->
+          </select>
+        </div>
+
+        <!-- 18. Motortype 10 -->
+        <div class="form-group">
+          <label for="motortype">Motortype 10</label>
+          <input type="text" id="motortype" name="motortype" placeholder="z.B. TSI">
+        </div>
+
+        <!-- 19. Farbe R -->
+        <div class="form-group">
+          <label for="farbe">Farbe R</label>
+          <input type="text" id="farbe" name="farbe" placeholder="z.B. Schwarz">
+        </div>
+
+        <!-- 20. Polizzennummer -->
+        <div class="form-group">
+          <label for="polizzennummer">Polizzennummer</label>
+          <input type="text" id="polizzennummer" name="polizzennummer" placeholder="z.B. 123456789">
+        </div>
+
+        <!-- 21. Zusatzinfo (full-width) -->
+        <div class="form-group full-width">
+          <label for="zusatzinfo">Zusatzinfo</label>
+          <textarea id="zusatzinfo" name="zusatzinfo" rows="3" placeholder="z.B. Extras, Bemerkungen …"></textarea>
+        </div>
+
+        <!-- 22. Bilder hochladen (full-width) -->
+        <div class="form-group full-width">
+          <label for="vehicle-images">Bilder hochladen</label>
+          <input type="file" id="vehicle-images" name="vehicleImages" multiple accept="image/*">
+          <div id="image-preview" class="image-preview"></div>
+        </div>
+
+        <!-- 23. Zulassung hinzufügen (als Bild) (full-width) -->
+        <div class="form-group full-width">
+          <label for="zulassung-image">Zulassung hinzufügen (als Bild)</label>
+          <input type="file" id="zulassung-image" name="zulassungImage" accept="image/*">
+        </div>
       </div>
-      <div class="form-footer">
-        <button type="button" class="modal-btn modal-btn-secondary" id="cancel-vehicle-modal-btn">Abbrechen</button>
-        <button type="submit" class="modal-btn modal-btn-primary">Speichern</button>
+
+      <!-- Modal-Footer (full-width) -->
+      <div class="fahrzeug-footer full-width">
+        <button type="button" class="btn secondary" onclick="closeAddVehicleModal()">Abbrechen</button>
+        <button type="submit" class="btn primary">Speichern</button>
       </div>
     </form>
   </div>
 </div>
+
 
 
   <script src="../scripts/right-sidebar.js"></script>
