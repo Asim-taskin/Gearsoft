@@ -53,8 +53,10 @@
 
 .calendar-section {
   padding: 12px;
-  border: 1px solid rgba(0, 85, 255, 0.58);
-  border-radius: 12px;
+  border-top: 1px solid rgba(0, 85, 255, 0.58);
+  border-bottom: 1px solid rgba(0, 85, 255, 0.58);
+  /* border: 1px solid rgba(0, 85, 255, 0.58); */
+  /* border-radius: 12px; */
   /* box-shadow: 0 1px 3px rgba(255, 255, 255, 0.58); */
   background: #ffffff;
   margin-bottom: 1.5rem;
@@ -187,8 +189,10 @@
 
 .appointments-section {
   padding: 12px;
-  border: 1px solid rgba(0, 85, 255, 0.58);
-  border-radius: 12px;
+  border-top:1px solid rgba(0, 85, 255, 0.58);
+  border-bottom:1px solid rgba(0, 85, 255, 0.58);
+  /* border: 1px solid rgba(0, 85, 255, 0.58); */
+  /* border-radius: 12px; */
   /* box-shadow: 0 1px 3px rgba(0, 85, 255, 0.58); */
   margin-bottom: 1.5rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
@@ -274,8 +278,10 @@
 
 .notes-section {
   padding: 12px;
-  border: 1px solid rgba(0, 85, 255, 0.58);
-  border-radius: 12px;
+  border-top: 1px solid rgba(0, 85, 255, 0.58);
+  border-bottom: 1px solid rgba(0, 85, 255, 0.58);
+  /* border: 1px solid rgba(0, 85, 255, 0.58); */
+  /* border-radius: 12px; */
   /* box-shadow: 0 1px 3px rgba(0, 85, 255, 0.58); */
   margin-bottom: 1.5rem;
   transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background 0.2s ease;
