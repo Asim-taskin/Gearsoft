@@ -193,11 +193,11 @@
         <section class="termine-section card">
           <div class="section-header">
             <div class="termine-section-header-titel">
-                <i class="fas fa-calendar-alt"></i>
                 <h2>Termine <span class="count">0</span></h2>
             </div>
-            <button class="card-btn primary margin-del"><i class="fas fa-plus"></i> Termin</button>
-          </div>
+  <button class="card-btn primary" onclick="openAddTerminModal()">
+    <i class="fas fa-calendar-plus"></i> + Termin
+  </button>          </div>
           <div class="termine-list">
             <span>Keine Termine eingetragen.</span>
           </div>
@@ -544,6 +544,86 @@
 
 
 
+
+
+
+
+
+
+
+
+<!-- ========================
+     Termin erstellen Modal
+========================= -->
+<div id="add-termin-modal" class="modal">
+  <div class="modal-content fahrzeug-modal">
+    <!-- Modal-Header -->
+    <div class="modal-header">
+      <h2>Neuer Termin</h2>
+      <button type="button" class="modal-close" aria-label="Schließen" onclick="closeAddTerminModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <!-- Modal-Formular -->
+    <form id="termin-form" class="fahrzeug-grid">
+      <!-- Datum & Uhrzeit -->
+      <div class="form-group">
+        <label for="termin-datum">Datum</label>
+        <input type="date" id="termin-datum" name="datum" required>
+      </div>
+
+      <div class="form-group">
+        <label for="termin-uhrzeit">Uhrzeit</label>
+        <input type="time" id="termin-uhrzeit" name="uhrzeit" required>
+      </div>
+
+      <!-- Dauer -->
+      <div class="form-group">
+        <label for="termin-dauer">Dauer (Minuten)</label>
+        <input type="number" id="termin-dauer" name="dauer" placeholder="z.B. 30" required>
+      </div>
+
+      <!-- Dienstleistung -->
+      <div class="form-group">
+        <label for="termin-art">Dienstleistung</label>
+        <select id="termin-art" name="dienstleistung" required>
+          <option value="">Bitte wählen</option>
+          <option value="Reifenwechsel">Reifenwechsel</option>
+          <option value="Inspektion">Inspektion</option>
+          <option value="Ölwechsel">Ölwechsel</option>
+          <option value="Fehlersuche">Fehlersuche</option>
+        </select>
+      </div>
+
+      <!-- Fahrzeug & Preis -->
+      <div class="form-group">
+        <label for="termin-fahrzeug">Fahrzeug</label>
+        <input type="text" id="termin-fahrzeug" name="fahrzeug" placeholder="z.B. Golf 7" required>
+      </div>
+
+      <div class="form-group">
+        <label for="termin-preis">Preis (€)</label>
+        <input type="number" id="termin-preis" name="preis" step="0.01" min="0">
+      </div>
+
+      <!-- Notizen -->
+      <div class="form-group full-width">
+        <label for="termin-notiz">Notiz</label>
+        <textarea id="termin-notiz" name="notiz" rows="2" placeholder="z.B. Kunde bringt eigene Teile mit..."></textarea>
+      </div>
+
+      <!-- Footer -->
+      <div class="fahrzeug-footer full-width">
+        <button type="button" class="btn secondary" onclick="closeAddTerminModal()">Abbrechen</button>
+        <button type="submit" class="btn primary">Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
   <script src="../scripts/right-sidebar.js"></script>
   <script src="../scripts/sidebar-collapse.js"></script>
   <script src="../scripts/sidebar.js"></script>
@@ -709,6 +789,34 @@ fetch('../json/vehicle-option.json')
   });
 </script>
 
+
+<script>
+  const terminModal = document.getElementById("add-termin-modal");
+  const terminForm = document.getElementById("termin-form");
+
+  function openAddTerminModal() {
+    terminModal.classList.add("open");
+    terminModal.style.display = "flex";
+  }
+
+  function closeAddTerminModal() {
+    terminModal.classList.remove("open");
+    terminModal.style.display = "";
+    terminForm.reset();
+  }
+
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && terminModal.classList.contains("open")) {
+      closeAddTerminModal();
+    }
+  });
+
+  terminModal.addEventListener("mousedown", e => {
+    if (e.target === terminModal) {
+      closeAddTerminModal();
+    }
+  });
+</script>
 
 
 

@@ -247,6 +247,7 @@ body.sidebar-collapsed .main-content {
 
 .umsatz-summary {
   display: flex;
+  justify-content: space-between;
   gap: 1rem;
   margin-bottom: 1rem;
 }
