@@ -122,7 +122,7 @@
 
           </div>
           <div class="profile-actions">
-            <button class="icon-btn action"><i class="fas fa-pen"></i> </button>
+<button class="icon-btn action" onclick="openEditKundeModal()"><i class="fas fa-pen"></i></button>
             <button class="icon-btn action"><i class="fas fa-history"></i></button>
             <button class="icon-btn action"><i class="fas fa-envelope"></i></button>
           </div>
@@ -216,6 +216,10 @@
             <span>Keine Dateien hinterlegt.</span>
           </div>
         </section>
+      </div>
+
+      <div style="height: 144px;">
+
       </div>
     </main>
 
@@ -624,6 +628,75 @@
 
 
 
+
+
+<!-- ========================
+     Kunden bearbeiten Modal
+========================= -->
+<div id="edit-kunde-modal" class="modal">
+  <div class="modal-content fahrzeug-modal">
+    <div class="modal-header">
+      <h2>Kundendaten bearbeiten</h2>
+      <button type="button" class="modal-close" aria-label="Schließen" onclick="closeEditKundeModal()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <form id="edit-kunde-form" class="fahrzeug-grid">
+      <!-- Vor- und Nachname -->
+      <div class="form-group">
+        <label for="edit-vorname">Vorname</label>
+        <input type="text" id="edit-vorname" name="vorname" required>
+      </div>
+      <div class="form-group">
+        <label for="edit-nachname">Nachname</label>
+        <input type="text" id="edit-nachname" name="nachname" required>
+      </div>
+
+      <!-- Geburtsdatum -->
+      <div class="form-group">
+        <label for="edit-geburtstag">Geburtsdatum</label>
+        <input type="date" id="edit-geburtstag" name="geburtstag">
+      </div>
+
+      <!-- Kontakt -->
+      <div class="form-group">
+        <label for="edit-telefon">Telefonnummer</label>
+        <input type="tel" id="edit-telefon" name="telefon">
+      </div>
+      <div class="form-group">
+        <label for="edit-email">E-Mail</label>
+        <input type="email" id="edit-email" name="email">
+      </div>
+
+      <!-- Adresse -->
+      <div class="form-group">
+        <label for="edit-land">Land</label>
+        <input type="text" id="edit-land" name="land">
+      </div>
+      <div class="form-group">
+        <label for="edit-plz">PLZ</label>
+        <input type="text" id="edit-plz" name="plz">
+      </div>
+      <div class="form-group">
+        <label for="edit-stadt">Stadt</label>
+        <input type="text" id="edit-stadt" name="stadt">
+      </div>
+      <div class="form-group full-width">
+        <label for="edit-strasse">Straße und Hausnummer</label>
+        <input type="text" id="edit-strasse" name="strasse">
+      </div>
+
+      <!-- Footer -->
+      <div class="fahrzeug-footer full-width">
+        <button type="button" class="btn secondary" onclick="closeEditKundeModal()">Abbrechen</button>
+        <button type="submit" class="btn primary">Speichern</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
   <script src="../scripts/right-sidebar.js"></script>
   <script src="../scripts/sidebar-collapse.js"></script>
   <script src="../scripts/sidebar.js"></script>
@@ -818,6 +891,54 @@ fetch('../json/vehicle-option.json')
   });
 </script>
 
+
+<script>
+// Kunden-Bearbeiten-Modal öffnen/schließen
+const editKundeModal = document.getElementById("edit-kunde-modal");
+const editForm = document.getElementById("edit-kunde-form");
+
+function openEditKundeModal() {
+  editKundeModal.classList.add("open");
+  editKundeModal.style.display = "flex";
+
+  // Beispielwerte (später dynamisch befüllen)
+  document.getElementById("edit-vorname").value = "Adrian";
+  document.getElementById("edit-nachname").value = "Doppler";
+  document.getElementById("edit-geburtstag").value = "1985-03-15";
+  document.getElementById("edit-telefon").value = "+43 660 988380";
+  document.getElementById("edit-email").value = "adrian.doppler@example.com";
+  document.getElementById("edit-land").value = "Österreich";
+  document.getElementById("edit-plz").value = "1010";
+  document.getElementById("edit-stadt").value = "Wien";
+  document.getElementById("edit-strasse").value = "Beispielstraße 1";
+}
+
+function closeEditKundeModal() {
+  editKundeModal.classList.remove("open");
+  editKundeModal.style.display = "";
+  editForm.reset();
+}
+
+// Modal schließen per Escape oder Klick außerhalb
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && editKundeModal.classList.contains("open")) {
+    closeEditKundeModal();
+  }
+});
+editKundeModal.addEventListener("mousedown", e => {
+  if (e.target === editKundeModal) {
+    closeEditKundeModal();
+  }
+});
+
+// Optional: Submithandler (z. B. speichern per API)
+editForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+  // Daten hier senden oder speichern
+  closeEditKundeModal();
+});
+
+</script>
 
 
 
